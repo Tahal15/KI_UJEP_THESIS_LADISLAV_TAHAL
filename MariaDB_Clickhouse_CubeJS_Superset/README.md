@@ -44,7 +44,7 @@ docker run --rm -v superset_clickhouse_clickhouse_logs:/to -v "${PWD}:/from" alp
 
 # Superset data
 docker run --rm -v superset_clickhouse_superset_data:/to -v "${PWD}:/from" alpine sh -c "cd /to && tar xzf /from/superset_data.tar.gz"
-
+```
 
 ### 3. Spuštění kontejnerů
 
@@ -77,9 +77,9 @@ Jakmile jsou služby spuštěny, můžete k nim přistupovat přes prohlížeč 
 
 | Služba | Adresa pro přístup | Přístupové údaje / Role |
 | :--- | :--- | :--- |
-| **Apache Superset (BI)** | [http://localhost:8088](http://localhost:8088) | **Uživatel:** `admin`<br>**Heslo:** `tohlejeroothesloprobakalarku2025` |
-| **Cube.js (Developer Playground)** | [http://localhost:4000](http://localhost:4000) | Rozhraní pro ověřování a práci s datovým modelem Cube.js |
-| **ClickHouse (Databáze)** | `localhost:8123` (HTTP) | **Uživatel:** `tahal`<br>**Heslo:** `tohlejeroothesloprobakalarku2025` |
+| **Apache Superset (BI)** | http://localhost:8088 | **Uživatel:** `admin` **Heslo:** `tohlejeroothesloprobakalarku2025` |
+| **Cube.js (Developer Playground)** | http://localhost:4000| Rozhraní pro ověřování a práci s datovým modelem Cube.js |
+| **ClickHouse (Databáze)** | http://localhost:8123 | **Uživatel:** `tahal` **Heslo:**  `tohlejeroothesloprobakalarku2025` |
 
 ---
 
