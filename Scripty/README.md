@@ -21,10 +21,10 @@ Tato sekce obsahuje skripty pro rychlé spouštění klíčových databázových
 
 | Soubor | Platforma | Popis |
 | :--- | :--- | :--- |
-| [cite_start]`start_data_lake.bat` [cite: 1, 2]| MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_LAKE** (včetně Agent, Integration Services a Launchpad). |
-| [cite_start]`start_dw.bat` [cite: 4, 5]| MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_WAREHOUSE** (včetně Agent a Analysis Services). |
-| [cite_start]`maria_start_data_lake.bat` [cite: 3]| MariaDB | Spouští službu **MariaDB** (primární instance) pro Data Lake. |
-| [cite_start]`maria_start_dw.bat` [cite: 6]| MariaDB | Spouští službu **MariaDB2** (sekundární instance) pro Data Warehouse. |
+| `start_data_lake.bat` | MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_LAKE** (včetně Agent, Integration Services a Launchpad). |
+| `start_dw.bat` | MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_WAREHOUSE** (včetně Agent a Analysis Services). |
+| `maria_start_data_lake.bat` | MariaDB | Spouští službu **MariaDB** (primární instance) pro Data Lake. |
+| `maria_start_dw.bat` | MariaDB | Spouští službu **MariaDB2** (sekundární instance) pro Data Warehouse. |
 
 ---
 
