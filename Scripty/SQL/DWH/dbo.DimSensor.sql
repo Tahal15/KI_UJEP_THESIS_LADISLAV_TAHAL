@@ -1,0 +1,4 @@
+CREATE TABLE dbo.DimSensor (
+    SensorKey INT IDENTITY(1,1) PRIMARY KEY,
+    SensorCode NVARCHAR(50) UNIQUE NOT NULL
+);

@@ -1,0 +1,4 @@
+CREATE TABLE dbo.DimCountry (
+    CountryKey INT IDENTITY(1,1) PRIMARY KEY,
+    CountryCode NVARCHAR(10) UNIQUE NOT NULL,
+);

@@ -1,0 +1,13 @@
+LOAD DATABASE
+     FROM mysql://root:tohlejeroothesloprobakalarku2025@host.docker.internal:3306/mttgueries     INTO postgresql://tahal:tohlejeroothesloprobakalarku2025@host.docker.internal:5433/datove_jezero
+
+ WITH include no drop, create tables, create indexes, reset sequences,
+      workers = 4, concurrency = 4, batch rows = 50000
+
+ SET maintenance_work_mem to '512MB',
+     work_mem to '64MB',
+     search_path to 'public'
+
+ CAST type datetime to timestamptz using zero-dates-to-null,
+      type date drop default,
+      type decimal to numeric;

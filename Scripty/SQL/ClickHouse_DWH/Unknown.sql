@@ -1,0 +1,29 @@
+-- 🔹 DimLP
+INSERT INTO DimLP (LPKey, LicensePlate)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimLP WHERE LPKey = 4294967295);
+
+-- 🔹 DimSensor
+INSERT INTO DimSensor (SensorKey, SensorCode)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimSensor WHERE SensorKey = 4294967295);
+
+-- 🔹 DimDetectionType
+INSERT INTO DimDetectionType (DetectionTypeKey, DetectionType)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimDetectionType WHERE DetectionTypeKey = 4294967295);
+
+-- 🔹 DimCountry
+INSERT INTO DimCountry (CountryKey, CountryCode)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimCountry WHERE CountryKey = 4294967295);
+
+-- 🔹 DimVehicleClass
+INSERT INTO DimVehicleClass (VehicleClassKey, VehicleClass)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimVehicleClass WHERE VehicleClassKey = 4294967295);
+
+-- 🔹 DimCity
+INSERT INTO DimCity (CityKey, CityName)
+SELECT 4294967295, 'UNKNOWN'
+WHERE NOT EXISTS (SELECT 1 FROM DimCity WHERE CityKey = 4294967295);

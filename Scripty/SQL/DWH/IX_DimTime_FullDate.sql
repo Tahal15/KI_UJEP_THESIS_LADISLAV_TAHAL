@@ -1,0 +1,3 @@
+CREATE UNIQUE NONCLUSTERED INDEX IX_DimTime_FullDate
+ON dbo.DimTime (FullDate);
+
