@@ -6,18 +6,18 @@ Tento repozitář obsahuje komplexní skripty pro správu datového skladu (DW) 
 
 ## ⚙️ I. První kroky a ruční instalace
 
-Pro správné fungování celého systému je nutné mít lokálně nainstalovány dvě instance MariaDB/MySQL a spustit je na specifických portech.
+Pro správné fungování celého systému je nutné mít lokálně nainstalovány dvě instance MariaDB a spustit je na specifických portech.
 
-### 1. Nastavení databází (MariaDB / MySQL)
+### 1. Nastavení databází
 
-Musíte mít spuštěné **dvě nezávislé instance** databáze MariaDB (nebo MySQL), které slouží jako **Data Lake** a **Data Warehouse**.
+Musíte mít spuštěné **dvě nezávislé instance** databáze MariaDB, které slouží jako **Data Lake** a **Data Warehouse**.
 
 | Komponenta | Host | Port | Databáze | Uživatel | Heslo |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Data Lake (Landing)** | localhost | 3306 (standard) | `mttgueries` | tahal | tohlejeroothesloprobakalarku2025 |
 | **Data Warehouse (Staging)** | localhost | 3307 | `datovy_sklad` | tahal | tohlejeroothesloprobakalarku2025 |
 
-* **Instalace:** Nainstalujte MariaDB/MySQL.
+* **Instalace:** Nainstalujte MariaDB.
 * **Druhá instance:** Vytvořte druhou instanci MariaDB (např. jako službu `MariaDB2`) a ujistěte se, že poslouchá na portu **3307**.
 * **Spuštění:** Použijte skripty: `maria_start_data_lake.bat` a `maria_start_dw.bat`.
 
