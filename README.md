@@ -7,7 +7,7 @@
 | **Typ práce** | Bakalářská (Bc.) |
 | **Akademický rok** | 2024/2025 |
 | **Pracoviště** | KI - Katedra informatiky |
-| **Vedoucí práce** | Roman Vaibar (KI) |
+| **Vedoucí práce** | Ing. Roman Vaibar, Ph.D., MBA |
 
 ---
 
