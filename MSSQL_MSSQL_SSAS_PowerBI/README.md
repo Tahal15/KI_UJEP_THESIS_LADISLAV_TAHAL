@@ -1,6 +1,6 @@
 # 📚 MSSQL DL -> MSSQL DW -> SSAS -> PowerBI 
 
-Tento repozitář obsahuje jen výsledný PowerBI report a návod k instalaci. Instalační scripty naleznete ve složce scripty. Řešení je prozatím navrženo pouze pro lokální prostředí bez Dockeru, kde **Data Lake (DL)**, **Data Warehouse (DW)**, **SQL Server Analysis Services (SSAS)** a **Power BI** běží na jediném hostitelském stroji.
+Tento repozitář obsahuje jen výsledný PowerBI report, SSAS projekt a návod k instalaci. Instalační scripty naleznete ve složce scripty. Řešení je prozatím navrženo pouze pro lokální prostředí bez Dockeru, kde **Data Lake (DL)**, **Data Warehouse (DW)**, **SQL Server Analysis Services (SSAS)** a **Power BI** běží na jediném hostitelském stroji.
 
 ---
 
@@ -60,10 +60,10 @@ Po instalaci je potřeba inicializovat obě instance a naplnit je daty.
     ```
     * Po dokončení ETL by měla být naplněna tabulka `[Stg].[CameraCamea]` v instanci `DATA_WAREHOUSE`.
     * Poté spusťte skripty pro inkrementální načítání do dimenzí a faktů.
-```bash
+    ```bash
     bilina_kamery_staging_to_fact.py
     ```
----
+
 
 ## 📐 III. Nasazení SSAS Modelu (Tabular)
 
