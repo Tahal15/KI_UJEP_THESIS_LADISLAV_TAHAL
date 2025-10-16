@@ -1,15 +1,9 @@
-# 📊 Vizualizační a Analytický Stack (Open-Source řešení)
+# MariaDB DL -> Clickhouse DW -> Cube.js -> Apache superset
 
-Tento projekt představuje kompletní **open-source analytický stack** (tzv. *Modern Data Stack*), který slouží jako jeden z pilířů pro **srovnávací analýzu** v rámci bakalářské práce  
-**„Využití open-source a komerčních nástrojů pro vizualizaci a analýzu dat na datové platformě Portabo“**.
-
-Řešení je navrženo pro demonstraci flexibilního **OLAP (Online Analytical Processing)** nad velkými objemy dat.
-
----
 
 ## 🛠️ Architektura a Komponenty Stacku
 
-Celé prostředí je kontejnerizováno pomocí **Docker Compose** a zahrnuje tři hlavní vrstvy:
+Celé prostředí kromě MariaDB DL je kontejnerizováno pomocí **Docker Compose** a zahrnuje tři hlavní vrstvy:
 
 | Služba | Technologie | Role v projektu | Port |
 | :--- | :--- | :--- | :--- |
@@ -21,7 +15,11 @@ Celé prostředí je kontejnerizováno pomocí **Docker Compose** a zahrnuje tř
 
 ## 🚀 První spuštění (Návod)
 
-Projekt obsahuje předkonfigurované svazky (volumes) s daty a nastavením.  
+Pozor. Data Lake MariaDB zde není obsažena, ale není nutná ke spuštění tohoto projektu.
+Pokud byste chtěli replikovat celý projekt, tak stačí doinstalovat jednu lokální instanci MariaDB. Poté načíst SQL Dump a použít ETL script zde na Githubu na nahrání do DW.
+Pokud tak provedete, tak není ani potřeba importu databáze v dalším kroku.
+
+Projekt totiž obsahuje předkonfigurované svazky (volumes) s daty a nastavením.  
 Pro spuštění je nutné nejprve dekomprimovat přiložené archivy.
 
 ### 1. Inicializace a obnova datových svazků
