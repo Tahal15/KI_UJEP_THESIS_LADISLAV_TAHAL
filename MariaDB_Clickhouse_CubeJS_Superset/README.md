@@ -24,30 +24,27 @@ Celé prostředí je kontejnerizováno pomocí **Docker Compose** a zahrnuje tř
 Projekt obsahuje předkonfigurované svazky (volumes) s daty a nastavením.  
 Pro spuštění je nutné nejprve dekomprimovat přiložené archivy.
 
-### 1. Předpoklady
+### 1. Inicializace a obnova datových svazků
 
-Ujistěte se, že máte nainstalovaný a spuštěný:
-
-- **Docker**
-- **Docker Compose**
-
----
-
-### 2. Inicializace a dekomprese dat
-
-Do této složky byly umístěny komprimované svazky s databází a perzistentními daty, které je nutné před spuštěním extrahovat.
+V adresáři, kde se nachází soubor `docker-compose.yml`, proveďte následující kroky pro vytvoření a naplnění datových svazků:
 
 ```bash
-# Dekompresování dat pro ClickHouse a Superset
-tar -xzf clickhouse_data.tar.gz
-tar -xzf clickhouse_logs.tar.gz
-tar -xzf superset_data.tar.gz
-```
+# Vytvoření prázdných volumes
+docker volume create superset_clickhouse_clickhouse_data
+docker volume create superset_clickhouse_clickhouse_logs
+docker volume create superset_clickhouse_superset_data
 
-Po dekompresi se ve složce objeví adresáře:  
-`clickhouse_data`, `clickhouse_logs` a `superset_data`.
+# Obnovení obsahu
 
----
+# ClickHouse data
+docker run --rm -v superset_clickhouse_clickhouse_data:/to -v "${PWD}:/from" alpine sh -c "cd /to && tar xzf /from/clickhouse_data.tar.gz"
+
+# ClickHouse logy
+docker run --rm -v superset_clickhouse_clickhouse_logs:/to -v "${PWD}:/from" alpine sh -c "cd /to && tar xzf /from/clickhouse_logs.tar.gz"
+
+# Superset data
+docker run --rm -v superset_clickhouse_superset_data:/to -v "${PWD}:/from" alpine sh -c "cd /to && tar xzf /from/superset_data.tar.gz"
+
 
 ### 3. Spuštění kontejnerů
 
@@ -100,7 +97,8 @@ Připojuje se k **Cube.js SQL API** (`port 15432`), které slouží jako brána 
 Pro pozastavení chodu kontejnerů (data na disku zůstanou):
 
 ```bash
-docker compose stop
+ctrl + c
+docker compose down
 ```
 
 ---
@@ -117,12 +115,4 @@ docker compose down -v
 
 ---
 
-## 📚 Shrnutí
 
-Tento projekt demonstruje propojení moderních open-source technologií pro analytické zpracování a vizualizaci dat:
-
-- **ClickHouse** – výkonný OLAP datový sklad  
-- **Cube.js** – datová a analytická vrstva (Headless BI)  
-- **Apache Superset** – vizualizace a dashboardy  
-
-Celé řešení je snadno přenositelné díky kontejnerizaci v **Docker Compose** a představuje plně funkční základ pro moderní **open-source data platformu**.
