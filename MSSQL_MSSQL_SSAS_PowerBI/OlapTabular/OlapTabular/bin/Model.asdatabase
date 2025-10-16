@@ -1,0 +1,622 @@
+{
+  "name": "OlapTabular",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-GB",
+    "dataSources": [
+      {
+        "name": "SqlServer TAHALDATA_WAREHOUSE DWH 3",
+        "connectionString": "Provider=SQLOLEDB;Data Source=TAHAL\\DATA_WAREHOUSE;User ID=sa;Persist Security Info=false;Initial Catalog=DWH",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimCity",
+        "columns": [
+          {
+            "name": "CityKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CityKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "CityName",
+            "dataType": "string",
+            "sourceColumn": "CityName",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "IsActive",
+            "dataType": "boolean",
+            "sourceColumn": "IsActive",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "Boolean"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCity",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimCity].*   FROM [dbo].[DimCity] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimCity].*   FROM [dbo].[DimCity] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimCity"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimCountry",
+        "columns": [
+          {
+            "name": "CountryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CountryKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "CountryCode",
+            "dataType": "string",
+            "sourceColumn": "CountryCode",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCountry",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimCountry].*   FROM [dbo].[DimCountry] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimCountry].*   FROM [dbo].[DimCountry] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimCountry"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimDetectionType",
+        "columns": [
+          {
+            "name": "DetectionTypeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DetectionTypeKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DetectionType",
+            "dataType": "string",
+            "sourceColumn": "DetectionType",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDetectionType",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimDetectionType].*   FROM [dbo].[DimDetectionType] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimDetectionType].*   FROM [dbo].[DimDetectionType] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimDetectionType"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimLP",
+        "columns": [
+          {
+            "name": "LPKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "LPKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "LicensePlate",
+            "dataType": "string",
+            "sourceColumn": "LicensePlate",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimLP",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimLP].*   FROM [dbo].[DimLP] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimLP].*   FROM [dbo].[DimLP] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimLP"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimSensor",
+        "columns": [
+          {
+            "name": "SensorKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "SensorKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "SensorCode",
+            "dataType": "string",
+            "sourceColumn": "SensorCode",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimSensor",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimSensor].*   FROM [dbo].[DimSensor] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimSensor].*   FROM [dbo].[DimSensor] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimSensor"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimTime",
+        "columns": [
+          {
+            "name": "TimeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "TimeKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "YearNum",
+            "dataType": "int64",
+            "sourceColumn": "YearNum",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MonthNum",
+            "dataType": "int64",
+            "sourceColumn": "MonthNum",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "DayNum",
+            "dataType": "int64",
+            "sourceColumn": "DayNum",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "DayOfWeekNum",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeekNum",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "HourNum",
+            "dataType": "int64",
+            "sourceColumn": "HourNum",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "MinuteNum",
+            "dataType": "int64",
+            "sourceColumn": "MinuteNum",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "type": "calculated",
+            "name": "MonthName",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": " FORMAT([FullDate], \"mmmm\")",
+            "sortByColumn": "SortMonth"
+          },
+          {
+            "type": "calculated",
+            "name": "SortMonth",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": " [MonthNum]"
+          },
+          {
+            "type": "calculated",
+            "name": "MonthYear",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": " FORMAT([FullDate], \"mmmm yyyy\")",
+            "sortByColumn": "SortMonthYear"
+          },
+          {
+            "type": "calculated",
+            "name": "SortMonthYear",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": " [YearNum] * 100 + [MonthNum]"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimTime].*   FROM [dbo].[DimTime] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date hierarchy",
+            "levels": [
+              {
+                "name": "YearNum",
+                "ordinal": 0,
+                "column": "YearNum"
+              },
+              {
+                "name": "MonthNum",
+                "ordinal": 1,
+                "column": "MonthNum"
+              },
+              {
+                "name": "DayNum",
+                "ordinal": 2,
+                "column": "DayNum"
+              },
+              {
+                "name": "FullDate",
+                "ordinal": 3,
+                "column": "FullDate"
+              }
+            ]
+          },
+          {
+            "name": "Time hierarchy",
+            "levels": [
+              {
+                "name": "HourNum",
+                "ordinal": 0,
+                "column": "HourNum"
+              },
+              {
+                "name": "MinuteNum",
+                "ordinal": 1,
+                "column": "MinuteNum"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimTime].*   FROM [dbo].[DimTime] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimTime"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimVehicleClass",
+        "columns": [
+          {
+            "name": "VehicleClassKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "VehicleClassKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "VehicleClass",
+            "dataType": "int64",
+            "sourceColumn": "VehicleClass",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimVehicleClass",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[DimVehicleClass].*   FROM [dbo].[DimVehicleClass] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[DimVehicleClass].*   FROM [dbo].[DimVehicleClass] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimVehicleClass"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "FactCameraDetection",
+        "columns": [
+          {
+            "name": "CameraDetectionKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CameraDetectionKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "TimeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "TimeKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "SensorKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "SensorKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DetectionTypeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DetectionTypeKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "LPKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "LPKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "CountryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CountryKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "VehicleClassKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "VehicleClassKey",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Velocity",
+            "dataType": "double",
+            "sourceColumn": "Velocity",
+            "sourceProviderType": "Double"
+          },
+          {
+            "name": "CityKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CityKey",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactCameraDetection",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[FactCameraDetection].*   FROM [dbo].[FactCameraDetection] ",
+              "dataSource": "SqlServer TAHALDATA_WAREHOUSE DWH 3"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Maximum of Velocity",
+            "expression": "MAX([Velocity])"
+          },
+          {
+            "name": "Minimum of Velocity",
+            "expression": "MIN([Velocity])"
+          },
+          {
+            "name": "Distinct Count of Velocity",
+            "expression": "DISTINCTCOUNT([Velocity])"
+          },
+          {
+            "name": "Count of Velocity",
+            "expression": "COUNTA([Velocity])"
+          },
+          {
+            "name": "Sum of Velocity",
+            "expression": "SUM([Velocity])"
+          },
+          {
+            "name": "Average of Velocity",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    AVERAGE(FactCameraDetection[Velocity]),",
+              "    FactCameraDetection[Velocity] > 0",
+              ")"
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[FactCameraDetection].*   FROM [dbo].[FactCameraDetection] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "FactCameraDetection"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "299ae171-4ca7-4c1c-8ec2-e50940f11e80",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "CityKey",
+        "toTable": "DimCity",
+        "toColumn": "CityKey"
+      },
+      {
+        "name": "9d467b34-665c-4036-acea-566bfd64389f",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "CountryKey",
+        "toTable": "DimCountry",
+        "toColumn": "CountryKey"
+      },
+      {
+        "name": "929b2444-ae94-4ac5-a3b2-b3a6569ec773",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "DetectionTypeKey",
+        "toTable": "DimDetectionType",
+        "toColumn": "DetectionTypeKey"
+      },
+      {
+        "name": "15f0423b-0a97-43cd-b662-4be9726ee3ce",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "LPKey",
+        "toTable": "DimLP",
+        "toColumn": "LPKey"
+      },
+      {
+        "name": "7c22723b-fc1b-4f50-8cbd-939b14eb7b91",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "SensorKey",
+        "toTable": "DimSensor",
+        "toColumn": "SensorKey"
+      },
+      {
+        "name": "c8bd082e-34f9-4c0f-9590-d9503dcb63ba",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "TimeKey",
+        "toTable": "DimTime",
+        "toColumn": "TimeKey"
+      },
+      {
+        "name": "428a3c4e-ff46-4dfe-9396-f87ea26e7f12",
+        "fromTable": "FactCameraDetection",
+        "fromColumn": "VehicleClassKey",
+        "toTable": "DimVehicleClass",
+        "toColumn": "VehicleClassKey"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  }
+}

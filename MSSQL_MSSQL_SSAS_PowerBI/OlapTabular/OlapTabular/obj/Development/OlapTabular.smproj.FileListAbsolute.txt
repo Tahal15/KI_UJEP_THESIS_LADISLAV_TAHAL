@@ -1,0 +1,8 @@
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\bin\Model.asdatabase
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\bin\Model.deploymenttargets
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\bin\Model.deploymentoptions
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\obj\Development\OlapTabular.smproj.AssemblyReference.cache
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\obj\Development\OlapTabular.smproj.CoreCompileInputs.cache
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\obj\Development\Model.asdatabase
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\obj\Development\Model.deploymentoptions
+C:\Users\ladis\source\repos\OlapTabular\OlapTabular\obj\Development\Model.deploymenttargets
