@@ -1,0 +1,101 @@
+version: "3.9"
+
+services:
+  # ---------- PostgreSQL datové jezero ----------
+  pg-lake:
+    image: postgres:16
+    container_name: pg-lake
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: tahal
+      POSTGRES_PASSWORD: tohlejeroothesloprobakalarku2025
+      POSTGRES_DB: datove_jezero
+    volumes:
+      - pg_lake_data:/var/lib/postgresql/data
+      - ./lake/init:/docker-entrypoint-initdb.d   # sem můžeš dát SQL skripty nebo COPY CSV
+    command: postgres -c work_mem=64MB -c maintenance_work_mem=256MB
+
+  # ---------- PostgreSQL TimescaleDB datový sklad ----------
+  pg-warehouse:
+    image: timescale/timescaledb:latest-pg16
+    container_name: pg-warehouse
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: tahal
+      POSTGRES_PASSWORD: tohlejeroothesloprobakalarku2025
+      POSTGRES_DB: datovy_sklad
+    volumes:
+      - pg_warehouse_data:/var/lib/postgresql/data
+      - ./warehouse/init:/docker-entrypoint-initdb.d
+
+  # ---------- Cube.js (semantická vrstva) ----------
+  cube:
+    image: cubejs/cube:latest
+    container_name: cube
+    depends_on:
+      - pg-warehouse
+    ports:
+      - "4000:4000"   # REST / GraphQL API
+      - "15432:15432" # PostgreSQL wire protocol (SQL API)
+    volumes:
+      - ./cubejs:/cube/conf
+    environment:
+      CUBEJS_DEV_MODE: "true"
+      NODE_ENV: production
+      CUBEJS_API_SECRET: MY_SUPER_SECRET_KEY
+
+      # --- Připojení k datovému skladu (TimescaleDB) ---
+      CUBEJS_DB_TYPE: postgres
+      CUBEJS_DB_HOST: pg-warehouse
+      CUBEJS_DB_PORT: 5432
+      CUBEJS_DB_NAME: datovy_sklad
+      CUBEJS_DB_USER: tahal
+      CUBEJS_DB_PASS: tohlejeroothesloprobakalarku2025
+
+      # --- Zapnutí SQL API ---
+      CUBEJS_PG_SQL_PORT: 15432
+      CUBEJS_SQL_USER: root
+      CUBEJS_SQL_PASSWORD: tohlejeroothesloprobakalarku2025
+
+  # ---------- Apache Superset ----------
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    depends_on:
+      - cube
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_LOAD_EXAMPLES: "no"
+      SUPERSET_SECRET_KEY: this_is_a_super_secret_key_1234567890
+      ADMIN_USERNAME: admin
+      ADMIN_FIRST_NAME: Ladislav
+      ADMIN_LAST_NAME: Tahal
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: tohlejeroothesloprobakalarku2025
+    volumes:
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py
+      - superset_data:/app/superset_home
+    command:
+      - /bin/sh
+      - -c
+      - |
+        superset db upgrade &&
+        superset fab create-admin \
+          --username "$${ADMIN_USERNAME}" \
+          --firstname "$${ADMIN_FIRST_NAME}" \
+          --lastname "$${ADMIN_LAST_NAME}" \
+          --email "$${ADMIN_EMAIL}" \
+          --password "$${ADMIN_PASSWORD}" || true &&
+        superset init &&
+        pip install psycopg2-binary &&
+        /usr/bin/run-server.sh
+
+volumes:
+  pg_lake_data:
+  pg_warehouse_data:
+  superset_data:
