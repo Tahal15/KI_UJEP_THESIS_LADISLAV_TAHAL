@@ -1,0 +1,93 @@
+version: "3.9"
+
+services:
+  # ---------- Cube API ----------
+  cube:
+    image: cubejs/cube:latest
+    container_name: cube
+    ports:
+      - "4000:4000"   # REST / GraphQL
+      - "15432:15432" # Postgre-SQL wire-protocol (SQL API)
+    volumes:
+      - ./cubejs:/cube/conf
+    environment:
+      CUBEJS_DEV_MODE: "true"
+      NODE_ENV: production
+      CUBEJS_API_SECRET: MY_SUPER_SECRET_KEY
+
+      # --- Připojení k databázi (ClickHouse) ---
+      CUBEJS_DB_TYPE: clickhouse
+      CUBEJS_DB_HOST: clickhouse
+      CUBEJS_DB_PORT: 8123
+      CUBEJS_DB_NAME: default
+      CUBEJS_DB_USER: tahal
+      CUBEJS_DB_PASS: tohlejeroothesloprobakalarku2025
+
+      # --- Zapnutí SQL API + přihlašovací údaje ---
+      CUBEJS_PG_SQL_PORT: 15432
+      CUBEJS_SQL_USER: root
+      CUBEJS_SQL_PASSWORD: tohlejeroothesloprobakalarku2025
+
+  # ---------- Superset ----------
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    depends_on:
+      - cube
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_LOAD_EXAMPLES: "no"
+      SUPERSET_SECRET_KEY: this_is_a_super_secret_key_1234567890
+      ADMIN_USERNAME: admin
+      ADMIN_FIRST_NAME: Ladislav
+      ADMIN_LAST_NAME: Tahal
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: tohlejeroothesloprobakalarku2025
+    volumes:
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py
+      - superset_data:/app/superset_home
+    command:
+      - /bin/sh
+      - -c
+      - |
+        # počkej, až se inicializuje databáze
+        superset db upgrade &&
+        # vytvoř admina, pokud ještě neexistuje
+        superset fab create-admin \
+          --username "$${ADMIN_USERNAME}" \
+          --firstname "$${ADMIN_FIRST_NAME}" \
+          --lastname "$${ADMIN_LAST_NAME}" \
+          --email "$${ADMIN_EMAIL}" \
+          --password "$${ADMIN_PASSWORD}" || true &&
+        # nahrání defaultního obsahu (bez příkladů)
+        superset init &&
+        # spuštění serveru
+        /bin/bash
+        -c
+        -|
+        pip install psycopg2-binary && \
+        /usr/bin/run-server.sh
+
+  # --------- ClickHouse -------------
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.3
+    container_name: clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_USER: tahal
+      CLICKHOUSE_PASSWORD: tohlejeroothesloprobakalarku2025
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - clickhouse_logs:/var/log/clickhouse-server
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+volumes:
+  superset_data:
+  clickhouse_data:
+  clickhouse_logs:
