@@ -11,18 +11,12 @@
 
 ---
 
-## 📁 Struktura repozitáře
+## Úvod
 
-Tento repozitář obsahuje podklady a implementační skripty pro práci. Klíčové složky a soubory jsou:
+Mnohé organizace čelí problému, jak efektivně zpracovávat, ukládat a vizualizovat data, aby byla snadno přístupná i uživatelům bez IT vzdělání. V dnešní době lze využít mnoha nástrojů, ať už **open-source** či **komerčních řešení**, která zahrnují nejen nástroje pro vizualizaci, ale i nástroje pro **datové sklady** a technologie pro **online analytické zpracování (OLAP)**. Tato práce se zaměřuje na jejich komplexní srovnání.
+Datový sklad je navržen dle metodiky **pana Kimballa**. Hvězdicové schéma.
 
-* **Analýza topíků:** Skripty související s analýzou témat, pravděpodobně podklady k teoretické části.
-* **Bakalářská práce PDF:** Finální text práce ve formátu PDF (nebo jeho rozpracovaná verze).
-* **MSSQL_MSSQL_SSAS_PowerBI:** Implementace a podklady pro řešení s komerčními nástroji **MS SQL Server, SSAS (SQL Server Analysis Services)** a **Power BI**.
-* **MariaDB_Clickhouse_CubeJS_Superset:** Implementace a podklady pro řešení s open-source nástroji **MariaDB, ClickHouse, Cube.js** a **Apache Superset**.
-* **MariaDB_MariaDB_CubeJS_Superset:** Varianta open-source implementace, kde je datový sklad postaven nad **MariaDB** (pravděpodobně starší nebo alternativní přístup k OLAP).
-* **PostgreSQL_PostgreSQL_CubeJS_Superset:** Implementace a podklady pro řešení s **PostgreSQL** a open-source nástroji **Cube.js** a **Apache Superset**.
-* **Scripty:** Různé pomocné skripty, pravděpodobně pro datové transformace (ETL), nastavení nebo testování.
-* **README.md:** Tento úvodní soubor.
+---
 
 ## 🎯 Cíl práce
 
@@ -39,3 +33,17 @@ Srovnání bude probíhat na **reálných datech** generovaných v datové platf
 
 Výstupem práce bude **komplexní přehled výhod a nevýhod** obou přístupů a **doporučení** vhodného systému pro organizace zvažující implementaci.
 
+---
+
+## 📁 Struktura repozitáře
+
+Tento repozitář obsahuje podklady a implementační skripty pro práci. Klíčové složky a soubory jsou:
+
+* **Analýza topíků:** Excel report obsahující group by topíků dle JSON struktury s 100% a 50% shodou.
+* **Bakalářská práce PDF:** Text práce ve formátu PDF a TEX.
+* **MSSQL_MSSQL_SSAS_PowerBI:** Implementace s komerčními nástroji **MS SQL Server, SSAS (SQL Server Analysis Services)** a **Power BI**.
+* **MariaDB_Clickhouse_CubeJS_Superset:** Implementace a docker compose s open-source nástroji **MariaDB, ClickHouse, Cube.js** a **Apache Superset**.
+* **MariaDB_MariaDB_CubeJS_Superset:** Hybridní implementace lokální jezero **MariaDB** a datový sklad **MariaDB**. Analytická část v docker.
+* **PostgreSQL_PostgreSQL_CubeJS_Superset:** Implementace a podklady pro řešení s **PostgreSQL** a open-source nástroji **Cube.js** a **Apache Superset**.
+* **Scripty:** Různé pomocné skripty (ETL, SQL).
+* **README.md:** Tento úvodní soubor.
