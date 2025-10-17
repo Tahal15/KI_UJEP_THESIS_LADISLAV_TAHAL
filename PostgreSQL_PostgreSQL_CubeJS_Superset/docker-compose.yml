@@ -35,7 +35,7 @@ services:
   # ---------- Cube.js (semantická vrstva) ----------
   cube:
     image: cubejs/cube:latest
-    container_name: cube
+    container_name: cube_pg
     depends_on:
       - pg-warehouse
     ports:
@@ -64,7 +64,7 @@ services:
   # ---------- Apache Superset ----------
   superset:
     image: apache/superset:latest
-    container_name: superset
+    container_name: superset_pg
     depends_on:
       - cube
     ports:

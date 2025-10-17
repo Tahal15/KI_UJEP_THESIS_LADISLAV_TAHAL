@@ -25,6 +25,8 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# --- Pomocné funkce (beze změny) ---
+
 def try_utf8(s):
     if isinstance(s, bytes):
         for enc in ("utf-8", "latin-1", "windows-1250"):
@@ -171,6 +173,47 @@ def safe_execute_l(cur,sql,params=None):
         except Exception: pass
         raise e
 
+# --- ZMĚNĚNÁ FUNKCE PRO MANUÁLNÍ CLUSTERING ---
+def manual_clusters(topic_keys):
+    """
+    Rozděluje topicy do clusterů na základě opravených manuálních pravidel:
+    - ORANŽOVÁ (Group ID 8 a 10) se SLOUČÍ do jednoho clusteru.
+    - Ostatní topicy (ŽLUTÁ) zůstanou jako SAMOSTATNÉ clustery.
+    """
+    
+    # Regulární výraz pro identifikaci ORANŽOVÉ skupiny (Group ID 8 a 10)
+    orange_topics_re = re.compile(
+        r"/Energo/DCUK/SML133/SML133-01/(act|har)" # Seskupení Group ID 8 a 10
+    )
+    
+    clusters = []
+    
+    # A. Zpracování ORANŽOVÉ skupiny
+    orange_cluster = set()
+    all_topics = set(topic_keys.keys())
+    remaining_topics = set(topic_keys.keys())
+    
+    for topic in list(remaining_topics):
+        if orange_topics_re.search(topic):
+            orange_cluster.add(topic)
+            
+    if orange_cluster:
+        clusters.append(orange_cluster)
+        remaining_topics -= orange_cluster
+    
+    # B. Zpracování ZBYLÝCH (ŽLUTÝCH) skupin
+    # Každý zbývající topic je samostatný cluster, aby byla zachována
+    # jejich separace podle požadavku.
+    
+    for topic in remaining_topics:
+        clusters.append({topic}) # Každý zbývající topic je vlastní cluster
+
+    log.info(f"Manual clustering applied. Orange cluster size: {len(orange_cluster)}. Separated clusters: {len(remaining_topics)}")
+    
+    return clusters
+# --- KONEC ZMĚNĚNÉ FUNKCE ---
+
+
 def main():
     conn_l=psycopg2.connect(**LANDING_CONN)
     conn_s=psycopg2.connect(**STAGING_CONN)
@@ -203,18 +246,33 @@ def main():
         if keys: topic_keys[t]=keys
         if i%200==0: log.info(f"Scanned {i}/{len(topics)} topics...")
 
-    clusters=merge_clusters(topic_keys)
-    log.info(f"Formed {len(clusters)} fuzzy clusters.")
+    # ZMĚNA: Používá se manuální clustering namísto fuzzy
+    clusters=manual_clusters(topic_keys) 
+    log.info(f"Formed {len(clusters)} manual clusters.")
 
     for gid,cluster in enumerate(clusters):
         tps=list(cluster)
         table=derive_table_name(tps)
-        virt_topic="/".join(tps[0].strip("/").split("/")[:2]) + f"/virt_group_{gid}"
+        
+        # ZMĚNA: Podmínka pro identifikaci ORANŽOVÉ skupiny (Group ID 8 a 10)
+        is_orange_group = any(re.search(r"/Energo/DCUK/SML133/SML133-01/", t) for t in tps)
+        
+        if is_orange_group:
+             # Použít fixní název pro sloučenou oranžovou skupinu
+             virt_topic = "manual/oranze/energo_sml133_slouceno"
+             table = "stg_manual_oranze_energo"
+        else:
+            # Ponechat původní logiku pro žluté (separátní) skupiny
+            virt_topic="/".join(tps[0].strip("/").split("/")[:2]) + f"/virt_group_{gid}"
+            
         log.info(f"→ {virt_topic} ({len(tps)} topics) → {table}")
         start=datetime.now(); rows_ins=0; status="RUNNING"; err=""
         try:
             safe_execute_l(cur_l,"SELECT id,time,topic,payload FROM mttgueries.mqttentries WHERE topic = ANY(%s) ORDER BY id;",(tps,))
             rows=cur_l.fetchmany(BATCH_SIZE)
+            
+            # --- Zbytek logiky ETL pro cluster zůstává stejný ---
+            
             if not rows: continue
             first_payload=try_utf8(rows[0]["payload"])
             try:
@@ -225,23 +283,29 @@ def main():
             existing_cols=ensure_table_and_columns(cur_s,table,flat_sample)
             conn_s.commit()
             batch=[]
-            for rrow in rows:
-                payload=try_utf8(rrow["payload"])
-                try: js=json.loads(payload)
-                except Exception: js={"value":payload}
-                if isinstance(js,list):
-                    for el in js:
-                        flat=flatten_json(el)
+            
+            # Cyklus pro načítání všech dat v batchích
+            while rows: 
+                for rrow in rows:
+                    payload=try_utf8(rrow["payload"])
+                    try: js=json.loads(payload)
+                    except Exception: js={"value":payload}
+                    if isinstance(js,list):
+                        for el in js:
+                            flat=flatten_json(el)
+                            existing_cols=ensure_new_columns(cur_s,table,flat,existing_cols)
+                            batch.append((rrow["id"],rrow["time"],rrow["topic"],flat))
+                    else:
+                        flat=flatten_json(js)
                         existing_cols=ensure_new_columns(cur_s,table,flat,existing_cols)
                         batch.append((rrow["id"],rrow["time"],rrow["topic"],flat))
-                else:
-                    flat=flatten_json(js)
-                    existing_cols=ensure_new_columns(cur_s,table,flat,existing_cols)
-                    batch.append((rrow["id"],rrow["time"],rrow["topic"],flat))
-                if len(batch)>=BATCH_SIZE:
-                    existing_cols=insert_batch(cur_s,table,batch,existing_cols)
-                    conn_s.commit()
-                    rows_ins+=len(batch); batch.clear()
+                    if len(batch)>=BATCH_SIZE:
+                        existing_cols=insert_batch(cur_s,table,batch,existing_cols)
+                        conn_s.commit()
+                        rows_ins+=len(batch); batch.clear()
+                
+                rows=cur_l.fetchmany(BATCH_SIZE)
+            
             if batch:
                 existing_cols=insert_batch(cur_s,table,batch,existing_cols)
                 conn_s.commit(); rows_ins+=len(batch)
@@ -260,7 +324,7 @@ def main():
             conn_s.commit()
 
     cur_l.close();cur_s.close();conn_l.close();conn_s.close()
-    log.info("🏁 ETL finished for all fuzzy virtual topics.")
+    log.info("🏁 ETL finished for all manual and fuzzy virtual topics.")
 
 if __name__=="__main__":
     main()
