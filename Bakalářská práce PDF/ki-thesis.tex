@@ -253,12 +253,102 @@ První kapitola práce shrnuje současný stav problematiky a základní pojmy z
 
 \section{Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}
 
-Závěrečná práce by měla být členěna na tři až šest kapitol nejvyšší úrovně (nepočítaje úvod a závěr). Ty by měly odpovídat osnově práce, ale nikoliv doslovně. Jiné mohou být názvy a dokonce i počet kapitol. To jest, některé body osnovy lze rozpracovat ve více kapitolách a naopak některé body lze združit do jediné kapitoly.
+Tato kapitola shrnuje teoretické poznatky o problematice datových skladů, technologií OLAP a moderních nástrojů pro vizualizaci a analýzu dat. Cílem rešeršní části je vytvořit přehled současných trendů, architektur a dostupných open-source i komerčních řešení.
 
-Důležité je, aby bylo členění přibližně rovnoměrné. Problematické jsou především kapitoly malého rozsahu (1-3 stránky) respektrive naopak kapitola zahrnující podstatnou část textu.
+\subsection{Datové jezero}
 
-Kapitoly nejvyšší úrovně vždy začínají na nové stránce, která musí být lichá tj. na pravé straně. Pokud předchozí kapitola končí na liché straně, vkládá se tzv. vakát -- zcela prázdná strana. 
+\textbf{Datové jezero} (\textit{Data Lake}) představuje logický koncept centralizovaného úložiště, které uchovává obrovské množství \textit{surových dat} (\textit{raw data}) v jejich nativním formátu (např. JSON, XML, binární soubory) a to bez nutnosti předchozí definice schématu (princip \textbf{schema-on-read}).
 
+Ačkoliv je Datové jezero často spojováno s cloudovými službami (např. AWS S3, Azure Data Lake Storage), tento koncept lze efektivně implementovat i v lokálním (on-premise) prostředí.
+V našem případě je Datové jezero implementováno právě na relační databázi. Přestože relační databáze vyžaduje definici schématu tabulky, je princip \textit{schema-on-read} zachován. Realizuje se to tak, že veškerá variabilní data jsou ukládána v jednom sloupci (\textit{např. \texttt{payload}}), který je definován jako \texttt{JSONB} nebo jiný typ pro nestrukturovaná data. Tím se fyzicky vytvoří pevné schéma, ale \textbf{datový typ jednotlivých vnitřních prvků} se určuje dynamicky \textbf{až v rámci ETL procesu} při jejich parsování a vkládání do Datového skladu.
+
+Klíčové cíle a role Datového jezera:
+\begin{enumerate}
+    \item \textbf{Konsolidace datových toků (\textit{Landing Zone}):} Primární funkcí je převést data z mnoha heterogenních zdrojů na jednu platformu, sloužící jako \textbf{vstupní zóna} pro surová data.
+    \item \textbf{Oddělení integrační logiky:} Umožňuje \textbf{oddělit logiku připojení} k datovým zdrojům od Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v DWH nejsou bezprostředně zatíženy problémy s konektivitou nebo dynamickou strukturou.
+    \item \textbf{Audit (Data Lineage):} Uchovávání dat v jejich \textbf{původním (surovém) formátu} umožňuje kdykoliv ověřit, z jakých zdrojových dat byly odvozeny data v Datovém skladu. To je nezbytné pro \textbf{auditní účely} a pro \textbf{reprodukci analytických výsledků} při změnách transformačních pravidel.\end{enumerate}
+
+\subsection{Datové sklady}
+
+\textbf{Datový sklad} (\textit{Data Warehouse}, DWH) je centrální, časově závislé úložiště historických i aktuálních dat. Jeho primárním účelem je podpora rozhodovacích procesů. Na rozdíl od provozních databází (OLTP) je struktura DWH optimalizována pro rychlé čtení, agregace a dotazování na velkých objemech dat.
+
+Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metodiky, které se liší přístupem k datové integritě, flexibilitě a rychlosti dodání výsledků:
+
+\begin{enumerate}
+    \item \textbf{Metodika Billa Inmona (\textit{Top-Down Approach}):}
+    Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW).
+    \begin{itemize}
+        \item \textbf{Schema:} DWH je modelováno ve vysoce \textbf{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci, maximální integritu a vysokou flexibilitu pro budoucí požadavky.
+        \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do normalizovaného EDW. Teprve z něj jsou následně vytvářena menší, tématicky specializovaná, denormalizovaná \textbf{datová tržiště} (\textit{Data Marts}) pro koncové reportovací nástroje.
+    \end{itemize}
+
+    \item \textbf{Metodika Ralpha Kimballa (\textit{Bottom-Up Approach}):}
+    Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy.
+    \begin{itemize}
+        \item \textbf{Schema:} Využívá \textbf{dimenzionální modelování} (schéma \textit{Hvězda} nebo \textit{Sněhová vločka}), které je záměrně \textbf{denormalizované}. To zjednodušuje dotazování a maximalizuje výkon pro OLAP úlohy.
+        \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána přímo do dimenzionálních modelů. V tomto modelu \textbf{je datové tržiště ekvivalentní} dimenzionálně modelované sadě tabulek Fakta/Dimenze. Podnikový datový sklad je pak \textbf{logickou unií} těchto datových tržišť, propojených pomocí \textbf{konformních dimenzí} (\textit{Conformed Dimensions}).
+    \end{itemize}
+\end{enumerate}
+V rámci tohoto projektu byla s ohledem na optimalizaci výkonu, zjednodušení dotazování pro sémantickou vrstvu (Cube.js) a agilní vývoj zvolena \textbf{Kimballova metodika}.
+
+\subsubsection{Datové vrstvy v implementaci DWH}
+
+Základní vrstvy DWH, které odrážejí tok dat ve Vašich ETL skriptech, jsou:
+
+\begin{itemize}
+    \item \textbf{Vrstva získávání/Staging (\textit{Staging Area}):}
+    Slouží jako dočasné úložiště, kam jsou data přenesena po jejich transformaci a čištění z Datového jezera. V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+
+    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
+    Hlavní vrstva organizovaná dle Kimballova modelu. Skládá se z:
+    \begin{enumerate}
+        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
+        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}).
+    \end{enumerate}
+
+    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
+    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose2.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
+\end{itemize}
+
+\subsubsection{Použité technologie pro DWH}
+
+Mezi nejpoužívanější technologie pro datové sklady patří relační databáze jako \textbf{PostgreSQL} s rozšířením \textbf{TimescaleDB} (využívané pro ukládání časových řad, jak je patrné z \texttt{pg-warehouse}) nebo \textbf{Microsoft SQL Server} (využívaný ve Vašich ETL skriptech). Pro extrémně rychlé analytické dotazy se používají sloupcově orientované databáze, jako je \textbf{ClickHouse} (viditelné v \texttt{docker-compose2.yml}).
+\section{OLAP technologie}
+
+OLAP (\emph{Online Analytical Processing}) představuje způsob zpracování dat, který umožňuje rychlé multidimenzionální analýzy. Uživatelé mohou data zkoumat podle různých dimenzí – například času, lokality nebo typu senzoru.
+
+Rozlišují se tři základní typy OLAP řešení:
+\begin{itemize}
+    \item \textbf{MOLAP (Multidimensional OLAP)} – využívá vlastní vícerozměrnou datovou strukturu, která poskytuje vysoký výkon při agregacích, avšak vyžaduje větší prostor a přípravu dat.
+    \item \textbf{ROLAP (Relational OLAP)} – staví přímo na relační databázi, je flexibilní a snadněji škálovatelný.
+    \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou přístupů, často používaný v moderních datových skladech.
+\end{itemize}
+
+Pro implementaci OLAP vrstev existují nástroje jako Apache Kylin, Mondrian (součást Pentaho), Microsoft Analysis Services nebo ClickHouse s podporou agregací v reálném čase. V kontextu platformy Portabo jsou tyto technologie využívány pro tvorbu tabulek typu \emph{Fact} a \emph{Dimension}, které slouží pro následnou analýzu provozních dat z kamerových systémů.
+
+\section{Nástroje pro vizualizaci a analýzu dat}
+
+Vizualizace dat představuje klíčovou část procesu Business Intelligence (BI). Umožňuje uživatelům rychle pochopit trendy, vztahy a odchylky v datech.
+
+K nejrozšířenějším nástrojům patří:
+\begin{itemize}
+    \item \textbf{Open-source řešení:} Grafana, Apache Superset, Metabase, Redash – nabízejí integraci s většinou databázových systémů a jsou vhodné pro interaktivní dashboardy.
+    \item \textbf{Komerční řešení:} Microsoft Power BI, Tableau, Qlik Sense – poskytují rozšířené funkce pro datovou transformaci, prediktivní analýzy a sdílení výstupů v rámci organizace.
+\end{itemize}
+
+Důležitými kritérii při výběru vizualizačního nástroje jsou:
+\begin{enumerate}
+    \item Uživatelská přívětivost a intuitivní rozhraní,
+    \item Podpora přímého připojení na datový sklad nebo OLAP vrstvu,
+    \item Možnost automatizace a plánování aktualizací dat,
+    \item Licenční model a celkové náklady na provoz (TCO).
+\end{enumerate}
+
+\section{Shrnutí kapitoly}
+
+Rešeršní část prokázala, že oblast datových skladů a vizualizačních nástrojů je velmi dynamická. V současnosti dochází ke sbližování analytických databází (např. ClickHouse, DuckDB) s vizualizačními platformami, což umožňuje rychlejší zpracování velkých objemů dat bez nutnosti rozsáhlých ETL procesů.  
+
+Tato kapitola poskytuje teoretický základ pro následnou praktickou část práce, kde budou jednotlivé přístupy implementovány a porovnány přímo na datech z platformy Portabo.
 \section{Přehled současných open-source a komerčních řešení}
 
 \LaTeX podporuje čtyři úrovně vnoření kapitol (kromě kapitol i sekce, podsekce, a podpodsekce), což by mělo být více než dostatečné. Druhou úrovní jsou sekce, jejichž rozsah by měl být alespoň jednu stranu, mohou však být
