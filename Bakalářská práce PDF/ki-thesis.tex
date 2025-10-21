@@ -268,28 +268,66 @@ Klíčové cíle a role Datového jezera:
     \item \textbf{Oddělení integrační logiky:} Umožňuje \textbf{oddělit logiku připojení} k datovým zdrojům od Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v DWH nejsou bezprostředně zatíženy problémy s konektivitou nebo dynamickou strukturou.
     \item \textbf{Audit (Data Lineage):} Uchovávání dat v jejich \textbf{původním (surovém) formátu} umožňuje kdykoliv ověřit, z jakých zdrojových dat byly odvozeny data v Datovém skladu. To je nezbytné pro \textbf{auditní účely} a pro \textbf{reprodukci analytických výsledků} při změnách transformačních pravidel.\end{enumerate}
 
-\subsection{Datové sklady}
+\subsection{Datový sklad}
+\label{subsec:datovy_sklad}
 
 \textbf{Datový sklad} (\textit{Data Warehouse}, DWH) je centrální, časově závislé úložiště historických i aktuálních dat. Jeho primárním účelem je podpora rozhodovacích procesů. Na rozdíl od provozních databází (OLTP) je struktura DWH optimalizována pro rychlé čtení, agregace a dotazování na velkých objemech dat.
 
-Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metodiky, které se liší přístupem k datové integritě, flexibilitě a rychlosti dodání výsledků:
+\textbf{Datové tržiště} (\textit{Data Mart}) je v korporátním prostředí definováno jako \textbf{podsložka datového skladu} zaměřená na data a metriky potřebné pro specifickou obchodní oblast (např. výroba, kvalita, prodej). Jedná se o menší, tématicky specializovanou entitu, která usnadňuje reportování a analýzu pro konkrétní skupinu uživatelů.
+
+Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metodiky:
 
 \begin{enumerate}
     \item \textbf{Metodika Billa Inmona (\textit{Top-Down Approach}):}
     Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW).
     \begin{itemize}
-        \item \textbf{Schema:} DWH je modelováno ve vysoce \textbf{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci, maximální integritu a vysokou flexibilitu pro budoucí požadavky.
-        \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do normalizovaného EDW. Teprve z něj jsou následně vytvářena menší, tématicky specializovaná, denormalizovaná \textbf{datová tržiště} (\textit{Data Marts}) pro koncové reportovací nástroje.
+        \item \textbf{Schema:} EDW je modelováno ve vysoce \textbf{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci a maximální integritu.
+        \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do detailního, normalizovaného EDW (centrální zdroj pravdy). \textbf{Datová tržiště} se vytváří \textbf{až sekundárně} z dat v EDW a jsou denormalizovaná, aby sloužila pro rychlé reportování.
     \end{itemize}
 
     \item \textbf{Metodika Ralpha Kimballa (\textit{Bottom-Up Approach}):}
     Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy.
     \begin{itemize}
         \item \textbf{Schema:} Využívá \textbf{dimenzionální modelování} (schéma \textit{Hvězda} nebo \textit{Sněhová vločka}), které je záměrně \textbf{denormalizované}. To zjednodušuje dotazování a maximalizuje výkon pro OLAP úlohy.
-        \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána přímo do dimenzionálních modelů. V tomto modelu \textbf{je datové tržiště ekvivalentní} dimenzionálně modelované sadě tabulek Fakta/Dimenze. Podnikový datový sklad je pak \textbf{logickou unií} těchto datových tržišť, propojených pomocí \textbf{konformních dimenzí} (\textit{Conformed Dimensions}).
+        \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána \textbf{přímo} do dimenzionálních modelů, které \textbf{představují Datová tržiště}. Podnikový datový sklad je pak \textbf{logickou unií} (sjednocením) těchto jednotlivých tržišť.
     \end{itemize}
 \end{enumerate}
-V rámci tohoto projektu byla s ohledem na optimalizaci výkonu, zjednodušení dotazování pro sémantickou vrstvu (Cube.js) a agilní vývoj zvolena \textbf{Kimballova metodika}.
+
+V praxi se však často objevují hybridní systémy kombinující prvky obou přístupů. Takovýto hybridní přístup jsem zvolil i já.
+
+\clearpage
+
+\subsubsection{Datové modely}
+\label{subsubsec:datove_modely}
+
+Základními modely používanými pro návrh datového skladu v rámci dimenzionálního modelování (Kimball) jsou:
+
+\begin{itemize}
+    \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
+    Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
+
+    \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
+    Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
+\end{itemize}
+
+\subsubsection{Datové vrstvy v implementaci DWH}
+
+DWH z pravidla obsahuje:
+
+\begin{itemize}
+    \item \textbf{Staging Area:}
+    Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+
+    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
+    Hlavní vrstva organizovaná dle Kimballova modelu (tedy Datový Mart pro tuto analytickou doménu). Skládá se z:
+    \begin{enumerate}
+        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
+        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}, viz \texttt{bilina\_kamery\_staging\_to\_fact.py}).
+    \end{enumerate}
+
+    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
+    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
+\end{itemize}
 
 \subsubsection{Datové vrstvy v implementaci DWH}
 
@@ -307,7 +345,7 @@ Základní vrstvy DWH, které odrážejí tok dat ve Vašich ETL skriptech, jsou
     \end{enumerate}
 
     \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
-    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose2.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
+    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
 \end{itemize}
 
 \subsubsection{Použité technologie pro DWH}

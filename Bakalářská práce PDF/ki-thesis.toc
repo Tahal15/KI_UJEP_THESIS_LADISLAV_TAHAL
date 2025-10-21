@@ -3,14 +3,16 @@
 \contentsline {chapter}{\numberline {1}Přehled současného stavu problematiky}{15}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
 \contentsline {subsection}{\nonumberline Datové jezero}{15}{subsection*.4}%
-\contentsline {subsection}{\nonumberline Datové sklady}{16}{subsection*.6}%
-\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{16}{subsubsection*.8}%
-\contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{17}{subsubsection*.10}%
-\contentsline {section}{\numberline {1.2}OLAP technologie}{17}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Nástroje pro vizualizaci a analýzu dat}{18}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Shrnutí kapitoly}{18}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Přehled současných open-source a komerčních řešení}{18}{section.1.5}%
-\contentsline {section}{\numberline {1.6}analýza trendů v implementaci}{19}{section.1.6}%
+\contentsline {subsection}{\nonumberline Datový sklad}{16}{subsection*.6}%
+\contentsline {subsubsection}{\nonumberline Datové modely}{17}{subsubsection*.8}%
+\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{17}{subsubsection*.10}%
+\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{17}{subsubsection*.12}%
+\contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{18}{subsubsection*.14}%
+\contentsline {section}{\numberline {1.2}OLAP technologie}{18}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Nástroje pro vizualizaci a analýzu dat}{19}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Shrnutí kapitoly}{19}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Přehled současných open-source a komerčních řešení}{19}{section.1.5}%
+\contentsline {section}{\numberline {1.6}analýza trendů v implementaci}{20}{section.1.6}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{21}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{21}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{21}{section.2.2}%
@@ -24,15 +26,15 @@
 \contentsline {chapter}{\numberline {5}Citace}{27}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Označování citací}{28}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Bibliografický záznam}{29}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{30}{subsection*.12}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{31}{subsection*.14}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{32}{subsection*.16}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{33}{subsection*.18}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{30}{subsection*.16}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{31}{subsection*.18}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{32}{subsection*.20}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{33}{subsection*.22}%
 \contentsline {section}{\numberline {5.3}Často kladené otázky}{33}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{33}{subsection*.20}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{34}{subsection*.22}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{34}{subsection*.24}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{34}{subsection*.26}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{33}{subsection*.24}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{34}{subsection*.26}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{34}{subsection*.28}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{34}{subsection*.30}%
 \contentsline {chapter}{\numberline {6}Zhodnocení}{37}{chapter.6}%
 \contentsline {chapter}{\numberline {7}Závěr}{39}{chapter.7}%
 \def \@chapapp {\appendixname }
