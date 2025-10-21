@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  21 OCT 2025 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  21 OCT 2025 20:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/tahall/Downloads/thesis_ki_ujep-main/thesis_ki_ujep-main/ki-thesis.tex
-(c:/Users/tahall/Downloads/thesis_ki_ujep-main/thesis_ki_ujep-main/ki-thesis.tex
+**"e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex"
+(e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (./kitheses.cls
@@ -1065,23 +1065,30 @@ chapter without number
 chapter 1.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
 (Font)              scaled to size 17.28pt on input line 254.
+
+
+[15]
+
+[16
+
+
+]
+chapter 2.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 258.
+(Font)              scaled to size 14.4pt on input line 279.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 260.
-LaTeX Font Info:    Font shape `T1/pxtt/m/it' in size <12> not available
-(Font)              Font shape `T1/pxtt/m/sl' tried instead on input line 263.
+(Font)              scaled to size 12.0pt on input line 281.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/it' will be
-(Font)              scaled to size 12.0pt on input line 267.
+(Font)              scaled to size 12.0pt on input line 294.
 
 
-[15{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc}]
-LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 284.
+[17{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc}]
+LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 311.
  (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/TS1LibertinusSerif-TLF.fd
 File: TS1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for TS1/LibertinusSerif-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 284.
+(Font)              scaled to size 12.0pt on input line 311.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSerif-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1089,48 +1096,36 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 Package babel Info: 'czech' activates 'czech' shorthands.
-(babel)             Reported on input line 298.
-[16{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
-Overfull \hbox (2.92505pt too wide) in paragraph at lines 324--325
+(babel)             Reported on input line 325.
+[18{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
+Overfull \hbox (2.92505pt too wide) in paragraph at lines 351--352
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 
-Overfull \hbox (61.47594pt too wide) in paragraph at lines 325--326
+Overfull \hbox (61.47594pt too wide) in paragraph at lines 352--353
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Fakta (\T1/LibertinusSerif-TLF/b/it/12 (-20) Facts\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají m¥-°i-telné hod-noty a cizí klí£e k di-men-zím (nap°. \T1/pxtt/m/n/12 FactCameraDetection\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 
 
-[17
+[19
 
 ]
-Overfull \hbox (2.92505pt too wide) in paragraph at lines 343--344
+Overfull \hbox (2.92505pt too wide) in paragraph at lines 370--371
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 
-Overfull \hbox (64.45242pt too wide) in paragraph at lines 344--345
+Overfull \hbox (64.45242pt too wide) in paragraph at lines 371--372
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Fakta (\T1/LibertinusSerif-TLF/b/it/12 (-20) Facts\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají m¥-°i-telné hod-noty a cizí klí£e k di-men-zím (nap°. \T1/pxtt/m/n/12 FactCameraDetection\T1/LibertinusSerif-TLF/m/n/12 (-20) ). 
  []
 
 
 
-[18]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 392.
-
-
-[19]
-
 [20]
-chapter 2.
 
-
-[21
-
-
-]
+[21]
 
 [22
 
@@ -1158,6 +1153,9 @@ chapter 5.
 
 
 [27]
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 478.
+
 
 [28]
 
@@ -1168,7 +1166,7 @@ chapter 5.
 [31]
 
 [32]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 640--641
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 622--623
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
@@ -1195,7 +1193,7 @@ chapter 6.
 ]
 chapter 7.
 
-LaTeX Warning: Empty bibliography on input line 706.
+LaTeX Warning: Empty bibliography on input line 688.
 
 
 
@@ -1227,18 +1225,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 28403 strings out of 467748
- 525099 string characters out of 5431137
- 1520252 words of memory out of 5000000
- 56229 multiletter control sequences out of 15000+600000
- 769133 words of font info for 337 fonts, out of 8000000 for 9000
+ 28388 strings out of 467748
+ 524796 string characters out of 5431137
+ 1520236 words of memory out of 5000000
+ 56220 multiletter control sequences out of 15000+600000
+ 768104 words of font info for 332 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11298b,2019s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (43 pages, 734205 bytes).
+ 122i,12n,121p,11305b,2019s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
+Output written on ki-thesis.pdf (43 pages, 728927 bytes).
 PDF statistics:
- 462 PDF objects out of 1000 (max. 8388607)
- 393 compressed objects within 4 object streams
- 122 named destinations out of 1000 (max. 500000)
- 84182 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 444 PDF objects out of 1000 (max. 8388607)
+ 377 compressed objects within 4 object streams
+ 123 named destinations out of 1000 (max. 500000)
+ 83646 words of extra memory for PDF output out of 89155 (max. 10000000)
 

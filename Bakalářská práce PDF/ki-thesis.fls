@@ -1,8 +1,8 @@
-PWD c:/Users/tahall/Downloads/thesis_ki_ujep-main/thesis_ki_ujep-main
+PWD e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/tahall/Downloads/thesis_ki_ujep-main/thesis_ki_ujep-main/ki-thesis.tex
+INPUT e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
 OUTPUT ki-thesis.log
 INPUT ./kitheses.cls
 INPUT kitheses.cls
@@ -382,12 +382,11 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSan
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1--base.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/t1xttsl.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-BoldItalic-tlf-t1.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1--base.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-BoldItalic-tlf-t1.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSans-Bold-tlf-t1--base.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1.vf
@@ -415,5 +414,4 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusS
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb
-INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb

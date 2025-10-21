@@ -20,10 +20,6 @@
 \usepackage{microtype}  % přesnější typografie
 
 % workaround for imcompatibility of czech babel and biblatex
-\makeatletter
-\newcommand{\fail}{} % opraví volání \fail při patchování jazyků
-\makeatother
-
 
 \iftutex
 \else
@@ -35,6 +31,10 @@
 \patchcmd\select@language{'}{\my@apostroph }{}{\fail}
 \makeatother
 \fi
+
+\usepackage[style=iso-numeric,shortnumeration=true]{biblatex}
+\addbibresource{thesis.bib}
+
 
 % fonty lze měnit (detaily viz sekce fonty)
 \iftutex
@@ -50,12 +50,6 @@
 	\usepackage{libertinus}
 	\renewcommand{\ttdefault}{pxtt}
 \fi
-
-\usepackage[style=iso-numeric,shortnumeration=true]{biblatex}
-\addbibresource{thesis.bib}
-
-
-
 
 \usepackage{csquotes} % uvozovky
 
@@ -81,17 +75,17 @@
 }
 
 % barevné zvýraznění textů, které je nutno nahradit
-%\newcommand{\ZT}[1]{\colorbox{yellow}{\color{red}{#1}}}
+\newcommand{\ZT}[1]{\colorbox{yellow}{\color{red}{#1}}}
 
 
 % TOTO JE POTŘEBA ZMĚNIT !!!!!!
-\newcommand{\nazevcz}{\ZT{Využití open-source a komerčních nástrojů pro vizualizaci a analýzu dat na datové platformě Portabo}}        % zde VYPLŇTE český název práce (přesně podle zadání!)
-\newcommand{\nazeven}{\ZT{Utilization of Open-Source and Commercial Tools for Data Visualization and Analysis on the Portabo Data Platform}}     % zde VYPLŇTE anglický název práce (přesně podle zadání!)
-\newcommand{\autor}{\ZT{Ladislav Tahal}}           % zde VYPLŇTE své jméno a příjmení
+\newcommand{\nazevcz}{\ZT{Závěrečná práce na KI PřF UJEP}}        % zde VYPLŇTE český název práce (přesně podle zadání!)
+\newcommand{\nazeven}{\ZT{Thesis on KI PřF}}     % zde VYPLŇTE anglický název práce (přesně podle zadání!)
+\newcommand{\autor}{\ZT{Jiří Fišer}}           % zde VYPLŇTE své jméno a příjmení
 \newcommand{\rok}{\the\year}                
-\newcommand{\vedouci}{\ZT{Ing. Roman Vaibar, Ph.D., MBA}}         
+\newcommand{\vedouci}{\ZT{RNDr. Jiří Škvor, Ph.D.}}         
 % zde VYPLŇTE jméno a příjmení vedoucího práce, včetně titulů
-\newcommand{\vedouciDAT}{\ZT{Ing. Romanu Vaibarovi, Ph.D., MBA}}   
+\newcommand{\vedouciDAT}{\ZT{RNDr. Jiřímu Škvorovi, Ph.D.}}   
 % zde VYPLŇTE jméno a příjmení vedoucího práce, včetně titulů ve třetím pádě
                                                            
 
@@ -114,7 +108,6 @@
  
 % odstraňte pokud vám vadí absence zarovnání dole 
 \raggedbottom
-\newcommand{\ZT}[1]{#1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % vlastní začátek dokumentu
@@ -208,11 +201,8 @@ V Ústí nad Labem dne \today   \hfill Podpis: \makebox[4cm][s]{\dotfill}
 \vfill
 
 \begin{flushright}
-  Děkuji vedoucímu bakalářské práce \ZT{\vedouciDAT}\\
-za jeho odborné vedení a praktické podněty, které výrazně přispěly k analýze dat, \\
-hledání efektivních řešení a k celkovému úspěšnému dokončení bakalářské práce.
-
-
+    Děkuji vedoucímu práce \ZT{\vedouciDAT}\\ 
+    za neocenitelné rady a pomoc při tvorbě bakalářské práce.
 \end{flushright}
 
 \cleardoublepage
@@ -221,10 +211,9 @@ hledání efektivních řešení a k celkovému úspěšnému dokončení bakal�
 
 \textbf{Abstrakt:}
 
-Bakalářská práce se zabývá srovnáním open-source a komerčních nástrojů pro vizualizaci a analýzu dat, datové sklady a OLAP technologie s cílem zhodnotit jejich vhodnost pro využití v datové platformě Portabo. V praktické části byla realizována implementace několika variant datových řešení, zahrnujících kombinace databázových systémů MSSQL, MariaDB, ClickHouse a PostgreSQL s nástroji Power BI, Superset a Cube.js. Bylo provedeno testování výkonu, analýza technických požadavků, nároků na uživatelské dovednosti a srovnání ekonomických aspektů provozu. Výsledkem práce je komplexní přehled výhod a nevýhod jednotlivých přístupů, měření jejich efektivity při zpracování velkých objemů dat a doporučení optimálního řešení pro organizace usilující o efektivní datovou analytiku bez nutnosti vysoké IT expertizy.
+Abstract práce uvádí základní téma práce a především její výstupy. Rozsah abstraktu by měl být alespoň osmdesát slov (abstrakty a klíčová slova se však musí vejít na stránku).
 
-\textbf{Klíčová slova:} Business Intelligence, datové sklady, olap, vizualizace dat, Portabo
-
+\textbf{Klíčová slova:} tři až pět klíčových slov resp. termínů, která usnadní případné vyhledávání závěrečné práce, v pořadí od obecnějších ke konkrétnějším
 
 \bigskip
 
@@ -233,192 +222,169 @@ Bakalářská práce se zabývá srovnáním open-source a komerčních nástroj
 
 \textbf{Abstract:}
 
-This bachelor’s thesis focuses on the comparison of open-source and commercial tools for data visualization and analysis, data warehouses, and OLAP technologies, with the aim of evaluating their applicability within the Portabo data platform. In the practical part, several data architecture variants were implemented, combining database systems such as MSSQL, MariaDB, ClickHouse, and PostgreSQL with visualization tools including Power BI, Superset, and Cube.js. The analysis covers performance testing, technical requirements, user skill demands, and economic aspects of operation. The outcome of the thesis is a comprehensive overview of the advantages and limitations of both open-source and commercial solutions, performance evaluation on large data volumes, and recommendations for organizations seeking efficient data analytics without requiring extensive IT expertise.
+The abstract states the main topic of the thesis and mainly its outcomes. The length of the abstract should be at least eighty words (however, abstracts and keywords must fit on a page)
 
-\textbf{Keywords:} Business Intelligence, data warehouses, OLAP, data visualization, Portabo
+\textbf{Keywords:} three to five key words or terms to facilitate a possible search of the thesis, in order from more general to more specific
 
 \tableofcontents
 
 \addchap{Úvod}
 
-V současné době organizace generují a shromažďují obrovské množství dat, která se stávají klíčovým zdrojem pro strategické i operativní rozhodování. Společnosti napříč odvětvími se proto zaměřují na to, jak tato data efektivně zpracovávat, ukládat, analyzovat a vizualizovat tak, aby přinášela skutečnou informační hodnotu i uživatelům bez hlubokého technického zázemí. S rozvojem datových technologií vzniká široké spektrum nástrojů, které umožňují tvorbu reportů, analytických modelů a vizualizací nad velkými objemy dat. Tyto nástroje mohou být jak komerční, nabízející komplexní podporu a integrované služby, tak open-source, které poskytují flexibilitu, otevřenost a nižší náklady na implementaci.
+Úvod závěrečné práce má dvě povinné částí
 
-Zároveň však s tímto rozvojem vyvstává otázka, jaké řešení je pro konkrétní organizaci nejvhodnější – z pohledu technického, uživatelského i ekonomického. Volba správného nástroje či architektury datové platformy zásadně ovlivňuje nejen efektivitu zpracování dat, ale také dostupnost a interpretaci výsledků pro koncové uživatele.
+\begin{itemize}
+\item úvodní seznámení s (širší) problematikou a aktuálním stavem v oblasti (pro neznalého čtenáře) včetně případné objektivní motivace 
+\item cíle práce podle zadání ve formulaci autora práce
+\end{itemize}
 
-Tato bakalářská práce se zabývá využitím open-source a komerčních nástrojů pro vizualizaci a analýzu dat na datové platformě Portabo. Cílem práce je provést srovnávací analýzu vybraných řešení z hlediska technických parametrů, uživatelských požadavků a ekonomických aspektů jejich provozu. Praktická část je zaměřena na implementaci několika variant datové architektury — zahrnujících kombinace databázových systémů MSSQL, MariaDB, ClickHouse a PostgreSQL s nástroji Power BI, Superset a Cube.js. Součástí analýzy je také měření výkonu při práci s rozsáhlým datovým souborem, testování zátěže a vyhodnocení celkových nákladů na provoz (TCO).
+Nepovinně lze uvést i stručný popis jednotlivých kapitol práce (co v nich le nalézt).
 
-První kapitola práce shrnuje současný stav problematiky a základní pojmy z oblasti datových skladů, OLAP a vizualizačních nástrojů. Následující teoretická část rozebírá principy a architekturu zvolených technologií. Praktická část popisuje návrh metodiky, implementaci jednotlivých řešení a provedení testování. Závěrečná kapitola obsahuje shrnutí zjištěných výsledků, jejich interpretaci a doporučení vhodného řešení pro organizace využívající datovou platformu Portabo.
+Text v této šabloně by Vám měl pomoci s tvorbou závěrečné práce. Je však velmi stručný a tak doporučuji přečtení dalších zdrojů např. \cite{Katuscakc2008} nebo 
+\cite{Ticha2009}. Pokud nejsou tyto zdroje v souladu s informacemi uvedenými v tézo šabloně, pak je autoritativním zdrojem tato šablona a její formátování.
 
-\chapter{Přehled současného stavu problematiky}
+\chapter{Základní členění závěrečné práce}
 
-\section{Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}
+\section{Kapitoly}
 
-Tato kapitola představuje teoretický základ práce, shrnuje klíčové poznatky o problematice datových skladů, technologiích OLAP a moderních nástrojích pro vizualizaci a analýzu dat. Cílem rešeršní části je vytvořit komplexní přehled současných trendů, architektur a dostupných open-source i komerčních řešení pro hlubší pochopení zkoumané problematiky.
+Závěrečná práce by měla být členěna na tři až šest kapitol nejvyšší úrovně (nepočítaje úvod a závěr). Ty by měly odpovídat osnově práce, ale nikoliv doslovně. Jiné mohou být názvy a dokonce i počet kapitol. To jest, některé body osnovy lze rozpracovat ve více kapitolách a naopak některé body lze združit do jediné kapitoly.
 
-Základní koncepty a definice budou představeny v obecné rovině. Je důležité si uvědomit, že v praxi dochází k časté adaptaci a modifikaci těchto logických konceptů, ať už vlivem firemních specifik, nebo dynamickým vývojem v segmentu IT. Vznik hybridních systémů, které kombinují různé metodiky a přístupy, je běžným jevem a odráží snahu o tvorbu systémů na míru, které efektivně reflektují specifické potřeby organizací.
+Důležité je, aby bylo členění přibližně rovnoměrné. Problematické jsou především kapitoly malého rozsahu (1-3 stránky) respektrive naopak kapitola zahrnující podstatnou část textu.
 
+Kapitoly nejvyšší úrovně vždy začínají na nové stránce, která musí být lichá tj. na pravé straně. Pokud předchozí kapitola končí na liché straně, vkládá se tzv. vakát -- zcela prázdná strana. 
 
+\section{Sekce resp. podkapitoly}
 
+\LaTeX podporuje čtyři úrovně vnoření kapitol (kromě kapitol i sekce, podsekce, a podpodsekce), což by mělo být více než dostatečné. Druhou úrovní jsou sekce, jejichž rozsah by měl být alespoň jednu stranu, mohou však být
+i výrazně delší. Zobrazují se v obsahu a jsou číslované a lze je tudíž snadno odkazovat. Měli by být použity b každé kapitole kromě úvodu a závěru.
 
-% \subsection{Podsekce}
-% Podsekce se už používají méně často a běžně se vyskytují i dále nečleněné sekce. Nejsou číslovány a nejsou zobrazeny v obsahu. Rozsah by měl být alespoň dva odstavce.
+\subsection{Podsekce}
 
-%\subsubsection{Podpodsekce}
-%Podpodsekce se používají jen velmi zřídka, typicky jen u kapitol či sekcí popisující systémy s výraznou hierarchií. Tvořeny mohou být i jediným odstavcem (nikoliv však ale jedinou řádku, zde zvažte spíš použití definičního výčtu).
+Podsekce se už používají méně často a běžně se vyskytují i dále nečleněné sekce. Nejsou číslovány a nejsou zobrazeny v obsahu. Rozsah by měl být alespoň dva odstavce.
 
-\section{přehled současných open-source a komerčních řešení}
+\subsubsection{Podpodsekce}
 
-\section{Analýza trendů v implementaci}
+Podpodsekce se používají jen velmi zřídka, typicky jen u kapitol či sekcí popisující systémy s výraznou hierarchií. Tvořeny mohou být i jediným odstavcem (nikoliv však ale jedinou řádku, zde zvažte spíš použití definičního výčtu).
 
-\chapter{Teoretická část}
+\section{Rozsah závěrečné práce}
+
+Optimální rozsah \ifthenelse{\boolean{bc}}{bakalářské}{diplomové} práce není možné stanovit, neboť závisí na jejím charakteru. Práce jejíž součástí je vytvoření aplikace mohou být menšího rozsahu než práce čistě popisné. I v tomto případě by však měla mít alespoň \ifthenelse{\boolean{bc}}{třicet}{padesát⎄} stran (nepočítaje úvodní stránky až po obsah a stránky od seznamu použitých zdrojů dále a prázdné stránky tzv. vakáty).
+
+Maximální rozsah práce je ještě obtížnější stanovit. Obecně však doporučuji v případě, že pokud rozsah (opět bez povinných částí) přesáhne osmdesát stran je vhodné uvažovat o redukci (ne všechno, co jste napsali musí být nakonec uvedeno ve finální verzi) respektive přesunu do externích příloh umístěnách na Githubu (viz příloha \vref{sec:ep}). Týká se to především různých schémat, obrazového materiálu apod.
+
+\chapter{Typografie}
 
 Při tvorbě bakalářské práce byste měli dodržovat základní zásady typografie. Bakalářská práce by měla být přehledná a dobře čitelná. A možná i krásná (uvědomuji si, že krása je subjektivní).
 
-\section{Úvod do problematiky datových skladů a OLAP}
+\section{Písmo}
 
-\subsection{Datové jezero}
+Na naší katedře není předepsáno, jaké písmo by mělo být použito při sazbě práce. Měli byste však dodržovat několik zásad.
 
-\textbf{Datové jezero} (\textit{Data Lake}) představuje logický koncept centralizovaného úložiště určeného pro uchovávání obrovského množství \textit{surových dat} (\textit{raw data}) v jejich nativním formátu (např. JSON, XML, binární soubory).
+\begin{itemize}
+\item pro sazbu většiny textu by mělo být použito tzv. knižní písmo tj. písmo určené
+pro sazbu soudobých knih (především odborných). Doporučit lze antikvová písma a resp. písma lineární (bezpatková).
+\item pro výpisy kódu používejte neproporcionální písmo (pro ostatní text naopak proporciální). Pro základní přehled 
+volně šiřitelných písmen se můžete podívat do dokumentu \href{https://github.com/Jiri-Fiser/thesis_ki_ujep/blob/main/monotyp%C3%A1%C5%99.pdf}{Monotypář}.
+\item pokud používáte více druhů písma, pak by měla být vizuálně kompatibilní (nejlepší je použít písma, která jako kompatibilní vytvořili či alespoň doporučili typografové)
+\end{itemize}
 
-Ačkoliv je Datové jezero často asociováno s cloudovými službami (např. AWS S3, Azure Data Lake Storage), tento koncept lze efektivně implementovat i v lokálním (on-premise) prostředí.
+V šabloně je využita rodina písma \textit{Libertinus} (odvozená z písma \textit{Linux Libertine}) s výjimkou neproporcionálního písmo, pro něž bylo zvoleno písmo \textit{Source Code Pro}, které podporuje výrazně větší počet řezů (kurzíva tučné).
 
-V rámci řešeného projektu je Datové jezero implementováno na relační databázi (viz konfigurační soubor „docker-compose3.yml“). 
-Přestože relační databáze vyžaduje definici schématu tabulky, je princip \textit{schema-on-read} zachován. 
-To je realizováno tak, že veškerá variabilní data jsou uložena v jediném sloupci (např. \texttt{payload}), 
-který je definován jako řetězcový (textový) typ (\texttt{TEXT} nebo \texttt{VARCHAR}). 
-Tím se fyzicky vytvoří pevné schéma pro tabulku, avšak \textbf{logický datový typ jednotlivých vnitřních prvků} dat (např. JSON) 
-se určuje staticky / dynamicky \textbf{až v rámci transformačního (ETL) procesu} při jejich parsování a vkládání do Datového skladu. Tato volba zachovává maximální flexibilitu, ačkoliv pokročilejší implementace by mohla využít nativní datové typy pro nestrukturovaná data, jako je \texttt{JSONB} v PostgreSQL.
+Standardní velikost písma kvalifikační práce je 12 bodů (přesněji řečeno tzv. pica bodů tj. 12/72 palce). Tato velikost však ve většině případů neodpovídá žádnému viditelnému rozměru písma (v klasické typografii je to výšky kuželky, na níž je umístěn vystouplý reliéf písma). Z  tohoto důvodů se skutečná výška a především šířka písmen může u jednotlivých písmen viditelně lišit. To je problém, pokud se znaky různých písem vyskytují vedle sebe. Často se výrazněji liší například výška antikvy a  neproporcionálního písma. V tomto případě je často nutné velikost neproporcionálních písem mírně zmenšit (tato šablona tak v případě využití XeTeXu nebo LuaTeXu činí automaticky).
 
-Klíčové role a cíle Datového jezera:
+Optimální řádkování pro bakalářské práce je 1½ (použité i v této šabloně).
+
+\section{Základní typografická pravidla}
+
+\section{Znaky, které nenajdete na klávesnici}
+
+I v běžném textu se bohužel vyskytují znaky, které nenajdete na klávesnici.
+Jedná se především o uvozovky a pomlčky (znak \texttt{-} je spojovník nikoliv pomlčka). Ostatní znaky se v práci vyskytnou jen výjimečně.
+
+V \LaTeX{}u lze tyto znaky vkládat pomocí tří základních mechanismů:
 \begin{enumerate}
-    \item \textbf{Konsolidace a Vstupní Zóna (\textit{Landing Zone}):} Primární funkcí je konsolidovat data z mnoha heterogenních zdrojů na jedinou platformu, sloužící jako \textbf{vstupní zóna} pro surová data před jejich dalším zpracováním.
-    \item \textbf{Oddělení Integrační Logiky:} Umožňuje \textbf{oddělit logiku připojení a sběru dat} od vlastního Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v DWH nejsou bezprostředně zatíženy problémy s konektivitou, dostupností zdrojů nebo dynamickou strukturou dat.
-    \item \textbf{Audit a Rodokmen Dat (\textit{Data Lineage}):} Uchovávání dat v jejich \textbf{původním (surovém) formátu} umožňuje kdykoliv ověřit, z jakých zdrojových dat byla odvozena data v Datovém skladu. To je nezbytné pro \textbf{auditní účely} a pro \textbf{reprodukci analytických výsledků} při změnách transformačních pravidel.
-\end{enumerate}
-\subsection{Datový sklad}
-\label{subsec:datovy_sklad}
-
-\textbf{Datový sklad} (\textit{Data Warehouse}, DWH) je centrální, časově závislé úložiště historických i aktuálních dat. Jeho primárním účelem je podpora rozhodovacích procesů. Na rozdíl od provozních databází (OLTP) je struktura DWH optimalizována pro rychlé čtení, agregace a dotazování na velkých objemech dat.
-
-\textbf{Datové tržiště} (\textit{Data Mart}) je v korporátním prostředí definováno jako \textbf{podsložka datového skladu} zaměřená na data a metriky potřebné pro specifickou obchodní oblast (např. výroba, kvalita, prodej). Jedná se o menší, tématicky specializovanou entitu, která usnadňuje reportování a analýzu pro konkrétní skupinu uživatelů.
-
-Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metodiky:
-
-\begin{enumerate}
-    \item \textbf{Metodika Billa Inmona (\textit{Top-Down Approach}):}
-    Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW).
-    \begin{itemize}
-        \item \textbf{Schema:} EDW je modelováno ve vysoce \textbf{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci a maximální integritu.
-        \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do detailního, normalizovaného EDW (centrální zdroj pravdy). \textbf{Datová tržiště} se vytváří \textbf{až sekundárně} z dat v EDW a jsou denormalizovaná, aby sloužila pro rychlé reportování.
-    \end{itemize}
-
-    \item \textbf{Metodika Ralpha Kimballa (\textit{Bottom-Up Approach}):}
-    Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy.
-    \begin{itemize}
-        \item \textbf{Schema:} Využívá \textbf{dimenzionální modelování} (schéma \textit{Hvězda} nebo \textit{Sněhová vločka}), které je záměrně \textbf{denormalizované}. To zjednodušuje dotazování a maximalizuje výkon pro OLAP úlohy.
-        \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána \textbf{přímo} do dimenzionálních modelů, které \textbf{představují Datová tržiště}. Podnikový datový sklad je pak \textbf{logickou unií} (sjednocením) těchto jednotlivých tržišť.
-    \end{itemize}
+\item příkazem
+\item pomocí sekvence speciálních znaků
+\item přímo jako Unicode znaky (v editoru)
 \end{enumerate}
 
-V praxi se však často objevují hybridní systémy kombinující prvky obou přístupů. Takovýto hybridní přístup jsem zvolil i já.
+Následující tabulka ukazuje nejčastěji používané znaky, jež nenajdete na klávesnici, ale jejich použití je při české sazbě povinné.
 
-\clearpage
+\begin{tabular}{lllcp{3.8cm}}
+\hline
+ & jméno znaku & \LaTeX{} makro & Unicode & popis \\ \hline
+\quotedblbase & spodní dvojité 9-uvozovky& \verb!\quotedblbase! &
+  U+201E & užívány jako úvodní uvozovky \\ 
+`` & horní dvojité 6-uvozovky& \verb!`! &
+  U+201C & užívány jako koncové uvozovky \\ 
+>> & pravé francouzské uvozovky & \verb!>>! & 
+  U+00BB & alternativní úvodní uvozovky \\
+<< & levé francouzské uvozovky & \verb!<<! & 
+  U+00AB & alternativní koncové uvozovky \\
+\quotesinglbase &  spodní jednoduché 9-uvozovky & \verb!\quotesinglbase! & 
+  U+201A  & vnořené úvodní uvozovky \\
+` &  horní jednoduché 6-uvozovky & \verb!``! & 
+  U+2018  & vnořené koncové uvozovky \\
+\ldots & výpustka & \verb!\ldots! &
+ U+2026 &  vypuštěný text \\
+--  & pomlčka & \verb!--! & 
+        & od--do, oddělovač vět \\
+\hline 
+\end{tabular}
 
-\subsubsection{Datové modely}
-\label{subsubsec:datove_modely}
+Znak tzv. obousměrných uvozovek \verb!"!, jež vznikly v době psacích strojů a přežily na počítačových klávesnicích lze využívat jen na při zápisu zdrojáků programovacích jazyků. Podobně jen ve zdrojácích lze využít trojtečku (= tři tečky). Rozdíl oproti výpustku je malý ale viditelný: 
+výpustek\ldots versus trojtečka...
 
-Základními modely používanými pro návrh datového skladu v rámci dimenzionálního modelování (Kimball) jsou:
+
+\subsection{Jednopísmenné předložky a spojky na konci řádku}
+
+Dle českých typografických pravidel je chybou použití jednopísmenných předložek a spojek na samém konci řádků. 
+Určitou výjimkou jsou spojky \enquote{a} a \enquote{i}, které jsou tolerovatelné (i když nikoliv v případě, že jsou psány velkým písmenem například na začátku věty resp. pokud následují hned za otvírací závorkou).
+
+Jediným řešením je vložení nezalomitelných mezer mezi předložku resp. spojku a následující slovo. To se může dít automaticky (v \LaTeX u se používá externí program \texttt{vlna}), ale lze to dělat i ručně (nejlépe jen  na místech, kde bylo toto pravidlo porušeno).
+
+Pozor: Toto pravidlo se týká i případů, kdy je bezprostředně před předložkou či spojkou i nějaký nepísmenný znak např. otvírací závorka či uvozovka).
+
+Striktní typografická pravidla si vynucují použití nezalomitelné mezery i na dalších místech. Pro kvalifikační práce je důležité jeho využití mezi číslem a kvantifikovanou veličinou nejčastěji fyzikální jednotkou tj, např. 42~kg nebo 256~bytů). V tomto případě nezbývá nic jiného než ruční vkládání.
+
+Nezalomitelná mezera se v \TeX{}u zapisuje znakem vlnka \texttt{\textasciitilde} (kolem znaku nesmí být žádné mezery).
+
+\subsection{Parchanti}
+
+Jako \textit{parchant} se označují případy, kdy stránka začíná posledním krátkým řádkem odstavce (tzv. sirotek), případně končí-li stránka samostatným nadpisem nebo prvním řádkem odstavce (tzv. vdova). Pozor na případy, kdy stránka začíná či končí plovoucím obrázkem či tabulkou (i za nimi či před nimi mohou být parchanti).
+
+Typografické systémy se snaží parchantům zabránit, ne vždy se jim to ale s úspěchem podaří. Pokud se to napodaří je nutné manuální řešení. Nejjednodušším bývá zkrácení či prodloužení předchozího textu. Není-li to možné, lze výjimečně vložit na vhodné místo ruční zalomení stránky (v \LaTeX{}u doporučuji příkaz \verb!clearpage!.
+
+\subsection{Vertikální a horizontální zarovnávání}
+
+Běžný text bakalářské práce by měl být zarovnán do bloku tj. jak zleva tak zprava (automatickou výjimkou jsou tzv. východové řádky odstavců, které se zarovnávají jen zleva).
+
+V \LaTeX{} je relativně časté přetečení řádků, tj. situace, kdy systém nenajde vhodné místo pro zalomení a tak řádek pokračuje i do okraje. Pokud už tato situace nastane, pak existují dvě řešení, buď změníte text na řádku (zkrátíte ho či prodloužíte) nebo pomůžete algoritmu pro dělení slov, tím že explicitně vyznačíte místa, kde může dojít k dělení pomocí příkazu \verb!\-!. Toto řešení je možné využít i v případě, že se nějaké slovo rozdělí viditelně chybně (slovo se nebude dělit v jiných než vyznačených místech).
+
+Dělení slov je jen pomocný mechanismus (nikoliv pravopisný) a tak pro něj v češtině neexistují závazná pravidla pouze úzus a doporučení. Při dělení se primárně vychází z výslovnosti nikoliv ze zápisu slov (to je klíčové především cizích slov, která se čtou podle jiných pravidel než v češtině). Pro základní orientaci stačí znát tato pravidla (aplikují se postupně):
 
 \begin{itemize}
-    \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
-    Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
-
-    \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
-    Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
+\item nedělí se jednoslabičná slova
+\item neoddělují se jednoznakové předpony
+pokud je jasné složení slov z morfémů (předpona, kmen, přípona) pak se dělí podle morfémů (výjimkou jsou přípony začínající samohláskou). Slovo může mít i více předpon a přípon: např. ne-pře-mosti-tel-ný.
+\item v ostatních případech se dělí podle slabik (nikoliv však mezi samohláskami!) např. fi-lo-zo-fie
+\item v případě styku dvou a více souhlásek se dělí (kdekoliv) mezi nimi s výjimkou případů, kdy toto seskupení může stát na začátku slov (např. \UV{st}, \UV{př}, \UV{str}), kdy je vhodnější dělit před skupinou hlásek např. pe-strý (i když i dělení pes-trý a pest-rý jsou možná).
 \end{itemize}
 
-\subsubsection{Datové vrstvy v implementaci DWH}
+Detailnější pravidla naleznete například v jazykové poradně Ústavu pro jazyk český [X], doporučená dělení pro konkrétní slova můžete nalézt například ve Wikislovníku.
 
-DWH z pravidla obsahuje:
+Pokud k vertikálnímu přetečení dochází často, je možné lokálně či globálně (tj. v tzv preambuli) dát sázecímu algoritmu více volnosti. Nejvhodnější je použití balíku \textit{microtype}, který zapíná další možnosti po vyrovnání sazby např. drobné změny v šířce písmen. Navíc se tím aktivuje tzv. optické zarovnávání (vpravo), kdy je jemně porušeno přesné zarovnání za účelem vyrovnání optického klamu (např. řádka zakončená tečkou se při přesném zarovnání jeví jako kratší). Méně vhodné, je použitá příkazu \verb!\sloppy!, které zvyšuje toleranci algoritmu. Výsledkem tak může být odstranění některých přetečení, za cenu příliš velkých mezer mezi slovy (efekt je podobný MS Wordu).
 
-\begin{itemize}
-    \item \textbf{Staging Area:}
-    Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+Z tohoto důvodů je v šabloně bakalářské práce vložen balík  \textit{microtype}, ale příkaz \verb!\sloppy! je využit pouze v rámci seznamu literatury, kde je správné zarovnávání komplikované (především při použití dlouhých URL).
 
-    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
-    Hlavní vrstva organizovaná dle Kimballova modelu (tedy Datový Mart pro tuto analytickou doménu). Skládá se z:
-    \begin{enumerate}
-        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
-        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}, viz \texttt{bilina\_kamery\_staging\_to\_fact.py}).
-    \end{enumerate}
+\LaTeX se snaží i o vertikální zarovnání tj. udržování stejného horního a dolního okraje. Zatímco v případě horního okraje je zarovnání zcela přirozené, může zarovnání dole vést k problémům. Aby ho bylo dosaženo musí totiž LateX roztahovat tzv. pružné vertikální mezery např. mezery před a za nadpisy sekcí, před plovoucími objekty, apod.
 
-    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
-    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
-\end{itemize}
+Takových míst je ale často na stránkách málo a tak se to nemusí vůbec podařit resp. se použije neakceptovatelná vertikální výplň. 
 
-\subsubsection{Datové vrstvy v implementaci DWH}
-
-Základní vrstvy DWH, které odrážejí tok dat ve Vašich ETL skriptech, jsou:
-
-\begin{itemize}
-    \item \textbf{Vrstva získávání/Staging (\textit{Staging Area}):}
-    Slouží jako dočasné úložiště, kam jsou data přenesena po jejich transformaci a čištění z Datového jezera. V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
-
-    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
-    Hlavní vrstva organizovaná dle Kimballova modelu. Skládá se z:
-    \begin{enumerate}
-        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
-        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}).
-    \end{enumerate}
-
-    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
-    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
-\end{itemize}
-
-\subsubsection{Použité technologie pro DWH}
-
-Mezi nejpoužívanější technologie pro datové sklady patří relační databáze jako \textbf{PostgreSQL} s rozšířením \textbf{TimescaleDB} (využívané pro ukládání časových řad, jak je patrné z \texttt{pg-warehouse}) nebo \textbf{Microsoft SQL Server} (využívaný ve Vašich ETL skriptech). Pro extrémně rychlé analytické dotazy se používají sloupcově orientované databáze, jako je \textbf{ClickHouse} (viditelné v \texttt{docker-compose2.yml}).
-\subsection{OLAP technologie}
-OLAP (\emph{Online Analytical Processing}) představuje způsob zpracování dat, který umožňuje rychlé multidimenzionální analýzy. Uživatelé mohou data zkoumat podle různých dimenzí – například času, lokality nebo typu senzoru.
-Rozlišují se tři základní typy OLAP řešení:
-\begin{itemize}
-    \item \textbf{MOLAP (Multidimensional OLAP)} – využívá vlastní vícerozměrnou datovou strukturu, která poskytuje vysoký výkon při agregacích, avšak vyžaduje větší prostor a přípravu dat.
-    \item \textbf{ROLAP (Relational OLAP)} – staví přímo na relační databázi, je flexibilní a snadněji škálovatelný.
-    \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou přístupů, často používaný v moderních datových skladech.
-\end{itemize}
-
-Pro implementaci OLAP vrstev existují nástroje jako Apache Kylin, Mondrian (součást Pentaho), Microsoft Analysis Services nebo ClickHouse s podporou agregací v reálném čase. V kontextu platformy Portabo jsou tyto technologie využívány pro tvorbu tabulek typu \emph{Fact} a \emph{Dimension}, které slouží pro následnou analýzu provozních dat z kamerových systémů.
-
-\section{Nástroje Business Intelligence}
-
-\subsection{Nástroje pro vizualizaci a analýzu dat}
-
-Vizualizace dat představuje klíčovou část procesu Business Intelligence (BI). Umožňuje uživatelům rychle pochopit trendy, vztahy a odchylky v datech.
-
-K nejrozšířenějším nástrojům patří:
-\begin{itemize}
-    \item \textbf{Open-source řešení:} Grafana, Apache Superset, Metabase, Redash – nabízejí integraci s většinou databázových systémů a jsou vhodné pro interaktivní dashboardy.
-    \item \textbf{Komerční řešení:} Microsoft Power BI, Tableau, Qlik Sense – poskytují rozšířené funkce pro datovou transformaci, prediktivní analýzy a sdílení výstupů v rámci organizace.
-\end{itemize}
-
-Důležitými kritérii při výběru vizualizačního nástroje jsou:
-\begin{enumerate}
-    \item Uživatelská přívětivost a intuitivní rozhraní,
-    \item Podpora přímého připojení na datový sklad nebo OLAP vrstvu,
-    \item Možnost automatizace a plánování aktualizací dat,
-    \item Licenční model a celkové náklady na provoz (TCO).
-\end{enumerate}
+Nejjednoduššší řešením je příkaz \verb!\raggedbottom!, jenž zarovnání dole vypíná. Nevznikají tak enormně velké horizontální mezery, chybějící zarovnání je však často rušivé hlavně u vedlejších
+stran u oboustranného tisku. V praxi se však ukazuje, že u závěrečných prací  je závažnějším nedostatkem nadměrné roztahování a proto je \verb!\raggedbottom! v této šabloně použit (na konci preambule), lze jej však přirozeně smazat či zakomentovat.
 
 
-\section{Přehled a charakteristika využitých technologií}
-
-
-\chapter{Praktická část}
-
-\section{Návrh metodiky porovnání}
-\section{Příprava dat a návrh datového skladu}
-\section{Provedení srovnávací analýzy}
-\section{Zhodnocení výsledků}
+\chapter{Grafika}
 
 \chapter{Sazba ukázek kódu}
 

@@ -1,9 +1,0 @@
-[0] Config.pm:328> INFO - This is Biber 2.21
-[0] Config.pm:331> INFO - Logfile is 'ki-thesis.blg'
-[137] biber-MSWIN64:342> INFO - === 
-[174] Biber.pm:421> INFO - Reading 'ki-thesis.bcf'
-[299] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
-[315] bbl.pm:676> INFO - Writing 'ki-thesis.bbl' with encoding 'UTF-8'
-[316] bbl.pm:779> INFO - Output to ki-thesis.bbl
-[316] Biber.pm:132> WARN - The file 'ki-thesis.bcf' does not contain any citations!
-[316] Biber.pm:134> INFO - WARNINGS: 1
