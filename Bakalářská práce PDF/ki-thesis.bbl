@@ -16,5 +16,231 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{kimball2013data}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=8cf15abcc88f6bc7e10a3631d0d6809a}{%
+           family={Kimball},
+           familyi={K\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=34c71683b788404aa20108237d71b54e}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{fullhash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{fullhashraw}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{bibnamehash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{authorbibnamehash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{authornamehash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{authorfullhash}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{authorfullhashraw}{4efec2b54e186da4b163ee5f2f643afb}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling}
+      \field{year}{2013}
+    \endentry
+    \entry{inmon2005building}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=5bfe0de53ac3256b1a056d46b49b5f50}{%
+           family={Inmon},
+           familyi={I\bibinitperiod},
+           given={W.\bibnamedelimi H.},
+           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{fullhash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{fullhashraw}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{bibnamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{authorbibnamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{authornamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{authorfullhash}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \strng{authorfullhashraw}{5bfe0de53ac3256b1a056d46b49b5f50}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Building the Data Warehouse}
+      \field{year}{2005}
+    \endentry
+    \entry{chaudhuri1997overview}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=c6c9e3dd7e36e0f0428d4ba7a5f924a8}{%
+           family={Chaudhuri},
+           familyi={C\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9611693c603b14e486069bc01969622f}{%
+           family={Dayal},
+           familyi={D\bibinitperiod},
+           given={U.},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{fullhash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{fullhashraw}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{bibnamehash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{authorbibnamehash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{authornamehash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{authorfullhash}{8452a99ecc2883f7ace52df5d6a003cb}
+      \strng{authorfullhashraw}{8452a99ecc2883f7ace52df5d6a003cb}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM SIGMOD Record}
+      \field{number}{1}
+      \field{title}{An overview of data warehousing and OLAP technology}
+      \field{volume}{26}
+      \field{year}{1997}
+      \field{pages}{65\bibrangedash 74}
+      \range{pages}{10}
+    \endentry
+    \entry{clickhouse2023doc}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f50d5fcd28062d75fa29c879e3c213df}{%
+           family={{ClickHouse Inc.}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{fullhash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{fullhashraw}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{bibnamehash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{authorbibnamehash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{authornamehash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{authorfullhash}{f50d5fcd28062d75fa29c879e3c213df}
+      \strng{authorfullhashraw}{f50d5fcd28062d75fa29c879e3c213df}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{ClickHouse Documentation}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://clickhouse.com/docs
+      \endverb
+      \verb{url}
+      \verb https://clickhouse.com/docs
+      \endverb
+    \endentry
+    \entry{etl2022airflow}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=8b499b5be8914246b406785e1327dbb3}{%
+           family={{Apache Software Foundation}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
+      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Airflow Documentation}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://airflow.apache.org/docs/
+      \endverb
+      \verb{url}
+      \verb https://airflow.apache.org/docs/
+      \endverb
+    \endentry
+    \entry{microsoft2023powerbi}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
+           family={{Microsoft Corporation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Microsoft Power BI Documentation}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/power-bi
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/power-bi
+      \endverb
+    \endentry
+    \entry{cubejs2023docs}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=1b55fb95539a6022f3b2e5dcb0e82529}{%
+           family={{Cube Dev Inc.}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{fullhash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{fullhashraw}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{bibnamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{authorbibnamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{authornamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{authorfullhash}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \strng{authorfullhashraw}{1b55fb95539a6022f3b2e5dcb0e82529}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Cube.js Documentation}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://cube.dev/docs
+      \endverb
+      \verb{url}
+      \verb https://cube.dev/docs
+      \endverb
+    \endentry
+    \entry{gartner2023bi}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=8a839d961528cdf48a9400380ff79e7f}{%
+           family={Research},
+           familyi={R\bibinitperiod},
+           given={Gartner},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{fullhash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{fullhashraw}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{bibnamehash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{authorbibnamehash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{authornamehash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{authorfullhash}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{authorfullhashraw}{8a839d961528cdf48a9400380ff79e7f}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Gartner Magic Quadrant for Analytics and Business Intelligence Platforms}
+      \field{year}{2023}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

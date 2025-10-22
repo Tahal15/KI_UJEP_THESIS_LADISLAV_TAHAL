@@ -2,8 +2,8 @@
 \contentsline {chapter}{\nonumberline Úvod}{13}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Přehled současného stavu problematiky}{15}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
-\contentsline {section}{\numberline {1.2}přehled současných open-source a komerčních řešení}{15}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{15}{section.1.3}%
+\contentsline {section}{\numberline {1.2}Přehled současných open-source a komerčních řešení}{16}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{16}{section.1.3}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{17}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{17}{section.2.1}%
 \contentsline {subsection}{\nonumberline Datové jezero}{17}{subsection*.4}%
@@ -36,7 +36,15 @@
 \contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{34}{subsection*.34}%
 \contentsline {chapter}{\numberline {6}Zhodnocení}{37}{chapter.6}%
 \contentsline {chapter}{\numberline {7}Závěr}{39}{chapter.7}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{41}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{43}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{43}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{45}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

@@ -253,22 +253,49 @@ První kapitola práce shrnuje současný stav problematiky a základní pojmy z
 
 \section{Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}
 
-Tato kapitola představuje teoretický základ práce, shrnuje klíčové poznatky o problematice datových skladů, technologiích OLAP a moderních nástrojích pro vizualizaci a analýzu dat. Cílem rešeršní části je vytvořit komplexní přehled současných trendů, architektur a dostupných open-source i komerčních řešení pro hlubší pochopení zkoumané problematiky.
+Tato kapitola poskytuje přehled současného stavu v oblasti zpracování a vizualizace dat, zejména s ohledem na datové sklady, technologie \textit{OLAP} (Online Analytical Processing) a nástroje \textit{Business Intelligence}. Jejím cílem je vymezit základní pojmy, shrnout teoretická východiska a přiblížit vývoj moderních přístupů k analýze dat, které budou dále využity v praktické části práce.
 
-Základní koncepty a definice budou představeny v obecné rovině. Je důležité si uvědomit, že v praxi dochází k časté adaptaci a modifikaci těchto logických konceptů, ať už vlivem firemních specifik, nebo dynamickým vývojem v segmentu IT. Vznik hybridních systémů, které kombinují různé metodiky a přístupy, je běžným jevem a odráží snahu o tvorbu systémů na míru, které efektivně reflektují specifické potřeby organizací.
+Datový sklad představuje centralizované úložiště integrovaných dat z různých zdrojů, které jsou optimalizovány pro analytické dotazy a rozhodovací procesy \cite{kimball2013data}. Jeho architektura typicky zahrnuje vrstvy \textit{landing}, \textit{staging} a \textit{presentation}, přičemž data jsou v průběhu zpracování transformována, očišťována a agregována do tvaru vhodného pro analýzu. V praxi se nejčastěji využívá hvězdicové nebo sněhové schéma, v němž jsou fakta propojena s dimenzemi \cite{inmon2005building}.
 
+Technologie OLAP umožňují nad těmito strukturami provádět vícerozměrné analýzy a poskytují nástroje pro rychlé dotazování, agregaci a interaktivní průzkum dat \cite{chaudhuri1997overview}. Typické operace zahrnují \textit{drill-down}, \textit{roll-up}, \textit{slice} a \textit{dice}, které umožňují uživateli analyzovat data z různých pohledů.
 
+Rozvoj cloudových a open-source platforem v posledním desetiletí zásadně proměnil způsob práce s daty. Klasické relační systémy, jako je Microsoft SQL Server či Oracle, doplňují nové sloupcové databáze jako \textit{ClickHouse} nebo \textit{Amazon Redshift}, které nabízejí vysoký výkon při práci s velkými objemy dat \cite{clickhouse2023doc}. V oblasti zpracování dat (ETL/ELT) jsou stále častěji využívány nástroje jako Apache Airflow nebo Python skripty umožňující automatizované dávkové zpracování \cite{etl2022airflow}.
 
+Nástroje pro vizualizaci dat tvoří klíčovou část analytických procesů, protože umožňují převést složitá datová zjištění do intuitivní grafické podoby. Mezi nejpoužívanější komerční nástroje patří Power BI od společnosti Microsoft nebo Tableau, zatímco mezi open-source alternativy patří Grafana, Apache Superset či Cube.js \cite{microsoft2023powerbi, cubejs2023docs}. Jejich společným cílem je zpřístupnit datovou analýzu i uživatelům bez hlubších IT znalostí.
 
-% \subsection{Podsekce}
-% Podsekce se už používají méně často a běžně se vyskytují i dále nečleněné sekce. Nejsou číslovány a nejsou zobrazeny v obsahu. Rozsah by měl být alespoň dva odstavce.
+Shrnutím lze říci, že oblast datové analytiky dnes spojuje více disciplín – databázové systémy, datové inženýrství a interaktivní vizualizaci – které dohromady tvoří komplexní ekosystém pro rozhodovací procesy v organizacích.
 
-%\subsubsection{Podpodsekce}
-%Podpodsekce se používají jen velmi zřídka, typicky jen u kapitol či sekcí popisující systémy s výraznou hierarchií. Tvořeny mohou být i jediným odstavcem (nikoliv však ale jedinou řádku, zde zvažte spíš použití definičního výčtu).
+\section{Přehled současných open-source a komerčních řešení}
 
-\section{přehled současných open-source a komerčních řešení}
+V současné době existuje široká škála nástrojů pro správu, zpracování a vizualizaci dat, které se liší nejen funkcionalitou, ale i licenčním modelem. V této části jsou stručně porovnány vybrané open-source a komerční technologie z pohledu jejich technických vlastností, možností integrace a ekonomických nároků.
+
+\begin{table}[h!]
+\centering
+\caption{Porovnání open-source a komerčních řešení pro datovou analytiku}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Kategorie} & \textbf{Open-source řešení} & \textbf{Komerční řešení} \\ \hline
+Datové sklady & ClickHouse, PostgreSQL (TimescaleDB) & MS SQL Server, Snowflake \\ \hline
+ETL/ELT nástroje & Python, Apache Airflow & SSIS, Azure Data Factory \\ \hline
+Vizualizace & Cube.js, Grafana, Apache Superset & Power BI, Tableau \\ \hline
+\end{tabular}
+\end{table}
+
+Open-source nástroje se vyznačují nižšími náklady na pořízení a vysokou flexibilitou. Umožňují přímý přístup ke zdrojovému kódu a jsou vhodné pro experimentální i produkční prostředí, kde je klíčová možnost přizpůsobení konkrétním potřebám. Jejich nevýhodou bývá omezená oficiální podpora a vyšší nároky na technické znalosti uživatelů.
+
+Naopak komerční nástroje nabízejí jednotné prostředí, kvalitní dokumentaci a integraci s ostatními produkty, často za cenu licenčních poplatků. Power BI, jakožto jeden z nejrozšířenějších BI nástrojů, poskytuje uživatelsky přívětivé rozhraní, automatické připojení k datovým zdrojům a možnost publikace reportů v cloudovém prostředí \cite{microsoft2023powerbi}.  
+
+Z technického pohledu se open-source platformy, jako je ClickHouse, stále více přibližují komerčním řešením výkonem i funkčností, což z nich činí reálnou alternativu pro podnikové využití \cite{clickhouse2023doc}.  
 
 \section{Analýza trendů v implementaci}
+
+V posledních letech lze v oblasti datové analytiky pozorovat několik zásadních trendů. Jedním z nich je přechod od klasických \textit{on-premise} řešení k cloudovým platformám, které umožňují snadné škálování výkonu, úsporu nákladů a zjednodušenou správu infrastruktury \cite{gartner2023bi}.  
+
+Dalším trendem je rostoucí důraz na \textit{self-service BI}, kdy si uživatelé mohou sami vytvářet analýzy bez nutnosti zásahu IT odborníků. To přispívá k demokratizaci dat a zrychlení rozhodovacích procesů.  
+
+Velký význam získává také integrace reálného času (\textit{real-time analytics}), která umožňuje okamžitou reakci na události, a využití metod strojového učení pro prediktivní analýzy.  
+
+V rámci práce bude tato teoretická část dále konfrontována s praktickým testováním vybraných open-source a komerčních technologií implementovaných na datové platformě Portabo.  
 
 \chapter{Teoretická část}
 
