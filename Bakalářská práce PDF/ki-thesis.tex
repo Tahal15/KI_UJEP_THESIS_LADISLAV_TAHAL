@@ -253,130 +253,54 @@ První kapitola práce shrnuje současný stav problematiky a základní pojmy z
 
 \section{Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}
 
-Tato kapitola přináší přehled současného stavu v oblasti zpracování, ukládání a vizualizace dat. Cílem je zmapovat, jak jsou dnes řešeny datové platformy určené pro analytické účely, jaké nástroje se používají v praxi a jaké trendy určují směr vývoje v oblasti datové analytiky.
+Tato kapitola poskytuje přehled současného stavu v oblasti zpracování a vizualizace dat, zejména s ohledem na datové sklady, technologie \textit{OLAP} (Online Analytical Processing) a nástroje \textit{Business Intelligence}. Jejím cílem je vymezit základní pojmy, shrnout teoretická východiska a přiblížit vývoj moderních přístupů k analýze dat, které budou dále využity v praktické části práce.
 
-\subsection{Datové sklady a vývoj analytických databází}
+Datový sklad představuje centralizované úložiště integrovaných dat z různých zdrojů, které jsou optimalizovány pro analytické dotazy a rozhodovací procesy \cite{kimball2013data}. Jeho architektura typicky zahrnuje vrstvy \textit{landing}, \textit{staging} a \textit{presentation}, přičemž data jsou v průběhu zpracování transformována, očišťována a agregována do tvaru vhodného pro analýzu. V praxi se nejčastěji využívá hvězdicové nebo sněhové schéma, v němž jsou fakta propojena s dimenzemi \cite{inmon2005building}.
 
-Datové sklady a technologie OLAP patří k dlouhodobě stabilním základům datové analytiky. Již několik desetiletí tvoří klíčovou infrastrukturu pro zpracování a konsolidaci dat z různých zdrojů, přičemž jejich architektura se neustále vyvíjí s ohledem na rostoucí objem dat a potřebu vyšší výpočetní efektivity.
+Technologie OLAP umožňují nad těmito strukturami provádět vícerozměrné analýzy a poskytují nástroje pro rychlé dotazování, agregaci a interaktivní průzkum dat \cite{chaudhuri1997overview}. Typické operace zahrnují \textit{drill-down}, \textit{roll-up}, \textit{slice} a \textit{dice}, které umožňují uživateli analyzovat data z různých pohledů.
 
-Původně byly analytické systémy budovány nad relačními databázemi, jako jsou \emph{Microsoft SQL Server}, \emph{Oracle Database} nebo \emph{IBM DB2}. Tyto systémy dominovaly zejména podnikovému prostředí a poskytovaly základní podporu pro tvorbu datových skladů. Postupně se však začala prosazovat specializovaná řešení určená přímo pro analytické zpracování velkých objemů dat.
+Rozvoj cloudových a open-source platforem v posledním desetiletí zásadně proměnil způsob práce s daty. Klasické relační systémy, jako je Microsoft SQL Server či Oracle, doplňují nové sloupcové databáze jako \textit{ClickHouse} nebo \textit{Amazon Redshift}, které nabízejí vysoký výkon při práci s velkými objemy dat \cite{clickhouse2023doc}. V oblasti zpracování dat (ETL/ELT) jsou stále častěji využívány nástroje jako Apache Airflow nebo Python skripty umožňující automatizované dávkové zpracování \cite{etl2022airflow}.
 
-Moderní analytické databáze, jako jsou \emph{ClickHouse}, \emph{Snowflake}, \emph{Amazon Redshift} či \emph{Google BigQuery}, využívají kolumnární uložení dat, paralelní zpracování a škálovatelnou cloudovou architekturu \cite{clickhouse2023unbundling,priebe2022datawarehouse}. Výhodou těchto systémů je možnost provádět rozsáhlé analytické dotazy v reálném čase a minimalizovat potřebu předběžných agregací. Vedle komerčních řešení se rozvíjí i open-source alternativy, které kombinují vysoký výkon s nízkými náklady na provoz – například \emph{ClickHouse} či \emph{Apache Druid}.
+Nástroje pro vizualizaci dat tvoří klíčovou část analytických procesů, protože umožňují převést složitá datová zjištění do intuitivní grafické podoby. Mezi nejpoužívanější komerční nástroje patří Power BI od společnosti Microsoft nebo Tableau, zatímco mezi open-source alternativy patří Grafana, Apache Superset či Cube.js \cite{microsoft2023powerbi, cubejs2023docs}. Jejich společným cílem je zpřístupnit datovou analýzu i uživatelům bez hlubších IT znalostí.
 
-\subsection{OLAP technologie a analytické přístupy}
+Shrnutím lze říci, že oblast datové analytiky dnes spojuje více disciplín – databázové systémy, datové inženýrství a interaktivní vizualizaci – které dohromady tvoří komplexní ekosystém pro rozhodovací procesy v organizacích.
 
-OLAP technologie zůstávají jedním z hlavních způsobů, jak efektivně analyzovat a agregovat data pro potřeby rozhodování. Tradiční přístupy založené na předpočítaných datových kostkách jsou dnes doplňovány flexibilnějšími modely, které umožňují ad-hoc analýzy nad velkými datovými sadami.
+\section{Přehled současných open-source a komerčních řešení}
 
-V současnosti lze pozorovat trend integrace OLAP funkcionality přímo do datových skladů. Například platformy jako \emph{Snowflake}, \emph{ClickHouse} nebo \emph{PostgreSQL} s rozšířením \emph{TimescaleDB} umožňují analytické dotazování bez nutnosti samostatné OLAP vrstvy \cite{clickhouse2023unbundling}. Výsledkem je zjednodušená architektura a nižší náklady na údržbu.
+V současné době existuje široká škála nástrojů pro správu, zpracování a vizualizaci dat, které se liší nejen funkcionalitou, ale i licenčním modelem. V této části jsou stručně porovnány vybrané open-source a komerční technologie z pohledu jejich technických vlastností, možností integrace a ekonomických nároků.
 
-OLAP se zároveň posouvá směrem k real-time zpracování, kde je možné kombinovat streamovaná a historická data. Tento přístup umožňuje okamžitou reakci na události, což je zásadní například v oblasti IoT, průmyslového monitoringu nebo dopravní analýzy.
+\begin{table}[h!]
+\centering
+\caption{Porovnání open-source a komerčních řešení pro datovou analytiku}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Kategorie} & \textbf{Open-source řešení} & \textbf{Komerční řešení} \\ \hline
+Datové sklady & ClickHouse, PostgreSQL (TimescaleDB) & MS SQL Server, Snowflake \\ \hline
+ETL/ELT nástroje & Python, Apache Airflow & SSIS, Azure Data Factory \\ \hline
+Vizualizace & Cube.js, Grafana, Apache Superset & Power BI, Tableau \\ \hline
+\end{tabular}
+\end{table}
 
-\subsection{Nástroje pro vizualizaci a business intelligence}
+Open-source nástroje se vyznačují nižšími náklady na pořízení a vysokou flexibilitou. Umožňují přímý přístup ke zdrojovému kódu a jsou vhodné pro experimentální i produkční prostředí, kde je klíčová možnost přizpůsobení konkrétním potřebám. Jejich nevýhodou bývá omezená oficiální podpora a vyšší nároky na technické znalosti uživatelů.
 
-Vizualizační a BI nástroje představují uživatelskou vrstvu datové analytiky. Umožňují nejen tvorbu reportů a dashboardů, ale i interaktivní průzkum dat bez nutnosti znalosti programování.
+Naopak komerční nástroje nabízejí jednotné prostředí, kvalitní dokumentaci a integraci s ostatními produkty, často za cenu licenčních poplatků. Power BI, jakožto jeden z nejrozšířenějších BI nástrojů, poskytuje uživatelsky přívětivé rozhraní, automatické připojení k datovým zdrojům a možnost publikace reportů v cloudovém prostředí \cite{microsoft2023powerbi}.  
 
-Na trhu existuje široké spektrum nástrojů, od komerčních platforem po open-source řešení. Mezi nejpoužívanější komerční systémy patří \emph{Microsoft Power BI}, \emph{Tableau} a \emph{Qlik Sense}. Tyto produkty nabízejí komplexní ekosystém pro tvorbu vizualizací, datových modelů a propojení s různými datovými zdroji.
-
-Z open-source nástrojů se výrazně prosadily \emph{Apache Superset}, \emph{Grafana} a \emph{Metabase}, které poskytují flexibilní možnosti přizpůsobení, automatizace a integrace. Zajímavým směrem vývoje je i koncept tzv. \emph{sémantické vrstvy} (\emph{semantic layer}), reprezentovaný například frameworkem \emph{Cube.js}, který umožňuje firmám zpřístupnit datový sklad i uživatelům bez hluboké znalosti SQL. \cite{cube2024semantic,heyayush2023cubeintro,datasemlayer2023medium}.
-
-
-\section{Přehled současných open-source a komerčních ekosystémů}
-
-V současné době existuje řada komplexních ekosystémů určených pro správu, zpracování a analýzu dat. Tyto ekosystémy zpravidla zahrnují nástroje pro integraci dat (ETL/ELT), datové sklady, OLAP vrstvy a vizualizační rozhraní. Cílem této části je poskytnout rešeršní přehled nejrozšířenějších komerčních a open-source řešení, která se využívají při budování datových platforem v podnicích i ve veřejné sféře.
-
-\subsection{Microsoft Data Platform (MS SQL, SSIS, SSAS, Power BI)}
-
-Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších a nejrozšířenějších řešení pro podnikové zpracování a analýzu dat. Jeho základ tvoří \emph{Microsoft SQL Server}, který funguje jako relační databázový systém s podporou datového skladu. Pro procesy integrace a transformace dat je využíván modul \emph{SQL Server Integration Services} (SSIS), jenž umožňuje efektivní ETL/ELT zpracování z různých zdrojů \cite{mssql2024overview}.  
-
-Analytická nadstavba \emph{SQL Server Analysis Services} (SSAS) poskytuje OLAP a tabulární modely, které umožňují definovat hierarchie, metriky a předpočítané agregace. Vizuální vrstvu pak tvoří \emph{Power BI}, nástroj pro tvorbu reportů, interaktivních dashboardů a samoobslužnou analytiku \cite{powerbi2024docs}.  
-
-Silnou stránkou tohoto ekosystému je jeho vzájemná provázanost – od správy dat přes analytické modely až po prezentaci. Díky hluboké integraci s prostředím \emph{Microsoft Azure} lze tento systém provozovat v hybridní nebo plně cloudové architektuře (např. \emph{Azure Synapse Analytics}, \emph{Fabric}). Nevýhodou může být proprietární charakter a závislost na licenční politice Microsoftu.
-
-\subsection{Google Cloud Data Analytics (BigQuery, Dataflow, Looker Studio)}
-
-Společnost Google nabízí ucelený cloudový ekosystém zaměřený na masivně paralelní zpracování dat a škálovatelnou analytiku. Jeho jádro tvoří \emph{Google BigQuery}, kolumnární databázový systém optimalizovaný pro analytické dotazy nad rozsáhlými datovými sadami \cite{bigquery2024docs}.  
-
-Datové toky je možné zpracovávat pomocí nástrojů \emph{Dataflow} (pro stream a batch processing) a \emph{Dataprep} (pro datové čištění). Vizualizační vrstvu představuje \emph{Looker Studio} (dříve \emph{Google Data Studio}), které umožňuje vytvářet interaktivní dashboardy a reporty propojené přímo s BigQuery či dalšími zdroji.  
-
-Ekosystém Google se vyznačuje vysokou úrovní automatizace, integrací s nástroji pro strojové učení (např. \emph{Vertex AI}) a dostupností v rámci pay-as-you-go modelu. Na druhé straně je určen převážně pro cloudové prostředí, což může být limitující pro organizace preferující on-premise infrastrukturu.
-
-\subsection{Amazon Web Services (AWS Analytics Stack)}
-
-Dalším významným hráčem je společnost Amazon, jejíž cloudová platforma \emph{Amazon Web Services} (AWS) nabízí rozsáhlý ekosystém pro datové inženýrství a analytiku. Klíčovou roli zde zastává \emph{Amazon Redshift} – cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.  
-
-Doplňkové služby jako \emph{AWS Glue} umožňují automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting. AWS zároveň podporuje integraci s open-source systémy, například \emph{Apache Spark} (prostřednictvím \emph{EMR}) nebo \emph{Presto}.  
-
-Výhodou AWS je modularita – jednotlivé komponenty lze kombinovat podle potřeb projektu. Slabinou může být větší komplexita nastavení a vyšší provozní náklady při rozsáhlém využívání více služeb současně.
-
-\subsection{Open-source datové ekosystémy (modulární přístup)}
-
-Na rozdíl od komerčních platforem, které nabízejí uzavřená a plně integrovaná řešení, jsou open-source datové ekosystémy založeny na principu modularity. Jednotlivé komponenty – databázové systémy, nástroje pro modelování dat, semantické vrstvy a vizualizační rozhraní – lze často volně kombinovat a integrovat podle potřeb konkrétního projektu. Tento přístup umožňuje vysokou míru flexibility a přizpůsobení architektury bez závislosti na jednom dodavateli.
-
-Typickým příkladem je kombinace relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) používané jako datový sklad, s nadřazenou semantickou vrstvou v podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky, dimenze a vztahy mezi tabulkami a umožňují jednotnou logiku pro přístup k datům napříč celým analytickým systémem \cite{cube2024semantic,dbt2024semanticlayer}.  
-
-Nad touto vrstvou je pak možné postavit vizualizační a analytické prostředí, které interpretuje modelovaná data do uživatelsky přívětivé podoby. V praxi se často používají nástroje jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana}, které se dokážou k semantické vrstvě připojit přímo pomocí SQL nebo prostřednictvím API \cite{superset2024docs,metabase2024overview}.  
-
-Tento modulární přístup umožňuje organizacím skládat vlastní analytickou platformu „na míru“ – například kombinaci \emph{MariaDB} pro uložení dat, \emph{Cube.js} pro definici logiky a metrik a \emph{Superset} pro vizualizaci výsledků.  
-
-Výhodou těchto řešení je transparentnost, možnost úprav zdrojového kódu a nezávislost na licenčních poplatcích. Slabinou může být potřeba vyšší technické znalosti při konfiguraci a údržbě systému, zejména při integraci více komponent od různých vývojářů. Přesto jsou open-source datové ekosystémy v praxi stále častěji využívány – zejména v akademickém prostředí, start-upech a menších organizacích, které preferují flexibilitu a kontrolu nad celým datovým procesem.
-
-\subsection{Hybridní a vícevrstvá řešení}
-
-Moderní datové prostředí se často neomezuje na jediný ekosystém. V praxi je běžné kombinovat open-source a komerční komponenty – například provozovat \emph{MariaDB}, \emph{PostgreSQL} či \emph{ClickHouse} jako datový sklad a nad nimi využívat vizualizační nástroje typu \emph{Power BI} nebo \emph{Tableau}.  
-
-Tento přístup umožňuje organizacím optimalizovat náklady a současně využít výhod obou světů – otevřenost a flexibilitu open-source řešení v kombinaci s uživatelským komfortem a technickou podporou komerčních platforem.  
-
-V posledních letech lze v oblasti datové analytiky pozorovat trend tzv. \emph{composable data stack}, tedy modulární architektury, která umožňuje skládat jednotlivé komponenty platformy podle konkrétních potřeb projektu \cite{priebe2022datawarehouse}. Namísto používání jednoho monolitického systému organizace kombinují specializované nástroje – například \emph{dbt} pro transformaci dat, \emph{Cube.js} jako sémantickou vrstvu a \emph{Superset} nebo \emph{Power BI} pro vizualizaci.  
-
-Tento přístup přináší vyšší míru škálovatelnosti a nezávislosti na jednom dodavateli, což umožňuje reagovat na technologické změny a rozšiřovat platformu o nové nástroje.  
-
-Stejně jako u čistě open-source ekosystémů však i hybridní architektury narážejí na problém vyšší technické složitosti. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich odlišných licenčních modelů, způsobů autentizace a řízení přístupu. Zatímco open-source řešení bývají náročná na konfiguraci a údržbu, hybridní přístup přidává další vrstvu komplexity v podobě nutnosti zajištění kompatibility mezi komerčními a otevřenými systémy.  
-
-Pro úspěšnou implementaci hybridního modelu je proto klíčová standardizace rozhraní, pečlivé řízení verzí a využití integračních nástrojů, které umožňují monitorovat a spravovat datové toky napříč prostředím. Pokud jsou tyto výzvy zvládnuty, může hybridní architektura představovat efektivní kompromis mezi nákladovou efektivitou open-source řešení a robustní podporou komerčních platforem.
-
-\clearpage
+Z technického pohledu se open-source platformy, jako je ClickHouse, stále více přibližují komerčním řešením výkonem i funkčností, což z nich činí reálnou alternativu pro podnikové využití \cite{clickhouse2023doc}.  
 
 \section{Analýza trendů v implementaci}
 
-V posledních letech dochází v oblasti implementace datových platforem a systémů pro analýzu dat k významným změnám. Tyto změny jsou důsledkem rostoucích požadavků na rychlost zpracování, automatizaci a dostupnost analytických nástrojů i mimo oblast IT.  
-Současný vývoj ukazuje posun od uzavřených, monolitických řešení směrem k otevřeným, modulárním a škálovatelným architekturám, které umožňují flexibilnější integraci technologií a snadnější rozšiřování podle potřeb organizace \cite{amazon2019datawarehouse,databricks2024modernstack}.
+V posledních letech lze v oblasti datové analytiky pozorovat několik zásadních trendů. Jedním z nich je přechod od klasických \textit{on-premise} řešení k cloudovým platformám, které umožňují snadné škálování výkonu, úsporu nákladů a zjednodušenou správu infrastruktury \cite{gartner2023bi}.  
 
-\subsection{Automatizace a ELT přístup}
+Dalším trendem je rostoucí důraz na \textit{self-service BI}, kdy si uživatelé mohou sami vytvářet analýzy bez nutnosti zásahu IT odborníků. To přispívá k demokratizaci dat a zrychlení rozhodovacích procesů.  
 
-Jedním z hlavních trendů posledních let je přechod od tradičního přístupu \emph{ETL} (Extract–Transform–Load) k modernějšímu konceptu \emph{ELT} (Extract–Load–Transform).  
-Transformace dat se tak přesouvá z úrovně samostatných procesů do samotného datového skladu, který disponuje dostatečným výkonem pro jejich zpracování. Tento přístup zjednodušuje datové toky, zvyšuje jejich transparentnost a umožňuje verzování datových modelů.  
-Rozšířené je využití nástrojů jako \emph{dbt}, \emph{Apache Airflow} nebo \emph{Fivetran}, které podporují automatizované a reprodukovatelné datové pipeline.  
+Velký význam získává také integrace reálného času (\textit{real-time analytics}), která umožňuje okamžitou reakci na události, a využití metod strojového učení pro prediktivní analýzy.  
 
-\subsection{Cloudová infrastruktura a škálovatelnost}
-
-Cloudové technologie se staly standardem pro moderní datové platformy díky své flexibilitě, dostupnosti a ekonomickému modelu \emph{pay-as-you-go}.  
-Platformy jako \emph{Snowflake}, \emph{Google BigQuery}, \emph{Amazon Redshift} či \emph{Azure Synapse} umožňují dynamicky přizpůsobovat výkon podle aktuálních potřeb.  
-Open-source komunita reaguje podobně – vznikají cloudové varianty nástrojů, například \emph{ClickHouse Cloud} nebo \emph{Timescale Cloud}, které kombinují otevřenost s jednoduchostí správy.  
-
-Roste i využívání tzv. \emph{hybridních cloudových modelů}, které kombinují lokální a cloudové komponenty. Tento přístup umožňuje citlivá data uchovávat v on-premise prostředí, zatímco výpočetně náročné úlohy lze provádět v cloudu.  
-
-\subsection{Datová governance a kvalita dat}
-
-S rostoucím objemem dat získává na významu jejich správa, kvalita a dohledatelnost. Moderní přístupy kladou důraz na principy \emph{data governance}, které zahrnují řízení přístupových práv, dokumentaci datových toků (\emph{data lineage}) a sledování kvality dat.  
-K rozšířeným nástrojům patří například \emph{Apache Atlas}, \emph{Amundsen} či \emph{DataHub}, které umožňují centralizovanou správu metadat.  
-V komerční sféře pak obdobné funkce zajišťují systémy jako \emph{Microsoft Purview} nebo \emph{Collibra}.  
-Implementace těchto principů je klíčová nejen z hlediska efektivity, ale i souladu s legislativními požadavky, například GDPR nebo ISO 27001.
-
-\subsection{LLM}
-
-V posledních letech lze zároveň pozorovat výrazný rozvoj velkých jazykových modelů (LLM, \emph{Large Language Models}) a jejich integraci do analytických platforem prostřednictvím aplikačních rozhraní (API). Tento trend se nachází ve fázi intenzivního vývoje, avšak již nyní naznačuje značný potenciál pro zjednodušení interakce s datovými systémy.  
-
-Například společnost Google nabízí volně dostupné rozhraní \emph{Gemini API}, které umožňuje vývoj aplikací schopných převádět přirozený jazyk uživatele do analytických dotazů. V kombinaci s knihovnami, jako je \emph{PyAudio} (pro zpracování hlasového vstupu) či \emph{Pyadomd} (pro komunikaci s Microsoft SQL Server Analysis Services), lze vytvářet aplikace, které interpretují hlasové požadavky uživatele a transformují je do odpovídajících dotazů nad datovým skladem.  
-
-Díky těmto technologiím se stává reálným scénář, v němž uživatel zadá systémům požadavek v přirozeném jazyce, například: „Zjisti, kolik tun papíru bylo vyrobeno za poslední týden,“ a následně obdrží okamžitou odpověď bez nutnosti manuální práce s dashboardy či reporty. Po dosažení dostatečné spolehlivosti a bezpečnosti mohou podobná řešení zásadně ovlivnit způsob, jakým uživatelé pracují s datovými platformami a nástroji Business Intelligence.  
-
+V rámci práce bude tato teoretická část dále konfrontována s praktickým testováním vybraných open-source a komerčních technologií implementovaných na datové platformě Portabo.  
 
 \chapter{Teoretická část}
 
-Tato kapitola se zaměřuje na teoretické vymezení klíčových pojmů a principů, které tvoří základ pro praktickou část práce.  
-Cílem je popsat architekturu moderních datových platforem, jejich vrstvy a související technologie využívané pro ukládání, zpracování a analýzu dat.  
-Pozornost je věnována především konceptům \textit{Datového jezera}, \textit{Datového skladu} a \textit{OLAP} technologií, které představují jádro analytických systémů.  
-Součástí kapitoly je také přehled nástrojů Business Intelligence a teoretické vymezení \textit{sémantické vrstvy}, která propojuje datový sklad s prezentační částí platformy a umožňuje jednotnou interpretaci dat napříč organizací.
+Při tvorbě bakalářské práce byste měli dodržovat základní zásady typografie. Bakalářská práce by měla být přehledná a dobře čitelná. A možná i krásná (uvědomuji si, že krása je subjektivní).
+
 \section{Úvod do problematiky datových skladů a OLAP}
 
 \subsection{Datové jezero}
@@ -490,30 +414,9 @@ Rozlišují se tři základní typy OLAP řešení:
     \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou přístupů, často používaný v moderních datových skladech.
 \end{itemize}
 
-Pro implementaci OLAP vrstev existují nástroje jako Apache Kylin, Mondrian (součást Pentaho), Microsoft Analysis Services nebo ClickHouse s podporou agregací v reálném čase.  
-
-\subsection{Sémantická vrstva}
-
-\textbf{Sémantická vrstva} (\textit{Semantic Layer}) představuje logickou nadstavbu nad datovým skladem, jejímž hlavním cílem je sjednotit přístup k datům napříč celou organizací.  
-Slouží jako prostředník mezi technickou strukturou databáze a uživatelskými nástroji Business Intelligence.  
-Namísto přímé práce s databázovými tabulkami umožňuje uživatelům přistupovat k datům prostřednictvím předdefinovaných metrik, dimenzí a vztahů, které odpovídají obchodní logice organizace.  
-
-Tímto způsobem sémantická vrstva abstrahuje technické detaily a umožňuje vytváření analytických dotazů bez nutnosti znalosti SQL či fyzického modelu dat.  
-V praxi tento koncept implementují moderní frameworky jako \emph{Cube.js}, \emph{dbt Semantic Layer} nebo \emph{Looker Semantic Model}, které poskytují rozhraní pro standardizovaný přístup k datům prostřednictvím API nebo SQL proxy \cite{cube2024semantic,dbt2024semanticlayer,looker2024semanticmodel}.  
-
-K hlavním přínosům sémantické vrstvy patří:
-\begin{itemize}
-    \item \textbf{Konzistence metrik a výpočtů:} Veškeré reporty a dashboardy využívají jednotně definované ukazatele, čímž se eliminuje riziko rozdílné interpretace dat.
-    \item \textbf{Zjednodušení analytické práce:} Uživatelé mohou tvořit vizualizace nebo reporty bez nutnosti znalosti komplexní struktury DWH.
-    \item \textbf{Zvýšení výkonu a bezpečnosti:} Sémantická vrstva často zajišťuje cachování a řízení přístupů na úrovni obchodních objektů, což zlepšuje odezvu systému a kontrolu nad daty.
-\end{itemize}
-
-Z pohledu architektury datových platforem tak sémantická vrstva představuje klíčový prvek mezi datovým skladem a vizualizační vrstvou, který propojuje technologickou přesnost s obchodní srozumitelností.
-
+Pro implementaci OLAP vrstev existují nástroje jako Apache Kylin, Mondrian (součást Pentaho), Microsoft Analysis Services nebo ClickHouse s podporou agregací v reálném čase. V kontextu platformy Portabo jsou tyto technologie využívány pro tvorbu tabulek typu \emph{Fact} a \emph{Dimension}, které slouží pro následnou analýzu provozních dat z kamerových systémů.
 
 \section{Nástroje Business Intelligence}
-
-
 
 \subsection{Nástroje pro vizualizaci a analýzu dat}
 
