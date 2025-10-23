@@ -2,40 +2,75 @@
 \contentsline {chapter}{\nonumberline Úvod}{13}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Přehled současného stavu problematiky}{15}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Přehled současných open-source a komerčních řešení}{16}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{16}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Teoretická část}{17}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{17}{section.2.1}%
-\contentsline {subsection}{\nonumberline Datové jezero}{17}{subsection*.4}%
-\contentsline {subsection}{\nonumberline Datový sklad}{18}{subsection*.6}%
-\contentsline {subsubsection}{\nonumberline Datové modely}{19}{subsubsection*.8}%
-\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{19}{subsubsection*.10}%
-\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{19}{subsubsection*.12}%
-\contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{20}{subsubsection*.14}%
-\contentsline {subsection}{\nonumberline OLAP technologie}{20}{subsection*.16}%
-\contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{21}{section.2.2}%
-\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a analýzu dat}{21}{subsection*.18}%
-\contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{21}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Praktická část}{23}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{23}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{23}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{23}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Zhodnocení výsledků}{23}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{25}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{27}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{28}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{29}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{30}{subsection*.20}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{31}{subsection*.22}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{32}{subsection*.24}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{33}{subsection*.26}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{33}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{33}{subsection*.28}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{34}{subsection*.30}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{34}{subsection*.32}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{34}{subsection*.34}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{37}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{39}{chapter.7}%
+\contentsline {subsection}{\nonumberline Datové sklady a vývoj analytických databází}{15}{subsection*.4}%
+\contentsline {subsection}{\nonumberline OLAP technologie a analytické přístupy}{15}{subsection*.6}%
+\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a business intelligence}{16}{subsection*.8}%
+\contentsline {section}{\numberline {1.2}Přehled současných open-source a komerčních ekosystémů}{16}{section.1.2}%
+\contentsline {subsection}{\nonumberline Microsoft Data Platform (MS SQL, SSIS, SSAS, Power BI)}{16}{subsection*.10}%
+\contentsline {subsection}{\nonumberline Google Cloud Data Analytics (BigQuery, Dataflow, Looker Studio)}{17}{subsection*.12}%
+\contentsline {subsection}{\nonumberline Amazon Web Services (AWS Analytics Stack)}{17}{subsection*.14}%
+\contentsline {subsection}{\nonumberline Open-source datové ekosystémy (modulární přístup)}{18}{subsection*.16}%
+\contentsline {subsection}{\nonumberline Hybridní a vícevrstvá řešení}{18}{subsection*.18}%
+\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{20}{section.1.3}%
+\contentsline {subsection}{\nonumberline Automatizace a ELT přístup}{20}{subsection*.20}%
+\contentsline {subsection}{\nonumberline Cloudová infrastruktura a škálovatelnost}{20}{subsection*.22}%
+\contentsline {subsection}{\nonumberline Datová governance a kvalita dat}{20}{subsection*.24}%
+\contentsline {subsection}{\nonumberline LLM}{21}{subsection*.26}%
+\contentsline {chapter}{\numberline {2}Teoretická část}{23}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{23}{section.2.1}%
+\contentsline {subsection}{\nonumberline Datové jezero}{23}{subsection*.28}%
+\contentsline {subsection}{\nonumberline Datový sklad}{24}{subsection*.30}%
+\contentsline {subsubsection}{\nonumberline Datové modely}{26}{subsubsection*.32}%
+\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{26}{subsubsection*.34}%
+\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{26}{subsubsection*.36}%
+\contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{27}{subsubsection*.38}%
+\contentsline {subsection}{\nonumberline OLAP technologie}{27}{subsection*.40}%
+\contentsline {subsection}{\nonumberline Sémantická vrstva}{28}{subsection*.42}%
+\contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{28}{section.2.2}%
+\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a analýzu dat}{28}{subsection*.44}%
+\contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{29}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Praktická část}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{31}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{31}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{31}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Zhodnocení výsledků}{31}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{33}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Citace}{35}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Označování citací}{36}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bibliografický záznam}{37}{section.5.2}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{38}{subsection*.46}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{39}{subsection*.48}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{40}{subsection*.50}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{41}{subsection*.52}%
+\contentsline {section}{\numberline {5.3}Často kladené otázky}{41}{section.5.3}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{41}{subsection*.54}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{42}{subsection*.56}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{42}{subsection*.58}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{42}{subsection*.60}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{45}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{47}{chapter.7}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -45,6 +80,6 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{43}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{45}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{51}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{53}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

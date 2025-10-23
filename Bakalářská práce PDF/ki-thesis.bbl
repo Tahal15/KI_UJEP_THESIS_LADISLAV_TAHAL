@@ -19,151 +19,179 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
-    \entry{kimball2013data}{book}{}{}
-      \name{author}{2}{}{%
-        {{hash=8cf15abcc88f6bc7e10a3631d0d6809a}{%
-           family={Kimball},
-           familyi={K\bibinitperiod},
-           given={R.},
-           giveni={R\bibinitperiod}}}%
-        {{hash=34c71683b788404aa20108237d71b54e}{%
-           family={Ross},
-           familyi={R\bibinitperiod},
-           given={M.},
-           giveni={M\bibinitperiod}}}%
+    \entry{clickhouse2023unbundling}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=0e760cb10e6e2d448195eec8c40a0799}{%
+           family={Bragin},
+           familyi={B\bibinitperiod},
+           given={Tanya},
+           giveni={T\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Wiley}%
+      \list{organization}{1}{%
+        {ClickHouse Inc.}%
       }
-      \strng{namehash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{fullhash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{fullhashraw}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{bibnamehash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{authorbibnamehash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{authornamehash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{authorfullhash}{4efec2b54e186da4b163ee5f2f643afb}
-      \strng{authorfullhashraw}{4efec2b54e186da4b163ee5f2f643afb}
+      \strng{namehash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{fullhash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{fullhashraw}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{bibnamehash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{authorbibnamehash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{authornamehash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{authorfullhash}{0e760cb10e6e2d448195eec8c40a0799}
+      \strng{authorfullhashraw}{0e760cb10e6e2d448195eec8c40a0799}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling}
-      \field{year}{2013}
+      \field{month}{11}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{The Unbundling of the Cloud Data Warehouse}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://clickhouse.com/blog/the-unbundling-of-the-cloud-data-warehouse
+      \endverb
+      \verb{url}
+      \verb https://clickhouse.com/blog/the-unbundling-of-the-cloud-data-warehouse
+      \endverb
     \endentry
-    \entry{inmon2005building}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=5bfe0de53ac3256b1a056d46b49b5f50}{%
-           family={Inmon},
-           familyi={I\bibinitperiod},
-           given={W.\bibnamedelimi H.},
-           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+    \entry{priebe2022datawarehouse}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=1f13c759645c795c19ee6c3559488137}{%
+           family={Priebe},
+           familyi={P\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9aabe7235b5cda4ebcca85f21cf40b60}{%
+           family={Neumaier},
+           familyi={N\bibinitperiod},
+           given={Sebastian},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c90fd1ea8de65c85c9600f3ad608d544}{%
+           family={Markus},
+           familyi={M\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Wiley}%
-      }
-      \strng{namehash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{fullhash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{fullhashraw}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{bibnamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{authorbibnamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{authornamehash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{authorfullhash}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \strng{authorfullhashraw}{5bfe0de53ac3256b1a056d46b49b5f50}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \strng{namehash}{b532b10adcd88978459b62de3c74677a}
+      \strng{fullhash}{b532b10adcd88978459b62de3c74677a}
+      \strng{fullhashraw}{b532b10adcd88978459b62de3c74677a}
+      \strng{bibnamehash}{b532b10adcd88978459b62de3c74677a}
+      \strng{authorbibnamehash}{b532b10adcd88978459b62de3c74677a}
+      \strng{authornamehash}{b532b10adcd88978459b62de3c74677a}
+      \strng{authorfullhash}{b532b10adcd88978459b62de3c74677a}
+      \strng{authorfullhashraw}{b532b10adcd88978459b62de3c74677a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Building the Data Warehouse}
-      \field{year}{2005}
+      \field{journaltitle}{arXiv preprint arXiv:2212.03612}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Von Data Warehouse bis Data Mesh: Ein Wegweiser durch den Dschungel analytischer Datenarchitekturen}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2212.03612
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2212.03612
+      \endverb
     \endentry
-    \entry{chaudhuri1997overview}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=c6c9e3dd7e36e0f0428d4ba7a5f924a8}{%
-           family={Chaudhuri},
-           familyi={C\bibinitperiod},
-           given={S.},
-           giveni={S\bibinitperiod}}}%
-        {{hash=9611693c603b14e486069bc01969622f}{%
-           family={Dayal},
-           familyi={D\bibinitperiod},
-           given={U.},
-           giveni={U\bibinitperiod}}}%
+    \entry{cube2024semantic}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d56385057972c3da1508479126895fe5}{%
+           family={{Cube.dev Team}},
+           familyi={C\bibinitperiod}}}%
       }
-      \strng{namehash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{fullhash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{fullhashraw}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{bibnamehash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{authorbibnamehash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{authornamehash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{authorfullhash}{8452a99ecc2883f7ace52df5d6a003cb}
-      \strng{authorfullhashraw}{8452a99ecc2883f7ace52df5d6a003cb}
+      \list{organization}{1}{%
+        {Cube.dev}%
+      }
+      \strng{namehash}{d56385057972c3da1508479126895fe5}
+      \strng{fullhash}{d56385057972c3da1508479126895fe5}
+      \strng{fullhashraw}{d56385057972c3da1508479126895fe5}
+      \strng{bibnamehash}{d56385057972c3da1508479126895fe5}
+      \strng{authorbibnamehash}{d56385057972c3da1508479126895fe5}
+      \strng{authornamehash}{d56385057972c3da1508479126895fe5}
+      \strng{authorfullhash}{d56385057972c3da1508479126895fe5}
+      \strng{authorfullhashraw}{d56385057972c3da1508479126895fe5}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{ACM SIGMOD Record}
-      \field{number}{1}
-      \field{title}{An overview of data warehousing and OLAP technology}
-      \field{volume}{26}
-      \field{year}{1997}
-      \field{pages}{65\bibrangedash 74}
-      \range{pages}{10}
+      \field{month}{8}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Semantic Layer and AI: The Future of Data Querying with Natural Language}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://cube.dev/blog/semantic-layer-and-ai-the-future-of-data-querying-with-natural-language
+      \endverb
+      \verb{url}
+      \verb https://cube.dev/blog/semantic-layer-and-ai-the-future-of-data-querying-with-natural-language
+      \endverb
     \endentry
-    \entry{clickhouse2023doc}{misc}{}{}
+    \entry{heyayush2023cubeintro}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=f50d5fcd28062d75fa29c879e3c213df}{%
-           family={{ClickHouse Inc.}},
-           familyi={C\bibinitperiod}}}%
+        {{hash=09dc287bfcc671ac2adde8cc626b552b}{%
+           family={Sharma},
+           familyi={S\bibinitperiod},
+           given={Ayush},
+           giveni={A\bibinitperiod}}}%
       }
-      \strng{namehash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{fullhash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{fullhashraw}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{bibnamehash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{authorbibnamehash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{authornamehash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{authorfullhash}{f50d5fcd28062d75fa29c879e3c213df}
-      \strng{authorfullhashraw}{f50d5fcd28062d75fa29c879e3c213df}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \strng{namehash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{fullhash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{fullhashraw}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{bibnamehash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{authorbibnamehash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{authornamehash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{authorfullhash}{09dc287bfcc671ac2adde8cc626b552b}
+      \strng{authorfullhashraw}{09dc287bfcc671ac2adde8cc626b552b}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{ClickHouse Documentation}
+      \field{month}{2}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Introduction to Cube.js – The Semantic Layer for Building Data Apps}
       \field{year}{2023}
       \verb{urlraw}
-      \verb https://clickhouse.com/docs
+      \verb https://heyayush.com/post/2023-02-22_cube-js
       \endverb
       \verb{url}
-      \verb https://clickhouse.com/docs
+      \verb https://heyayush.com/post/2023-02-22_cube-js
       \endverb
     \endentry
-    \entry{etl2022airflow}{misc}{}{}
+    \entry{datasemlayer2023medium}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=8b499b5be8914246b406785e1327dbb3}{%
-           family={{Apache Software Foundation}},
-           familyi={A\bibinitperiod}}}%
+        {{hash=40a6734718bff4d9bdf520750726df2a}{%
+           family={Gebrim},
+           familyi={G\bibinitperiod},
+           given={Josue\bibnamedelima Luzardo},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
       }
-      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \list{organization}{1}{%
+        {Medium}%
+      }
+      \strng{namehash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{fullhash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{fullhashraw}{40a6734718bff4d9bdf520750726df2a}
+      \strng{bibnamehash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{authorbibnamehash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{authornamehash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{authorfullhash}{40a6734718bff4d9bdf520750726df2a}
+      \strng{authorfullhashraw}{40a6734718bff4d9bdf520750726df2a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Apache Airflow Documentation}
-      \field{year}{2022}
+      \field{month}{3}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Cube: Creating a Semantic Data Layer!}
+      \field{year}{2023}
       \verb{urlraw}
-      \verb https://airflow.apache.org/docs/
+      \verb https://medium.com/codex/cube-creating-a-semantic-data-layer-a947fd0c11f6
       \endverb
       \verb{url}
-      \verb https://airflow.apache.org/docs/
+      \verb https://medium.com/codex/cube-creating-a-semantic-data-layer-a947fd0c11f6
       \endverb
     \endentry
-    \entry{microsoft2023powerbi}{misc}{}{}
+    \entry{mssql2024overview}{online}{}{}
       \name{author}{1}{}{%
         {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
            family={{Microsoft Corporation}},
@@ -177,68 +205,289 @@
       \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
       \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
       \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
+      \field{extraname}{1}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Microsoft SQL Server Overview}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/
+      \endverb
+    \endentry
+    \entry{powerbi2024docs}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
+           family={{Microsoft Corporation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
+      \field{extraname}{2}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Power BI Documentation}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/power-bi/
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/power-bi/
+      \endverb
+    \endentry
+    \entry{bigquery2024docs}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=57f3af2a3d1051c172ab3c3db7d5409d}{%
+           family={{Google Cloud}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{fullhash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{fullhashraw}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{bibnamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{authorbibnamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{authornamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{authorfullhash}{57f3af2a3d1051c172ab3c3db7d5409d}
+      \strng{authorfullhashraw}{57f3af2a3d1051c172ab3c3db7d5409d}
       \field{sortinit}{6}
       \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Microsoft Power BI Documentation}
-      \field{year}{2023}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{BigQuery Documentation}
+      \field{year}{2024}
       \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/power-bi
+      \verb https://cloud.google.com/bigquery/docs/
       \endverb
       \verb{url}
-      \verb https://learn.microsoft.com/en-us/power-bi
+      \verb https://cloud.google.com/bigquery/docs/
       \endverb
     \endentry
-    \entry{cubejs2023docs}{misc}{}{}
+    \entry{redshift2024overview}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=1b55fb95539a6022f3b2e5dcb0e82529}{%
-           family={{Cube Dev Inc.}},
-           familyi={C\bibinitperiod}}}%
+        {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
+           family={{Amazon Web Services}},
+           familyi={A\bibinitperiod}}}%
       }
-      \strng{namehash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{fullhash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{fullhashraw}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{bibnamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{authorbibnamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{authornamehash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{authorfullhash}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \strng{authorfullhashraw}{1b55fb95539a6022f3b2e5dcb0e82529}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \strng{namehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{fullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{fullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{bibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorbibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authornamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorfullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorfullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Cube.js Documentation}
-      \field{year}{2023}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Amazon Redshift Overview}
+      \field{year}{2024}
       \verb{urlraw}
-      \verb https://cube.dev/docs
+      \verb https://aws.amazon.com/redshift/
       \endverb
       \verb{url}
-      \verb https://cube.dev/docs
+      \verb https://aws.amazon.com/redshift/
       \endverb
     \endentry
-    \entry{gartner2023bi}{report}{}{}
+    \entry{dbt2024semanticlayer}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=8a839d961528cdf48a9400380ff79e7f}{%
-           family={Research},
-           familyi={R\bibinitperiod},
-           given={Gartner},
-           giveni={G\bibinitperiod}}}%
+        {{hash=22ff9be0746331cd14a49b056da5518b}{%
+           family={{dbt Labs}},
+           familyi={d\bibinitperiod}}}%
       }
-      \strng{namehash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{fullhash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{fullhashraw}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{bibnamehash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{authorbibnamehash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{authornamehash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{authorfullhash}{8a839d961528cdf48a9400380ff79e7f}
-      \strng{authorfullhashraw}{8a839d961528cdf48a9400380ff79e7f}
+      \strng{namehash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{fullhash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{fullhashraw}{22ff9be0746331cd14a49b056da5518b}
+      \strng{bibnamehash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{authorbibnamehash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{authornamehash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{authorfullhash}{22ff9be0746331cd14a49b056da5518b}
+      \strng{authorfullhashraw}{22ff9be0746331cd14a49b056da5518b}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{dbt Semantic Layer Documentation}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl
+      \endverb
+      \verb{url}
+      \verb https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl
+      \endverb
+    \endentry
+    \entry{superset2024docs}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=8b499b5be8914246b406785e1327dbb3}{%
+           family={{Apache Software Foundation}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
+      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
       \field{sortinit}{9}
       \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Gartner Magic Quadrant for Analytics and Business Intelligence Platforms}
-      \field{year}{2023}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Apache Superset Documentation}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://superset.apache.org/docs/
+      \endverb
+      \verb{url}
+      \verb https://superset.apache.org/docs/
+      \endverb
+    \endentry
+    \entry{metabase2024overview}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=3a4f3127b2885e4bf694e49c65be36f3}{%
+           family={{Metabase Inc.}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{fullhash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{fullhashraw}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{bibnamehash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{authorbibnamehash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{authornamehash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{authorfullhash}{3a4f3127b2885e4bf694e49c65be36f3}
+      \strng{authorfullhashraw}{3a4f3127b2885e4bf694e49c65be36f3}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Metabase Open Source Business Intelligence}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.metabase.com/
+      \endverb
+      \verb{url}
+      \verb https://www.metabase.com/
+      \endverb
+    \endentry
+    \entry{amazon2019datawarehouse}{online}{}{}
+      \name{author}{2}{}{%
+        {{hash=4d7e5f784bb5801c23c91ba37ed2649d}{%
+           family={Services},
+           familyi={S\bibinitperiod},
+           given={Amazon\bibnamedelima Web},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=ae8171792265a02e4b236a97f6adf3a5}{%
+           family={Talend},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Amazon Web Services}%
+      }
+      \strng{namehash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{fullhash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{fullhashraw}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{bibnamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{authorbibnamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{authornamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{authorfullhash}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{authorfullhashraw}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Data Warehouse Modernization: From Monolith to Modular}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://pages.awscloud.com/rs/112-TZM-766/images/GLOBAL_PTNR_STPM_DWM_Talend_eBook_Aug-2019.pdf
+      \endverb
+      \verb{url}
+      \verb https://pages.awscloud.com/rs/112-TZM-766/images/GLOBAL_PTNR_STPM_DWM_Talend_eBook_Aug-2019.pdf
+      \endverb
+    \endentry
+    \entry{databricks2024modernstack}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=4e3f864ba9cf3c62d471e1c62414d098}{%
+           family={Databricks},
+           familyi={D\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Databricks}%
+      }
+      \strng{namehash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{fullhash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{fullhashraw}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{bibnamehash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{authorbibnamehash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{authornamehash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{authorfullhash}{4e3f864ba9cf3c62d471e1c62414d098}
+      \strng{authorfullhashraw}{4e3f864ba9cf3c62d471e1c62414d098}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{The Modern Data Stack: How the Evolution of Data Architecture Led to the Data Intelligence Platform}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
+      \endverb
+      \verb{url}
+      \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
+      \endverb
+    \endentry
+    \entry{looker2024semanticmodel}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=b4e595bd8646c01df540ff38696a35be}{%
+           family={Cloud},
+           familyi={C\bibinitperiod},
+           given={Google},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Google LLC}%
+      }
+      \strng{namehash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{fullhash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{fullhashraw}{b4e595bd8646c01df540ff38696a35be}
+      \strng{bibnamehash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{authorbibnamehash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{authornamehash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{authorfullhash}{b4e595bd8646c01df540ff38696a35be}
+      \strng{authorfullhashraw}{b4e595bd8646c01df540ff38696a35be}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Looker Semantic Model — Unifying Business Logic for Data Experiences}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://cloud.google.com/looker/docs/semantic-model-overview
+      \endverb
+      \verb{url}
+      \verb https://cloud.google.com/looker/docs/semantic-model-overview
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

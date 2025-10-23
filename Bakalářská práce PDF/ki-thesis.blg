@@ -1,14 +1,28 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'ki-thesis.blg'
-[95] biber-MSWIN64:342> INFO - === 
-[136] Biber.pm:421> INFO - Reading 'ki-thesis.bcf'
-[219] Biber.pm:1002> INFO - Found 8 citekeys in bib section 0
-[230] Biber.pm:4487> INFO - Processing section 0
-[239] Biber.pm:4678> INFO - Looking for bibtex file 'thesis.bib' for section 0
-[293] bibtex.pm:1713> INFO - LaTeX decoding ...
-[300] bibtex.pm:1519> INFO - Found BibTeX data source 'thesis.bib'
-[341] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
-[341] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[341] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'cs-CZ'
-[349] bbl.pm:676> INFO - Writing 'ki-thesis.bbl' with encoding 'UTF-8'
-[353] bbl.pm:779> INFO - Output to ki-thesis.bbl
+[118] biber-MSWIN64:342> INFO - === 
+[154] Biber.pm:421> INFO - Reading 'ki-thesis.bcf'
+[284] Biber.pm:1002> INFO - Found 15 citekeys in bib section 0
+[301] Biber.pm:4487> INFO - Processing section 0
+[313] Biber.pm:4678> INFO - Looking for bibtex file 'thesis.bib' for section 0
+[370] bibtex.pm:1713> INFO - LaTeX decoding ...
+[417] bibtex.pm:1519> INFO - Found BibTeX data source 'thesis.bib'
+[517] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[517] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[517] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'cs-CZ'
+[532] bbl.pm:676> INFO - Writing 'ki-thesis.bbl' with encoding 'UTF-8'
+[540] bbl.pm:779> INFO - Output to ki-thesis.bbl
+[540] Biber.pm:132> WARN - Duplicate entry key: 'powerbi2024docs' in file 'thesis.bib', skipping ...
+[540] Biber.pm:132> WARN - Duplicate entry key: 'superset2024docs' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'grafana2024docs' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'cube2024semantic' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'superset2024docs' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'metabase2024overview' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'grafana2024docs' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'cube2024semantic' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - Duplicate entry key: 'dbt2024semanticlayer' in file 'thesis.bib', skipping ...
+[541] Biber.pm:132> WARN - legacy month field 'Nov' in entry 'clickhouse2023unbundling' is not an integer - this will probably not sort properly.
+[541] Biber.pm:132> WARN - legacy month field 'Aug' in entry 'cube2024semantic' is not an integer - this will probably not sort properly.
+[541] Biber.pm:132> WARN - legacy month field 'Feb' in entry 'heyayush2023cubeintro' is not an integer - this will probably not sort properly.
+[541] Biber.pm:132> WARN - legacy month field 'Mar' in entry 'datasemlayer2023medium' is not an integer - this will probably not sort properly.
+[541] Biber.pm:134> INFO - WARNINGS: 13
