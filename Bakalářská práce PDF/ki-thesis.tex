@@ -10,7 +10,7 @@
 
 \documentclass[male,czech,api_bc]{kitheses}
 \usepackage{ifthen}
-
+\usepackage{enumitem}
 \usepackage{amsmath,amssymb}
 \usepackage{graphics}
 \usepackage{color}
@@ -18,6 +18,11 @@
 \usepackage{longtable}
 \usepackage{afterpage}
 \usepackage{microtype}  % přesnější typografie
+\usepackage[utf8]{inputenc}       % UTF-8 kódování
+\usepackage[T1]{fontenc}          % české znaky
+\usepackage{graphicx}             % práce s obrázky
+\usepackage[space]{grffile}       % umožní mezery a diakritiku v cestě
+\usepackage{epstopdf}             % pro případ EPS → PDF
 
 % workaround for imcompatibility of czech babel and biblatex
 \makeatletter
@@ -482,15 +487,23 @@ Základní vrstvy DWH, které odrážejí tok dat ve Vašich ETL skriptech, jsou
 
 Mezi nejpoužívanější technologie pro datové sklady patří relační databáze jako \textbf{PostgreSQL} s rozšířením \textbf{TimescaleDB} (využívané pro ukládání časových řad, jak je patrné z \texttt{pg-warehouse}) nebo \textbf{Microsoft SQL Server} (využívaný ve Vašich ETL skriptech). Pro extrémně rychlé analytické dotazy se používají sloupcově orientované databáze, jako je \textbf{ClickHouse} (viditelné v \texttt{docker-compose2.yml}).
 \subsection{OLAP technologie}
-OLAP (\emph{Online Analytical Processing}) představuje způsob zpracování dat, který umožňuje rychlé multidimenzionální analýzy. Uživatelé mohou data zkoumat podle různých dimenzí – například času, lokality nebo typu senzoru.
-Rozlišují se tři základní typy OLAP řešení:
+
+OLAP (\emph{Online Analytical Processing}) představuje přístup ke zpracování dat, který umožňuje provádět rychlé analytické dotazy nad velkými objemy informací.  
+Základní myšlenkou OLAP je možnost pohledu na data z více dimenzí – typicky podle času, lokality, zařízení, typu senzoru nebo jiných analytických kritérií.  
+Tento princip umožňuje uživatelům provádět tzv. \emph{slice and dice} operace, tj. analyzovat data z různých perspektiv, agregovat je nebo filtrovat v reálném čase.
+
+Rozlišují se tři tradiční typy OLAP řešení:
 \begin{itemize}
-    \item \textbf{MOLAP (Multidimensional OLAP)} – využívá vlastní vícerozměrnou datovou strukturu, která poskytuje vysoký výkon při agregacích, avšak vyžaduje větší prostor a přípravu dat.
-    \item \textbf{ROLAP (Relational OLAP)} – staví přímo na relační databázi, je flexibilní a snadněji škálovatelný.
-    \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou přístupů, často používaný v moderních datových skladech.
+    \item \textbf{MOLAP (Multidimensional OLAP)} – pracuje s vlastní vícerozměrnou strukturou dat uloženou mimo relační databázi. Tento přístup poskytuje velmi rychlé odezvy při výpočtech a agregacích díky předpočítaným datovým strukturám (tzv. \emph{cubes}), avšak vyžaduje rozsáhlejší přípravu a větší prostorové nároky.
+    \item \textbf{ROLAP (Relational OLAP)} – využívá klasickou relační databázi, nad kterou jsou definovány pohledy a agregační dotazy. Tento přístup je flexibilnější, lépe škálovatelný a umožňuje přímou práci s aktuálními daty bez nutnosti jejich předpočítávání.  
+    Moderní nástroje, jako například \textbf{Microsoft SSAS Tabular} nebo \textbf{Apache Druid}, reprezentují evoluční formu ROLAP – tzv. \textit{in-memory tabulární modely}, které kombinují relační přístup se sloupcovým uložením dat a jazykem \texttt{DAX} pro definici metrik.
+    \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou předchozích přístupů, tedy rychlé předpočítané agregace z MOLAP a flexibilitu dotazování nad detailními daty z ROLAP. Tento přístup je často využíván v moderních BI řešeních, kde se pro nejčastěji používané metriky udržují souhrnné cache.
 \end{itemize}
 
-Pro implementaci OLAP vrstev existují nástroje jako Apache Kylin, Mondrian (součást Pentaho), Microsoft Analysis Services nebo ClickHouse s podporou agregací v reálném čase.  
+Mezi nejpoužívanější nástroje pro implementaci OLAP vrstev patří například \textbf{Microsoft SQL Server Analysis Services (SSAS Tabular)} jako zástupce komerčního řešení, a z open-source prostředí pak zejména \textbf{Apache Kylin}, \textbf{Mondrian} (součást Pentaho) nebo \textbf{Cube.js}, který poskytuje moderní API pro analytické dotazy.  
+Některé databázové systémy, jako například \textbf{ClickHouse}, navíc integrují funkce OLAP přímo do svého jádra, což umožňuje provádět agregace v reálném čase bez nutnosti vytvářet samostatnou analytickou vrstvu.
+
+V současnosti je trendem přechod od klasických multidimenzionálních modelů k tabulárním řešením, která nabízejí vyšší flexibilitu, lepší integraci s nástroji pro vizualizaci dat a nižší nároky na údržbu datového modelu.
 
 \subsection{Sémantická vrstva}
 
@@ -539,10 +552,233 @@ Důležitými kritérii při výběru vizualizačního nástroje jsou:
 
 \chapter{Praktická část}
 
+Praktická část této práce se zaměřuje na návrh, implementaci a ověření metodiky pro srovnání open-source a komerčních nástrojů využitelných pro analýzu a vizualizaci dat na datové platformě Portabo. Cílem bylo vytvořit plně funkční datový sklad s podporou OLAP analýz, který umožňuje zpracovávat reálná data poskytovaná datovým centrem Ústeckého kraje a připravit prostředí pro následné výkonové a funkční porovnání vizualizačních nástrojů.
+
+V rámci řešení byly navrženy a implementovány datové toky, které respektují jednotnou architekturu systému složeného z vrstev \textit{datového jezera}, \textit{datového skladu(staging vrstva,dimenze,fakta)}, \textit{OLAP vrstvy} a \textit{reportingu}. Tato struktura byla zachována napříč všemi testovanými technologiemi, přičemž pro jednotlivé implementace byl použit stejný princip ETL zpracování, stejný způsob transformace a obdobné rozvržení datového modelu založeného na dimenzionálním schématu.
+
+Data využitá pro testování pocházejí převážně z datového toku města Bílina, konkrétně z MQTT témat obsahujících telemetrické údaje o kamerových detekcích vozidel. V případě implementace nad PostgreSQL/TimescaleDB byla navíc použita širší množina dat zahrnující také Wi-Fi senzory, elektrické měřiče a další zdroje. Tyto zprávy byly zpracovány pomocí implementovaných ETL procesů a uloženy do datového skladu vytvořeného nad několika databázovými technologiemi (PostgreSQL/TimescaleDB, MariaDB, Microsoft SQL Server a ClickHouse). Každá z těchto technologií představuje odlišný přístup – od komerčního řešení po výkonné open-source systémy určené pro analytické zpracování dat.
+
 \section{Návrh metodiky porovnání}
+
+Cílem metodiky porovnání je zajistit objektivní a opakovatelné vyhodnocení open-source a komerčních technologií využitelných pro analýzu a vizualizaci dat v prostředí platformy Portabo.  
+Porovnání je založeno na principech jednotného datového toku, jednotného datového modelu a shodného způsobu zpracování dat.  
+Tím je zaručeno, že rozdíly ve výsledcích budou dány samotnými vlastnostmi testovaných technologií, nikoli odlišnostmi v implementaci.
+
+Každá z porovnávaných variant byla hodnocena z následujících hledisek:
+\begin{itemize}
+  \item \textbf{Výkonové parametry} – rychlost načítání a zpracování dat, doba odezvy analytických dotazů, efektivita indexace a agregací;
+  \item \textbf{Funkční vlastnosti} – podpora OLAP analýz, kompatibilita s vizualizační vrstvou a možnosti rozšiřitelnosti;
+  \item \textbf{Uživatelská přívětivost} – náročnost správy, dostupnost nástrojů a srozumitelnost konfigurace;
+  \item \textbf{Ekonomické aspekty} – licenční politika, náklady na provoz, údržbu a škálování.
+\end{itemize}
+
+Metodika tedy určuje rámec, v němž budou jednotlivé technologie nasazeny, naplněny shodnými daty a následně testovány.  
+
+\subsection{Načtení a analýza zdrojových dat}   
+  V úvodní fázi práce byla vybrána konkrétní datová doména, nad kterou bude systém postaven. V tomto případě se jedná o kamerový systém města Bílina.  
+  Cílem bylo ověřit, zda je nejdříve možné tato data efektivně zpracovávat a následně ověřit možnosti jejich dynamického zpracování v reálném čase.
+
+  Poskytnutý \texttt{MariaDB} SQL dump obsahoval následující sloupce:  
+  \texttt{id (bigint(11))}, \texttt{time (timestamp)}, \texttt{topic (tinytext)} a \texttt{payload (text)}.  
+  Tyto údaje představovaly surová telemetrická data, původně pocházející z MQTT komunikace, která byla exportována do databázového dumpu. Tento dump sloužil jako vstupní datová sada pro analýzu a testování datového toku.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/mqttentries_structure.png}
+  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data}
+  \label{fig:mqttentries}
+\end{figure}
+
+Z obrázku je patrná struktura vstupních dat. Ze sloupce \texttt{topic} lze částečně odvodit, o jaký typ senzoru se jedná.  
+Na první pohled by se mohlo zdát, že na základě názvů témat lze vytvořit logické vazby mezi jednotlivými senzory.  
+Podrobnější analýza však ukázala, že názvy nejsou konzistentní. Například kamera z Bíliny může mít téma \texttt{/Bilina/kamery/camea/BI-TP-O2}, zatímco vodoměr je označen jednoduše \texttt{/vodomery/decin}.  
+V databázi se rovněž vyskytují senzory, které vykonávají stejnou funkci, avšak používají odlišné pojmenování. Některé dokonce uvádějí na konci názvu i měřenou veličinu, přičemž jejich JSON obsahuje pouze jedinou hodnotu.  
+
+Z těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamicky parsoval JSON struktury na základě názvů témat, není vzhledem k nekonzistenci dat reálně možné.  
+K dosažení jednotného přístupu by bylo nezbytné sjednotit pojmenování témat na úrovni zdroje.
+
+Následně byla provedena analýza samotné JSON struktury.  
+Byl zvolen přístup, který seskupoval témata do logických celků podle podobnosti jejich JSON schémat ve sloupci \texttt{payload}.  
+K tomu byl vytvořen skript \texttt{analyze\_json.py}, který využíval Jaccardovu podobnost pro porovnání struktury jednotlivých zpráv.
+
+Analýza s prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v několika atributech — pravděpodobně kvůli odlišným verzím zařízení.  
+Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
+
+Na základě výsledků byly pro další zpracování vybrány skupiny témat označené žlutě a oranžově, které vykazovaly největší logickou podobnost.
+
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/topic50.png}
+  \caption{Výstup skriptu \texttt{analyze\_json.py} – logické skupiny JSON struktur s 50\,\% Jaccardovou podobností}
+  \label{fig:topic50}
+\end{figure}
+
+\section{ETL procesy}
+
+V rámci praktické části byly navrženy a implementovány samostatné ETL skripty pro jednotlivé databázové technologie – SQL Server, MariaDB, TimescaleDB a kombinaci MariaDB s ClickHouse.  
+Každý z těchto skriptů zajišťuje přenos dat z tzv. \textit{landing zóny} (surová MQTT data) do \textit{staging vrstvy}, kde jsou data očištěna a standardizována. Následně jsou zpracovaná data přesunuta do faktové tabulky \texttt{FactCameraDetection}, která tvoří jádro analytické vrstvy systému.
+
+Všechny implementace sdílejí jednotný princip inkrementálního načítání dat. Každý běh ETL skriptu začíná načtením posledního zpracovaného identifikátoru z tabulky \texttt{ETL\_IncrementalControl} (sloupec \texttt{LastLoadedID}).  
+Tímto způsobem se při každém dalším běhu zpracovávají pouze nově přijaté zprávy. Do produkčního nasazení je vhodné zvážit také možnost periodického plného nahrání dat, které by zajistilo synchronizaci všech historických záznamů.  
+Průběh každého běhu je zapisován do tabulky \texttt{ETL\_RunLog}, kde jsou evidovány údaje jako název úlohy, čas spuštění, stav (\texttt{RUNNING}, \texttt{SUCCESS} či \texttt{FAILED}) a zpracovávaný MQTT topic. Tento přístup umožňuje transparentní správu, kontrolu historie načítání i snadnou detekci případných chyb.
+
+Data jsou zpracovávána v dávkách (tzv. \textit{batchích}), jejichž velikost je řízena parametrem \texttt{BATCH\_SIZE}. Každý skript používá databázové kurzory a příkazy \texttt{fetchmany()}, aby se minimalizovalo zatížení paměti.  
+V rámci každé dávky jsou načteny nové záznamy z tabulky \texttt{mqttentries}, která obsahuje surové MQTT zprávy.  
+Klíčovým polem v těchto datech je \texttt{payload}, obsahující JSON strukturu s detaily detekce. U většiny implementací (SQL Server, MariaDB a MariaDB+ClickHouse) je z názvu MQTT topicu navíc extrahováno město pomocí funkce \texttt{parse\_city\_from\_topic}.  
+Implementace pro TimescaleDB tuto logiku nevyužívá, jelikož její hlavní cíl spočívá v univerzálním zpracování a automatické adaptaci struktury dat bez vazby na konkrétní topologii MQTT témat.
+!! TOTO DODĚLAT !! Upravíme dle úpravy scriptu. Pravděpodobně udělám dva. Jeden na bílinu a druhý na zbytek.
+
+Následně je JSON dekódován a rozparsován na jednotlivé atributy – typ detekce, registrační značka, senzor, třída vozidla, rychlost a další hodnoty. Při zpracování dat jsou prováděny převody datových formátů (například převod časových značek nebo číselných hodnot z textu).  
+Skripty zároveň ošetřují nekorektní nebo chybějící hodnoty – \texttt{NULL}, prázdné řetězce či nevalidní JSON. Tyto hodnoty jsou nahrazovány výchozími konstantami, případně je záznam přeskočen.  
+Každý skript je obalen konstrukcí \texttt{try/except}, která zajišťuje zachycení výjimek a zapsání chybového stavu do logu běhu.  
+Všechny transakce jsou explicitně potvrzovány příkazem \texttt{commit()}, což zabraňuje částečnému načtení dat v případě přerušení.
+
+\subsection{SQL Server (\texttt{bilina\_kamery\_lake\_to\_staging.py})}
+
+ETL proces pro SQL Server využívá knihovnu \texttt{pyodbc} a ODBC ovladač. Po připojení k databázím se načte hodnota \texttt{LastLoadedID}, poté se založí záznam o běhu v tabulce \texttt{ETL\_RunLog}, přičemž identifikátor běhu (\texttt{RunID}) je okamžitě vrácen pomocí klauzule \texttt{OUTPUT inserted.RunID}.  
+Následně jsou po dávkách (10~000 záznamů) načítána data z tabulky \texttt{mqttentries}. Každý záznam je rozparsován z JSON formátu, doplněn o město extrahované z MQTT topicu a vložen do tabulky \texttt{[Stg].[CameraCamea]}.  
+Po každé úspěšné dávce je aktualizován \texttt{LastLoadedID} v tabulce kontrolních hodnot. Tento skript je doplněn o ošetření výjimek a zápis chyb do logu běhu.
+
+\subsection{MariaDB (\texttt{maria\_bilina\_kamery\_lake\_to\_staging.py})}
+
+Verze pro MariaDB je implementována pomocí knihovny \texttt{pymysql}. Logika odpovídá variantě pro SQL Server, avšak využívá syntaxi MySQL.  
+Každý běh je logován do tabulky \texttt{ETL\_RunLog} a potvrzován metodou \texttt{commit()}. Skript načítá data po dávkách o velikosti 10~000 řádků, zpracovává JSON payload, provádí datové konverze a výsledky ukládá do tabulky \texttt{Stg\_CameraCamea}.  
+Záznamy jsou validovány a doplněny o odvozené informace, například město detekce.  
+
+\subsection{TimescaleDB (\texttt{pg\_timescale\_lake\_to\_staging.py})}
+
+ETL proces pro TimescaleDB využívá pokročilou automatickou správu schématu. Pomocí funkcí \texttt{flatten\_json()} a \texttt{infer\_pg\_type()} se JSON payload rozbaluje do jednotlivých atributů a dynamicky se vytvářejí chybějící sloupce podle zjištěných datových typů (\texttt{BOOLEAN}, \texttt{BIGINT}, \texttt{DOUBLE PRECISION}, \texttt{JSONB}, \texttt{TIMESTAMPTZ} apod.).  
+Díky funkcím \texttt{ensure\_table\_and\_columns()} \newline a \texttt{ensure\_new\_columns()} není nutné znát strukturu předem – systém se adaptuje na příchozí data.  
+Vkládání probíhá dávkově pomocí \texttt{execute\_batch()}, čímž je dosaženo vysoké efektivity. Tento přístup se ukázal jako ideální v prostředí, kde se struktura MQTT zpráv často mění.  
+Na rozdíl od ostatních implementací zde není aplikována logika pro extrakci města z názvu topicu, protože tento proces se soustředí primárně na obecné zpracování různorodých JSON struktur bez závislosti na konkrétním MQTT modelu.
+
+\subsection{MariaDB + ClickHouse (\texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}
+
+Nejvýkonnější varianta ETL procesu kombinuje připojení na MariaDB (landing) a ClickHouse (staging).  
+Použitý je server-side kurzor (\texttt{SSCursor}), který umožňuje streamové načítání dat bez zatížení operační paměti. Data jsou přenášena po dávkách (5~000 řádků) a zapisována do tabulky \texttt{Stg\_CameraCamea} v ClickHouse.  
+Každý běh je logován přímo v tabulkách \texttt{ETL\_RunLog} a \texttt{ETL\_IncrementalControl} uložených v ClickHouse.  
+Z důvodu výkonu je používán binární protokol ClickHouse, který výrazně zrychluje přenos i zápis dat. Skript zároveň zahrnuje ošetření výjimek a bezpečné ukončení v případě chyby.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/MariaDW_staging.png}
+  \caption{Staging tabulka v datovém skladu}
+  \label{fig:topic50}
+\end{figure}
+
 \section{Příprava dat a návrh datového skladu}
+
+Zdrojová data byla získávána ze systému Portabo, kde jsou ukládána jako MQTT zprávy v JSON formátu. Data mi byli poskytnuty zašifrované, abychom je mohli v rámci bakalářské práce využít.
+Tyto zprávy obsahují informace o detekcích vozidel – například registrační značku, typ detekce, rychlost, město, čas a senzor. Data z vodoměrů, elektroměrů a dalších senzorů. 
+V rámci ETL procesu byla provedena tato fáze:
+
+\begin{itemize}
+  \item \textbf{Data lake:} surová data načtená přímo z MariaDB SQLDump,
+  \item \textbf{DW Staging:} očištěná, formátovaná a rozparsovaná data,
+  \item \textbf{DW Faktová tabulka:} data transformovaná do hvězdicového modelu s vazbami na dimenze.
+\end{itemize}
+
+Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a kontrolu posledního zpracovaného záznamu (\texttt{LastLoadedID}), aby bylo možné ETL proces spouštět opakovaně a inkrementálně.
+
+\section{OLAP a vizualizace}
+
+V rámci praktické části byly nad vytvořenými datovými sklady vystavěny dvě samostatné analytické vrstvy – každá odpovídající jedné z testovaných technologií.  
+Cílem bylo vytvořit funkční OLAP modely umožňující tvorbu interaktivních vizualizací, a současně porovnat rozdíly mezi komerčním řešením na platformě Microsoft SQL Server a open-source přístupem postaveným na nástroji Cube.js.
+
+\subsection{Komerční varianta – SSAS Tabular}
+
+V komerční větvi datové platformy byl vytvořen datový model v prostředí \textbf{SQL Server Analysis Services (SSAS) Tabular}.  
+Model byl vystavěn nad tabulkami \texttt{FactCameraDetection} a dimenzemi \texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}.  
+Propojení tabulek bylo definováno prostřednictvím relačních vazeb podle cizích klíčů, přičemž datový model respektuje hvězdicovou topologii (\emph{star schema}).
+
+Po načtení dat z datového skladu byla v prostředí SSAS vytvořena sada vypočítaných metrik v jazyce \texttt{DAX}.  
+Jednalo se například o:
+\begin{itemize}
+  \item \texttt{Detection Count} – celkový počet detekcí,
+  \item \texttt{Average Velocity} – průměrná rychlost vozidel (vylučující nulové hodnoty),
+  \item \texttt{Unique Plates} – počet unikátních registračních značek,
+  \item \texttt{Detections Over Time} – časová agregace počtu detekcí podle dne a hodiny.
+\end{itemize}
+
+Součástí modelu byla také implementace základních hierarchií (například \textit{Rok → Měsíc → Den}) a vybraných filtračních atributů pro přehlednější práci v Power BI.  
+Po ověření funkčnosti byl model nasazen na instanci \texttt{SSAS Tabular} a zpřístupněn uživatelům prostřednictvím \textbf{Microsoft Power BI} a \textbf{Excel PivotTables}.  
+V Power BI byly vytvořen interaktivní report zobrazující přehled detekcí podle města, typu vozidla, senzoru a času.  
+Některé metriky byly navíc doplněny o logiku pro kontrolu konzistence dat a filtrování extrémních hodnot.  
+Výhodou tohoto přístupu byla plná integrace s ekosystémem Microsoft, vysoký výkon in-memory výpočtů a možnost implementace bezpečnostních pravidel na úrovni datového modelu.
+
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/PBIreport.png}
+  \caption{Ukázka výsledného PBI reportu}
+  \label{fig:topic50}
+\end{figure}
+
+
+
+\subsection{Open-source varianta – Cube.js a Apache Superset}
+
+V open-source větvi datové platformy byla analytická vrstva implementována pomocí nástroje \textbf{Cube.js}, který byl nasazen nad databázemi \textbf{ClickHouse}, \textbf{MariaDB} a \textbf{PostgreSQL (TimescaleDB)}.  
+Cube.js v tomto řešení plnil roli mezivrstvy typu OLAP, která sjednocovala přístup k datům z různých databázových systémů a poskytovala standardizované rozhraní pro vizualizaci.
+
+Definice datového modelu byla realizována formou JavaScriptových souborů, přičemž hlavní model byl popsán v souboru \texttt{factcameradetection.js}.  
+V tomto souboru byla definována analytická kostka \texttt{FactCameraDetection}, která obsahovala popis faktové tabulky a vazby na příslušné dimenze (\texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}).  
+Součástí definice byly také klíčové metriky odpovídající komerční variantě:  
+celkový počet detekcí, průměrná rychlost, minimální a maximální rychlost, počet unikátních SPZ a počet detekcí s nenulovou rychlostí.  
+Model využíval vazby typu \texttt{JOIN} na cizí klíče a odpovídal hvězdicovému schématu použitému v datovém skladu.
+
+Po sestavení modelu byl \textbf{Cube.js} spuštěn jako samostatná \texttt{Node.js} služba, která poskytovala rozhraní typu \textbf{PostgreSQL API}.  
+Toto rozhraní umožňuje klientským aplikacím komunikovat s Cube.js stejným způsobem, jako by šlo o běžnou SQL databázi – tedy pomocí SQL dotazů.  
+Díky tomu bylo možné na Cube.js napojit nástroj \textbf{Apache Superset}, který byl použit jako hlavní vizualizační platforma open-source řešení.  
+
+V rámci Superset byly vytvořen interaktivní dashboard zobrazující klíčové metriky:  
+počty detekcí v čase, rozložení typů vozidel, přehled rychlostí.  
+Data byla načítána prostřednictvím SQL dotazů směrovaných na PostgreSQL endpoint poskytovaný Cube.js, čímž byla zajištěna kompatibilita bez nutnosti dalších úprav.  
+Pro zvýšení výkonu byly v Cube.js aktivovány funkce \textit{pre-aggregations} a \textit{query caching}, které umožňovaly ukládat výsledky často opakovaných dotazů.  
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/Supersetreport.png}
+  \caption{Ukázka výsledného Superset reportu}
+  \label{fig:topic50}
+\end{figure}
+
+
+\subsection{Porovnání přístupů}
+
+Oba přístupy poskytují plnohodnotnou OLAP analytiku, avšak liší se způsobem implementace i správy.  
+\textbf{SSAS Tabular} umožňuje centrální řízení, pokročilé DAX výpočty a přímou integraci s Power BI, což zjednodušuje nasazení ve firemním prostředí.  
+Naopak \textbf{Cube.js} nabízí flexibilitu, otevřenost a možnost úprav datového modelu přímo v kódu, což je výhodné zejména v agilním vývoji nebo při potřebě integrovat analytiku do webové aplikace.  
+
+Obě řešení tak umožnila plnohodnotnou vizualizaci a analýzu dat z detekčních systémů, přičemž volba konkrétní technologie závisí především na prostředí, infrastruktuře a požadavcích na rozšiřitelnost systému.
+
+
 \section{Provedení srovnávací analýzy}
+
+V této fázi byly implementované datové sklady naplněny daty a připojeny k vizualizační vrstvě. Pomocí nástroje \texttt{Cube.js} byla připravena sada standardizovaných dotazů, které umožní srovnání výkonu jednotlivých databází při:
+\begin{itemize}
+  \item agregacích nad časem (měsíční a hodinové sumáře),
+  \item filtrování podle města, typu detekce nebo třídy vozidla,
+  \item výpočtu metrik (průměrná rychlost, počet detekcí, počet unikátních SPZ).
+\end{itemize}
+
+Pro samotné měření a vizualizaci výsledků bude použit software poskytnutý vedoucím práce. Tento nástroj umožní jednotným způsobem zaznamenávat časy dotazů, vytížení databází a odezvu vizualizační vrstvy.
+
 \section{Zhodnocení výsledků}
+
+Na základě provedené analýzy budou jednotlivé technologie porovnány z hlediska:
+\begin{itemize}
+  \item \textbf{Technických parametrů} – výkon při dotazech, rychlost načítání dat, náročnost správy,
+  \item \textbf{Uživatelské přívětivosti} – jednoduchost integrace s nástrojem Cube.js a možnost tvorby OLAP analýz,
+  \item \textbf{Ekonomických aspektů} – licenční podmínky, náklady na provoz a škálování.
+\end{itemize}
+Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytne doporučení vhodné platformy pro využití v rámci Portabo.
+
 
 \chapter{Sazba ukázek kódu}
 

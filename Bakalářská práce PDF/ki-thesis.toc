@@ -26,29 +26,39 @@
 \contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{27}{subsubsection*.38}%
 \contentsline {subsection}{\nonumberline OLAP technologie}{27}{subsection*.40}%
 \contentsline {subsection}{\nonumberline Sémantická vrstva}{28}{subsection*.42}%
-\contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{28}{section.2.2}%
-\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a analýzu dat}{28}{subsection*.44}%
+\contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{29}{section.2.2}%
+\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a analýzu dat}{29}{subsection*.44}%
 \contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{29}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Praktická část}{31}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{31}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{31}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{31}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Zhodnocení výsledků}{31}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{33}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{35}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{36}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{37}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{38}{subsection*.46}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{39}{subsection*.48}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{40}{subsection*.50}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{41}{subsection*.52}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{41}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{41}{subsection*.54}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{42}{subsection*.56}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{42}{subsection*.58}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{42}{subsection*.60}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{45}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{47}{chapter.7}%
+\contentsline {subsection}{\nonumberline Načtení a analýza zdrojových dat}{32}{subsection*.46}%
+\contentsline {section}{\numberline {3.2}ETL procesy}{34}{section.3.2}%
+\contentsline {subsection}{\nonumberline SQL Server (\texttt {bilina\_kamery\_lake\_to\_staging.py})}{35}{subsection*.48}%
+\contentsline {subsection}{\nonumberline MariaDB (\texttt {maria\_bilina\_kamery\_lake\_to\_staging.py})}{35}{subsection*.50}%
+\contentsline {subsection}{\nonumberline TimescaleDB (\texttt {pg\_timescale\_lake\_to\_staging.py})}{35}{subsection*.52}%
+\contentsline {subsection}{\nonumberline MariaDB + ClickHouse (\texttt {maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}{36}{subsection*.54}%
+\contentsline {section}{\numberline {3.3}Příprava dat a návrh datového skladu}{36}{section.3.3}%
+\contentsline {section}{\numberline {3.4}OLAP a vizualizace}{37}{section.3.4}%
+\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{37}{subsection*.56}%
+\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{38}{subsection*.58}%
+\contentsline {subsection}{\nonumberline Porovnání přístupů}{39}{subsection*.60}%
+\contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{39}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{40}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{41}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Citace}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Označování citací}{44}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bibliografický záznam}{45}{section.5.2}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{46}{subsection*.62}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{47}{subsection*.64}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{48}{subsection*.66}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{49}{subsection*.68}%
+\contentsline {section}{\numberline {5.3}Často kladené otázky}{49}{section.5.3}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{49}{subsection*.70}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{50}{subsection*.72}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{50}{subsection*.74}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{50}{subsection*.76}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{53}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{55}{chapter.7}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -80,6 +90,6 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{51}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{53}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{59}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{61}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
