@@ -441,6 +441,14 @@ Základními modely používanými pro návrh datového skladu v rámci dimenzio
     \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
     Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
 
+    \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/star_schema.png}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
+
+  
+
+\end{figure}
     \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
     Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
 \end{itemize}
@@ -546,17 +554,52 @@ Důležitými kritérii při výběru vizualizačního nástroje jsou:
     \item Licenční model a celkové náklady na provoz (TCO).
 \end{enumerate}
 
-
 \section{Přehled a charakteristika využitých technologií}
+\label{sec:prehled_technologii}
 
+Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativní soubor technologií, které pokrývají jak komerční, tak open-source přístupy k budování datové platformy. Tato sekce poskytuje jejich stručnou teoretickou charakteristiku a popisuje jejich specifickou roli v navržené architektuře.
+
+\subsection{Microsoft SQL Server}
+Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
+
+\subsection{PostgreSQL a TimescaleDB}
+PostgreSQL je pokročilý open-source objektově-relační databázový systém s výbornou podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady (time-series data). Tato kombinace je ideální pro telemetrická data z platformy Portabo, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a efektivní kompresi dat.
+
+\subsection{ClickHouse}
+ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v reálném čase bez nutnosti rozsáhlých předagregací.
+
+\subsection{MariaDB}
+MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. V architektuře této práce slouží primárně jako \textbf{datové jezero (Data Lake)}, kde jsou ukládána surová data (např. JSON payloady z MQTT zpráv) před jejich transformací a načtením do analytických databází. Jeho role spočívá v poskytování spolehlivého úložiště pro nezpracovaná data s možností jejich následné extrakce.
+
+\subsection{Cube.js}
+Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním úkolem je abstrahovat technickou komplexitu datového skladu a poskytovat konzistentní business logiku. Definuje datové modely, metriky (measures) a dimenze pomocí JavaScriptu. Klíčovou vlastností je poskytování standardizovaného rozhraní (API), včetně emulace \textbf{PostgreSQL SQL API}. To umožňuje, aby se vizualizační nástroje (jako Apache Superset) připojovaly ke Cube.js stejným způsobem, jako by se připojovaly k běžné databázi, čímž se výrazně zjednodušuje integrace a zvyšuje výkon díky pokročilému cachování a předagregacím.
+
+\subsection{Microsoft SQL Server Analysis Services (SSAS)}
+SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a Business Intelligence. V této práci je využíván jeho \textbf{Tabulární model (Tabular Model)}, který funguje jako \textit{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k Cube.js, poskytující podobnou sémantickou vrstvu s pokročilými možnostmi bezpečnosti, správy a hlubokou integrací s nástroji Microsoft ekosystému.
+
+\subsection{Apache Superset}
+Apache Superset je moderní open-source platforma pro vizualizaci dat a business intelligence. Umožňuje snadné připojení k široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a intuitivní tvorbu interaktivních dashboardů a reportů. V této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a customizaci.
+
+\subsection{Microsoft Power BI}
+Power BI je komerční analytický nástroj od společnosti Microsoft, který představuje průmyslový standard pro vizualizaci dat a business intelligence. Vyniká těsnou integrací s celým ekosystémem Microsoftu, zejména s SSAS Tabular, což umožňuje efektivní analýzu, sdílení reportů a spolupráci v rámci organizace. V kontextu této práce slouží jako reprezentant komerční vizualizační platformy s pokročilými funkcemi pro datovou transformaci, modelování a distribuci obsahu.
 
 \chapter{Praktická část}
 
 Praktická část této práce se zaměřuje na návrh, implementaci a ověření metodiky pro srovnání open-source a komerčních nástrojů využitelných pro analýzu a vizualizaci dat na datové platformě Portabo. Cílem bylo vytvořit plně funkční datový sklad s podporou OLAP analýz, který umožňuje zpracovávat reálná data poskytovaná datovým centrem Ústeckého kraje a připravit prostředí pro následné výkonové a funkční porovnání vizualizačních nástrojů.
 
-V rámci řešení byly navrženy a implementovány datové toky, které respektují jednotnou architekturu systému složeného z vrstev \textit{datového jezera}, \textit{datového skladu(staging vrstva,dimenze,fakta)}, \textit{OLAP vrstvy} a \textit{reportingu}. Tato struktura byla zachována napříč všemi testovanými technologiemi, přičemž pro jednotlivé implementace byl použit stejný princip ETL zpracování, stejný způsob transformace a obdobné rozvržení datového modelu založeného na dimenzionálním schématu.
+V rámci řešení byly navrženy a implementovány datové toky, které respektují jednotnou architekturu systému složeného z vrstev \textit{datového jezera}, \textit{datového skladu} (staging vrstva, dimenze, fakta), \textit{OLAP vrstvy} a \textit{reportingu}. Tato struktura byla zachována napříč všemi testovanými technologiemi, přičemž pro jednotlivé implementace byl použit stejný princip ETL zpracování, stejný způsob transformace a obdobné rozvržení datového modelu založeného na dimenzionálním schématu.
 
-Data využitá pro testování pocházejí převážně z datového toku města Bílina, konkrétně z MQTT témat obsahujících telemetrické údaje o kamerových detekcích vozidel. V případě implementace nad PostgreSQL/TimescaleDB byla navíc použita širší množina dat zahrnující také Wi-Fi senzory, elektrické měřiče a další zdroje. Tyto zprávy byly zpracovány pomocí implementovaných ETL procesů a uloženy do datového skladu vytvořeného nad několika databázovými technologiemi (PostgreSQL/TimescaleDB, MariaDB, Microsoft SQL Server a ClickHouse). Každá z těchto technologií představuje odlišný přístup – od komerčního řešení po výkonné open-source systémy určené pro analytické zpracování dat.
+Data využitá pro testování pocházejí převážně z datového toku města Bílina, konkrétně z MQTT témat obsahujících telemetrické údaje o kamerových detekcích vozidel. V případě implementace nad PostgreSQL/TimescaleDB byla navíc použita širší množina dat zahrnující také Wi-Fi senzory, elektrické měřiče a další zdroje. Tyto zprávy byly zpracovány pomocí implementovaných ETL procesů a uloženy do datového skladu vytvořeného nad několika databázovými technologiemi (PostgreSQL/TimescaleDB, MariaDB, Microsoft SQL Server a ClickHouse). Každá z těchto technologií představuje odlišný přístup -- od komerčního řešení po výkonné open-source systémy určené pro analytické zpracování dat.
+
+Výchozím bodem pro naplnění datového jezera (Data Lake), které sloužilo jako zdroj pro všechny následné ETL procesy, byl poskytnutý SQL dump určený pro databázi \textbf{MariaDB}. Jelikož metodika srovnání zahrnovala i jiné databázové systémy (MSSQL, PostgreSQL), bylo nutné provést migraci těchto dat.
+
+Pro \textbf{Microsoft SQL Server} byl zvolen dvoukrokový přístup, neboť původní pokusy o vytvoření vlastního konverzního skriptu se ukázaly jako nespolehlivé. V prvním kroku byla data z SQL dumpu naimportována do instance MariaDB. Následně byla z této databáze exportována do univerzálního formátu CSV pomocí SQL dotazu \texttt{SELECT ... INTO OUTFILE}. Tento export vyžadoval specifické ošetření uvozovek v JSON datech, aby byl výsledný soubor validní. Výsledný CSV soubor byl poté naimportován do MSSQL pomocí příkazu \texttt{BULK INSERT}.Během tohoto procesu bylo také nutné manuálně omezit maximální přidělenou operační paměť (RAM) pro instanci MSSQL serveru, aby nedošlo k zahlcení systémových prostředků a zamrznutí operačního systému.
+
+Pro \textbf{PostgreSQL} byl využit nástroj \texttt{pgloader}. Tento nástroj byl spuštěn v rámci vlastního Docker kontejneru, který byl sestaven pomocí \texttt{docker build}. Nástroj \texttt{pgloader} se přímo připojil ke zdrojové MariaDB databázi (\texttt{host.docker.internal:3306}) a provedl kompletní migraci dat do cílové PostgreSQL databáze (\texttt{host.docker.internal:5433}).
+
+Konfigurace \texttt{pgloader} byla optimalizována pro co nejvyšší rychlost přenosu. Bylo využito paralelní zpracování (nastavením \texttt{workers = 4} a \texttt{concurrency = 4}), dávkování dat po 50\,000 řádcích (\texttt{batch rows = 50000}) a navýšení operační paměti pro proces migrace (\texttt{maintenance\_work\_mem to '512MB'}). Součástí konfiguračního souboru byla také explicitní pravidla pro přetypování datových typů mezi oběma systémy, zejména pro správnou interpretaci časových údajů (\texttt{CAST type datetime to timestamptz...}).
+
+Těmito postupy bylo zajištěno, že identická datová základna (datové jezero) byla k dispozici ve všech testovaných databázových systémech.
 
 \section{Návrh metodiky porovnání}
 

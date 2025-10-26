@@ -413,6 +413,11 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSer
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSerif-Regular-tlf-ts1.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Regular-tlf-ts1--base.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc
+INPUT ./img/star_schema.png
+INPUT ./img/star_schema.png
+INPUT ./img/star_schema.png
+INPUT ./img/star_schema.png
+INPUT ./img/star_schema.png
 INPUT ./img/mqttentries_structure.png
 INPUT ./img/mqttentries_structure.png
 INPUT ./img/mqttentries_structure.png

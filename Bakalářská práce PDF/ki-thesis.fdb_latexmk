@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber ki-thesis"] 0 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1761310460.89916 -1
-  "ki-thesis.bcf" 1761310460 109948 519193a862a7c8ac3a7cf8ed98a92fb5 "pdflatex"
+["biber ki-thesis"] 1761489782.63941 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1761491469.79095 0
+  "ki-thesis.bcf" 1761491469 109948 519193a862a7c8ac3a7cf8ed98a92fb5 "pdflatex"
   "thesis.bib" 1761229405 10105 8edee225baf11aebe6ae162535c51a1b ""
   (generated)
   "ki-thesis.bbl"
   "ki-thesis.blg"
   (rewritten before read)
-["pdflatex"] 1761310455.79066 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1761310460.90007 0
+["pdflatex"] 1761491464.73539 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1761491469.79187 0
   "LOGO_PRF_CZ_RGB_standard.jpg" 1760629965 68207 90135c26da1c81d9e05374386a905769 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1760370297 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc" 1760371621 3035 7d37ee7011b797a1b8ca3680e8da3d4d ""
@@ -203,17 +203,18 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1760373927 5574153 af86687748baf417d9e7d549313527be ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760374145 3629007 cf5b8e55ffd15773add2b20a8add7508 ""
   "c:/texlive/2025/texmf.cnf" 1760373898 713 e69b156964470283e0530f5060668171 ""
-  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1761310449 92545 1412cc0269e9be203810b855b953290e ""
+  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1761491458 99680 7275e8c781e8fa216eed78135c44c293 ""
   "img/MariaDW_staging.png" 1761309408 132119 db12256da0419a97b6d9897a7e0423f9 ""
   "img/PBIreport.png" 1761308362 192314 80bb5edd485870d8d7143d27e9311262 ""
   "img/Supersetreport.png" 1761310448 184708 fce80d002687eed9e1017eb5edb26020 ""
   "img/mqttentries_structure.png" 1761295992 188757 a275aac0ed717997da7da7f5a2a64e94 ""
+  "img/star_schema.png" 1761490438 66903 b17133ba515b9e65a0a607d222732d75 ""
   "img/topic50.png" 1761297955 95238 7459503df733a7fc323658f2c634057a ""
-  "ki-thesis.aux" 1761310460 24694 cb16ca361e923321b617f125b41cebfe "pdflatex"
-  "ki-thesis.bbl" 1761229408 20898 4072ec9d2db1340c8020e24179e64db5 "biber ki-thesis"
-  "ki-thesis.run.xml" 1761310460 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
-  "ki-thesis.tex" 1761310449 92545 1412cc0269e9be203810b855b953290e ""
-  "ki-thesis.toc" 1761310460 6910 c880e11f3810be4824959c257caeeac3 "pdflatex"
+  "ki-thesis.aux" 1761491469 25983 be69a3ad4e310bc1f91114a5de443d43 "pdflatex"
+  "ki-thesis.bbl" 1761489785 20898 4072ec9d2db1340c8020e24179e64db5 "biber ki-thesis"
+  "ki-thesis.run.xml" 1761491469 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
+  "ki-thesis.tex" 1761491458 99680 7275e8c781e8fa216eed78135c44c293 ""
+  "ki-thesis.toc" 1761491469 7568 31e749b65ada98279435d8818d3ebcae "pdflatex"
   "kitheses.cls" 1760629965 2663 9561996a4af1ad19a1771c7d967fe489 ""
   (generated)
   "ki-thesis.aux"

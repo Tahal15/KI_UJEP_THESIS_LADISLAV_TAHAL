@@ -1,76 +1,270 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import psycopg2, json, gc, logging, re, hashlib, itertools, collections
-from datetime import datetime
-from psycopg2.extras import RealDictCursor, execute_batch
+
+import os
+import sys
+import platform
+import signal
+import subprocess
+import json
+import logging
+import re
+import gc
+from collections import deque
+from datetime import datetime, timezone
+
+import psycopg2
+from psycopg2.extras import RealDictCursor, execute_values
+
+# ===================== KONFIG =====================
 
 LANDING_CONN = {
-    "host": "localhost", "port": 5433, "dbname": "datove_jezero",
-    "user": "tahal", "password": "tohlejeroothesloprobakalarku2025"
+    "host": "localhost",
+    "port": 5433,
+    "dbname": "datove_jezero",
+    "user": "tahal",
+    "password": "tohlejeroothesloprobakalarku2025",
+    "application_name": "etl_dynamic_seq_landing",
 }
+
 STAGING_CONN = {
-    "host": "localhost", "port": 5434, "dbname": "datovy_sklad",
-    "user": "tahal", "password": "tohlejeroothesloprobakalarku2025"
+    "host": "localhost",
+    "port": 5434,
+    "dbname": "datovy_sklad",
+    "user": "tahal",
+    "password": "tohlejeroothesloprobakalarku2025",
+    "application_name": "etl_dynamic_seq_staging",
 }
+
 TARGET_SCHEMA = "mttgueries"
-BATCH_SIZE = 200
-WRITE_BATCH = 100
-SIMILARITY_THRESHOLD = 0.5
-LOG_FILE = "etl_dynamic_fuzzy_v3.log"
+LOG_FILE = "etl_dynamic_sequential.log"
+
+FETCH_SIZE = 5000
+BATCH_SIZE = 5000
+
+# UPOZORNĚNÍ: payload už se NEUKLÁDÁ, ukládají se jen rozflattenované sloupce.
+# COPY režim je volitelný (výchozí vypnuto kvůli jednoduchosti).
+USE_COPY = True
+
+# WSL vypínání po Ctrl+C:
+# - Pokud necháš prázdné, skript automaticky vypne všechny běžící WSL distribuce
+#   kromě "docker-desktop" a "docker-desktop-data".
+# - Pokud sem uvedeš seznam, vypne jen ty konkrétní názvy (docker nezasáhne).
+WSL_SHUTDOWN_DISTROS = []  # např. ["Ubuntu-22.04"]
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[logging.FileHandler(LOG_FILE, "a", "utf-8"), logging.StreamHandler()]
+    handlers=[
+        logging.FileHandler(LOG_FILE, "a", "utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
 )
 log = logging.getLogger(__name__)
 
-# --- Pomocné funkce (beze změny) ---
+_shutdown_requested = False
+_open_resources = []
 
-def try_utf8(s):
-    if isinstance(s, bytes):
-        for enc in ("utf-8", "latin-1", "windows-1250"):
-            try: return s.decode(enc)
-            except Exception: continue
-        return s.decode("utf-8", errors="ignore")
-    elif isinstance(s, str):
-        return s.encode("latin-1", errors="ignore").decode("utf-8", errors="ignore")
-    return str(s)
+def _list_running_wsl_distros():
+    """Vrátí seznam běžících WSL distr. (kromě docker-desktop*)."""
+    try:
+        out = subprocess.run(["wsl", "-l", "-v"], capture_output=True, text=True, check=False)
+        lines = (out.stdout or "").splitlines()
+        distros = []
+        for ln in lines[1:]:
+            # Očekávaný formát:  NAME              STATE           VERSION
+            name = ln.split()[0] if ln.strip() else ""
+            if not name:
+                continue
+            if name.lower().startswith("docker-desktop"):
+                continue
+            if "running" in ln.lower():
+                distros.append(name)
+        return distros
+    except Exception:
+        return []
 
-def flatten_json(y, prefix=""):
+def _shutdown_wsl_safely():
+    """Ukončí jen ne-dockerové WSL distribuce, Docker nechá běžet."""
+    if platform.system() != "Windows":
+        return
+    try:
+        targets = WSL_SHUTDOWN_DISTROS[:] if WSL_SHUTDOWN_DISTROS else _list_running_wsl_distros()
+        if not targets:
+            log.info("WSL: není co vypínat (nebo jen Docker).")
+            return
+        for name in targets:
+            if name.lower().startswith("docker-desktop"):
+                continue
+            subprocess.run(["wsl", "-t", name], check=False, capture_output=True)
+            log.info(f"WSL: ukončena distribuce '{name}'.")
+    except Exception as e:
+        log.warning(f"WSL vypínání selhalo: {e}")
+
+# ============== SIGINT / CLEANUP ==============
+
+def _cleanup_and_exit(signum=None, frame=None):
+    global _shutdown_requested
+    if _shutdown_requested:
+        return
+    _shutdown_requested = True
+    log.info("Zachycen SIGINT – provádím úklid…")
+
+    for res in _open_resources:
+        try:
+            if hasattr(res, "close"):
+                res.close()
+        except Exception:
+            pass
+    _open_resources.clear()
+    gc.collect()
+
+    # Bezpečné WSL vypnutí (Docker zůstane běžet)
+    _shutdown_wsl_safely()
+
+    log.info("Úklid hotov. Končím.")
+    os._exit(130)
+
+signal.signal(signal.SIGINT, _cleanup_and_exit)
+signal.signal(signal.SIGTERM, _cleanup_and_exit)
+
+# ============== UTILITKY ==============
+
+_RE_NON_ALNUM = re.compile(r"[^a-z0-9_]")
+_RE_MULTI_UNDERS = re.compile(r"_+")
+
+def try_utf8(x):
+    if isinstance(x, bytes):
+        for enc in ("utf-8", "cp1250", "latin-1"):
+            try:
+                return x.decode(enc)
+            except Exception:
+                continue
+        return x.decode("utf-8", errors="ignore")
+    if isinstance(x, str):
+        return x
+    return str(x)
+
+def sanitize_column_name(name: str) -> str:
+    name = name.strip().lower()
+    name = _RE_NON_ALNUM.sub("_", name)
+    name = _RE_MULTI_UNDERS.sub("_", name).strip("_")
+    if not name or name[0].isdigit():
+        name = "col_" + name
+    return name
+
+def flatten_json_iter(obj, prefix=""):
     out = {}
-    def flatten(x, name=""):
-        if isinstance(x, dict):
-            for a in x:
-                flatten(x[a], f"{name}{a}_")
-        elif isinstance(x, list):
-            if x and isinstance(x[0], (dict, list)):
-                flatten(x[0], f"{name}array_")
-            else:
-                out[name[:-1] or "array"] = json.dumps(x, ensure_ascii=False)
+    stack = deque([(prefix, obj)])
+    while stack:
+        pref, val = stack.pop()
+        if isinstance(val, str):
+            s = val.strip()
+            if (s.startswith("{") and s.endswith("}")) or (s.startswith("[") and s.endswith("]")):
+                try:
+                    val = json.loads(s.replace("'", '"'))
+                except Exception:
+                    pass
+        if isinstance(val, dict):
+            for k, v in val.items():
+                key = sanitize_column_name(pref + str(k))
+                stack.append((key + "_", v))
+        elif isinstance(val, list):
+            for i, v in enumerate(val):
+                stack.append((f"{pref}{i}_", v))
         else:
-            out[name[:-1] or "value"] = x
-    flatten(y, prefix)
-    clean = {}
-    for k, v in out.items():
-        c = k.strip("_").lower().replace("-", "_").replace(".", "_")
-        if not c: c = "value"
-        clean[c] = v
-    return clean
+            clean_key = sanitize_column_name(pref[:-1]) if pref.endswith("_") else sanitize_column_name(pref)
+            out[clean_key] = val
+    return out
 
 def infer_pg_type(v):
+    # Zabezpečení proti nekonzistencím:
     if isinstance(v, bool): return "BOOLEAN"
-    if isinstance(v, int):  return "BIGINT"
-    if isinstance(v, float):return "DOUBLE PRECISION"
     if isinstance(v, (dict, list)): return "JSONB"
-    try:
-        datetime.fromisoformat(str(v).replace("Z","+00:00"))
-        return "TIMESTAMPTZ"
-    except Exception: return "TEXT"
 
+    # 2. Datum/Čas
+    try:
+        datetime.fromisoformat(str(v).replace("Z", "+00:00"))
+        return "TIMESTAMPTZ"
+    except Exception:
+        pass
+        
+    # 3. Čísla (upřednostnit DOUBLE PRECISION před BIGINT)
+    # Pro float/int v Pythonu.
+    if isinstance(v, (int, float)): 
+        return "DOUBLE PRECISION" 
+    
+    # Pro string: Zkusíme, zda je to validní číslo (s desetinnou tečkou), pokud ano, DOUBLE PRECISION
+    s = str(v).strip()
+    if s and s.replace('.', '', 1).replace('-', '', 1).isdigit():
+        return "DOUBLE PRECISION"
+        
+    # 4. Vše ostatní je TEXT
+    return "TEXT"
+
+def safe_json(payload):
+    txt = try_utf8(payload).strip()
+    try:
+        js = json.loads(txt)
+    except Exception:
+        if txt.startswith("{") and "'" in txt and '"' not in txt:
+            try:
+                js = json.loads(txt.replace("'", '"'))
+            except Exception:
+                return {"raw_value": txt}
+        else:
+            return {"raw_value": txt}
+    if isinstance(js, list) and len(js) == 1 and isinstance(js[0], dict):
+        js = js[0]
+    stack = deque([js])
+    while stack:
+        v = stack.pop()
+        if isinstance(v, dict):
+            for k, vv in list(v.items()):
+                if isinstance(vv, str):
+                    s = vv.strip()
+                    if (s.startswith("{") and s.endswith("}")) or (s.startswith("[") and s.endswith("]")):
+                        try:
+                            v[k] = json.loads(s.replace("'", '"'))
+                        except Exception:
+                            pass
+                if isinstance(v.get(k), (dict, list)):
+                    stack.append(v[k])
+        elif isinstance(v, list):
+            for i in range(len(v)):
+                if isinstance(v[i], str):
+                    s = v[i].strip()
+                    if (s.startswith("{") and s.endswith("}")) or (s.startswith("[") and s.endswith("]")):
+                        try:
+                            v[i] = json.loads(s.replace("'", '"'))
+                        except Exception:
+                            pass
+                if isinstance(v[i], (dict, list)):
+                    stack.append(v[i])
+    return js
+
+def get_staging_col_types(cur, table, cols):
+    """Získá datové typy z databáze pro dané sloupce (používá se pro validaci)."""
+    if not cols:
+        return {}
+        
+    # Musíme použít tuplu pro ANY a vyfiltrovat sloupce, které nejsou v information_schema
+    col_list = [c for c in cols if c not in ("stgid", "landingid", "originaltime", "topic", "loaddttm")]
+    if not col_list:
+        return {}
+        
+    cur.execute("""
+        SELECT column_name, data_type 
+        FROM information_schema.columns 
+        WHERE table_schema=%s AND table_name=%s 
+        AND column_name IN %s;
+    """, (TARGET_SCHEMA, table, tuple(col_list)))
+    
+    # Používáme indexy (0=column_name, 1=data_type)
+    return {r[0]: r[1].upper() for r in cur.fetchall()}
 def ensure_table_and_columns(cur, table, sample):
     cur.execute(f"""
-        CREATE TABLE IF NOT EXISTS {TARGET_SCHEMA}.{table}(
+        CREATE TABLE IF NOT EXISTS {TARGET_SCHEMA}.{table} (
             stgid BIGSERIAL PRIMARY KEY,
             landingid BIGINT,
             originaltime TIMESTAMPTZ,
@@ -86,245 +280,258 @@ def ensure_table_and_columns(cur, table, sample):
     for col, val in sample.items():
         if col not in existing:
             t = infer_pg_type(val)
-            cur.execute(f'ALTER TABLE {TARGET_SCHEMA}.{table} ADD COLUMN IF NOT EXISTS {col} {t};')
+            cur.execute(f'ALTER TABLE {TARGET_SCHEMA}.{table} ADD COLUMN IF NOT EXISTS "{col}" {t};')
             existing.add(col)
     return existing
 
-def ensure_new_columns(cur, table, flat_dict, existing_cols):
-    new_cols = [c for c in flat_dict.keys() if c not in existing_cols]
-    if not new_cols: return existing_cols
-    for c in new_cols:
-        t = infer_pg_type(flat_dict[c])
-        cur.execute(f'ALTER TABLE {TARGET_SCHEMA}.{table} ADD COLUMN IF NOT EXISTS {c} {t};')
-        existing_cols.add(c)
-    return existing_cols
-
-def insert_batch(cur, table, batch, existing_cols):
-    if not batch: return existing_cols
-    all_keys = sorted({k for _,_,_,flat in batch for k in flat.keys()})
-    for k in all_keys:
-        if k not in existing_cols:
-            cur.execute(f'ALTER TABLE {TARGET_SCHEMA}.{table} ADD COLUMN IF NOT EXISTS {k} TEXT;')
-            existing_cols.add(k)
-    base_cols = ["landingid","originaltime","topic","loaddttm"]
-    cols = base_cols + all_keys
-    sql = f"INSERT INTO {TARGET_SCHEMA}.{table} ({', '.join(cols)}) VALUES ({', '.join(['%s']*len(cols))})"
-    now = datetime.now()
-    for i in range(0, len(batch), WRITE_BATCH):
-        chunk = batch[i:i+WRITE_BATCH]
-        rows=[]
-        for lid,tm,tp,flat in chunk:
-            vals=[lid,tm,tp,now]+[flat.get(k) for k in all_keys]
-            rows.append(vals)
-        execute_batch(cur, sql, rows, page_size=len(rows))
-        del rows[:]; gc.collect()
-    return existing_cols
-
-def jaccard_similarity(a,b):
-    a,b=set(a),set(b)
-    return len(a & b)/len(a|b) if a or b else 0
-
-def flatten_keys(payload):
-    try:
-        js=json.loads(payload)
-        if isinstance(js,list) and js: js=js[0]
-    except Exception: return []
-    flat=flatten_json(js)
-    return sorted(flat.keys())
-
-def merge_clusters(topic_keys):
-    topics=list(topic_keys.keys())
-    pairs=[]
-    for a,b in itertools.combinations(topics,2):
-        sim=jaccard_similarity(topic_keys[a],topic_keys[b])
-        if sim>=SIMILARITY_THRESHOLD:
-            pairs.append((a,b))
-    adjacency=collections.defaultdict(set)
-    for a,b in pairs:
-        adjacency[a].add(b); adjacency[b].add(a)
-
-    visited=set(); clusters=[]
-    for node in topics:
-        if node in visited: continue
-        cluster=set(); stack=[node]
-        while stack:
-            n=stack.pop()
-            if n in visited: continue
-            visited.add(n); cluster.add(n)
-            for neigh in adjacency.get(n,[]):
-                if neigh not in visited:
-                    stack.append(neigh)
-        clusters.append(cluster)
+def build_manual_clusters(_):
+    manual_groups = {
+        8: ["/Energo/DCUK/SML133/SML133-01/act", "/Energo/DCUK/SML133/SML133-01"],
+        10: ["/Energo/DCUK/SML133/SML133-01/har", "/Energo/DCUK/SML133/SML133-01/osc"],
+    }
+    clusters = []
+    orange = set(manual_groups.get(8, [])) | set(manual_groups.get(10, []))
+    if orange:
+        clusters.append({"group": "8_10", "topics": orange})
+    for gid, tps in manual_groups.items():
+        if gid in (8, 10):
+            continue
+        clusters.append({"group": str(gid), "topics": set(tps)})
     return clusters
 
-def derive_table_name(topics):
-    parts="/".join(topics).lower().split("/")
-    core=[]
-    for p in parts:
-        if re.search(r"(energo|dcuk|camea|ttndata|bilina|cez|decin|mve)",p):
-            core.append(p)
-    if not core: core=topics[0].strip("/").split("/")[:2]
-    return "stg_"+"_".join(core[:3]).lower()
+# ============== ETL ==============
 
-def safe_execute_l(cur,sql,params=None):
-    try: cur.execute(sql,params)
+def process_cluster(cluster):
+    gid = cluster["group"]
+    topics = list(cluster["topics"])
+    table = f"stg_manual_group_{gid}"
+    rows_inserted = 0
+
+    log.info(f"▶️ Start cluster {gid} ({len(topics)} topiců)")
+
+    conn_l = conn_s = cur_l = cur_s = None
+    try:
+        conn_l = psycopg2.connect(**LANDING_CONN)
+        conn_l.autocommit = False
+        _open_resources.append(conn_l)
+
+        with conn_l:
+            cur_l = conn_l.cursor(
+                name=f"stream_{gid}",
+                cursor_factory=RealDictCursor,
+                withhold=False
+            )
+            _open_resources.append(cur_l)
+            cur_l.itersize = FETCH_SIZE
+            cur_l.execute(
+                """
+                SELECT id, time, topic, payload
+                FROM mttgueries.mqttentries
+                WHERE topic = ANY(%s)
+                ORDER BY id
+                """,
+                (topics,),
+            )
+
+            conn_s = psycopg2.connect(**STAGING_CONN)
+            conn_s.autocommit = False
+            _open_resources.append(conn_s)
+            cur_s = conn_s.cursor()
+            _open_resources.append(cur_s)
+
+            first_batch = cur_l.fetchmany(FETCH_SIZE)
+            if not first_batch:
+                log.warning(f"Cluster {gid} je prázdný.")
+                return (gid, 0, "EMPTY", "")
+
+            js0 = safe_json(first_batch[0]["payload"])
+            flat_sample = flatten_json_iter(js0)
+            existing_cols = ensure_table_and_columns(cur_s, table, flat_sample)
+            conn_s.commit()
+            
+            # Získání datových typů z databáze
+            col_types = get_staging_col_types(cur_s, table, existing_cols)
+
+            dyn_cols = sorted(existing_cols - {"stgid", "landingid", "originaltime", "topic", "loaddttm"})
+            base_cols = ["landingid", "originaltime", "topic", "loaddttm"]
+            insert_cols = base_cols + dyn_cols
+            colnames_sql = ", ".join(f'"{c}"' for c in insert_cols)
+
+            buffer = []
+
+            def flush_buffer():
+                nonlocal buffer, rows_inserted
+                if not buffer:
+                    return
+                if USE_COPY:
+                    import io, csv
+                    sio = io.StringIO()
+                    # Pozor na správné formátování dat (např. JSON musí být jako řetězec)
+                    csv.writer(sio, lineterminator="\n").writerows(buffer)
+                    sio.seek(0)
+                    cur_s.copy_expert(
+                        f'COPY {TARGET_SCHEMA}.{table} ({colnames_sql}) FROM STDIN WITH (FORMAT CSV)',
+                        sio
+                    )
+                else:
+                    execute_values(
+                        cur_s,
+                        f'INSERT INTO {TARGET_SCHEMA}.{table} ({colnames_sql}) VALUES %s',
+                        buffer,
+                        page_size=1000
+                    )
+                rows_inserted += len(buffer)
+                buffer.clear()
+                gc.collect()
+
+            batch_no = 1
+            current_batch = first_batch
+            now_utc = lambda: datetime.now(timezone.utc)
+
+            while current_batch:
+                for r in current_batch:
+                    if _shutdown_requested:
+                        raise KeyboardInterrupt
+
+                    js = safe_json(r["payload"])
+                    flat = flatten_json_iter(js)
+
+                    new_cols = set(flat.keys()) - set(dyn_cols) - {"stgid","landingid","originaltime","topic","loaddttm"}
+                    if new_cols:
+                        flush_buffer()
+                        ensure_table_and_columns(cur_s, table, {c: flat[c] for c in new_cols})
+                        conn_s.commit()
+                        
+                        # --- OPRAVENÝ KÓD: Získání aktualizovaného seznamu sloupců po ALTER TABLE ---
+                        cur_s.execute("""
+                            SELECT column_name FROM information_schema.columns 
+                            WHERE table_schema=%s AND table_name=%s;
+                        """, (TARGET_SCHEMA, table))
+                        
+                        existing_cols = {row[0] for row in cur_s.fetchall()} # Zde byla oprava pro tuple
+                        
+                        # Aktualizace pomocných struktur:
+                        col_types = get_staging_col_types(cur_s, table, existing_cols)
+                        dyn_cols = sorted(existing_cols - {"stgid","landingid","originaltime", "topic","loaddttm"})
+                        insert_cols = base_cols + dyn_cols
+                        colnames_sql = ", ".join(f'"{c}"' for c in insert_cols)
+
+                    row_vals = [
+                        int(r["id"]),
+                        datetime.fromisoformat(str(r["time"]).replace("Z", "+00:00")) if r["time"] else None,
+                        str(r["topic"]) if r["topic"] is not None else None,
+                        now_utc(),
+                    ]
+                    
+                    # HLAVNÍ OPRAVA: Kontrola a konverze hodnot
+                    for k in dyn_cols:
+                        v = flat.get(k)
+                        pg_type = col_types.get(k, 'TEXT') # Default je TEXT
+                        converted_v = v
+
+                        if v is None:
+                            converted_v = None
+                        
+                        elif pg_type in ('DOUBLE PRECISION', 'NUMERIC', 'REAL'):
+                            # Cílový typ je float (decimal) -> zkusíme konvertovat na float
+                            try:
+                                converted_v = float(v) 
+                            except (ValueError, TypeError):
+                                converted_v = None 
+                                log.warning(f"Nekonzistentní hodnota (NULL): Cluster {gid}, sloupec {k}, hodnota '{v}' (očekáván {pg_type})")
+
+                        elif pg_type in ('BIGINT', 'INTEGER', 'SMALLINT'):
+                            # Cílový typ je celé číslo (BIGINT) -> zkusíme konvertovat na INT
+                            try:
+                                # Toto selže pro "3638.0" a vloží NULL
+                                converted_v = int(v) 
+                            except (ValueError, TypeError):
+                                converted_v = None 
+                                log.warning(f"Nekonzistentní hodnota (NULL): Cluster {gid}, sloupec {k}, hodnota '{v}' (očekáván {pg_type})")
+                        
+                        elif isinstance(v, (dict, list)) and pg_type == 'JSONB':
+                            converted_v = json.dumps(v, ensure_ascii=False)
+                        elif isinstance(v, datetime) and pg_type == 'TIMESTAMPTZ':
+                            converted_v = v.astimezone(timezone.utc).isoformat()
+                        else:
+                            # Ostatní (TEXT) nebo nekovertovatelné typy
+                            converted_v = v if isinstance(v, (int, float, str, bool)) else str(v)
+                            
+                        row_vals.append(converted_v)
+
+                    buffer.append(tuple(row_vals))
+                    if len(buffer) >= BATCH_SIZE:
+                        flush_buffer()
+
+                flush_buffer()
+                conn_s.commit()
+                log.info(f"💾 Dávka {batch_no} hotová ({rows_inserted} řádků celkem)")
+                batch_no += 1
+                current_batch = cur_l.fetchmany(FETCH_SIZE)
+
+            log.info(f"✅ Cluster {gid} hotový ({rows_inserted} řádků).")
+            return (gid, rows_inserted, "SUCCESS", "")
+
+    except KeyboardInterrupt:
+        log.warning("Zpracování přerušeno uživatelem (Ctrl+C).")
+        return (gid, rows_inserted, "INTERRUPTED", "")
     except Exception as e:
-        try: cur.connection.rollback()
-        except Exception: pass
-        raise e
+        log.exception(f"❌ Chyba v clusteru {gid}: {e}")
+        try:
+            if conn_s:
+                conn_s.rollback()
+        except Exception:
+            pass
+        return (gid, rows_inserted, "ERROR", str(e))
+    finally:
+        for obj in (cur_s, conn_s, cur_l, conn_l):
+            if obj:
+                try: obj.close()
+                except Exception: pass
+                try: _open_resources.remove(obj)
+                except Exception: pass
+        gc.collect()
 
-# --- ZMĚNĚNÁ FUNKCE PRO MANUÁLNÍ CLUSTERING ---
-def manual_clusters(topic_keys):
-    """
-    Rozděluje topicy do clusterů na základě opravených manuálních pravidel:
-    - ORANŽOVÁ (Group ID 8 a 10) se SLOUČÍ do jednoho clusteru.
-    - Ostatní topicy (ŽLUTÁ) zůstanou jako SAMOSTATNÉ clustery.
-    """
-    
-    # Regulární výraz pro identifikaci ORANŽOVÉ skupiny (Group ID 8 a 10)
-    orange_topics_re = re.compile(
-        r"/Energo/DCUK/SML133/SML133-01/(act|har)" # Seskupení Group ID 8 a 10
-    )
+def build_manual_clusters(_topic_keys_unused):
+    manual_groups = {
+        1: ["/Bilina/kamery/camea/BI-MO-I1", "/Bilina/kamery/camea/BI-MO-I1B", "/Bilina/kamery/camea/BI-MO-O1", "/Bilina/kamery/camea/BI-MO-O1B", "/Bilina/kamery/camea/BI-MO-R1", "/Bilina/kamery/camea/BI-TP-I1", "/Bilina/kamery/camea/BI-TP-I1B", "/Bilina/kamery/camea/BI-TP-I2", "/Bilina/kamery/camea/BI-TP-I2B", "/Bilina/kamery/camea/BI-TP-O1", "/Bilina/kamery/camea/BI-TP-O1B", "/Bilina/kamery/camea/BI-TP-O2", "/Bilina/kamery/camea/BI-TP-O2B", "/Bilina/kamery/camea/BI-TP-R1", "/Bilina/kamery/camea/BI-TP-R2", "/Bilina/kamery/camea/Unknown", "/Decin/camea/DTT-DC-R1", "/Decin/camea/DTT-TP-R2", "/Decin/camea/Unknown", "/Decin/camea/kamery/DTT-DC-R1", "/Decin/camea/kamery/DTT-TP-R2", "/Decin/camea/kamery/Unknown", "/Decin/kamery/camea/DTS-DC-R1", "/Decin/kamery/camea/DTS-DC-R2", "/Decin/kamery/camea/DTS-TP-R1", "/Decin/kamery/camea/DTS-TP-R2", "/Decin/kamery/camea/DTT-DC-R1", "/Decin/kamery/camea/DTT-DC-R2", "/Decin/kamery/camea/DTT-TP-R1", "/Decin/kamery/camea/DTT-TP-R2", "/Decin/kamery/camea/Unknown"],
+        5: ["/detektory/video/brna/brnaJF", "/detektory/video/brna/cyklotrasa"],
+        7: ["/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ApparentPower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ApparentPower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ApparentPower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ApparentPower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Cosphi", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Cosphi/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Cosphi/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Cosphi/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Current", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Current/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Current/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Current/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Export/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Frequency", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Import/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Power", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Power/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Power/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Power/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveExport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveImport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactivePower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactivePower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactivePower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactivePower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/ReactiveSum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Sum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Voltage", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Voltage/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Voltage/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-2/Voltage/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ApparentPower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ApparentPower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ApparentPower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ApparentPower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Cosphi", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Cosphi/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Cosphi/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Cosphi/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Current", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Current/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Current/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Current/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Export/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Frequency", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Import/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Power", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Power/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Power/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Power/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveExport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveImport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactivePower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactivePower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactivePower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactivePower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/ReactiveSum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Sum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Voltage", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Voltage/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Voltage/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-3/Voltage/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ApparentPower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ApparentPower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ApparentPower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ApparentPower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Cosphi", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Cosphi/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Cosphi/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Cosphi/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Current", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Current/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Current/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Current/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Export/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Frequency", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Import/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Power", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Power/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Power/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Power/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveExport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveImport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactivePower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactivePower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactivePower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactivePower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/ReactiveSum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Sum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Voltage", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Voltage/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Voltage/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-4/Voltage/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ApparentPower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ApparentPower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ApparentPower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ApparentPower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Cosphi", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Cosphi/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Cosphi/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Cosphi/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Current", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Current/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Current/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Current/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Export/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Frequency", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Import/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Power", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Power/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Power/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Power/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveExport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveImport/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactivePower", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactivePower/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactivePower/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactivePower/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/ReactiveSum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum/T1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Sum/T2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Voltage", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Voltage/L1", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Voltage/L2", "/Energo/DCUK/INEPRO-Pro380-Mod/inepro1-5/Voltage/L3", "/Energo/DCUK/INEPRO-Pro380-Mod/status", "/mve/testik", "homie/inepro1-2/$homie", "homie/inepro1-2/$implementation", "homie/inepro1-2/$name", "homie/inepro1-2/$nodes", "homie/inepro1-2/$state", "homie/inepro1-2/meter/$name", "homie/inepro1-2/meter/$properties", "homie/inepro1-2/meter/$type", "homie/inepro1-2/meter/apparentpower", "homie/inepro1-2/meter/apparentpower/$datatype", "homie/inepro1-2/meter/apparentpower/$name", "homie/inepro1-2/meter/apparentpower/$unit", "homie/inepro1-2/meter/apparentpowerl1", "homie/inepro1-2/meter/apparentpowerl1/$datatype", "homie/inepro1-2/meter/apparentpowerl1/$name", "homie/inepro1-2/meter/apparentpowerl1/$unit", "homie/inepro1-2/meter/apparentpowerl2", "homie/inepro1-2/meter/apparentpowerl2/$datatype", "homie/inepro1-2/meter/apparentpowerl2/$name", "homie/inepro1-2/meter/apparentpowerl2/$unit", "homie/inepro1-2/meter/apparentpowerl3", "homie/inepro1-2/meter/apparentpowerl3/$datatype", "homie/inepro1-2/meter/apparentpowerl3/$name", "homie/inepro1-2/meter/apparentpowerl3/$unit", "homie/inepro1-2/meter/cosphi", "homie/inepro1-2/meter/cosphi/$datatype", "homie/inepro1-2/meter/cosphi/$name", "homie/inepro1-2/meter/cosphi/$unit", "homie/inepro1-2/meter/cosphil1", "homie/inepro1-2/meter/cosphil1/$datatype", "homie/inepro1-2/meter/cosphil1/$name", "homie/inepro1-2/meter/cosphil1/$unit", "homie/inepro1-2/meter/cosphil2", "homie/inepro1-2/meter/cosphil2/$datatype", "homie/inepro1-2/meter/cosphil2/$name", "homie/inepro1-2/meter/cosphil2/$unit", "homie/inepro1-2/meter/cosphil3", "homie/inepro1-2/meter/cosphil3/$datatype", "homie/inepro1-2/meter/cosphil3/$name", "homie/inepro1-2/meter/cosphil3/$unit", "homie/inepro1-2/meter/current", "homie/inepro1-2/meter/current/$datatype", "homie/inepro1-2/meter/current/$name", "homie/inepro1-2/meter/current/$unit", "homie/inepro1-2/meter/currentl1", "homie/inepro1-2/meter/currentl1/$datatype", "homie/inepro1-2/meter/currentl1/$name", "homie/inepro1-2/meter/currentl1/$unit", "homie/inepro1-2/meter/currentl2", "homie/inepro1-2/meter/currentl2/$datatype", "homie/inepro1-2/meter/currentl2/$name", "homie/inepro1-2/meter/currentl2/$unit", "homie/inepro1-2/meter/currentl3", "homie/inepro1-2/meter/currentl3/$datatype", "homie/inepro1-2/meter/currentl3/$name", "homie/inepro1-2/meter/currentl3/$unit", "homie/inepro1-2/meter/export", "homie/inepro1-2/meter/export/$datatype", "homie/inepro1-2/meter/export/$name", "homie/inepro1-2/meter/export/$unit", "homie/inepro1-2/meter/exportl1", "homie/inepro1-2/meter/exportl1/$datatype", "homie/inepro1-2/meter/exportl1/$name", "homie/inepro1-2/meter/exportl1/$unit", "homie/inepro1-2/meter/exportl2", "homie/inepro1-2/meter/exportl2/$datatype", "homie/inepro1-2/meter/exportl2/$name", "homie/inepro1-2/meter/exportl2/$unit", "homie/inepro1-2/meter/exportl3", "homie/inepro1-2/meter/exportl3/$datatype", "homie/inepro1-2/meter/exportl3/$name", "homie/inepro1-2/meter/exportl3/$unit", "homie/inepro1-2/meter/exportt1", "homie/inepro1-2/meter/exportt1/$datatype", "homie/inepro1-2/meter/exportt1/$name", "homie/inepro1-2/meter/exportt1/$unit", "homie/inepro1-2/meter/exportt2", "homie/inepro1-2/meter/exportt2/$datatype", "homie/inepro1-2/meter/exportt2/$name", "homie/inepro1-2/meter/exportt2/$unit", "homie/inepro1-2/meter/frequency", "homie/inepro1-2/meter/frequency/$datatype", "homie/inepro1-2/meter/frequency/$name", "homie/inepro1-2/meter/frequency/$unit", "homie/inepro1-2/meter/import", "homie/inepro1-2/meter/import/$datatype", "homie/inepro1-2/meter/import/$name", "homie/inepro1-2/meter/import/$unit", "homie/inepro1-2/meter/importl1", "homie/inepro1-2/meter/importl1/$datatype", "homie/inepro1-2/meter/importl1/$name", "homie/inepro1-2/meter/importl1/$unit", "homie/inepro1-2/meter/importl2", "homie/inepro1-2/meter/importl2/$datatype", "homie/inepro1-2/meter/importl2/$name", "homie/inepro1-2/meter/importl2/$unit", "homie/inepro1-2/meter/importl3", "homie/inepro1-2/meter/importl3/$datatype", "homie/inepro1-2/meter/importl3/$name", "homie/inepro1-2/meter/importl3/$unit", "homie/inepro1-2/meter/importt1", "homie/inepro1-2/meter/importt1/$datatype", "homie/inepro1-2/meter/importt1/$name", "homie/inepro1-2/meter/importt1/$unit", "homie/inepro1-2/meter/importt2", "homie/inepro1-2/meter/importt2/$datatype", "homie/inepro1-2/meter/importt2/$name", "homie/inepro1-2/meter/importt2/$unit", "homie/inepro1-2/meter/power", "homie/inepro1-2/meter/power/$datatype", "homie/inepro1-2/meter/power/$name", "homie/inepro1-2/meter/power/$unit", "homie/inepro1-2/meter/powerl1", "homie/inepro1-2/meter/powerl1/$datatype", "homie/inepro1-2/meter/powerl1/$name", "homie/inepro1-2/meter/powerl1/$unit", "homie/inepro1-2/meter/powerl2", "homie/inepro1-2/meter/powerl2/$datatype", "homie/inepro1-2/meter/powerl2/$name", "homie/inepro1-2/meter/powerl2/$unit", "homie/inepro1-2/meter/powerl3", "homie/inepro1-2/meter/powerl3/$datatype", "homie/inepro1-2/meter/powerl3/$name", "homie/inepro1-2/meter/powerl3/$unit", "homie/inepro1-2/meter/reactiveexport", "homie/inepro1-2/meter/reactiveexport/$datatype", "homie/inepro1-2/meter/reactiveexport/$name", "homie/inepro1-2/meter/reactiveexport/$unit", "homie/inepro1-2/meter/reactiveexportl1", "homie/inepro1-2/meter/reactiveexportl1/$datatype", "homie/inepro1-2/meter/reactiveexportl1/$name", "homie/inepro1-2/meter/reactiveexportl1/$unit", "homie/inepro1-2/meter/reactiveexportl2", "homie/inepro1-2/meter/reactiveexportl2/$datatype", "homie/inepro1-2/meter/reactiveexportl2/$name", "homie/inepro1-2/meter/reactiveexportl2/$unit", "homie/inepro1-2/meter/reactiveexportl3", "homie/inepro1-2/meter/reactiveexportl3/$datatype", "homie/inepro1-2/meter/reactiveexportl3/$name", "homie/inepro1-2/meter/reactiveexportl3/$unit", "homie/inepro1-2/meter/reactiveexportt1", "homie/inepro1-2/meter/reactiveexportt1/$datatype", "homie/inepro1-2/meter/reactiveexportt1/$name", "homie/inepro1-2/meter/reactiveexportt1/$unit", "homie/inepro1-2/meter/reactiveexportt2", "homie/inepro1-2/meter/reactiveexportt2/$datatype", "homie/inepro1-2/meter/reactiveexportt2/$name", "homie/inepro1-2/meter/reactiveexportt2/$unit", "homie/inepro1-2/meter/reactiveimport", "homie/inepro1-2/meter/reactiveimport/$datatype", "homie/inepro1-2/meter/reactiveimport/$name", "homie/inepro1-2/meter/reactiveimport/$unit", "homie/inepro1-2/meter/reactiveimportl1", "homie/inepro1-2/meter/reactiveimportl1/$datatype", "homie/inepro1-2/meter/reactiveimportl1/$name", "homie/inepro1-2/meter/reactiveimportl1/$unit", "homie/inepro1-2/meter/reactiveimportl2", "homie/inepro1-2/meter/reactiveimportl2/$datatype", "homie/inepro1-2/meter/reactiveimportl2/$name", "homie/inepro1-2/meter/reactiveimportl2/$unit", "homie/inepro1-2/meter/reactiveimportl3", "homie/inepro1-2/meter/reactiveimportl3/$datatype", "homie/inepro1-2/meter/reactiveimportl3/$name", "homie/inepro1-2/meter/reactiveimportl3/$unit", "homie/inepro1-2/meter/reactiveimportt1", "homie/inepro1-2/meter/reactiveimportt1/$datatype", "homie/inepro1-2/meter/reactiveimportt1/$name", "homie/inepro1-2/meter/reactiveimportt1/$unit", "homie/inepro1-2/meter/reactiveimportt2", "homie/inepro1-2/meter/reactiveimportt2/$datatype", "homie/inepro1-2/meter/reactiveimportt2/$name", "homie/inepro1-2/meter/reactiveimportt2/$unit", "homie/inepro1-2/meter/reactivepower", "homie/inepro1-2/meter/reactivepower/$datatype", "homie/inepro1-2/meter/reactivepower/$name", "homie/inepro1-2/meter/reactivepower/$unit", "homie/inepro1-2/meter/reactivepowerl1", "homie/inepro1-2/meter/reactivepowerl1/$datatype", "homie/inepro1-2/meter/reactivepowerl1/$name", "homie/inepro1-2/meter/reactivepowerl1/$unit", "homie/inepro1-2/meter/reactivepowerl2", "homie/inepro1-2/meter/reactivepowerl2/$datatype", "homie/inepro1-2/meter/reactivepowerl2/$name", "homie/inepro1-2/meter/reactivepowerl2/$unit", "homie/inepro1-2/meter/reactivepowerl3", "homie/inepro1-2/meter/reactivepowerl3/$datatype", "homie/inepro1-2/meter/reactivepowerl3/$name", "homie/inepro1-2/meter/reactivepowerl3/$unit", "homie/inepro1-2/meter/reactivesum", "homie/inepro1-2/meter/reactivesum/$datatype", "homie/inepro1-2/meter/reactivesum/$name", "homie/inepro1-2/meter/reactivesum/$unit", "homie/inepro1-2/meter/reactivesuml1", "homie/inepro1-2/meter/reactivesuml1/$datatype", "homie/inepro1-2/meter/reactivesuml1/$name", "homie/inepro1-2/meter/reactivesuml1/$unit", "homie/inepro1-2/meter/reactivesuml2", "homie/inepro1-2/meter/reactivesuml2/$datatype", "homie/inepro1-2/meter/reactivesuml2/$name", "homie/inepro1-2/meter/reactivesuml2/$unit", "homie/inepro1-2/meter/reactivesuml3", "homie/inepro1-2/meter/reactivesuml3/$datatype", "homie/inepro1-2/meter/reactivesuml3/$name", "homie/inepro1-2/meter/reactivesuml3/$unit", "homie/inepro1-2/meter/reactivesumt1", "homie/inepro1-2/meter/reactivesumt1/$datatype", "homie/inepro1-2/meter/reactivesumt1/$name", "homie/inepro1-2/meter/reactivesumt1/$unit", "homie/inepro1-2/meter/reactivesumt2", "homie/inepro1-2/meter/reactivesumt2/$datatype", "homie/inepro1-2/meter/reactivesumt2/$name", "homie/inepro1-2/meter/reactivesumt2/$unit", "homie/inepro1-2/meter/sum", "homie/inepro1-2/meter/sum/$datatype", "homie/inepro1-2/meter/sum/$name", "homie/inepro1-2/meter/sum/$unit", "homie/inepro1-2/meter/suml1", "homie/inepro1-2/meter/suml1/$datatype", "homie/inepro1-2/meter/suml1/$name", "homie/inepro1-2/meter/suml1/$unit", "homie/inepro1-2/meter/suml2", "homie/inepro1-2/meter/suml2/$datatype", "homie/inepro1-2/meter/suml2/$name", "homie/inepro1-2/meter/suml2/$unit", "homie/inepro1-2/meter/suml3", "homie/inepro1-2/meter/suml3/$datatype", "homie/inepro1-2/meter/suml3/$name", "homie/inepro1-2/meter/suml3/$unit", "homie/inepro1-2/meter/sumt1", "homie/inepro1-2/meter/sumt1/$datatype", "homie/inepro1-2/meter/sumt1/$name", "homie/inepro1-2/meter/sumt1/$unit", "homie/inepro1-2/meter/sumt2", "homie/inepro1-2/meter/sumt2/$datatype", "homie/inepro1-2/meter/sumt2/$name", "homie/inepro1-2/meter/sumt2/$unit", "homie/inepro1-2/meter/voltage", "homie/inepro1-2/meter/voltage/$datatype", "homie/inepro1-2/meter/voltage/$name", "homie/inepro1-2/meter/voltage/$unit", "homie/inepro1-2/meter/voltagel1", "homie/inepro1-2/meter/voltagel1/$datatype", "homie/inepro1-2/meter/voltagel1/$name", "homie/inepro1-2/meter/voltagel1/$unit", "homie/inepro1-2/meter/voltagel2", "homie/inepro1-2/meter/voltagel2/$datatype", "homie/inepro1-2/meter/voltagel2/$name", "homie/inepro1-2/meter/voltagel2/$unit", "homie/inepro1-2/meter/voltagel3", "homie/inepro1-2/meter/voltagel3/$datatype", "homie/inepro1-2/meter/voltagel3/$name", "homie/inepro1-2/meter/voltagel3/$unit", "homie/inepro1-3/$homie", "homie/inepro1-3/$implementation", "homie/inepro1-3/$name", "homie/inepro1-3/$nodes", "homie/inepro1-3/$state", "homie/inepro1-3/meter/$name", "homie/inepro1-3/meter/$properties", "homie/inepro1-3/meter/$type", "homie/inepro1-3/meter/apparentpower", "homie/inepro1-3/meter/apparentpower/$datatype", "homie/inepro1-3/meter/apparentpower/$name", "homie/inepro1-3/meter/apparentpower/$unit", "homie/inepro1-3/meter/apparentpowerl1", "homie/inepro1-3/meter/apparentpowerl1/$datatype", "homie/inepro1-3/meter/apparentpowerl1/$name", "homie/inepro1-3/meter/apparentpowerl1/$unit", "homie/inepro1-3/meter/apparentpowerl2", "homie/inepro1-3/meter/apparentpowerl2/$datatype", "homie/inepro1-3/meter/apparentpowerl2/$name", "homie/inepro1-3/meter/apparentpowerl2/$unit", "homie/inepro1-3/meter/apparentpowerl3", "homie/inepro1-3/meter/apparentpowerl3/$datatype", "homie/inepro1-3/meter/apparentpowerl3/$name", "homie/inepro1-3/meter/apparentpowerl3/$unit", "homie/inepro1-3/meter/cosphi", "homie/inepro1-3/meter/cosphi/$datatype", "homie/inepro1-3/meter/cosphi/$name", "homie/inepro1-3/meter/cosphi/$unit", "homie/inepro1-3/meter/cosphil1", "homie/inepro1-3/meter/cosphil1/$datatype", "homie/inepro1-3/meter/cosphil1/$name", "homie/inepro1-3/meter/cosphil1/$unit", "homie/inepro1-3/meter/cosphil2", "homie/inepro1-3/meter/cosphil2/$datatype", "homie/inepro1-3/meter/cosphil2/$name", "homie/inepro1-3/meter/cosphil2/$unit", "homie/inepro1-3/meter/cosphil3", "homie/inepro1-3/meter/cosphil3/$datatype", "homie/inepro1-3/meter/cosphil3/$name", "homie/inepro1-3/meter/cosphil3/$unit", "homie/inepro1-3/meter/current", "homie/inepro1-3/meter/current/$datatype", "homie/inepro1-3/meter/current/$name", "homie/inepro1-3/meter/current/$unit", "homie/inepro1-3/meter/currentl1", "homie/inepro1-3/meter/currentl1/$datatype", "homie/inepro1-3/meter/currentl1/$name", "homie/inepro1-3/meter/currentl1/$unit", "homie/inepro1-3/meter/currentl2", "homie/inepro1-3/meter/currentl2/$datatype", "homie/inepro1-3/meter/currentl2/$name", "homie/inepro1-3/meter/currentl2/$unit", "homie/inepro1-3/meter/currentl3", "homie/inepro1-3/meter/currentl3/$datatype", "homie/inepro1-3/meter/currentl3/$name", "homie/inepro1-3/meter/currentl3/$unit", "homie/inepro1-3/meter/export", "homie/inepro1-3/meter/export/$datatype", "homie/inepro1-3/meter/export/$name", "homie/inepro1-3/meter/export/$unit", "homie/inepro1-3/meter/exportl1", "homie/inepro1-3/meter/exportl1/$datatype", "homie/inepro1-3/meter/exportl1/$name", "homie/inepro1-3/meter/exportl1/$unit", "homie/inepro1-3/meter/exportl2", "homie/inepro1-3/meter/exportl2/$datatype", "homie/inepro1-3/meter/exportl2/$name", "homie/inepro1-3/meter/exportl2/$unit", "homie/inepro1-3/meter/exportl3", "homie/inepro1-3/meter/exportl3/$datatype", "homie/inepro1-3/meter/exportl3/$name", "homie/inepro1-3/meter/exportl3/$unit", "homie/inepro1-3/meter/exportt1", "homie/inepro1-3/meter/exportt1/$datatype", "homie/inepro1-3/meter/exportt1/$name", "homie/inepro1-3/meter/exportt1/$unit", "homie/inepro1-3/meter/exportt2", "homie/inepro1-3/meter/exportt2/$datatype", "homie/inepro1-3/meter/exportt2/$name", "homie/inepro1-3/meter/exportt2/$unit", "homie/inepro1-3/meter/frequency", "homie/inepro1-3/meter/frequency/$datatype", "homie/inepro1-3/meter/frequency/$name", "homie/inepro1-3/meter/frequency/$unit", "homie/inepro1-3/meter/import", "homie/inepro1-3/meter/import/$datatype", "homie/inepro1-3/meter/import/$name", "homie/inepro1-3/meter/import/$unit", "homie/inepro1-3/meter/importl1", "homie/inepro1-3/meter/importl1/$datatype", "homie/inepro1-3/meter/importl1/$name", "homie/inepro1-3/meter/importl1/$unit", "homie/inepro1-3/meter/importl2", "homie/inepro1-3/meter/importl2/$datatype", "homie/inepro1-3/meter/importl2/$name", "homie/inepro1-3/meter/importl2/$unit", "homie/inepro1-3/meter/importl3", "homie/inepro1-3/meter/importl3/$datatype", "homie/inepro1-3/meter/importl3/$name", "homie/inepro1-3/meter/importl3/$unit", "homie/inepro1-3/meter/importt1", "homie/inepro1-3/meter/importt1/$datatype", "homie/inepro1-3/meter/importt1/$name", "homie/inepro1-3/meter/importt1/$unit", "homie/inepro1-3/meter/importt2", "homie/inepro1-3/meter/importt2/$datatype", "homie/inepro1-3/meter/importt2/$name", "homie/inepro1-3/meter/importt2/$unit", "homie/inepro1-3/meter/power", "homie/inepro1-3/meter/power/$datatype", "homie/inepro1-3/meter/power/$name", "homie/inepro1-3/meter/power/$unit", "homie/inepro1-3/meter/powerl1", "homie/inepro1-3/meter/powerl1/$datatype", "homie/inepro1-3/meter/powerl1/$name", "homie/inepro1-3/meter/powerl1/$unit", "homie/inepro1-3/meter/powerl2", "homie/inepro1-3/meter/powerl2/$datatype", "homie/inepro1-3/meter/powerl2/$name", "homie/inepro1-3/meter/powerl2/$unit", "homie/inepro1-3/meter/powerl3", "homie/inepro1-3/meter/powerl3/$datatype", "homie/inepro1-3/meter/powerl3/$name", "homie/inepro1-3/meter/powerl3/$unit", "homie/inepro1-3/meter/reactiveexport", "homie/inepro1-3/meter/reactiveexport/$datatype", "homie/inepro1-3/meter/reactiveexport/$name", "homie/inepro1-3/meter/reactiveexport/$unit", "homie/inepro1-3/meter/reactiveexportl1", "homie/inepro1-3/meter/reactiveexportl1/$datatype", "homie/inepro1-3/meter/reactiveexportl1/$name", "homie/inepro1-3/meter/reactiveexportl1/$unit", "homie/inepro1-3/meter/reactiveexportl2", "homie/inepro1-3/meter/reactiveexportl2/$datatype", "homie/inepro1-3/meter/reactiveexportl2/$name", "homie/inepro1-3/meter/reactiveexportl2/$unit", "homie/inepro1-3/meter/reactiveexportl3", "homie/inepro1-3/meter/reactiveexportl3/$datatype", "homie/inepro1-3/meter/reactiveexportl3/$name", "homie/inepro1-3/meter/reactiveexportl3/$unit", "homie/inepro1-3/meter/reactiveexportt1", "homie/inepro1-3/meter/reactiveexportt1/$datatype", "homie/inepro1-3/meter/reactiveexportt1/$name", "homie/inepro1-3/meter/reactiveexportt1/$unit", "homie/inepro1-3/meter/reactiveexportt2", "homie/inepro1-3/meter/reactiveexportt2/$datatype", "homie/inepro1-3/meter/reactiveexportt2/$name", "homie/inepro1-3/meter/reactiveexportt2/$unit", "homie/inepro1-3/meter/reactiveimport", "homie/inepro1-3/meter/reactiveimport/$datatype", "homie/inepro1-3/meter/reactiveimport/$name", "homie/inepro1-3/meter/reactiveimport/$unit", "homie/inepro1-3/meter/reactiveimportl1", "homie/inepro1-3/meter/reactiveimportl1/$datatype", "homie/inepro1-3/meter/reactiveimportl1/$name", "homie/inepro1-3/meter/reactiveimportl1/$unit", "homie/inepro1-3/meter/reactiveimportl2", "homie/inepro1-3/meter/reactiveimportl2/$datatype", "homie/inepro1-3/meter/reactiveimportl2/$name", "homie/inepro1-3/meter/reactiveimportl2/$unit", "homie/inepro1-3/meter/reactiveimportl3", "homie/inepro1-3/meter/reactiveimportl3/$datatype", "homie/inepro1-3/meter/reactiveimportl3/$name", "homie/inepro1-3/meter/reactiveimportl3/$unit", "homie/inepro1-3/meter/reactiveimportt1", "homie/inepro1-3/meter/reactiveimportt1/$datatype", "homie/inepro1-3/meter/reactiveimportt1/$name", "homie/inepro1-3/meter/reactiveimportt1/$unit", "homie/inepro1-3/meter/reactiveimportt2", "homie/inepro1-3/meter/reactiveimportt2/$datatype", "homie/inepro1-3/meter/reactiveimportt2/$name", "homie/inepro1-3/meter/reactiveimportt2/$unit", "homie/inepro1-3/meter/reactivepower", "homie/inepro1-3/meter/reactivepower/$datatype", "homie/inepro1-3/meter/reactivepower/$name", "homie/inepro1-3/meter/reactivepower/$unit", "homie/inepro1-3/meter/reactivepowerl1", "homie/inepro1-3/meter/reactivepowerl1/$datatype", "homie/inepro1-3/meter/reactivepowerl1/$name", "homie/inepro1-3/meter/reactivepowerl1/$unit", "homie/inepro1-3/meter/reactivepowerl2", "homie/inepro1-3/meter/reactivepowerl2/$datatype", "homie/inepro1-3/meter/reactivepowerl2/$name", "homie/inepro1-3/meter/reactivepowerl2/$unit", "homie/inepro1-3/meter/reactivepowerl3", "homie/inepro1-3/meter/reactivepowerl3/$datatype", "homie/inepro1-3/meter/reactivepowerl3/$name", "homie/inepro1-3/meter/reactivepowerl3/$unit", "homie/inepro1-3/meter/reactivesum", "homie/inepro1-3/meter/reactivesum/$datatype", "homie/inepro1-3/meter/reactivesum/$name", "homie/inepro1-3/meter/reactivesum/$unit", "homie/inepro1-3/meter/reactivesuml1", "homie/inepro1-3/meter/reactivesuml1/$datatype", "homie/inepro1-3/meter/reactivesuml1/$name", "homie/inepro1-3/meter/reactivesuml1/$unit", "homie/inepro1-3/meter/reactivesuml2", "homie/inepro1-3/meter/reactivesuml2/$datatype", "homie/inepro1-3/meter/reactivesuml2/$name", "homie/inepro1-3/meter/reactivesuml2/$unit", "homie/inepro1-3/meter/reactivesuml3", "homie/inepro1-3/meter/reactivesuml3/$datatype", "homie/inepro1-3/meter/reactivesuml3/$name", "homie/inepro1-3/meter/reactivesuml3/$unit", "homie/inepro1-3/meter/reactivesumt1", "homie/inepro1-3/meter/reactivesumt1/$datatype", "homie/inepro1-3/meter/reactivesumt1/$name", "homie/inepro1-3/meter/reactivesumt1/$unit", "homie/inepro1-3/meter/reactivesumt2", "homie/inepro1-3/meter/reactivesumt2/$datatype", "homie/inepro1-3/meter/reactivesumt2/$name", "homie/inepro1-3/meter/reactivesumt2/$unit", "homie/inepro1-3/meter/sum", "homie/inepro1-3/meter/sum/$datatype", "homie/inepro1-3/meter/sum/$name", "homie/inepro1-3/meter/sum/$unit", "homie/inepro1-3/meter/suml1", "homie/inepro1-3/meter/suml1/$datatype", "homie/inepro1-3/meter/suml1/$name", "homie/inepro1-3/meter/suml1/$unit", "homie/inepro1-3/meter/suml2", "homie/inepro1-3/meter/suml2/$datatype", "homie/inepro1-3/meter/suml2/$name", "homie/inepro1-3/meter/suml2/$unit", "homie/inepro1-3/meter/suml3", "homie/inepro1-3/meter/suml3/$datatype", "homie/inepro1-3/meter/suml3/$name", "homie/inepro1-3/meter/suml3/$unit", "homie/inepro1-3/meter/sumt1", "homie/inepro1-3/meter/sumt1/$datatype", "homie/inepro1-3/meter/sumt1/$name", "homie/inepro1-3/meter/sumt1/$unit", "homie/inepro1-3/meter/sumt2", "homie/inepro1-3/meter/sumt2/$datatype", "homie/inepro1-3/meter/sumt2/$name", "homie/inepro1-3/meter/sumt2/$unit", "homie/inepro1-3/meter/voltage", "homie/inepro1-3/meter/voltage/$datatype", "homie/inepro1-3/meter/voltage/$name", "homie/inepro1-3/meter/voltage/$unit", "homie/inepro1-3/meter/voltagel1", "homie/inepro1-3/meter/vo"],
+        8: ["/Energo/DCUK/SML133/SML133-01/act", "/Energo/DCUK/SML133/SML133-01"],
+        10: ["/Energo/DCUK/SML133/SML133-01/har", "/Energo/DCUK/SML133/SML133-01/osc"],
+        17: ["/mve/MVELibochovice", "/mve/libochovice", "/mve/patek"],
+        18: ["/mve/MVELenesice/NS:_DI_hl_horni", "/mve/MVELenesice/TG1:_I_prutok", "/mve/MVELenesice/TG2:_I_prutok"],
+        21: ["/senzory/wifi/co2/11", "/senzory/wifi/co2/12", "/senzory/wifi/co2/13", "/senzory/wifi/co2/14", "/senzory/wifi/co2/69", "/senzory/wifi/co2/70", "/ttndata/senzory/wifi/co2/11", "/ttndata/senzory/wifi/co2/12", "/ttndata/senzory/wifi/co2/13", "/ttndata/senzory/wifi/co2/14", "/ttndata/senzory/wifi/co2/69", "/ttndata/senzory/wifi/co2/70"],
+        22: ["/ttndata/eui-24e124136c489089-02", "/ttndata/eui-24e124136c489130-03", "/ttndata/eui-24e124136c489175-01", "/ttndata/eui-24e124136d056316-04", "/ttndata/eui-24e124713d167798", "/ttndata/eui-24e124713d168111-vzdalenost-03", "/ttndata/eui-24e124713d321242-vzdalenost-06", "/ttndata/eui-24e124713d321868-vzdalenost-04", "/ttndata/eui-24e124713d325844-vzdalenost-07", "/ttndata/eui-24e124785c461081-08", "/ttndata/eui-24e124785c524196-05", "/ttndata/eui-24e124785c524219-06", "/ttndata/eui-24e124785d034093-22", "/ttndata/eui-24e124785d160333-28", "/ttndata/eui-24e124785d161155-31", "/ttndata/eui-24e124785d161214-33", "/ttndata/eui-24e124785d161385-23", "/ttndata/eui-24e124785d161620-36", "/ttndata/eui-24e124785d161970-27", "/ttndata/eui-24e124785d163091-29", "/ttndata/eui-24e124785d164657-19", "/ttndata/eui-24e124785d166440-30", "/ttndata/eui-24e124785d166458-21", "/ttndata/eui-24e124785d166511-20", "/ttndata/eui-24e124785d166522-37", "/ttndata/eui-24e124785d166658-34", "/ttndata/eui-24e124785d166659-35", "/ttndata/eui-24e124785d166701-25", "/ttndata/eui-24e124785d166701-26", "/ttndata/eui-24e124785d199555-38", "/ttndata/eui-24e124785d199642-24", "/ttndata/eui-24e124785d199779-32", "/ttndata/eui-24e124785d321936-18", "/ttndata/eui-24e124785d321945-10", "/ttndata/eui-24e124785d322247-11", "/ttndata/eui-24e124785d322466-09", "/ttndata/eui-24e124785d323009-15", "/ttndata/eui-24e124785d328675-12", "/ttndata/eui-24e124785d328773-16", "/ttndata/eui-24e124785d328785-17", "/ttndata/eui-24e124785d328928-14", "/ttndata/eui-24e124785d329068-13", "/ttndata/eui-24e124785e090008-zzs-112", "/ttndata/eui-24e124785e090010-zzs-078", "/ttndata/eui-24e124785e090012-zzs-082", "/ttndata/eui-24e124785e090028-zzs-117", "/ttndata/eui-24e124785e090036-zzs-098", "/ttndata/eui-24e124785e090054-zzs-103", "/ttndata/eui-24e124785e090056-zzs-059", "/ttndata/eui-24e124785e090064-zzs-057", "/ttndata/eui-24e124785e090070-zzs-110", "/ttndata/eui-24e124785e090078-zzs-158", "/ttndata/eui-24e124785e090083-zzs-183", "/ttndata/eui-24e124785e090087-zzs-023", "/ttndata/eui-24e124785e090090-zzs-165", "/ttndata/eui-24e124785e090097-zzs-161", "/ttndata/eui-24e124785e090100-zzs-044", "/ttndata/eui-24e124785e090117-zzs-084", "/ttndata/eui-24e124785e090121-zzs-180", "/ttndata/eui-24e124785e090128-zzs-079", "/ttndata/eui-24e124785e090139-zzs-102", "/ttndata/eui-24e124785e090151-zzs-129", "/ttndata/eui-24e124785e090155-zzs-014", "/ttndata/eui-24e124785e090184-zzs-139", "/ttndata/eui-24e124785e090187-zzs-005", "/ttndata/eui-24e124785e090197-zzs-119", "/ttndata/eui-24e124785e090203-zzs-026", "/ttndata/eui-24e124785e090215-zzs-002", "/ttndata/eui-24e124785e090217-zzs-105", "/ttndata/eui-24e124785e090219-zzs-145", "/ttndata/eui-24e124785e090220-zzs-157", "/ttndata/eui-24e124785e090227-zzs-162", "/ttndata/eui-24e124785e090250-zzs-168", "/ttndata/eui-24e124785e090254-zzs-054", "/ttndata/eui-24e124785e090263-zzs-022", "/ttndata/eui-24e124785e090274-zzs-052", "/ttndata/eui-24e124785e090281-zzs-108", "/ttndata/eui-24e124785e090290-zzs-029", "/ttndata/eui-24e124785e090295-zzs-048", "/ttndata/eui-24e124785e090302-zzs-056", "/ttndata/eui-24e124785e090305-zzs-077", "/ttndata/eui-24e124785e090309-zzs-124", "/ttndata/eui-24e124785e090314-zzs-193", "/ttndata/eui-24e124785e090324-zzs-174", "/ttndata/eui-24e124785e090353-zzs-019", "/ttndata/eui-24e124785e090362-zzs-167", "/ttndata/eui-24e124785e090888-zzs-051", "/ttndata/eui-24e124785e091177-zzs-015", "/ttndata/eui-24e124785e091182-zzs-031", "/ttndata/eui-24e124785e091210-zzs-173", "/ttndata/eui-24e124785e091282-zzs-187", "/ttndata/eui-24e124785e091288-zzs-125", "/ttndata/eui-24e124785e091302-zzs-171", "/ttndata/eui-24e124785e091320-zzs-020", "/ttndata/eui-24e124785e091336-zzs-070", "/ttndata/eui-24e124785e091366-zzs-177", "/ttndata/eui-24e124785e091396-zzs-184", "/ttndata/eui-24e124785e091402-zzs-046", "/ttndata/eui-24e124785e091414-zzs-192", "/ttndata/eui-24e124785e092081-zzs-087", "/ttndata/eui-24e124785e092220-zzs-115", "/ttndata/eui-24e124785e092249-zzs-143", "/ttndata/eui-24e124785e092277-zzs-074", "/ttndata/eui-24e124785e092285-zzs-121", "/ttndata/eui-24e124785e092289-zzs-195", "/ttndata/eui-24e124785e092316-zzs-076", "/ttndata/eui-24e124785e092363-zzs-032", "/ttndata/eui-24e124785e092367-zzs-116", "/ttndata/eui-24e124785e092381-zzs-154", "/ttndata/eui-24e124785e092384-zzs-041", "/ttndata/eui-24e124785e092420-zzs-089", "/ttndata/eui-24e124785e092427-zzs-113", "/ttndata/eui-24e124785e092436-zzs-008", "/ttndata/eui-24e124785e092476-zzs-136", "/ttndata/eui-24e124785e092485-zzs-006", "/ttndata/eui-24e124785e092503-zzs-179", "/ttndata/eui-24e124785e092521-zzs-146", "/ttndata/eui-24e124785e092529-zzs-172", "/ttndata/eui-24e124785e092545-zzs-127", "/ttndata/eui-24e124785e092570-zzs-163", "/ttndata/eui-24e124785e092591-zzs-075", "/ttndata/eui-24e124785e092618-zzs-093", "/ttndata/eui-24e124785e092644-zzs-067", "/ttndata/eui-24e124785e092682-zzs-126", "/ttndata/eui-24e124785e092697-zzs-149", "/ttndata/eui-24e124785e092715-zzs-025", "/ttndata/eui-24e124785e092728-zzs-197", "/ttndata/eui-24e124785e092760-zzs-099", "/ttndata/eui-24e124785e093029-zzs-066", "/ttndata/eui-24e124785e093075-zzs-027", "/ttndata/eui-24e124785e093267-zzs-196", "/ttndata/eui-24e124785e093284-zzs-153", "/ttndata/eui-24e124785e093287-zzs-190", "/ttndata/eui-24e124785e094054-zzs-159", "/ttndata/eui-24e124785e094652-zzs-024", "/ttndata/eui-24e124785e095106-zzs-133", "/ttndata/eui-24e124785e095136-zzs-069", "/ttndata/eui-24e124785e095162-zzs-150", "/ttndata/eui-24e124785e095174-zzs-017", "/ttndata/eui-24e124785e095257-zzs-120", "/ttndata/eui-24e124785e095284-zzs-055", "/ttndata/eui-24e124785e095295-zzs-181", "/ttndata/eui-24e124785e095296-zzs-137", "/ttndata/eui-24e124785e095302-zzs-058", "/ttndata/eui-24e124785e095312-zzs-038", "/ttndata/eui-24e124785e095320-zzs-072", "/ttndata/eui-24e124785e095368-zzs-063", "/ttndata/eui-24e124785e095372-zzs-109", "/ttndata/eui-24e124785e095384-zzs-104", "/ttndata/eui-24e124785e095392-zzs-088", "/ttndata/eui-24e124785e095398-zzs-050", "/ttndata/eui-24e124785e095406-zzs-042", "/ttndata/eui-24e124785e095407-zzs-035", "/ttndata/eui-24e124785e095412-zzs-086", "/ttndata/eui-24e124785e095414-zzs-152", "/ttndata/eui-24e124785e095435-zzs-028", "/ttndata/eui-24e124785e095445-zzs-147", "/ttndata/eui-24e124785e095465-zzs-091", "/ttndata/eui-24e124785e095471-zzs-033", "/ttndata/eui-24e124785e095475-zzs-156", "/ttndata/eui-24e124785e095479-zzs-188", "/ttndata/eui-24e124785e095516-zzs-071", "/ttndata/eui-24e124785e095541-zzs-178", "/ttndata/eui-24e124785e095559-zzs-130", "/ttndata/eui-24e124785e095575-zzs-097", "/ttndata/eui-24e124785e095609-zzs-144", "/ttndata/eui-24e124785e095634-zzs-062", "/ttndata/eui-24e124785e095636-zzs-123", "/ttndata/eui-24e124785e095656-zzs-068", "/ttndata/eui-24e124785e095669-zzs-001", "/ttndata/eui-24e124785e095676-zzs-090", "/ttndata/eui-24e124785e095679-zzs-094", "/ttndata/eui-24e124785e095684-zzs-096", "/ttndata/eui-24e124785e095698-zzs-040", "/ttndata/eui-24e124785e095772-zzs-018", "/ttndata/eui-24e124785e095789-zzs-138", "/ttndata/eui-24e124785e095798-zzs-118", "/ttndata/eui-24e124785e095807-zzs-134", "/ttndata/eui-24e124785e095819-zzs-189", "/ttndata/eui-24e124785e095824-zzs-060", "/ttndata/eui-24e124785e095834-zzs-010", "/ttndata/eui-24e124785e095843-zzs-135", "/ttndata/eui-24e124785e095855-zzs-016", "/ttndata/eui-24e124785e095889-zzs-191", "/ttndata/eui-24e124785e095900-zzs-012", "/ttndata/eui-24e124785e095910-zzs-095", "/ttndata/eui-24e124785e095922-zzs-036", "/ttndata/eui-24e124785e095933-zzs-160", "/ttndata/eui-24e124785e095944-zzs-111", "/ttndata/eui-24e124785e095966-zzs-049", "/ttndata/eui-24e124785e095988-zzs-085", "/ttndata/eui-24e124785e095992-zzs-141", "/ttndata/eui-24e124785e095997-zzs-151", "/ttndata/eui-24e124785e096026-zzs-198", "/ttndata/eui-24e124785e096041-zzs-131", "/ttndata/eui-24e124785e096043-zzs-037", "/ttndata/eui-24e124785e096067-zzs-148", "/ttndata/eui-24e124785e096073-zzs-047", "/ttndata/eui-24e124785e096078-zzs-122", "/ttndata/eui-24e124785e096095-zzs-064", "/ttndata/eui-24e124785e096106-zzs-007", "/ttndata/eui-24e124785e096129-zzs-101", "/ttndata/eui-24e124785e096133-zzs-170", "/ttndata/eui-24e124785e096173-zzs-186", "/ttndata/eui-24e124785e096174-zzs-073", "/ttndata/eui-24e124785e096180-zzs-045", "/ttndata/eui-24e124785e096188-zzs-140", "/ttndata/eui-24e124785e096225-zzs-004", "/ttndata/eui-24e124785e096233-zzs-155", "/ttndata/eui-24e124785e096236-zzs-081", "/ttndata/eui-24e124785e096242-zzs-175", "/ttndata/eui-24e124785e096250-zzs-013", "/ttndata/eui-24e124785e096265-zzs-142", "/ttndata/eui-24e124785e096279-zzs-185", "/ttndata/eui-24e124785e096285-zzs-128", "/ttndata/eui-24e124785e096323-zzs-194", "/ttndata/eui-24e124785e096342-zzs-199", "/ttndata/eui-24e124785e096389-zzs-132", "/ttndata/eui-24e124785e096719-zzs-061", "/ttndata/eui-24e124785e097014-zzs-169", "/ttndata/eui-24e124785e097058-zzs-021", "/ttndata/eui-24e124785e097579-zzs-030", "/ttndata/eui-24e124785e097581-zzs-065", "/ttndata/eui-24e124785e097682-zzs-009", "/ttndata/eui-24e124785e097686-zzs-164", "/ttndata/eui-24e124785e097710-zzs-003", "/ttndata/eui-24e124785e097857-zzs-182", "/ttndata/eui-24e124785e097887-zzs-166", "/ttndata/eui-24e124785e097890-zzs-100", "/ttndata/eui-24e124785e097893-zzs-039", "/ttndata/eui-24e124785e097906-zzs-106", "/ttndata/eui-24e124785e097959-zzs-176", "/ttndata/eui-24e124785e097992-zzs-107", "/ttndata/eui-24e124785e097995-zzs-043", "/ttndata/eui-24e124785e098004-zzs-083", "/ttndata/eui-24e124785e098006-zzs-114", "/ttndata/eui-24e124785e099621-zzs-092", "/ttndata/eui-24e124785e099733-zzs-011", "/ttndata/eui-24e124785e099942-zzs-053", "/ttndata/eui-24e124785e260016-zzs-205", "/ttndata/eui-24e124785e260092-zzs-222", "/ttndata/eui-24e124785e260156-zzs-206", "/ttndata/eui-24e124785e260160-zzs-211", "/ttndata/eui-24e124785e260176-zzs-207", "/ttndata/eui-24e124785e260202-zzs-210", "/ttndata/eui-24e124785e260343-zzs-220", "/ttndata/eui-24e124785e260369-zzs-213", "/ttndata/eui-24e124785e260371-zzs-214", "/ttndata/eui-24e124785e260387-zzs-212", "/ttndata/eui-24e124785e260420-zzs-223", "/ttndata/eui-24e124785e260428-zzs-218", "/ttndata/eui-24e124785e260433-zzs-216", "/ttndata/eui-24e124785e260446-zzs-217", "/ttndata/eui-24e124785e260458-zzs-201", "/ttndata/eui-24e124785e260473-zzs-204", "/ttndata/eui-24e124785e261108-zzs-203", "/ttndata/eui-24e124785e263656-zzs-202", "/ttndata/eui-24e124785e265181-zzs-221", "/ttndata/eui-24e124785e265224-zzs-215", "/ttndata/eui-24e124785e269982-zzs-219", "/ttndata/eui-353836366838660c-vzdalenost-014", "/ttndata/eui-3538363668386d0c-vzdalenost-010", "/ttndata/eui-3538363668387a0c-016", "/ttndata/eui-353836366838840c-015", "/ttndata/eui-353836366b386c0c-vzdalenost-009", "/ttndata/eui-353836366b387a0c-vzdalenost-008", "/ttndata/eui-70b3d57ed006208e-co-01", "/ttndata/eui-70b3d57ed0062098-co-02", "/ttndata/eui-70b3d57ed006209c-co-03", "/ttndata/eui-70b3d57ed006209e-co-04", "/ttndata/eui-70b3d57ed006209f-co-05", "/ttndata/eui-70b3d57ed00620a0-co-06", "/ttndata/eui-70b3d57ed00620a1-co-07", "/ttndata/eui-70b3d57ed00620a2-co-08", "/ttndata/eui-70b3d57ed0062269-co-09", "/ttndata/eui-70b3d57ed006226c-co-10", "/ttndata/eui-70b3d57ed0064636-co-15", "/ttndata/eui-70b3d57ed006473f-co-16", "/ttndata/eui-70b3d57ed00672c7-co-25", "/ttndata/eui-70b3d57ed0067d41-co-26", "/ttndata/eui-70b3d57ed0067e9b-co-27", "/ttndata/eui-8cf95720000d4a63-vzdalenost-011", "/ttndata/eui-8cf95720000d4b69-vzdalenost-012", "/ttndata/eui-a8404135c187f1ff-dvere-03", "/ttndata/eui-a84041c4d187f1fe-dvere-04", "/ttndata/eui-a84041dce187f204-dvere-01", "/ttndata/eui-cacbb80100003af3", "/ttndata/eui-cacbb80100003b25"],
+        25: ["/ttndata/voda/eui-24e124713d167798", "/ttndata/voda/eui-24e124713d321242-vzdalenost-06", "/ttndata/voda/eui-24e124713d321639-vzdalenost-05", "/ttndata/voda/eui-24e124713d321868-vzdalenost-04", "/ttndata/voda/eui-24e124713d325844-vzdalenost-07", "/ttndata/voda/eui-3538363668386d0c-vzdalenost-010", "/ttndata/voda/eui-353836366b386c0c-vzdalenost-009", "/ttndata/voda/eui-353836366b387a0c-vzdalenost-008", "/ttndata/voda/eui-8cf95720000d4a63-vzdalenost-011", "/ttndata/voda/eui-8cf95720000d4b69-vzdalenost-012", "/voda/KA-01", "/voda/KA-18", "/voda/KA-19", "/voda/KA-20"],
+        26: ["/udp1881/15102001", "/udp1881/15102002", "/udp1881/15102004", "/udp1881/15102005", "/udp1881/15102006", "/udp1881/15102007", "/udp1881/15102008", "/udp1881/15102010", "/udp1881/15102011", "/udp1881/15102012", "/udp1881/15102013", "/udp1881/15102014", "/udp1881/15102015", "/udp1881/15102016", "/udp1881/15102017", "/udp1881/15102019", "/udp1881/15102020", "/udp1881/15102022", "/udp1881/15102023", "/udp1881/15102024", "/udp1881/15102025", "/udp1881/15102026", "/udp1881/15102027", "/udp1881/15102028", "/udp1881/15102029", "/udp1881/15102030", "/udp1881/15102031", "/udp1881/15102032", "/udp1881/15102033", "/udp1881/15102034", "/udp1881/15102035", "/udp1881/15102036", "/udp1881/15102038", "/udp1881/15102039", "/udp1881/28072001", "/udp1881/28072002", "/udp1881/28072003", "/udp1881/28072004", "/udp1881/28072005", "/udp1881/28072006", "/udp1881/28072007", "/udp1881/28072008", "/udp1881/28072009", "/udp1881/28072010", "/udp1881/28072011", "/udp1881/28072012", "/udp1881/28072013", "/udp1881/28072014", "/udp1881/28072015", "/udp1881/28072017", "/udp1881/28072018", "/udp1881/28072019", "/udp1881/28072020", "/udp1881/28072021", "/udp1881/28072023", "/udp1881/28072024", "/udp1881/28072025", "/udp1881/28072026", "/udp1881/28072027", "/udp1881/28072028", "/udp1881/28072029", "/udp1881/28072031", "/udp1881/28072033", "/udp1881/28072034", "/udp1881/28072035", "/udp1881/28072036", "/udp1881/28072037", "/udp1881/28072038", "/udp1881/28072039", "/udp1881/28072040", "/udp1881/28072041", "/udp1881/28072042", "/udp1881/28072043", "/udp1881/28072044", "/udp1881/28072045", "/udp1881/28072046", "/udp1881/28072047", "/udp1881/28072048", "/udp1881/28072049", "/udp1881/28072050", "/udp1881/ffffffff", "/voda//udp1881/15102010", "/voda//udp1881/15102023", "/voda//udp1881/15102024", "/voda//udp1881/15102032", "/voda//udp1881/15102039", "/voda//udp1881/28072017", "/voda//udp1881/28072018", "/voda//udp1881/28072024", "/voda//udp1881/28072028", "/voda//udp1881/28072031", "/voda//udp1881/28072036", "/voda//udp1881/28072038", "/voda//udp1881/28072040", "/voda//udp1881/ffffffff", "/voda/BI-01", "/voda/BI-02", "/voda/BI-03", "/voda/BI-04", "/voda/CH-04", "/voda/DE-01", "/voda/DE-04", "/voda/DE-11", "/voda/DE-12", "/voda/DE-13", "/voda/DE-14", "/voda/DE-15", "/voda/KA-05", "/voda/KA-06", "/voda/KA-07", "/voda/KA-08", "/voda/KA-11", "/voda/KA-13", "/voda/KA-14", "/voda/KA-16", "/voda/KA-17", "/voda/LI-01", "/voda/LI-02", "/voda/LI-03", "/voda/LI-04", "/voda/LI-05", "/voda/LT-02", "/voda/LT-03", "/voda/LT-04", "/voda/LT-05", "/voda/LT-06", "/voda/LT-07", "/voda/LY-03", "/voda/MO-01", "/voda/MO-02", "/voda/PO-01", "/voda/PO-02", "/voda/PO-04", "/voda/PO-05", "/voda/PO-06", "/voda/RL-01", "/voda/RU-01", "/voda/RU-03", "/voda/RU-04", "/voda/RU-05", "/voda/RU-06", "/voda/RU-07", "/voda/RU-08", "/voda/RU-09", "/voda/RU-10", "/voda/TE-02", "/voda/TE-04", "/voda/TE-05", "/voda/TE-06", "/voda/TE-07", "/voda/TE-08", "/voda/TE-09", "/voda/TE-10", "/voda/TE-11", "/voda/TE-12", "/voda/TE-13", "/voda/UL-01", "/voda/UL-02", "/voda/UL-03", "/voda/UL-04", "/voda/UL-05", "/voda/UL-06", "/voda/UL-07", "/voda/UL-09", "/voda/UL-10", "/voda/UL-13", "/voda/UL-19", "/voda/UL-20", "/voda/UL-21"],
+    }
     
     clusters = []
-    
-    # A. Zpracování ORANŽOVÉ skupiny
-    orange_cluster = set()
-    all_topics = set(topic_keys.keys())
-    remaining_topics = set(topic_keys.keys())
-    
-    for topic in list(remaining_topics):
-        if orange_topics_re.search(topic):
-            orange_cluster.add(topic)
-            
-    if orange_cluster:
-        clusters.append(orange_cluster)
-        remaining_topics -= orange_cluster
-    
-    # B. Zpracování ZBYLÝCH (ŽLUTÝCH) skupin
-    # Každý zbývající topic je samostatný cluster, aby byla zachována
-    # jejich separace podle požadavku.
-    
-    for topic in remaining_topics:
-        clusters.append({topic}) # Každý zbývající topic je vlastní cluster
-
-    log.info(f"Manual clustering applied. Orange cluster size: {len(orange_cluster)}. Separated clusters: {len(remaining_topics)}")
-    
+    orange = set(manual_groups.get(8, [])) | set(manual_groups.get(10, []))
+    if orange:
+        clusters.append({"group": "8_10", "topics": orange})
+    for gid, tps in manual_groups.items():
+        if gid in (8, 10):
+            continue
+        clusters.append({"group": str(gid), "topics": set(tps)})
     return clusters
-# --- KONEC ZMĚNĚNÉ FUNKCE ---
-
 
 def main():
-    conn_l=psycopg2.connect(**LANDING_CONN)
-    conn_s=psycopg2.connect(**STAGING_CONN)
-    conn_l.set_session(readonly=True,autocommit=True)
-    conn_s.set_session(autocommit=False)
-    cur_l=conn_l.cursor(cursor_factory=RealDictCursor)
-    cur_s=conn_s.cursor()
-
-    cur_s.execute(f"""
-        CREATE TABLE IF NOT EXISTS {TARGET_SCHEMA}.etl_run_log(
-            run_id BIGSERIAL PRIMARY KEY,
-            topic TEXT,
-            start_time TIMESTAMPTZ,
-            end_time TIMESTAMPTZ,
-            status TEXT,
-            rows_inserted BIGINT,
-            error_message TEXT
-        );
-    """); conn_s.commit()
-
-    safe_execute_l(cur_l,"SELECT DISTINCT topic FROM mttgueries.mqttentries;")
-    topics=[r["topic"] for r in cur_l.fetchall()]
-    log.info(f"Loaded {len(topics)} topics.")
-    topic_keys={}
-    for i,t in enumerate(topics,1):
-        cur_l.execute("SELECT payload FROM mttgueries.mqttentries WHERE topic=%s AND payload IS NOT NULL ORDER BY id DESC LIMIT 1;",(t,))
-        row=cur_l.fetchone()
-        if not row: continue
-        keys=flatten_keys(try_utf8(row["payload"]))
-        if keys: topic_keys[t]=keys
-        if i%200==0: log.info(f"Scanned {i}/{len(topics)} topics...")
-
-    # ZMĚNA: Používá se manuální clustering namísto fuzzy
-    clusters=manual_clusters(topic_keys) 
-    log.info(f"Formed {len(clusters)} manual clusters.")
-
-    for gid,cluster in enumerate(clusters):
-        tps=list(cluster)
-        table=derive_table_name(tps)
-        
-        # ZMĚNA: Podmínka pro identifikaci ORANŽOVÉ skupiny (Group ID 8 a 10)
-        is_orange_group = any(re.search(r"/Energo/DCUK/SML133/SML133-01/", t) for t in tps)
-        
-        if is_orange_group:
-             # Použít fixní název pro sloučenou oranžovou skupinu
-             virt_topic = "manual/oranze/energo_sml133_slouceno"
-             table = "stg_manual_oranze_energo"
+    clusters = build_manual_clusters({})
+    log.info(f"Celkem {len(clusters)} clusterů ke zpracování (sekvenčně).")
+    for cluster in clusters:
+        gid, rows, status, err = process_cluster(cluster)
+        if status == "SUCCESS":
+            log.info(f"✔️ {gid}: {rows} vloženo")
+        elif status == "EMPTY":
+            log.info(f"ℹ️ {gid}: žádná data")
+        elif status == "INTERRUPTED":
+            log.warning(f"⏹ {gid}: přerušeno uživatelem")
+            break
         else:
-            # Ponechat původní logiku pro žluté (separátní) skupiny
-            virt_topic="/".join(tps[0].strip("/").split("/")[:2]) + f"/virt_group_{gid}"
-            
-        log.info(f"→ {virt_topic} ({len(tps)} topics) → {table}")
-        start=datetime.now(); rows_ins=0; status="RUNNING"; err=""
-        try:
-            safe_execute_l(cur_l,"SELECT id,time,topic,payload FROM mttgueries.mqttentries WHERE topic = ANY(%s) ORDER BY id;",(tps,))
-            rows=cur_l.fetchmany(BATCH_SIZE)
-            
-            # --- Zbytek logiky ETL pro cluster zůstává stejný ---
-            
-            if not rows: continue
-            first_payload=try_utf8(rows[0]["payload"])
-            try:
-                js=json.loads(first_payload)
-                if isinstance(js,list) and js: js=js[0]
-            except Exception: js={"value":first_payload}
-            flat_sample=flatten_json(js)
-            existing_cols=ensure_table_and_columns(cur_s,table,flat_sample)
-            conn_s.commit()
-            batch=[]
-            
-            # Cyklus pro načítání všech dat v batchích
-            while rows: 
-                for rrow in rows:
-                    payload=try_utf8(rrow["payload"])
-                    try: js=json.loads(payload)
-                    except Exception: js={"value":payload}
-                    if isinstance(js,list):
-                        for el in js:
-                            flat=flatten_json(el)
-                            existing_cols=ensure_new_columns(cur_s,table,flat,existing_cols)
-                            batch.append((rrow["id"],rrow["time"],rrow["topic"],flat))
-                    else:
-                        flat=flatten_json(js)
-                        existing_cols=ensure_new_columns(cur_s,table,flat,existing_cols)
-                        batch.append((rrow["id"],rrow["time"],rrow["topic"],flat))
-                    if len(batch)>=BATCH_SIZE:
-                        existing_cols=insert_batch(cur_s,table,batch,existing_cols)
-                        conn_s.commit()
-                        rows_ins+=len(batch); batch.clear()
-                
-                rows=cur_l.fetchmany(BATCH_SIZE)
-            
-            if batch:
-                existing_cols=insert_batch(cur_s,table,batch,existing_cols)
-                conn_s.commit(); rows_ins+=len(batch)
-            status="SUCCESS"
-            log.info(f"✅ {virt_topic} done | {rows_ins} rows")
-        except Exception as e:
-            try: conn_s.rollback()
-            except Exception: pass
-            status="ERROR"; err=str(e)
-            log.exception(f"❌ Error {virt_topic}: {e}")
-        finally:
-            cur_s.execute(f"""
-                INSERT INTO {TARGET_SCHEMA}.etl_run_log(topic,start_time,end_time,status,rows_inserted,error_message)
-                VALUES(%s,%s,now(),%s,%s,%s);
-            """,(virt_topic,start,status,rows_ins,err))
-            conn_s.commit()
+            log.warning(f"⚠️ {gid}: {status} ({err})")
+    log.info("🏁 ETL dokončeno pro všechny clustery.")
 
-    cur_l.close();cur_s.close();conn_l.close();conn_s.close()
-    log.info("🏁 ETL finished for all manual and fuzzy virtual topics.")
-
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
