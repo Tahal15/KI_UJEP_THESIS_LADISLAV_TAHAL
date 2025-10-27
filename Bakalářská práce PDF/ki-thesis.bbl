@@ -456,6 +456,35 @@
       \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
       \endverb
     \endentry
+    \entry{geeksforgeeks_star_schema}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=f1e069787ece74531d112559945c6871}{%
+           family={{GeeksforGeeks}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhashraw}{f1e069787ece74531d112559945c6871}
+      \strng{bibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorbibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authornamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhashraw}{f1e069787ece74531d112559945c6871}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{6}
+      \field{note}{Ilustrační obrázek dostupný online, citováno dne 27.\,října\,2025}
+      \field{title}{Star Schema in Data Warehouse Modelling}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://media.geeksforgeeks.org/wp-content/uploads/20230608140940/Capture-163.webp
+      \endverb
+      \verb{url}
+      \verb https://media.geeksforgeeks.org/wp-content/uploads/20230608140940/Capture-163.webp
+      \endverb
+    \endentry
     \entry{looker2024semanticmodel}{online}{}{}
       \name{author}{1}{}{%
         {{hash=b4e595bd8646c01df540ff38696a35be}{%

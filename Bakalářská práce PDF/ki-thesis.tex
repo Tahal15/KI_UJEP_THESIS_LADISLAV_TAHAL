@@ -380,9 +380,33 @@ Díky těmto technologiím se stává reálným scénář, v němž uživatel za
 
 Tato kapitola se zaměřuje na teoretické vymezení klíčových pojmů a principů, které tvoří základ pro praktickou část práce.  
 Cílem je popsat architekturu moderních datových platforem, jejich vrstvy a související technologie využívané pro ukládání, zpracování a analýzu dat.  
-Pozornost je věnována především konceptům \textit{Datového jezera}, \textit{Datového skladu} a \textit{OLAP} technologií, které představují jádro analytických systémů.  
-Součástí kapitoly je také přehled nástrojů Business Intelligence a teoretické vymezení \textit{sémantické vrstvy}, která propojuje datový sklad s prezentační částí platformy a umožňuje jednotnou interpretaci dat napříč organizací.
+Pozornost je věnována především konceptům \textit{datového jezera}, \textit{datového skladu} a technologiím \textit{OLAP}, které tvoří jádro současných analytických systémů.  
+Součástí kapitoly je také přehled nástrojů Business Intelligence a teoretické vymezení \textit{sémantické vrstvy}, jež propojuje datový sklad s prezentační částí platformy a umožňuje jednotnou interpretaci dat napříč organizací.
+
 \section{Úvod do problematiky datových skladů a OLAP}
+
+Návrh systému, který byl v této práci vytvořen, nepředstavuje univerzální ani definitivní řešení.  
+Každý datový architekt by měl vždy zohlednit konkrétní potřeby a podmínky dané organizace.  
+Například některé společnosti nemusí vyžadovat implementaci OLAP systému – mohou disponovat vlastním týmem databázových specialistů, kteří vytvářejí databázové pohledy, a datových analytiků, kteří z těchto pohledů následně generují reporty.  
+Jiné organizace naopak tento systém nemohou použít vůbec, například v případě požadavku na zpracování dat v reálném čase, pro které jsou vhodnější jiné technologie a architektury.  
+
+Navržený systém proto představuje jedno z možných řešení, přizpůsobené konkrétní situaci a prostředí, ve kterém byl vyvíjen.
+
+Celý systém je rozdělen do pěti vrstev, jak je znázorněno na obrázku \ref{fig:architecture}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/reporting_structure.png}
+  \caption{Navržená struktura systému. Datové zdroje jsou ilustrační.}
+  \label{fig:architecture}
+\end{figure}
+
+\subsection{Datové zdroje}
+Základní vstupní vrstvu systému tvoří datové zdroje, které obvykle pocházejí z různých podnikových systémů, jako jsou například MES systémy, CRM nebo ERP.  
+Datový zdroj je zpravidla reprezentován databází, avšak v praxi se často setkáváme také s textovými soubory (například ve formátu CSV).  
+Ačkoliv formát CSV nemusí na první pohled působit jako spolehlivý datový zdroj, v praxi se používá poměrně často.  
+Důvodem bývá například licenční politika – přímý přístup do databáze může být zpoplatněn, zatímco export dat do CSV souboru bývá dostupný zdarma nebo bez omezení.
+
 
 \subsection{Datové jezero}
 
@@ -429,31 +453,7 @@ Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metod
 \end{enumerate}
 
 V praxi se však často objevují hybridní systémy kombinující prvky obou přístupů. Takovýto hybridní přístup jsem zvolil i já.
-
 \clearpage
-
-\subsubsection{Datové modely}
-\label{subsubsec:datove_modely}
-
-Základními modely používanými pro návrh datového skladu v rámci dimenzionálního modelování (Kimball) jsou:
-
-\begin{itemize}
-    \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
-    Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
-
-    \begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/star_schema.png}
- \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
-
-  
-
-\end{figure}
-    \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
-    Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
-\end{itemize}
-
-\subsubsection{Datové vrstvy v implementaci DWH}
 
 DWH z pravidla obsahuje:
 
@@ -461,39 +461,41 @@ DWH z pravidla obsahuje:
     \item \textbf{Staging Area:}
     Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
 
-    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
+    \item \textbf{Dimenze a Fakta:}
     Hlavní vrstva organizovaná dle Kimballova modelu (tedy Datový Mart pro tuto analytickou doménu). Skládá se z:
     \begin{enumerate}
         \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
         \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}, viz \texttt{bilina\_kamery\_staging\_to\_fact.py}).
     \end{enumerate}
 
-    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
-    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
-\end{itemize}
+ \end{itemize}
 
-\subsubsection{Datové vrstvy v implementaci DWH}
 
-Základní vrstvy DWH, které odrážejí tok dat ve Vašich ETL skriptech, jsou:
+Základními modely používanými pro návrh datového skladu v rámci dimenzionálního modelování (Kimball) jsou:
+
 
 \begin{itemize}
-    \item \textbf{Vrstva získávání/Staging (\textit{Staging Area}):}
-    Slouží jako dočasné úložiště, kam jsou data přenesena po jejich transformaci a čištění z Datového jezera. V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+    \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
+    Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
 
-    \item \textbf{DWH Vrstva (Dimenze a Fakta):}
-    Hlavní vrstva organizovaná dle Kimballova modelu. Skládá se z:
-    \begin{enumerate}
-        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
-        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}).
-    \end{enumerate}
+    \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/star_schema.png}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
+\end{figure}
+\clearpage
+    \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
+    Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/snowflake.png}
+  \caption{Ilustrační schéma hvězdicového modelu faktové tabulky a dimenzí převzato z \cite{geeksforgeeks_star_schema}.}
+  \label{fig:star_schema}
+\end{figure}
 
-    \item \textbf{Sémantická vrstva (\textit{Semantic Layer}):}
-    Tato vrstva nahrazuje tradiční prezentační vrstvu a slouží jako \textbf{jednotná definice obchodní logiky} a metrik nad daty z DWH. Je reprezentována nástrojem \textbf{Cube.js} (viz \texttt{docker-compose3.yml}), který zajišťuje předagregaci, cachování a standardizované výpočty. Koncovým BI nástrojům (jako je Apache Superset) pak zpřístupňuje data prostřednictvím \textbf{SQL API} nebo \textbf{GraphQL}, čímž se zjednodušuje dotazování a zvyšuje výkon.
-\end{itemize}
+  \end{itemize}
 
-\subsubsection{Použité technologie pro DWH}
 
-Mezi nejpoužívanější technologie pro datové sklady patří relační databáze jako \textbf{PostgreSQL} s rozšířením \textbf{TimescaleDB} (využívané pro ukládání časových řad, jak je patrné z \texttt{pg-warehouse}) nebo \textbf{Microsoft SQL Server} (využívaný ve Vašich ETL skriptech). Pro extrémně rychlé analytické dotazy se používají sloupcově orientované databáze, jako je \textbf{ClickHouse} (viditelné v \texttt{docker-compose2.yml}).
 \subsection{OLAP technologie}
 
 OLAP (\emph{Online Analytical Processing}) představuje přístup ke zpracování dat, který umožňuje provádět rychlé analytické dotazy nad velkými objemy informací.  
@@ -534,30 +536,70 @@ Z pohledu architektury datových platforem tak sémantická vrstva představuje 
 
 \section{Nástroje Business Intelligence}
 
+Nástroje Business Intelligence (BI) představují softwarové řešení určené k transformaci surových dat na informace, které podporují rozhodovací procesy na všech úrovních řízení.  
+Cílem BI systémů je zajistit uživatelům přístup k aktuálním, konzistentním a relevantním datům, a to formou interaktivních vizualizací, reportů či analytických přehledů.  
+V rámci moderních datových platforem, jako je Portabo, tvoří BI nadstavbu nad datovým skladem a OLAP vrstvou.  
+Zprostředkovává uživatelům přístup k datům v srozumitelné a vizuálně přitažlivé podobě a umožňuje jejich interpretaci bez nutnosti znalosti technických detailů implementace.  
 
+BI nástroje dnes představují klíčový prvek datově řízeného rozhodování a zahrnují široké spektrum funkcí – od základních přehledů a dashboardů až po pokročilé analytické a prediktivní modely využívající strojové učení.
 
-\subsection{Nástroje pro vizualizaci a analýzu dat}
+\subsection{Funkční oblasti nástrojů Business Intelligence}
 
-Vizualizace dat představuje klíčovou část procesu Business Intelligence (BI). Umožňuje uživatelům rychle pochopit trendy, vztahy a odchylky v datech.
+Nástroje BI lze z hlediska jejich zaměření rozdělit do několika funkčních oblastí, které společně pokrývají celý proces přeměny dat na znalosti:
 
-K nejrozšířenějším nástrojům patří:
 \begin{itemize}
-    \item \textbf{Open-source řešení:} Grafana, Apache Superset, Metabase, Redash – nabízejí integraci s většinou databázových systémů a jsou vhodné pro interaktivní dashboardy.
-    \item \textbf{Komerční řešení:} Microsoft Power BI, Tableau, Qlik Sense – poskytují rozšířené funkce pro datovou transformaci, prediktivní analýzy a sdílení výstupů v rámci organizace.
+    \item \textbf{Reportování a vizualizace dat} – umožňuje prezentaci dat formou tabulek, grafů a interaktivních dashboardů.  
+    Uživatelé tak mohou rychle identifikovat klíčové ukazatele výkonnosti (KPI), sledovat trendy a vyhodnocovat vývoj v čase.  
+
+    \item \textbf{Ad-hoc analýza a průzkum dat} – nabízí uživatelům možnost vytvářet vlastní pohledy na data, provádět filtrování, seskupování nebo detailní analýzy (tzv. \textit{drill-down} a \textit{drill-up}).  
+    Tato oblast je důležitá pro datové analytiky a business specialisty, kteří potřebují flexibilně reagovat na nové otázky bez zásahu IT oddělení.  
+
+    \item \textbf{Pokročilá analytika a prediktivní modelování} – integruje BI s nástroji pro datovou vědu a strojové učení.  
+    Umožňuje například předpověď trendů, klasifikaci nebo detekci anomálií.  
+    Tyto funkce bývají častější u komerčních řešení, která využívají propojení s cloudovými službami nebo integrované modelovací prostředí (např. Microsoft Azure Machine Learning).  
+
+    \item \textbf{Sdílení a spolupráce} – moderní BI nástroje podporují publikaci reportů a dashboardů napříč organizací, správu oprávnění, exporty a integraci s komunikačními nástroji (např. Microsoft Teams, Slack či SharePoint).  
+    Tato funkce je zásadní pro efektivní distribuci informací mezi jednotlivé úrovně řízení.
 \end{itemize}
 
-Důležitými kritérii při výběru vizualizačního nástroje jsou:
+\subsection{Přehled dostupných BI nástrojů}
+
+Z pohledu dostupných řešení lze nástroje Business Intelligence rozdělit do dvou hlavních kategorií – open-source a komerčních platforem.  
+Obě skupiny mají své výhody a nevýhody, které je nutné zohlednit při rozhodování o jejich implementaci v konkrétním prostředí.
+
+\begin{itemize}
+  \item \textbf{Open-source řešení} – nástroje jako \textit{Grafana}, \textit{Apache Superset}, \textit{Metabase} nebo \textit{Redash} poskytují široké možnosti integrace s relačními i nestrukturovanými datovými zdroji.  
+  Jsou vhodné zejména pro organizace, které preferují flexibilitu, nižší licenční náklady a možnost přizpůsobit systém vlastním potřebám.  
+  Nevýhodou bývá nutnost technické správy, složitější počáteční konfigurace a omezená úroveň uživatelské podpory.
+
+  \item \textbf{Komerční řešení} – mezi nejrozšířenější komerční platformy patří \textit{Microsoft Power BI}, \textit{Tableau} a \textit{Qlik Sense}.  
+  Tyto nástroje se vyznačují vysokou mírou integrace s podnikovými systémy, širokými možnostmi automatizace a pokročilými funkcemi pro datové modelování, sdílení a prediktivní analýzy.  
+  Výhodou bývá profesionální podpora výrobce, pravidelné aktualizace a integrace s cloudovými službami.  
+  Na druhé straně představují komerční nástroje vyšší finanční náklady a častou závislost na dodavateli (tzv. \textit{vendor lock-in}).
+\end{itemize}
+
+\subsection{Kritéria výběru BI nástroje}
+
+Volba vhodného BI nástroje závisí na potřebách organizace, technické infrastruktuře a rozpočtu.  
+Při rozhodování je vhodné zohlednit následující kritéria:
+
 \begin{enumerate}
-    \item Uživatelská přívětivost a intuitivní rozhraní,
-    \item Podpora přímého připojení na datový sklad nebo OLAP vrstvu,
-    \item Možnost automatizace a plánování aktualizací dat,
-    \item Licenční model a celkové náklady na provoz (TCO).
+    \item \textbf{Uživatelská přívětivost a intuitivní rozhraní} – nástroj by měl umožnit tvorbu reportů i netechnickým uživatelům bez nutnosti psaní SQL dotazů.
+    \item \textbf{Konektivita k datovým zdrojům} – podpora přímého připojení k datovému skladu, OLAP vrstvám či externím API.
+    \item \textbf{Automatizace a aktualizace dat} – schopnost plánovat obnovu dat, vytvářet datové toky (pipelines) a spravovat přístupová oprávnění.
+    \item \textbf{Možnosti spolupráce a sdílení} – integrace s podnikovými systémy (např. Microsoft Teams, Slack, SharePoint) a možnost publikování interaktivních dashboardů.
+    \item \textbf{Licenční model a celkové náklady na provoz (TCO)} – kromě pořizovací ceny je třeba zohlednit náklady na údržbu, školení uživatelů a případnou infrastrukturu.
 \end{enumerate}
+
+V praxi organizace často kombinují více nástrojů – například open-source řešení pro interní analýzy a komerční systém pro prezentaci výsledků managementu.  
+Tento přístup umožňuje optimalizovat náklady a zároveň využít silných stránek jednotlivých platforem.  
+V případě datové platformy Portabo by mohl být takový přístup vhodný při implementaci vizualizační vrstvy nad datovým skladem.
 
 \section{Přehled a charakteristika využitých technologií}
 \label{sec:prehled_technologii}
 
 Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativní soubor technologií, které pokrývají jak komerční, tak open-source přístupy k budování datové platformy. Tato sekce poskytuje jejich stručnou teoretickou charakteristiku a popisuje jejich specifickou roli v navržené architektuře.
+
 
 \subsection{Microsoft SQL Server}
 Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.

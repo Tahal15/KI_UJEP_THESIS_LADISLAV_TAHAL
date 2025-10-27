@@ -18,55 +18,56 @@
 \contentsline {subsection}{\nonumberline LLM}{21}{subsection*.26}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{23}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{23}{section.2.1}%
-\contentsline {subsection}{\nonumberline Datové jezero}{23}{subsection*.28}%
-\contentsline {subsection}{\nonumberline Datový sklad}{24}{subsection*.30}%
-\contentsline {subsubsection}{\nonumberline Datové modely}{26}{subsubsection*.32}%
-\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{27}{subsubsection*.34}%
-\contentsline {subsubsection}{\nonumberline Datové vrstvy v implementaci DWH}{27}{subsubsection*.36}%
-\contentsline {subsubsection}{\nonumberline Použité technologie pro DWH}{28}{subsubsection*.38}%
-\contentsline {subsection}{\nonumberline OLAP technologie}{28}{subsection*.40}%
-\contentsline {subsection}{\nonumberline Sémantická vrstva}{29}{subsection*.42}%
+\contentsline {subsection}{\nonumberline Datové zdroje}{23}{subsection*.28}%
+\contentsline {subsection}{\nonumberline Datové jezero}{24}{subsection*.30}%
+\contentsline {subsection}{\nonumberline Datový sklad}{25}{subsection*.32}%
+\contentsline {subsection}{\nonumberline OLAP technologie}{27}{subsection*.34}%
+\contentsline {subsection}{\nonumberline Sémantická vrstva}{28}{subsection*.36}%
 \contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{29}{section.2.2}%
-\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a analýzu dat}{29}{subsection*.44}%
+\contentsline {subsection}{\nonumberline Funkční oblasti nástrojů Business Intelligence}{29}{subsection*.38}%
+\contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{29}{subsection*.40}%
+\contentsline {subsection}{\nonumberline Kritéria výběru BI nástroje}{30}{subsection*.42}%
 \contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{30}{section.2.3}%
-\contentsline {subsection}{\nonumberline Microsoft SQL Server}{30}{subsection*.46}%
-\contentsline {subsection}{\nonumberline PostgreSQL a TimescaleDB}{30}{subsection*.48}%
-\contentsline {subsection}{\nonumberline ClickHouse}{30}{subsection*.50}%
-\contentsline {subsection}{\nonumberline MariaDB}{30}{subsection*.52}%
-\contentsline {subsection}{\nonumberline Cube.js}{31}{subsection*.54}%
-\contentsline {subsection}{\nonumberline Microsoft SQL Server Analysis Services (SSAS)}{31}{subsection*.56}%
-\contentsline {subsection}{\nonumberline Apache Superset}{31}{subsection*.58}%
-\contentsline {subsection}{\nonumberline Microsoft Power BI}{31}{subsection*.60}%
+\contentsline {subsection}{\nonumberline Microsoft SQL Server}{31}{subsection*.44}%
+\contentsline {subsection}{\nonumberline PostgreSQL a TimescaleDB}{31}{subsection*.46}%
+\contentsline {subsection}{\nonumberline ClickHouse}{31}{subsection*.48}%
+\contentsline {subsection}{\nonumberline MariaDB}{31}{subsection*.50}%
+\contentsline {subsection}{\nonumberline Cube.js}{31}{subsection*.52}%
+\contentsline {subsection}{\nonumberline Microsoft SQL Server Analysis Services (SSAS)}{32}{subsection*.54}%
+\contentsline {subsection}{\nonumberline Apache Superset}{32}{subsection*.56}%
+\contentsline {subsection}{\nonumberline Microsoft Power BI}{32}{subsection*.58}%
 \contentsline {chapter}{\numberline {3}Praktická část}{33}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{34}{section.3.1}%
-\contentsline {subsection}{\nonumberline Načtení a analýza zdrojových dat}{34}{subsection*.62}%
+\contentsline {subsection}{\nonumberline Načtení a analýza zdrojových dat}{34}{subsection*.60}%
 \contentsline {section}{\numberline {3.2}ETL procesy}{36}{section.3.2}%
-\contentsline {subsection}{\nonumberline SQL Server (\texttt {bilina\_kamery\_lake\_to\_staging.py})}{37}{subsection*.64}%
-\contentsline {subsection}{\nonumberline MariaDB (\texttt {maria\_bilina\_kamery\_lake\_to\_staging.py})}{37}{subsection*.66}%
-\contentsline {subsection}{\nonumberline TimescaleDB (\texttt {pg\_timescale\_lake\_to\_staging.py})}{37}{subsection*.68}%
-\contentsline {subsection}{\nonumberline MariaDB + ClickHouse (\texttt {maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}{38}{subsection*.70}%
+\contentsline {subsection}{\nonumberline SQL Server (\texttt {bilina\_kamery\_lake\_to\_staging.py})}{37}{subsection*.62}%
+\contentsline {subsection}{\nonumberline MariaDB (\texttt {maria\_bilina\_kamery\_lake\_to\_staging.py})}{37}{subsection*.64}%
+\contentsline {subsection}{\nonumberline TimescaleDB (\texttt {pg\_timescale\_lake\_to\_staging.py})}{37}{subsection*.66}%
+\contentsline {subsection}{\nonumberline MariaDB + ClickHouse (\texttt {maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}{38}{subsection*.68}%
 \contentsline {section}{\numberline {3.3}Příprava dat a návrh datového skladu}{38}{section.3.3}%
 \contentsline {section}{\numberline {3.4}OLAP a vizualizace}{39}{section.3.4}%
-\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{39}{subsection*.72}%
-\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{40}{subsection*.74}%
-\contentsline {subsection}{\nonumberline Porovnání přístupů}{41}{subsection*.76}%
+\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{39}{subsection*.70}%
+\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{40}{subsection*.72}%
+\contentsline {subsection}{\nonumberline Porovnání přístupů}{41}{subsection*.74}%
 \contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{41}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{42}{section.3.6}%
 \contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{43}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Citace}{45}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Označování citací}{46}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Bibliografický záznam}{47}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{48}{subsection*.78}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{49}{subsection*.80}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{50}{subsection*.82}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{51}{subsection*.84}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{48}{subsection*.76}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{49}{subsection*.78}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{50}{subsection*.80}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{51}{subsection*.82}%
 \contentsline {section}{\numberline {5.3}Často kladené otázky}{51}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{51}{subsection*.86}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{52}{subsection*.88}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{52}{subsection*.90}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{52}{subsection*.92}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{51}{subsection*.84}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{52}{subsection*.86}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{52}{subsection*.88}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{52}{subsection*.90}%
 \contentsline {chapter}{\numberline {6}Zhodnocení}{55}{chapter.6}%
 \contentsline {chapter}{\numberline {7}Závěr}{57}{chapter.7}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 

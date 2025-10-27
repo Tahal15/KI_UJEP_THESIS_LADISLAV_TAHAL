@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  26 OCT 2025 16:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  27 OCT 2025 13:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex"
-(e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex
+**"c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex"
+(c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (./kitheses.cls
@@ -1132,36 +1132,35 @@ Overfull \hbox (26.20973pt too wide) in paragraph at lines 351--354
 
 ]
 chapter 2.
+<img/reporting_structure.png, id=213, 1096.69725pt x 616.10175pt>
+File: img/reporting_structure.png Graphic file (type png)
+<use img/reporting_structure.png>
+Package pdftex.def Info: img/reporting_structure.png  used on input line 399.
+(pdftex.def)             Requested size: 469.47049pt x 263.73407pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[23]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/it' will be
-(Font)              scaled to size 12.0pt on input line 402.
+(Font)              scaled to size 12.0pt on input line 426.
 
 
-[23{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc}]
-LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 419.
+[24{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc} <./img/reporting_structure.png>]
+LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 443.
  (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/TS1LibertinusSerif-TLF.fd
 File: TS1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for TS1/LibertinusSerif-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 419.
+(Font)              scaled to size 12.0pt on input line 443.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSerif-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
 
-[24{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
-
-[25]
-<img/star_schema.png, id=236, 602.25pt x 532.99126pt>
-File: img/star_schema.png Graphic file (type png)
-<use img/star_schema.png>
-Package pdftex.def Info: img/star_schema.png  used on input line 446.
-(pdftex.def)             Requested size: 469.47049pt x 415.49567pt.
-
-
-[26
-
- <./img/star_schema.png>]
+[25{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
 Overfull \hbox (2.92505pt too wide) in paragraph at lines 467--468
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
@@ -1171,19 +1170,26 @@ Overfull \hbox (61.47594pt too wide) in paragraph at lines 468--469
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Fakta (\T1/LibertinusSerif-TLF/b/it/12 (-20) Facts\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají m¥-°i-telné hod-noty a cizí klí£e k di-men-zím (nap°. \T1/pxtt/m/n/12 FactCameraDetection\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
-
-Overfull \hbox (2.92505pt too wide) in paragraph at lines 486--487
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (64.45242pt too wide) in paragraph at lines 487--488
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Fakta (\T1/LibertinusSerif-TLF/b/it/12 (-20) Facts\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají m¥-°i-telné hod-noty a cizí klí£e k di-men-zím (nap°. \T1/pxtt/m/n/12 FactCameraDetection\T1/LibertinusSerif-TLF/m/n/12 (-20) ). 
- []
+<img/star_schema.png, id=243, 602.25pt x 532.99126pt>
+File: img/star_schema.png Graphic file (type png)
+<use img/star_schema.png>
+Package pdftex.def Info: img/star_schema.png  used on input line 483.
+(pdftex.def)             Requested size: 328.6279pt x 290.84451pt.
 
 
+[26
 
-[27]
+ <./img/star_schema.png>]
+<img/snowflake.png, id=252, 938.50626pt x 468.75125pt>
+File: img/snowflake.png Graphic file (type png)
+<use img/snowflake.png>
+Package pdftex.def Info: img/snowflake.png  used on input line 491.
+(pdftex.def)             Requested size: 469.47049pt x 234.48233pt.
+
+
+[27
+
+ <./img/snowflake.png>]
 
 [28]
 
@@ -1193,45 +1199,45 @@ Overfull \hbox (64.45242pt too wide) in paragraph at lines 487--488
 
 [31]
 
-[32
-
-
-]
+[32]
 chapter 3.
 
 
-[33]
-Overfull \hbox (5.31082pt too wide) in paragraph at lines 600--601
+[33
+
+
+]
+Overfull \hbox (5.31082pt too wide) in paragraph at lines 642--643
 \T1/LibertinusSerif-TLF/m/n/12 (-20) (\T1/pxtt/m/n/12 batch rows = 50000\T1/LibertinusSerif-TLF/m/n/12 (-20) ) a na-vý-²ení ope-ra£ní pa-m¥ti pro pro-ces mi-grace (\T1/pxtt/m/n/12 maintenance_work_mem
  []
 
 
-Overfull \hbox (31.48177pt too wide) in paragraph at lines 624--627
+Overfull \hbox (31.48177pt too wide) in paragraph at lines 666--669
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
-<img/mqttentries_structure.png, id=316, 1248.46425pt x 451.6875pt>
+<img/mqttentries_structure.png, id=322, 1248.46425pt x 451.6875pt>
 File: img/mqttentries_structure.png Graphic file (type png)
 <use img/mqttentries_structure.png>
-Package pdftex.def Info: img/mqttentries_structure.png  used on input line 631.
+Package pdftex.def Info: img/mqttentries_structure.png  used on input line 673.
 (pdftex.def)             Requested size: 469.47049pt x 169.85106pt.
 
 
 [34]
 
 [35 <./img/mqttentries_structure.png>]
-<img/topic50.png, id=329, 786.5385pt x 422.17725pt>
+<img/topic50.png, id=335, 786.5385pt x 422.17725pt>
 File: img/topic50.png Graphic file (type png)
 <use img/topic50.png>
-Package pdftex.def Info: img/topic50.png  used on input line 657.
+Package pdftex.def Info: img/topic50.png  used on input line 699.
 (pdftex.def)             Requested size: 469.47049pt x 251.9877pt.
 
-Overfull \hbox (21.24648pt too wide) in paragraph at lines 667--670
+Overfull \hbox (21.24648pt too wide) in paragraph at lines 709--712
 \T1/LibertinusSerif-TLF/m/n/12 (-20) skriptu za-£íná na-£te-ním po-sled-ního zpra-co-va-ného iden-ti-fi-ká-toru z ta-bulky \T1/pxtt/m/n/12 ETL_IncrementalControl
  []
 
 
-Overfull \hbox (3.3615pt too wide) in paragraph at lines 671--676
+Overfull \hbox (3.3615pt too wide) in paragraph at lines 713--718
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Data jsou zpra-co-vá-vána v dáv-kách (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) batchích\T1/LibertinusSerif-TLF/m/n/12 (-20) ), je-jichº ve-li-kost je °í-zena pa-ra-me-t-rem \T1/pxtt/m/n/12 BATCH_SIZE\T1/LibertinusSerif-TLF/m/n/12 (-20) .
  []
 
@@ -1241,41 +1247,41 @@ Overfull \hbox (3.3615pt too wide) in paragraph at lines 671--676
 
  <./img/topic50.png>]
 LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <14.4> not available
-(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 682.
+(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 724.
 
 
 [37]
-<img/MariaDW_staging.png, id=348, 933.4875pt x 415.5525pt>
+<img/MariaDW_staging.png, id=354, 933.4875pt x 415.5525pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 710.
+Package pdftex.def Info: img/MariaDW_staging.png  used on input line 752.
 (pdftex.def)             Requested size: 469.47049pt x 208.99316pt.
 
 
 [38 <./img/MariaDW_staging.png>]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 749.
+            Default family used instead on input line 791.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 749.
+            Default family used instead on input line 791.
 
 
 [39{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<img/PBIreport.png, id=364, 1765.59625pt x 995.72pt>
+<img/PBIreport.png, id=370, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 759.
+Package pdftex.def Info: img/PBIreport.png  used on input line 801.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 
 
 [40
 
  <./img/PBIreport.png>]
-<img/Supersetreport.png, id=373, 1392.402pt x 682.34924pt>
+<img/Supersetreport.png, id=379, 1392.402pt x 682.34924pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 789.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 831.
 (pdftex.def)             Requested size: 469.47049pt x 230.05908pt.
 
 
@@ -1299,7 +1305,7 @@ chapter 5.
 
 [45]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 881.
+(Font)              scaled to size 8.0pt on input line 923.
 
 
 [46]
@@ -1311,7 +1317,7 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
 [49]
 
 [50]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1025--1026
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1067--1068
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
@@ -1378,18 +1384,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 29357 strings out of 467748
- 545635 string characters out of 5431137
- 1535492 words of memory out of 5000000
- 57006 multiletter control sequences out of 15000+600000
- 776096 words of font info for 373 fonts, out of 8000000 for 9000
+ 29371 strings out of 467748
+ 546027 string characters out of 5431137
+ 1535759 words of memory out of 5000000
+ 57014 multiletter control sequences out of 15000+600000
+ 776507 words of font info for 377 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11305b,3009s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 122i,12n,121p,11322b,3009s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (63 pages, 1347784 bytes).
+Output written on ki-thesis.pdf (63 pages, 1793586 bytes).
 PDF statistics:
- 714 PDF objects out of 1000 (max. 8388607)
- 608 compressed objects within 7 object streams
+ 722 PDF objects out of 1000 (max. 8388607)
+ 612 compressed objects within 7 object streams
  225 named destinations out of 1000 (max. 500000)
- 85228 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 85238 words of extra memory for PDF output out of 89155 (max. 10000000)
 
