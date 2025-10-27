@@ -12,9 +12,7 @@ Pro účely datové integrace (např. v datové platformě **Portabo**) je vhodn
 
 Tento nástroj porovnává struktury JSON zpráv podle **Jaccardovy podobnosti** klíčů v jejich rozbalené (flatten) podobě:
 
-\[
-J(A,B) = \frac{|A \cap B|}{|A \cup B|}
-\]
+**J(A, B) = |A ∩ B| / |A ∪ B|**
 
 - **100 % podobnost (J = 1)** → témata mají **identickou strukturu**  
 - **50 % podobnost (J ≥ 0.5)** → témata mají **částečně podobnou strukturu**
