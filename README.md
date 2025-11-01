@@ -13,7 +13,8 @@
 
 ## Úvod
 
-Tato bakalářská práce se zabývá problematikou efektivního zpracování, ukládání a vizualizace dat v organizacích, s cílem zpřístupnit data i uživatelům bez technického vzdělání. Práce porovnává moderní open-source a komerční nástroje pro vizualizaci, datové sklady a technologie pro online analytické zpracování (OLAP). Datový sklad je navržen dle metodiky pana Kimballa s využitím hvězdicového schématu.
+Mnohé organizace čelí problému, jak efektivně zpracovávat, ukládat a vizualizovat data, aby byla snadno přístupná i uživatelům bez IT vzdělání. V dnešní době lze využít mnoha nástrojů, ať už **open-source** či **komerčních řešení**, která zahrnují nejen nástroje pro vizualizaci, ale i nástroje pro **datové sklady** a technologie pro **online analytické zpracování (OLAP)**. Tato práce se zaměřuje na jejich komplexní srovnání.
+Datový sklad je navržen dle metodiky **pana Kimballa**. Hvězdicové schéma.
 
 ---
 
@@ -40,8 +41,9 @@ Tento repozitář obsahuje veškeré podklady, skripty a implementace vytvořen�
 
 ### Kořenové soubory
 
-*   `README.md`: Původní úvodní soubor k projektu.
-*   `AI_README.md`: Tento soubor, generovaný s pomocí AI pro lepší přehlednost.
+*   `README.md`: Tento úvodní soubor.
+*   `README_BACKUP.md`: Záloha původního `README.md`.
+*   `AI_README.md`: Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost.
 *   `project_manifest.xml`: Komplexní manifest všech souborů v projektu, generovaný pro účely analýzy a správy.
 
 ### Adresáře
