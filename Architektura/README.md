@@ -97,8 +97,6 @@ Používané nástroje:
 | Soubor | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`reporting_structure.png`** | Obrázek znázorňující strukturu reportingu. |
 
 ---

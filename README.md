@@ -42,8 +42,6 @@ Tento repozitář obsahuje veškeré podklady, skripty a implementace vytvořen�
 ### Kořenové soubory
 
 *   `README.md`: Tento úvodní soubor.
-*   `README_BACKUP.md`: Záloha původního `README.md`.
-*   `AI_README.md`: Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost.
 *   `project_manifest.xml`: Komplexní manifest všech souborů v projektu, generovaný pro účely analýzy a správy.
 
 ### Adresáře

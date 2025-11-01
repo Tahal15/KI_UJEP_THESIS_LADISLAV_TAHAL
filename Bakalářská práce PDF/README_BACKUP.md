@@ -1,1 +1,0 @@
-# thesis_ki_ujep

@@ -35,7 +35,5 @@ Tento nástroj porovnává struktury JSON zpráv podle **Jaccardovy podobnosti**
 | Soubor | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`Topik100.xlsx`** | Seskupení témat s **100 % Jaccardovou podobností** (identická struktura JSON) |
 | **`Topik50.xlsx`** | Seskupení témat s **≥ 50 % podobností** (částečně podobná struktura) |

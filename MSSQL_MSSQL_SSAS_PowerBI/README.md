@@ -96,7 +96,5 @@ Finální report je vytvořen v Power BI Desktop.
 | Soubor/Adresář | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`Portabo - kamery Bílina.pbix`** | Power BI report. |
 | **`OlapTabular/`** | Adresář obsahující projekt pro SSAS Tabular model. |

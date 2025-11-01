@@ -92,8 +92,6 @@ Připojuje se k **Cube.js SQL API** (`port 15432`), které slouží jako brána 
 | Soubor/Adresář | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`docker-compose.yml`** | Konfigurační soubor pro spuštění všech služeb v Dockeru. |
 | **`cubejs/`** | Adresář obsahující konfiguraci a datové modely pro Cube.js. |
 | **`superset/`** | Adresář obsahující konfiguraci pro Apache Superset. |
@@ -101,25 +99,4 @@ Připojuje se k **Cube.js SQL API** (`port 15432`), které slouží jako brána 
 
 ---
 
-## 🛑 Ukončení a vyčištění
 
-### Zastavení služeb
-
-Pro pozastavení chodu kontejnerů (data na disku zůstanou):
-
-```bash
-ctrl + c
-docker compose down
-```
-
----
-
-### Úplné odstranění projektu a dat
-
-Pro odstranění kontejnerů, sítí a perzistentních svazků (volumes):
-
-```bash
-docker compose down -v
-```
-
-> ⚠️ Tento příkaz odstraní veškerá data uložená uvnitř Docker volumes, která byla vytvořena při spuštění.

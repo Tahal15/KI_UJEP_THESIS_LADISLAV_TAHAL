@@ -1,6 +1,6 @@
-# 📚 Bakalářská práce: Skripty pro datový sklad (Multi-platformní)
+# 📚 Skripty pro datový sklad (Bakalářská práce)
 
-Tento archiv obsahuje **kompletní sadu skriptů a SQL souborů** pro implementaci datového skladu (Data Warehouse) pro bakalářskou práci. Řešení je navrženo pro **multi-platformní prostředí**, primárně využívající **ClickHouse** (analytika), **PostgreSQL/TimescaleDB** (IoT data/ETL) a **MySQL/MariaDB / MS SQL Server** (produkční DW prostředí).
+Tento adresář obsahuje kompletní sadu skriptů a SQL souborů pro implementaci a správu datového skladu v rámci bakalářské práce. Řešení je navrženo pro multi-platformní prostředí a zahrnuje skripty pro **MS SQL Server**, **MariaDB**, **ClickHouse**, a **PostgreSQL/TimescaleDB**.
 
 ---
 
@@ -8,97 +8,103 @@ Tento archiv obsahuje **kompletní sadu skriptů a SQL souborů** pro implementa
 
 | Adresář/Soubor | Popis |
 |:---|:---|
-| **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
-| **`Python/`** | Adresář s Python skripty pro ETL procesy a další. |
-| **`SQL/`** | Adresář s SQL skripty pro různé databázové platformy. |
-| **`pgloader/`** | Konfigurační soubory pro pgloader. |
-| **`Start sluzeb/`** | Batch skripty pro spouštění databázových služeb. |
+| **`Python/`** | Adresář s Python skripty pro ETL procesy, analýzu a další pomocné úkoly. |
+| **`SQL/`** | Adresář s SQL skripty pro definici databázových schémat, údržbu a testování. |
+| **`pgloader/`** | Konfigurační soubory pro nástroj `pgloader` pro migraci dat. |
+| **`Start sluzeb/`** | Batch skripty pro snadné spouštění a zastavování databázových služeb ve Windows. |
 
 ---
 
-## 🚀 ETL a Konverzní Nástroje (Python & Batch)
+## 🐍 Python skripty
 
-| Soubor | Typ | Popis | Technologie |
-| :--- | :--- | :--- | :--- |
-| `pg_timescale_lake_to_staging.py` | Python skript | **Dynamický ETL pro Timescale/PostgreSQL.** Načítá data z Landing Zone, provádí **fuzzy clustering MQTT témat** (Jaccardova podobnost) a dynamicky vytváří Staging tabulky. | PostgreSQL, TimescaleDB, Python, JSON |
-| `maria_click_kamery_staging_to_fact.py` | Python skript | **Hlavní ETL proces pro Data Mart (ClickHouse).** Dávkově načítá data z mezitabulky (`Stg_CameraCamea`) do dimenzí a faktové tabulky. Zajišťuje **Surrogate Keys**. | ClickHouse, Python |
-| `analyze_json.py` | Python skript | **Nástroj pro analýzu JSON dat z MQTT zpráv.** Seskupuje MQTT témata podle podobnosti struktury jejich JSON payloadů. Navrženo pro **PostgreSQL**. | PostgreSQL, Python, JSON |
-| `SQLconvert.py` | Python skript | **Nástroj pro konverzi SQL dumpů.** Převede SQL dump z **MariaDB/MySQL** na kompatibilní syntaxi pro **MS SQL Server**. | MariaDB/MySQL → MS SQL, Python |
+Adresář `Python/` obsahuje následující podadresáře a skripty:
 
----
+### `ETL/` - Skripty pro ETL procesy
 
-## ⚙️ Nástroje pro Správu Prostředí (Windows Batch)
+| Skript | Zdroj | Cíl | Popis |
+|:---|:---|:---|:---|
+| `bilina_kamery_lake_to_staging.py` | MSSQL | MSSQL | Načítá data z datového jezera (landing zóny) do staging tabulky v datovém skladu pro data z kamer v Bílině. |
+| `bilina_kamery_staging_to_fact.py` | MSSQL | MSSQL | Zpracovává data ze staging tabulky a plní dimenze a faktovou tabulku v datovém skladu. |
+| `maria_bilina_kamery_lake_to_staging.py` | MariaDB | MariaDB | Ekvivalent ETL skriptu pro MariaDB; načítá data z data lake do stagingu. |
+| `maria_bilina_kamery_staging_to_fact.py` | MariaDB | MariaDB | Ekvivalent ETL skriptu pro MariaDB; plní dimenze a fakty ze stagingu. |
+| `maria_click_bilina_kamery_lake_to_staging.py` | MariaDB | ClickHouse | Načítá data z MariaDB data lake do staging tabulky v ClickHouse. |
+| `maria_click_kamery_staging_to_fact.py` | ClickHouse | ClickHouse | Zpracovává data ve stagingu v ClickHouse a plní dimenze a fakty. |
+| `pg_timescale_lake_to_staging.py` | PostgreSQL | TimescaleDB | Dynamický ETL skript, který načítá data z PostgreSQL data lake, provádí fuzzy clustering MQTT témat a dynamicky vytváří staging tabulky v TimescaleDB. |
+| `pg_timescale_staging_to_fact.py` | TimescaleDB | TimescaleDB | Plní dimenze a fakty v TimescaleDB ze staging tabulek. |
+| `analyze_json.py` | PostgreSQL | CSV | Nástroj pro analýzu JSON dat z MQTT zpráv. Seskupuje MQTT témata podle podobnosti struktury jejich JSON payloadů a exportuje výsledek do CSV. |
 
-Tato sekce obsahuje skripty pro rychlé spouštění klíčových databázových služeb.
+### `MariaDB to MSSQL conversion/`
 
-| Soubor | Platforma | Popis |
-| :--- | :--- | :--- |
-| `start_data_lake.bat` | MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_LAKE** (včetně Agent, Integration Services a Launchpad). |
-| `start_dw.bat` | MS SQL Server | Spouští služby **MS SQL Serveru** pro instanci **DATA\_WAREHOUSE** (včetně Agent a Analysis Services). |
-| `maria_start_data_lake.bat` | MariaDB | Spouští službu **MariaDB** (primární instance) pro Data Lake. |
-| `maria_start_dw.bat` | MariaDB | Spouští službu **MariaDB2** (sekundární instance) pro Data Warehouse. |
+| Skript | Popis |
+|:---|:---|
+| `SQLconvert.py` | Nástroj pro konverzi SQL dumpů z MariaDB/MySQL na syntaxi kompatibilní s MS SQL Server. |
 
----
+### `Uvozovky/`
 
-## 💾 Schéma MySQL / MariaDB (DW)
-
-Tato sekce obsahuje definice schématu pro implementaci Hvězdice na platformě MySQL/MariaDB (motor InnoDB).
-
-### 1. **DDL a Schéma**
-| Soubor | Popis |
-| :--- | :--- |
-| `FactCameraDetection.sql` | **Definice Faktové tabulky** s `AUTO_INCREMENT` klíčem a **FOREIGN KEYs** na všechny dimenze. |
-| `DimCity.sql`, `DimCountry.sql`, `DimDetectionType.sql`, `DimLP.sql`, `DimSensor.sql`, `DimVehicleClass.sql` | **DDL pro dimenzní tabulky** s `AUTO_INCREMENT` primárním klíčem a **UNIQUE KEY** na obchodních klíčích. |
-| `DimTime.sql` | **DDL pro dimenzi Čas** s indexy pro rychlý lookup (`FullDate`, `HourNum`, `MinuteNum`). |
-| `Stg_CameraCamea.sql` | **Definice Staging tabulky** pro data z IoT senzorů s `AUTO_INCREMENT` primárním klíčem. |
-| `ETL_RunLog.sql` | **Logovací tabulka** pro monitorování stavu a výsledků ETL procesů. |
-| `ETL_IncrementalControl.sql` | **Řídicí tabulka** pro sledování posledního zpracovaného ID (`LastLoadedID`) pro inkrementální načítání. |
-
-### 2. **Indexy a Údržba**
-| Soubor | Popis |
-| :--- | :--- |
-| `DimAutoIncrement.sql` | **Doplňkový skript** pro vynucení `AUTO_INCREMENT` u dimenzí. |
-| `UniqueKeys.sql` | Dodatečný skript pro **přidání UNIQUE indexů** na obchodní klíče dimenzí. |
-| `FactCameraDetection - indexes.sql` | Vytvoření **neklastrovaných indexů** na všech cizích klíčích faktové tabulky pro optimalizaci dotazů. |
-| `Stg_CameraCamea_indexes.sql` | **Indexy pro Staging tabulku** pro zrychlení ETL operací (`LandingID`, `OriginalTime`, `Sensor`, `LP` atd.). |
-| `DimTime - naplneni.sql` | **Stored Procedure** (`FillDimTime`) pro generování dat do `DimTime` (každou minutu) pro období **2024-01-01 až 2025-12-31**. |
-| `unknown.sql` / `UnknownHodnoty.sql` | Skripty pro **vložení Fallback (UNKNOWN) záznamů** s klíčem **-1** do dimenzí a do `DimTime`. Zajišťuje integritu pro chybějící data. |
-| `ResetDimenziaFaktu.sql` | **Úplný reset DW.** Provádí `DELETE` záznamů, **resetuje `AUTO_INCREMENT` klíče** a **vkládá Fallback záznamy** s `Key = -1`. (Kompletní verze pro MySQL/MariaDB). |
+| Skript | Popis |
+|:---|:---|
+| `Uvozovky_do_topiku.py` | Pomocný skript pro práci s uvozovkami v textech. |
 
 ---
 
-## 💻 Schéma MS SQL Server Data Warehouse (DW)
+## 💾 SQL skripty
 
-### 1. **DDL a Schéma**
-| Soubor | Popis |
-| :--- | :--- |
-| `DWH_kamery_priprava.sql` | **Kompletní DDL pro MS SQL.** Vytváří schémata `Stg`, `dbo` a definuje `[Stg].[CameraCamea]`, `[dbo].[DimTime]` a `[dbo].[FactCameraDetection]` s **IDENTITY** klíči a **FOREIGN KEYs**. |
-| `dbo.DimCity.sql`, `dbo.DimSensor.sql`, `dbo.DimLP.sql`, atd. | **DDL pro dimenze** s klíčem `INT IDENTITY(1,1) PRIMARY KEY`. |
-| `dbo.ETL_RunLog.sql`, `dbo.ETL_IncrementalControl.sql` | **Řídicí a logovací tabulky** pro MS SQL. |
-| `Stg.CameraCamea_smazani_duplicit.sql` | Skript pro odstranění duplicitních řádků ve Staging tabulce pomocí `ROW_NUMBER()`. |
+Adresář `SQL/` obsahuje skripty pro jednotlivé databázové platformy:
 
-### 2. **Indexy a Údržba**
+### `ClickHouse_DWH/`
+
 | Soubor | Popis |
-| :--- | :--- |
-| `DimIndex.sql` | Vytvoření **UNIQUE NONCLUSTERED INDEXŮ** na klíčových atributech dimenzí (např. `SensorCode`, `CityName`) pro zajištění unikátnosti. |
-| `IX_DimTime_FullDate.sql`, `IX_DimTime_FullDate_Hour_Minute.sql` | **Indexy pro DimTime** pro efektivní vyhledávání podle data a času. |
-| `IX_ETLIncrementalControl_topic.sql` | **Index pro řídicí tabulku** pro rychlý lookup podle `Topic`. |
-| `StgIndexes.sql` | **Indexy pro Staging tabulku** pro urychlení ETL procesu v MS SQL (např. `LandingID`, `OriginalTime`). |
-| `dimTime - naplneni.sql` | **TSQL skript** pro generování dat do `DimTime` (každou minutu) pro období 2024-01-01 až 2025-12-31. |
-| `ResetDimenziAfaktu.sql` | **Úplný reset DW.** `DELETE` záznamů, **resetování `IDENTITY` klíčů** (`DBCC CHECKIDENT`) a **vkládání Fallback záznamů** s `Key = -1`. (Kompletní verze pro MS SQL). |
-| `Structure.sql` | **Selektovací skript** pro získání kompletní struktury tabulek (včetně constraintů a indexů) z databáze MS SQL Serveru. |
+|:---|:---|
+| `Dimensions.sql`, `Fact.sql` | DDL skripty pro vytvoření dimenzí a faktové tabulky. |
+| `Stg_CameraCamea.sql` | DDL pro vytvoření staging tabulky. |
+| `ETL_IncrementalControl.sql`, `ETL_RunLog.sql` | DDL pro vytvoření řídících a logovacích tabulek pro ETL. |
+| `Dodelavky.sql` | Skript pro naplnění časové dimenze a další úpravy. |
+| `Unknown.sql` | Vkládá `UNKNOWN` záznamy do dimenzí. |
+| `TruncateAll.sql` | Vyprázdní všechny tabulky v datovém skladu. |
+
+### `DWH/` (pro MS SQL Server)
+
+| Soubor | Popis |
+|:---|:---|
+| `DWH_kamery_priprava.sql` | Kompletní DDL pro vytvoření schématu datového skladu. |
+| `dbo.*.sql` | Jednotlivé DDL skripty pro vytvoření tabulek. |
+| `DimIndex.sql`, `StgIndexes.sql`, `IX_*.sql` | Skripty pro vytvoření indexů. |
+| `dimTime - naplneni.sql` | T-SQL skript pro naplnění časové dimenze. |
+| `ResetDimenziAfaktu.sql` | Skript pro kompletní reset datového skladu. |
+| `Structure.sql` | Skript pro získání informací o struktuře databáze. |
+| `UnknownHodnoty.sql`, `UnknownTime.sql` | Skripty pro vložení `UNKNOWN` záznamů. |
+
+### `Maria_DWH/` (pro MariaDB)
+
+| Soubor | Popis |
+|:---|:---|
+| `Dim*.sql`, `Fact*.sql`, `Stg*.sql` | DDL skripty pro vytvoření tabulek. |
+| `DimTime - naplneni.sql` | Stored procedura pro naplnění časové dimenze. |
+| `ETL_*.sql` | DDL pro řídící a logovací tabulky. |
+| `FactCameraDetection - indexes.sql`, `Stg_CameraCamea_indexes.sql` | Skripty pro vytvoření indexů. |
+| `ResetDimenziaFaktu.sql` | Skript pro kompletní reset datového skladu. |
+| `unknown.sql` | Skript pro vložení `UNKNOWN` záznamů. |
+
+### `PostgreSQLTDB_DWH/` (pro PostgreSQL/TimescaleDB)
+
+| Soubor | Popis |
+|:---|:---|
+| `Dimenze_fakta_indexy_hypertable.sql` | Kompletní DDL pro vytvoření schématu, včetně TimescaleDB hypertables. |
+| `Truncate_all.sql` | Skript pro vymazání všech dat. |
 
 ---
 
-## 💠 Schéma ClickHouse
+## 🚀 Ostatní skripty
+
+### `pgloader/`
 
 | Soubor | Popis |
-| :--- | :--- |
-| `Dimensions.sql`, `Fact.sql` | **Standardní DDL** pro dimenzní a faktovou tabulku v ClickHouse. V dimenzích používá `ReplacingMergeTree`. |
-| `Stg_CameraCamea.sql` | **Definice Staging tabulky** pro data z kamer. |
-| `Dodelavky.sql` | Generuje data pro **časovou dimenzi** (`DimTime`) a přidává sloupec **`CameraDetectionKey UUID`** do faktové tabulky. |
-| `Unknown.sql` | **Vkládání Fallback (UNKNOWN) Záznamů** s klíčem **`4294967295`** do dimenzí pro ošetření chybějících hodnot. |
-| `ETL_IncrementalControl.sql`, `ETL_RunLog.sql` | **Řídicí a logovací tabulky** pro ClickHouse. |
-| `TruncateAll.sql` | Skript pro rychlé **vyprázdnění (TRUNCATE)** všech faktových a dimenzních tabulek. |
+|:---|:---|
+| `Dockerfile` | Dockerfile pro vytvoření image s nástrojem `pgloader`. |
+| `mariadb_to_pg.load` | Konfigurační soubor pro `pgloader` pro migraci dat z MariaDB do PostgreSQL. |
+
+### `Start sluzeb/`
+
+| Soubor | Popis |
+|:---|:---|
+| `*.bat` | Batch skripty pro spouštění a zastavování databázových služeb (MariaDB, MSSQL) ve Windows. |

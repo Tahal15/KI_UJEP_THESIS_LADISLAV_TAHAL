@@ -84,8 +84,6 @@ Služby:
 | Soubor/Adresář | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`docker-compose.yml`** | Konfigurační soubor pro spuštění analytických služeb v Dockeru. |
 | **`cubejs/`** | Adresář obsahující konfiguraci a datové modely pro Cube.js. |
 | **`superset/`** | Adresář obsahující konfiguraci pro Apache Superset. |

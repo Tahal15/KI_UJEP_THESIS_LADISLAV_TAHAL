@@ -7,7 +7,6 @@ Tento adresář obsahuje oficiální předlohu pro bakalářskou práci na Kated
 | Soubor | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
 | **`ki-thesis.tex`** | Hlavní LaTeX soubor pro bakalářskou práci. |
 | **`thesis.bib`** | BibTeX soubor s bibliografickými citacemi. |
 | **`kitheses.cls`** | LaTeX třída pro sazbu práce. |

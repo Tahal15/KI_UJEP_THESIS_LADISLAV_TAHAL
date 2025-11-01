@@ -82,588 +82,420 @@
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\analyze_json.py</path>
     <type>python</type>
     <size_kb>5</size_kb>
-    <description>Python script for dynamic fuzzy grouping of MQTT topics by JSON structure similarity.</description>
+    <description>Analyzes JSON payloads from MQTT messages in a PostgreSQL database, groups them by structure similarity using Jaccard index, and exports the results to a CSV file.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\bilina_kamery_lake_to_staging.py</path>
     <type>python</type>
     <size_kb>4</size_kb>
-    <description>ETL script to load data from the data lake (MSSQL) to the staging area (MSSQL) for the 'Bilina kamery' source.</description>
+    <description>ETL script to move camera data from a data lake (MSSQL) to a staging area (MSSQL) for the Bílina location.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\bilina_kamery_staging_to_fact.py</path>
     <type>python</type>
     <size_kb>7</size_kb>
-    <description>ETL script to load data from the staging area to the fact and dimension tables in the data warehouse (MSSQL) for the 'Bilina kamery' source.</description>
+    <description>ETL script to populate fact and dimension tables from the staging area in an MSSQL data warehouse for the Bílina camera data.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\maria_bilina_kamery_lake_to_staging.py</path>
     <type>python</type>
     <size_kb>4</size_kb>
-    <description>ETL script to load data from the data lake (MariaDB) to the staging area (MariaDB) for the 'Bilina kamery' source.</description>
+    <description>ETL script to move camera data from a data lake (MariaDB) to a staging area (MariaDB) for the Bílina location.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\maria_bilina_kamery_staging_to_fact.py</path>
     <type>python</type>
     <size_kb>8</size_kb>
-    <description>ETL script to load data from the staging area to the fact and dimension tables in the data warehouse (MariaDB) for the 'Bilina kamery' source.</description>
+    <description>ETL script to populate fact and dimension tables from the staging area in a MariaDB data warehouse for the Bílina camera data.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\maria_click_bilina_kamery_lake_to_staging.py</path>
     <type>python</type>
     <size_kb>6</size_kb>
-    <description>ETL script to load data from the data lake (MariaDB) to the staging area (ClickHouse) for the 'Bilina kamery' source.</description>
+    <description>ETL script to move camera data from a data lake (MariaDB) to a staging area (ClickHouse) for the Bílina location.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\maria_click_kamery_staging_to_fact.py</path>
     <type>python</type>
     <size_kb>7</size_kb>
-    <description>ETL script to load data from the staging area to the fact and dimension tables in the data warehouse (ClickHouse) for the 'Bilina kamery' source.</description>
+    <description>ETL script to populate fact and dimension tables from the staging area in a ClickHouse data warehouse for the Bílina camera data.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\pg_timescale_lake_to_staging.py</path>
     <type>python</type>
     <size_kb>15</size_kb>
-    <description>ETL script for dynamic sequential processing of data from the data lake (PostgreSQL) to the staging area (TimescaleDB).</description>
+    <description>Dynamically processes MQTT data from a PostgreSQL data lake, clusters topics by JSON structure, and creates corresponding staging tables in a TimescaleDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\ETL\pg_timescale_staging_to_fact.py</path>
     <type>python</type>
     <size_kb>10</size_kb>
-    <description>ETL script to load data from the staging area to the fact and dimension tables in the data warehouse (TimescaleDB).</description>
+    <description>ETL script to populate fact and dimension tables from the staging area in a TimescaleDB data warehouse.</description>
+  </file>
+  <file>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\MariaDB to MSSQL conversion\SQLconvert.py</path>
+    <type>python</type>
+    <size_kb>1</size_kb>
+    <description>Utility script to convert a MariaDB/MySQL SQL dump file to a format compatible with MS SQL Server.</description>
+  </file>
+  <file>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Python\Uvozovky\Uvozovky_do_topiku.py</path>
+    <type>python</type>
+    <size_kb>1</size_kb>
+    <description>Utility script for handling quotes in topic strings.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Dimensions.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create dimension tables in ClickHouse.</description>
+    <description>DDL script to create dimension tables in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Dims&amp;Fact.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create dimension and fact tables in ClickHouse.</description>
+    <description>DDL script to create both dimension and fact tables in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Dodelavky.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to populate the DimTime dimension and add a UUID to the fact table in ClickHouse.</description>
+    <description>Script to populate the DimTime dimension and add a UUID to the fact table in ClickHouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\ETL_IncrementalControl.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_IncrementalControl table in ClickHouse.</description>
+    <description>DDL script to create the ETL_IncrementalControl table in ClickHouse for managing incremental loads.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\ETL_RunLog.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_RunLog table in ClickHouse.</description>
+    <description>DDL script to create the ETL_RunLog table in ClickHouse for logging ETL job executions.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Fact.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the FactCameraDetection table in ClickHouse.</description>
+    <description>DDL script to create the FactCameraDetection table in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Stg_CameraCamea.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the Stg_CameraCamea table in ClickHouse.</description>
+    <description>DDL script to create the Stg_CameraCamea staging table in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\TruncateAll.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to truncate all dimension and fact tables in ClickHouse.</description>
+    <description>Script to truncate all fact and dimension tables in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\ClickHouse_DWH\Unknown.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to insert 'UNKNOWN' values into dimension tables in ClickHouse.</description>
+    <description>Script to insert 'UNKNOWN' placeholder records into dimension tables in the ClickHouse data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimCity.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimCity table in MSSQL.</description>
+    <description>DDL script to create the DimCity table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimCountry.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimCountry table in MSSQL.</description>
+    <description>DDL script to create the DimCountry table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimDetectionType.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimDetectionType table in MSSQL.</description>
+    <description>DDL script to create the DimDetectionType table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimLP.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimLP table in MSSQL.</description>
+    <description>DDL script to create the DimLP table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimSensor.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimSensor table in MSSQL.</description>
+    <description>DDL script to create the DimSensor table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.DimVehicleClass.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimVehicleClass table in MSSQL.</description>
+    <description>DDL script to create the DimVehicleClass table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.ETL_IncrementalControl.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_IncrementalControl table in MSSQL.</description>
+    <description>DDL script to create the ETL_IncrementalControl table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.ETL_RunLog.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_RunLog table in MSSQL.</description>
+    <description>DDL script to create the ETL_RunLog table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dbo.FactCameraDetection.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the FactCameraDetection table in MSSQL.</description>
+    <description>DDL script to create the FactCameraDetection table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\DimIndex.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create indexes on dimension tables in MSSQL.</description>
+    <description>Script to create unique non-clustered indexes on dimension tables in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\dimTime - naplneni.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to populate the DimTime dimension in MSSQL.</description>
+    <description>T-SQL script to populate the DimTime dimension table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\DWH_kamery_priprava.sql</path>
     <type>sql</type>
     <size_kb>2</size_kb>
-    <description>SQL script to prepare the DWH for the 'kamery' source in MSSQL, including creating schemas and tables.</description>
+    <description>Comprehensive DDL script to prepare the MSSQL data warehouse for camera data, including schema and table creation.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\IX_DimTime_FullDate_Hour_Minute.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create an index on the DimTime table in MSSQL.</description>
+    <description>Script to create a non-clustered index on the DimTime table in the MSSQL data warehouse for optimized joins.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\IX_DimTime_FullDate.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create an index on the DimTime table in MSSQL.</description>
+    <description>Script to create a unique non-clustered index on the DimTime table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\IX_ETLIncrementalControl_topic.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create an index on the ETL_IncrementalControl table in MSSQL.</description>
+    <description>Script to create a non-clustered index on the ETL_IncrementalControl table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\nahrani_dumpu_do_MSSQL_DATA_LAKE.bat</path>
     <type>batch</type>
     <size_kb>1</size_kb>
-    <description>Batch script to load a SQL dump into the MSSQL data lake.</description>
+    <description>Batch script to load a SQL dump file into the MSSQL data lake using sqlcmd.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\ResetDimenziAfaktu.sql</path>
     <type>sql</type>
     <size_kb>2</size_kb>
-    <description>SQL script to reset the dimension and fact tables in the MSSQL DWH.</description>
+    <description>Script to reset all data in the MSSQL data warehouse, including deleting data, reseeding identity columns, and inserting 'UNKNOWN' values.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\Stg.CameraCamea_smazani_duplicit.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to delete duplicate rows from the Stg.CameraCamea table in MSSQL.</description>
+    <description>Script to delete duplicate rows from the Stg.CameraCamea staging table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\Stg.CameraCamea.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the Stg.CameraCamea table in MSSQL.</description>
+    <description>DDL script to create the Stg.CameraCamea staging table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\StgIndexes.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create indexes on the staging table in MSSQL.</description>
+    <description>Script to create non-clustered indexes on the staging table in the MSSQL data warehouse to optimize ETL performance.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\Structure.sql</path>
     <type>sql</type>
     <size_kb>2</size_kb>
-    <description>SQL script to get the complete structure of tables in the MSSQL DWH.</description>
+    <description>Query to extract the complete schema information (tables, columns, constraints, indexes) from the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\UnknownHodnoty.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to insert 'UNKNOWN' values into dimension tables in MSSQL.</description>
+    <description>Script to insert 'UNKNOWN' placeholder records into dimension tables in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\DWH\UnknownTime.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to insert an 'UNKNOWN' record into the DimTime table in MSSQL.</description>
+    <description>Script to insert an 'UNKNOWN' placeholder record into the DimTime table in the MSSQL data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimAutoIncrement.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to modify the auto-increment property of dimension tables in MariaDB.</description>
+    <description>Script to modify dimension tables in MariaDB to use the AUTO_INCREMENT property for primary keys.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimCity.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimCity table in MariaDB.</description>
+    <description>DDL script to create the DimCity table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimCountry.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimCountry table in MariaDB.</description>
+    <description>DDL script to create the DimCountry table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimDetectionType.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimDetectionType table in MariaDB.</description>
+    <description>DDL script to create the DimDetectionType table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimLP.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimLP table in MariaDB.</description>
+    <description>DDL script to create the DimLP table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimSensor.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimSensor table in MariaDB.</description>
+    <description>DDL script to create the DimSensor table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimTime - naplneni.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to populate the DimTime dimension in MariaDB.</description>
+    <description>Stored procedure to populate the DimTime dimension table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimTime.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimTime table in MariaDB.</description>
+    <description>DDL script to create the DimTime table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\DimVehicleClass.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the DimVehicleClass table in MariaDB.</description>
+    <description>DDL script to create the DimVehicleClass table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\ETL_IncrementalControl.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_IncrementalControl table in MariaDB.</description>
+    <description>DDL script to create the ETL_IncrementalControl table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\ETL_RunLog.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the ETL_RunLog table in MariaDB.</description>
+    <description>DDL script to create the ETL_RunLog table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\FactCameraDetection - indexes.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create indexes on the FactCameraDetection table in MariaDB.</description>
+    <description>Script to create indexes on the FactCameraDetection table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\FactCameraDetection.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the FactCameraDetection table in MariaDB.</description>
+    <description>DDL script to create the FactCameraDetection table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\ResetDimenziaFaktu.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to reset the dimension and fact tables in the MariaDB DWH.</description>
+    <description>Script to reset all data in the MariaDB data warehouse, including deleting data, resetting auto-increment values, and inserting 'UNKNOWN' values.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\Stg_CameraCamea_indexes.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create indexes on the Stg_CameraCamea table in MariaDB.</description>
+    <description>Script to create indexes on the Stg_CameraCamea staging table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\Stg_CameraCamea.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to create the Stg_CameraCamea table in MariaDB.</description>
+    <description>DDL script to create the Stg_CameraCamea staging table in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\UniqueKeys.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to add unique keys to dimension tables in MariaDB.</description>
+    <description>Script to add unique key constraints to dimension tables in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\Maria_DWH\unknown.sql</path>
     <type>sql</type>
     <size_kb>1</size_kb>
-    <description>SQL script to insert 'UNKNOWN' values into dimension tables in MariaDB.</description>
+    <description>Script to insert 'UNKNOWN' placeholder records into dimension tables in the MariaDB data warehouse.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\PostgreSQLTDB_DWH\Dimenze_fakta_indexy_hypertable.sql</path>
     <type>sql</type>
     <size_kb>4</size_kb>
-    <description>SQL script to create dimensions, facts, indexes, and hypertables in a PostgreSQL/TimescaleDB data warehouse.</description>
+    <description>Comprehensive DDL script for creating the entire data warehouse schema in PostgreSQL/TimescaleDB, including dimensions, facts, indexes, and hypertables.</description>
   </file>
   <file>
     <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\SQL\PostgreSQLTDB_DWH\Truncate_all.sql</path>
     <type>sql</type>
     <size_kb>2</size_kb>
-    <description>SQL script to truncate all data from the PostgreSQL/TimescaleDB data warehouse for ETL testing.</description>
+    <description>Script to truncate all data from the PostgreSQL/TimescaleDB data warehouse for testing purposes.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\README.md</path>
-    <type>markdown</type>
-    <size_kb>3</size_kb>
-    <description>README file for the MariaDB to ClickHouse implementation, explaining the architecture and setup.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\docker-compose.yml</path>
-    <type>yaml</type>
-    <size_kb>2</size_kb>
-    <description>Docker Compose file for the MariaDB to ClickHouse implementation.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\.env</path>
-    <type>env</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\pgloader\Dockerfile</path>
+    <type>dockerfile</type>
     <size_kb>1</size_kb>
-    <description>Environment variables for the Cube.js application.</description>
+    <description>Dockerfile to build an image with the pgloader tool for data migration.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimcity.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimCity dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimcountry.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimCountry dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimdetectiontype.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimDetectionType dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimlp.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimLP dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimsensor.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimSensor dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimtime.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimTime dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\dimvehicleclass.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimVehicleClass dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\model\cubes\factcameradetection.js</path>
-    <type>javascript</type>
-    <size_kb>4</size_kb>
-    <description>Cube.js data model for the FactCameraDetection fact table.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\cubejs\schema\CameraDetection.js</path>
-    <type>javascript</type>
-    <size_kb>2</size_kb>
-    <description>Cube.js schema file for CameraDetections.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\superset\requirements-local.txt</path>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\pgloader\mariadb_to_pg.load</path>
     <type>text</type>
     <size_kb>1</size_kb>
-    <description>Python requirements for the Superset application.</description>
+    <description>Configuration file for pgloader to migrate data from MariaDB to PostgreSQL.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\superset\superset_config.py</path>
-    <type>python</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Start sluzeb\maria_start_data_lake.bat</path>
+    <type>batch</type>
     <size_kb>1</size_kb>
-    <description>Configuration file for the Superset application.</description>
+    <description>Batch script to start the MariaDB service for the data lake.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\clickhouse_data.tar.gz</path>
-    <type>archive</type>
-    <size_kb>0</size_kb>
-    <description>Archived ClickHouse data. Content not inspected.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\clickhouse_logs.tar.gz</path>
-    <type>archive</type>
-    <size_kb>0</size_kb>
-    <description>Archived ClickHouse logs. Content not inspected.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_Clickhouse_CubeJS_Superset\superset_data.tar.gz</path>
-    <type>archive</type>
-    <size_kb>0</size_kb>
-    <description>Archived Superset data. Content not inspected.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\README.md</path>
-    <type>markdown</type>
-    <size_kb>3</size_kb>
-    <description>README file for the MariaDB to MariaDB implementation, explaining the architecture and setup.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\docker-compose.yml</path>
-    <type>yaml</type>
-    <size_kb>2</size_kb>
-    <description>Docker Compose file for the MariaDB to MariaDB implementation.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\.env</path>
-    <type>env</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Start sluzeb\maria_start_dw.bat</path>
+    <type>batch</type>
     <size_kb>1</size_kb>
-    <description>Environment variables for the Cube.js application.</description>
+    <description>Batch script to start the MariaDB service for the data warehouse.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimcity.js</path>
-    <type>javascript</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Start sluzeb\spustit jako admin.txt</path>
+    <type>text</type>
     <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimCity dimension.</description>
+    <description>Note to run the batch scripts with administrator privileges.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimcountry.js</path>
-    <type>javascript</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Start sluzeb\start_data_lake.bat</path>
+    <type>batch</type>
     <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimCountry dimension.</description>
+    <description>Batch script to start the MSSQL service for the data lake.</description>
   </file>
   <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimdetectiontype.js</path>
-    <type>javascript</type>
+    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\Scripty\Start sluzeb\start_dw.bat</path>
+    <type>batch</type>
     <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimDetectionType dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimlp.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimLP dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimsensor.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimSensor dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimtime.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimTime dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\dimvehicleclass.js</path>
-    <type>javascript</type>
-    <size_kb>1</size_kb>
-    <description>Cube.js data model for the DimVehicleClass dimension.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\model\cubes\factcameradetection.js</path>
-    <type>javascript</type>
-    <size_kb>4</size_kb>
-    <description>Cube.js data model for the FactCameraDetection fact table.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\cubejs\schema\CameraDetection.js</path>
-    <type>javascript</type>
-    <size_kb>2</size_kb>
-    <description>Cube.js schema file for CameraDetections.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MariaDB_MariaDB_CubeJS_Superset\superset\superset_config.py</path>
-    <type>python</type>
-    <size_kb>1</size_kb>
-    <description>Configuration file for the Superset application.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MSSQL_MSSQL_SSAS_PowerBI\README.md</path>
-    <type>markdown</type>
-    <size_kb>3</size_kb>
-    <description>README file for the MSSQL to MSSQL implementation, explaining the architecture and setup.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MSSQL_MSSQL_SSAS_PowerBI\OlapTabular\OlapTabular.sln</path>
-    <type>visual-studio-solution</type>
-    <size_kb>1</size_kb>
-    <description>Visual Studio solution file for the SSAS Tabular model.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MSSQL_MSSQL_SSAS_PowerBI\OlapTabular\OlapTabular\OlapTabular.smproj</path>
-    <type>visual-studio-project</type>
-    <size_kb>1</size_kb>
-    <description>SSAS Tabular model project file.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MSSQL_MSSQL_SSAS_PowerBI\OlapTabular\OlapTabular\Model.bim</path>
-    <type>json</type>
-    <size_kb>10</size_kb>
-    <description>The Tabular Model Definition Language (TMDL) file for the SSAS model.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\MSSQL_MSSQL_SSAS_PowerBI\Portabo - kamery Bílina.pbix</path>
-    <type>power-bi-report</type>
-    <size_kb>0</size_kb>
-    <description>Power BI report file. Content not inspected.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\PostgreSQL_PostgreSQL_CubeJS_Superset\README.md</path>
-    <type>markdown</type>
-    <size_kb>2</size_kb>
-    <description>README file for the PostgreSQL to PostgreSQL implementation, explaining the architecture and setup.</description>
-  </file>
-  <file>
-    <path>E:\My Drive\Web\KI_UJEP_THESIS_LADISLAV_TAHAL\PostgreSQL_PostgreSQL_CubeJS_Superset\docker-compose.yml</path>
-    <type>yaml</type>
-    <size_kb>2</size_kb>
-    <description>Docker Compose file for the PostgreSQL to PostgreSQL implementation.</description>
+    <description>Batch script to start the MSSQL service for the data warehouse.</description>
   </file>
 </project_manifest>

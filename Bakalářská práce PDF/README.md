@@ -7,8 +7,6 @@ Tento adresář obsahuje zdrojové kódy a výsledné PDF bakalářské práce v
 | Soubor | Popis |
 |:---------------------------|:---------------------------------------------------------------|
 | **`README.md`** | Tento soubor. |
-| **`README_BACKUP.md`** | Záloha původního `README.md`. |
-| **`AI_README.md`** | Rozšířený `README.md` generovaný s pomocí AI pro lepší přehlednost. |
 | **`ki-thesis.tex`** | Hlavní LaTeX soubor pro bakalářskou práci. |
 | **`thesis.bib`** | BibTeX soubor s bibliografickými citacemi. |
 | **`img/`** | Adresář obsahující obrázky použité v práci. |
