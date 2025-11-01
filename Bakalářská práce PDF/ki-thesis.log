@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  27 OCT 2025 13:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  1 NOV 2025 12:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex"
-(c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
+**"e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex"
+(e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (./kitheses.cls
@@ -1254,24 +1254,24 @@ LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <14.4> not available
 <img/MariaDW_staging.png, id=354, 933.4875pt x 415.5525pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 752.
+Package pdftex.def Info: img/MariaDW_staging.png  used on input line 751.
 (pdftex.def)             Requested size: 469.47049pt x 208.99316pt.
 
 
 [38 <./img/MariaDW_staging.png>]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 791.
+            Default family used instead on input line 790.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 791.
+            Default family used instead on input line 790.
 
 
 [39{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 <img/PBIreport.png, id=370, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 801.
+Package pdftex.def Info: img/PBIreport.png  used on input line 800.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 
 
@@ -1281,7 +1281,7 @@ Package pdftex.def Info: img/PBIreport.png  used on input line 801.
 <img/Supersetreport.png, id=379, 1392.402pt x 682.34924pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 831.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 830.
 (pdftex.def)             Requested size: 469.47049pt x 230.05908pt.
 
 
@@ -1305,7 +1305,7 @@ chapter 5.
 
 [45]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 923.
+(Font)              scaled to size 8.0pt on input line 922.
 
 
 [46]
@@ -1317,7 +1317,7 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
 [49]
 
 [50]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1067--1068
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1066--1067
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupn� z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
@@ -1385,14 +1385,14 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  29371 strings out of 467748
- 546027 string characters out of 5431137
+ 545976 string characters out of 5431137
  1535759 words of memory out of 5000000
  57014 multiletter control sequences out of 15000+600000
  776507 words of font info for 377 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11322b,3009s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 122i,12n,121p,11305b,3009s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (63 pages, 1793586 bytes).
+Output written on ki-thesis.pdf (63 pages, 1793321 bytes).
 PDF statistics:
  722 PDF objects out of 1000 (max. 8388607)
  612 compressed objects within 7 object streams

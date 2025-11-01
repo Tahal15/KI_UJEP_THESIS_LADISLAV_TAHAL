@@ -13,8 +13,7 @@
 
 ## Úvod
 
-Mnohé organizace čelí problému, jak efektivně zpracovávat, ukládat a vizualizovat data, aby byla snadno přístupná i uživatelům bez IT vzdělání. V dnešní době lze využít mnoha nástrojů, ať už **open-source** či **komerčních řešení**, která zahrnují nejen nástroje pro vizualizaci, ale i nástroje pro **datové sklady** a technologie pro **online analytické zpracování (OLAP)**. Tato práce se zaměřuje na jejich komplexní srovnání.
-Datový sklad je navržen dle metodiky **pana Kimballa**. Hvězdicové schéma.
+Tato bakalářská práce se zabývá problematikou efektivního zpracování, ukládání a vizualizace dat v organizacích, s cílem zpřístupnit data i uživatelům bez technického vzdělání. Práce porovnává moderní open-source a komerční nástroje pro vizualizaci, datové sklady a technologie pro online analytické zpracování (OLAP). Datový sklad je navržen dle metodiky pana Kimballa s využitím hvězdicového schématu.
 
 ---
 
@@ -24,12 +23,12 @@ Cílem této bakalářské práce je provést **komplexní srovnání** open-sou
 
 Srovnání bude probíhat na **reálných datech** generovaných v datové platformě **Portabo** a zaměří se na klíčové aspekty, jako jsou:
 
-* **Technické požadavky:** Analýza nároků na infrastrukturu.
-* **Nároky na provoz:** Požadavky na dovednosti uživatelů a tvorbu reportů.
-* **Ekonomické aspekty:** Porovnání licenčních modelů a **TCO (Total Cost of Ownership)**.
-* **Implementace OLAP:** Návrh a vytvoření datového skladu/OLAP.
-* **Výkonové porovnání:** Měření výkonu při sběru dat, tvorbě výstupů a zátěžové testování.
-* **Grafické možnosti:** Srovnání vizualizačních prvků, tvorba vlastních vizualizací a práce s mapovými daty.
+*   **Technické požadavky:** Analýza nároků na infrastrukturu.
+*   **Nároky na provoz:** Požadavky na dovednosti uživatelů a tvorbu reportů.
+*   **Ekonomické aspekty:** Porovnání licenčních modelů a **TCO (Total Cost of Ownership)**.
+*   **Implementace OLAP:** Návrh a vytvoření datového skladu/OLAP.
+*   **Výkonové porovnání:** Měření výkonu při sběru dat, tvorbě výstupů a zátěžové testování.
+*   **Grafické možnosti:** Srovnání vizualizačních prvků, tvorba vlastních vizualizací a práce s mapovými daty.
 
 Výstupem práce bude **komplexní přehled výhod a nevýhod** obou přístupů a **doporučení** vhodného systému pro organizace zvažující implementaci.
 
@@ -37,13 +36,25 @@ Výstupem práce bude **komplexní přehled výhod a nevýhod** obou přístupů
 
 ## 📁 Struktura repozitáře
 
-Tento repozitář obsahuje podklady a implementační skripty pro práci. Klíčové složky a soubory jsou:
+Tento repozitář obsahuje veškeré podklady, skripty a implementace vytvořené v rámci této bakalářské práce.
 
-* **Analýza topíků:** Excel report obsahující group by topíků dle JSON struktury s 100% a 50% shodou.
-* **Bakalářská práce PDF:** Text práce ve formátu PDF a TEX.
-* **MSSQL_MSSQL_SSAS_PowerBI:** Implementace s komerčními nástroji **MS SQL Server, SSAS (SQL Server Analysis Services)** a **Power BI**.
-* **MariaDB_Clickhouse_CubeJS_Superset:** Implementace a docker compose s open-source nástroji **MariaDB, ClickHouse, Cube.js** a **Apache Superset**.
-* **MariaDB_MariaDB_CubeJS_Superset:** Hybridní implementace lokální jezero **MariaDB** a datový sklad **MariaDB**. Analytická část v docker.
-* **PostgreSQL_PostgreSQL_CubeJS_Superset:** Implementace a podklady pro řešení s **PostgreSQL** a open-source nástroji **Cube.js** a **Apache Superset**.
-* **Scripty:** Různé pomocné skripty (ETL, SQL).
-* **README.md:** Tento úvodní soubor.
+### Kořenové soubory
+
+*   `README.md`: Původní úvodní soubor k projektu.
+*   `AI_README.md`: Tento soubor, generovaný s pomocí AI pro lepší přehlednost.
+*   `project_manifest.xml`: Komplexní manifest všech souborů v projektu, generovaný pro účely analýzy a správy.
+
+### Adresáře
+
+| Adresář | Popis |
+| :--- | :--- |
+| **Analýza topiků** | Obsahuje analýzu MQTT témat (topics) ve formátu Excel, rozdělenou podle 100% a 50% shody struktur JSON payloadů. |
+| **Architektura** | Grafické znázornění architektury navrženého řešení. |
+| **Bakalářská práce PDF** | Zdrojové kódy a výsledné PDF bakalářské práce ve formátu LaTeX. |
+| **MariaDB_Clickhouse_CubeJS_Superset** | Implementace open-source řešení s využitím MariaDB jako data lake, ClickHouse jako datového skladu, Cube.js pro sémantickou vrstvu a Apache Superset pro vizualizaci. |
+| **MariaDB_MariaDB_CubeJS_Superset** | Hybridní implementace, kde MariaDB slouží jako data lake i datový sklad. Analytická část (Cube.js, Superset) je kontejnerizována. |
+| **MSSQL_MSSQL_SSAS_PowerBI** | Implementace komerčního řešení s využitím MS SQL Serveru pro data lake i datový sklad, SSAS pro sémantickou vrstvu a Power BI pro vizualizaci. |
+| **PostgreSQL_PostgreSQL_CubeJS_Superset** | Implementace open-source řešení s využitím PostgreSQL a TimescaleDB, Cube.js a Apache Superset. |
+| **Předloha** | Oficiální předloha pro bakalářskou práci na KI UJEP. |
+| **Scripty** | Veškeré pomocné skripty pro ETL procesy, databázové operace a další. |
+| **Zdroje** | Seznam použitých zdrojů. |

@@ -738,7 +738,6 @@ Záznamy jsou validovány a doplněny o odvozené informace, například město 
 ETL proces pro TimescaleDB využívá pokročilou automatickou správu schématu. Pomocí funkcí \texttt{flatten\_json()} a \texttt{infer\_pg\_type()} se JSON payload rozbaluje do jednotlivých atributů a dynamicky se vytvářejí chybějící sloupce podle zjištěných datových typů (\texttt{BOOLEAN}, \texttt{BIGINT}, \texttt{DOUBLE PRECISION}, \texttt{JSONB}, \texttt{TIMESTAMPTZ} apod.).  
 Díky funkcím \texttt{ensure\_table\_and\_columns()} \newline a \texttt{ensure\_new\_columns()} není nutné znát strukturu předem – systém se adaptuje na příchozí data.  
 Vkládání probíhá dávkově pomocí \texttt{execute\_batch()}, čímž je dosaženo vysoké efektivity. Tento přístup se ukázal jako ideální v prostředí, kde se struktura MQTT zpráv často mění.  
-Na rozdíl od ostatních implementací zde není aplikována logika pro extrakci města z názvu topicu, protože tento proces se soustředí primárně na obecné zpracování různorodých JSON struktur bez závislosti na konkrétním MQTT modelu.
 
 \subsection{MariaDB + ClickHouse (\texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}
 
