@@ -27,9 +27,9 @@ cursor_landing = conn_landing.cursor()
 # Připojení k MariaDB – DWH
 conn_dwh = pymysql.connect(
     host="localhost",
-    port=3307,
-    user="root",
-    password="tohlejeroothesloprobakalarku2025",
+    port=3308,
+    user="admin",
+    password="C0lumnStore!",
     database="mttgueries",
     charset='utf8mb4',
     cursorclass=pymysql.cursors.Cursor

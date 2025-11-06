@@ -1,89 +1,193 @@
-# 📚 MariaDB DL -> MariaDB DW -> Cube.js -> Apache superset
+![MariaDB](https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_blue-transparent.png)
 
-Tento repozitář obsahuje komplexní skripty pro správu datového skladu (DW) na více platformách. Implementace je hybridní: **ETL a databáze běží lokálně na Windows** , zatímco **analytický stack** (Cube.js a Superset) běží v **Dockeru**.
+# Columnstore Docker Project
 
----
+## Summary
+MariaDB ColumnStore is a columnar storage engine that utilizes a massively parallel distributed data architecture. It was built by porting InfiniDB to MariaDB and has been released under the GPL license.
 
-## ⚙️ I. První kroky a ruční instalace
+MariaDB ColumnStore is designed for big data scaling to process petabytes of data, linear scalability and exceptional performance with real-time response to analytical queries. It leverages the I/O benefits of columnar storage, compression, just-in-time projection, and horizontal and vertical partitioning to deliver tremendous performance when analyzing large data sets.
 
-Pro správné fungování celého systému je nutné mít lokálně nainstalovány dvě instance MariaDB a spustit je na specifických portech.
+## Requirements
 
-### 1. Nastavení databází
+Please install the following software packages before you begin.
 
-Musíte mít spuštěné **dvě nezávislé instance** databáze MariaDB, které slouží jako **Data Lake** a **Data Warehouse**.
+*   [Docker](https://www.docker.com/get-started)
 
-| Komponenta | Host | Port | Databáze | Uživatel | Heslo |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Data Lake (Landing)** | localhost | 3306 (standard) | `mttgueries` | tahal | tohlejeroothesloprobakalarku2025 |
-| **Data Warehouse (Staging)** | localhost | 3307 | `datovy_sklad` | tahal | tohlejeroothesloprobakalarku2025 |
+## Docker Run Instructions (Single Node)
 
-* **Instalace:** Nainstalujte MariaDB.
-* **Druhá instance:** Vytvořte druhou instanci MariaDB (např. jako službu `MariaDB2`) a ujistěte se, že poslouchá na portu **3307**.
-* **Spuštění:** Použijte skripty: `maria_start_data_lake.bat` a `maria_start_dw.bat`.
+```
+docker run -d -p 3307:3306 --shm-size=512m -e PM1=mcs1 --hostname=mcs1 --name mcs1 mariadb/columnstore
+```
+```
+docker exec -it mcs1 provision mcs1
+```
+```
+Waiting for PM1 To Be Initialized .. done
+Adding PM(s) To Cluster ... done
+Restarting Cluster ... done
+Validating ColumnStore Engine ... done
+```
 
-### 2. Inicializace schématu a dat
+## Run Variables
 
-1.  **Vytvořte databáze:** V obou instancích (3306, 3307) vytvořte databáze `mttgueries` a `datovy_sklad`.
-2.  **Načtěte dump:** Načtěte surový SQL dump do databáze **Data Lake** (`mttgueries` na portu 3306).
-3.  **Vytvořte schémata DW:** Spusťte příslušné skripty pro **Data Warehouse** (port 3307).
+| Variable | Type | Default | Required |
+|---|---|---|---|
+| ADMIN_HOST | String | % | No |
+| ADMIN_PASS | String | C0lumnStore! | No |
+| ADMIN_USER | String | Admin | No |
+| CEJ_PASS | String | C0lumnStore! | No |
+| CEJ_USER | String | cej | No |
+| CGROUP | String | ./ | Yes |
+| CMAPI_KEY | String | somekey123 | No |
+| PM1 | Hostname | - | **Yes** |
+| S3_ACCESS_KEY_ID | String | None | No |
+| S3_BUCKET | String | None | No |
+| S3_ENDPOINT | URL | None | No |
+| S3_REGION | String | None | No |
+| S3_SECRET_ACCESS_KEY | String | None | No |
+| USE_S3_STORAGE | Boolean | false | No |
 
-    * `Stg_CameraCamea.sql`
-    * `DimCity.sql`, `DimSensor.sql`, `DimLP.sql`, atd.
-    * `FactCameraDetection.sql`
-    * `DimTime - naplneni.sql` (pro naplnění časové dimenze)
+## Docker Compose Instructions (Cluster)
 
-### 3. Spuštění ETL
+```
+git clone https://github.com/mariadb-corporation/mariadb-columnstore-docker
+```
+```
+cd mariadb-columnstore-docker
+```
+```
+cp .env_example .env
+```
+*   Edit **_.env_** with your custom settings
+```
+docker compose up -d
+```
+```
+docker exec -it mcs1 provision mcs1 mcs2 mcs3
+```
+```
+Waiting for PM1 To Be Initialized .... done
+Adding PM(s) To Cluster ... done
+Restarting Cluster ... done
+Validating ColumnStore Engine ... done
+```
 
-Po inicializaci databází můžete spustit ETL skripty v Pythonu.
+## Custom Build Instructions (Optional)
 
-* **ETL 1 (MQTT Lake → Staging):** Spusťte skript pro dynamické zpracování JSON dat:
-    ```bash
-    maria_bilina_kamery_lake_to_staging.py
-    ```
-* **ETL 2 (Staging → Facts):** Spusťte hlavní ETL proces pro kamery (vyžaduje předchozí ETL do Stagingu):
-    ```bash
-    python maria_bilina_kamery_staging_to_fact.py
-    ```
+```
+git clone https://github.com/mariadb-corporation/mariadb-columnstore-docker
+```
+```
+cd mariadb-columnstore-docker
+```
+```
+cp .env_example .env
+```
+```
+cp .secrets_example .secrets
+```
+*   Edit **_.env_** with your custom settings
+*   Edit **_.secrets_** with your [Enterprise Token](https://cloud.mariadb.com/csm?id=my_customer_token)
+```
+./build
+```
 
----
+## Access
 
-## 🐳 II. Spuštění Analytického Prostředí (Docker)
+#### Database Access
 
-Analytická vrstva je spuštěna pomocí `docker-compose` a zpřístupňuje data z vaší lokální MariaDB (port 3307).
+```
+mysql -h 127.0.0.1 -P 3307 -u admin -p
+```
+_The default password is: **C0lumnStore!**_
 
-### 1. Docker Compose
+#### MaxScale 1 GUI Access
 
-Služby:
-* **`cubestore`**: Úložiště pro data cachovaná Cube.js.
-* **`cube`**: **Cube API** (logická datová vrstva). Připojuje se k vaší lokální DW databázi na portu **3307** pomocí DNS **`host.docker.internal`**. Zpřístupňuje data na **PostgreSQL wire-protocol** (port 15432).
-* **`superset`**: **Apache Superset** pro vizualizaci. Připojuje se k Cube API na portu 15432.
+*   URL: `http://127.0.0.1:8989`
+*   username: `admin`
+*   password: `mariadb`
 
-### 2. Spuštění
+#### MaxScale 2 GUI Access
 
-1.  Ujistěte se, že je spuštěn Docker a lokální MariaDB DW (port 3307).
-2.  V adresáři s `docker-compose.yml` spusťte:
+*   URL: `http://127.0.0.1:8990`
+*   username: `admin`
+*   password: `mariadb`
 
-    ```bash
-    docker-compose up -d
-    ```
+#### Glossary Items
+*   **PM**: Performance Module
+*   **PM1**: Primary Database Node
+*   **PM2**: Secondary Database Node
+*   **PM3**: Tertiary Database Node
+*   **MX1**: Primary MaxScale Node
+*   **MX2**: Secondary MaxScale Node
 
-### 3. Přístup k aplikacím
+## CLI Instructions
 
-| Služba | Adresa | Použití |
-| :--- | :--- | :--- |
-| **Cube API** | http://localhost:4000 | Definice datových modelů (schéma `cubejs/`) |
-| **SQL API (pro Superset)** | `host.docker.internal:15432` | SQL rozhraní pro dotazování modelů |
-| **Superset** | http://localhost:8088 | Vizualizace a Dashboards |
+##### Set API Code:
 
-**Poznámka k připojení:** Kontejner `cube` používá `host.docker.internal:3307` k dosažení vaší lokální MariaDB. Pokud toto DNS nefunguje, může být nutné upravit proměnnou `CUBEJS_DB_HOST` na IP adresu hostitelského počítače.
+```
+mcs cluster set api-key --key <api_key>
+```
 
----
+###### Get Status:
 
-## 📁 Struktura adresáře
+```
+mcs cluster status
+```
 
-| Soubor/Adresář | Popis |
-|:---------------------------|:---------------------------------------------------------------|
-| **`README.md`** | Tento soubor. |
-| **`docker-compose.yml`** | Konfigurační soubor pro spuštění analytických služeb v Dockeru. |
-| **`cubejs/`** | Adresář obsahující konfiguraci a datové modely pro Cube.js. |
-| **`superset/`** | Adresář obsahující konfiguraci pro Apache Superset. |
+###### Start Cluster:
+
+```
+mcs cluster start
+```
+
+###### Stop Cluster:
+
+```
+mcs cluster stop
+```
+
+###### Add Node:
+
+```
+mcs cluster node add --node <node>
+```
+
+###### Remove Node:
+
+```
+mcs cluster node remove --node <node>
+```
+
+###### Mode Set Read Only:
+
+```
+mcs cluster set mode --mode readonly
+```
+
+###### Mode Set Read/Write:
+
+```
+mcs cluster set mode --mode readwrite
+```
+
+## Log Info
+
+Logs are stored in ```/var/log/mariadb/columnstore```
+
+They are also available via the following command:
+```
+docker logs mcs1
+```
+
+## Simple Backup Script Example
+
+```
+#!/bin/bash
+rm -rf /backup
+mkdir -p /backup/{mysql,columnstore}
+mariadb-backup --user=root --backup --rsync --target-dir=/backup/mysql
+mcs cluster set mode --mode readonly
+rsync -av /var/lib/columnstore/ /backup/columnstore/
+mcs cluster set mode --mode readwrite
+```

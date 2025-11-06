@@ -1,7 +1,38 @@
-version: "3.9"
+version: '3.9'
 
 services:
-  # ---------- Cube Store ----------
+  # ---------- MariaDB ColumnStore (Single Node) ----------
+  mcs1:
+    image: mariadb/columnstore:latest
+    shm_size: '512mb'
+    hostname: mcs1
+    container_name: mcs1
+    environment:
+      # Single node configuration
+      PM1: mcs1
+      MARIADB_ROOT_PASSWORD: tohlejeroothesloprobakalarku2025
+      MARIADB_DATABASE: mttgueries
+      # Můžete přidat další proměnné podle potřeby
+    ports:
+      - "3308:3306"
+    volumes:
+      # MariaDB data
+      - mariadb-data:/var/lib/mysql
+      # ColumnStore data volumes (jako v oficiálním compose)
+      - data1:/var/lib/columnstore/data1
+      - data2:/var/lib/columnstore/data2
+      - data3:/var/lib/columnstore/data3
+      - storagemanager:/var/lib/columnstore/storagemanager
+      # Init script pro vytvoření root@%
+      - ./init-root.sql:/docker-entrypoint-initdb.d/01-init-root.sql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 60s
+
+  # ---------- Cube Store (Columnar Storage) ----------
   cubestore:
     image: cubejs/cubestore:latest
     container_name: cubestore
@@ -17,30 +48,33 @@ services:
     image: cubejs/cube:latest
     container_name: cube
     depends_on:
-      - cubestore
+      mcs1:
+        condition: service_healthy
+      cubestore:
+        condition: service_started
     ports:
-      - "4000:4000"   # REST / GraphQL
-      - "15432:15432" # Postgre-SQL wire-protocol (SQL API)
+      - "4000:4000"     # REST / GraphQL
+      - "15432:15432"   # PostgreSQL wire-protocol (SQL API)
     volumes:
-      - ./cubejs:/cube/conf          # tvoje *.js modely
+      - ./cubejs:/cube/conf
     environment:
       # --- Production režim ---
       CUBEJS_DEV_MODE: "false"
       NODE_ENV: production
       CUBEJS_API_SECRET: MY_SUPER_SECRET_KEY
-
+      
       # --- Propojení na Cube Store ---
       CUBEJS_CUBESTORE_HOST: cubestore
-
+      
       # --- Zapnutí SQL API + přihlašovací údaje ---
-      CUBEJS_PG_SQL_PORT: 15432      # port, na kterém má SQL API poslouchat
-      CUBEJS_SQL_USER: root         # uživatel pro Superset
+      CUBEJS_PG_SQL_PORT: 15432
+      CUBEJS_SQL_USER: root
       CUBEJS_SQL_PASSWORD: tohlejeroothesloprobakalarku2025
-
-      # --- Připojení k databázi (dosaď své hodnoty) ---
-      CUBEJS_DB_TYPE: mysql          # nebo postgres, mssql…
-      CUBEJS_DB_HOST: host.docker.internal
-      CUBEJS_DB_PORT: "3307"
+      
+      # --- Připojení k MariaDB ColumnStore ---
+      CUBEJS_DB_TYPE: mysql
+      CUBEJS_DB_HOST: mcs1
+      CUBEJS_DB_PORT: "3306"
       CUBEJS_DB_NAME: mttgueries
       CUBEJS_DB_USER: root
       CUBEJS_DB_PASS: tohlejeroothesloprobakalarku2025
@@ -50,7 +84,8 @@ services:
     image: apache/superset:latest
     container_name: superset
     depends_on:
-      - cube
+      cube:
+        condition: service_started
     ports:
       - "8088:8088"
     environment:
@@ -58,8 +93,16 @@ services:
       SUPERSET_SECRET_KEY: this_is_a_super_secret_key_1234567890
     volumes:
       - ./superset/superset_config.py:/app/pythonpath/superset_config.py
-      - superset_data:/app/superset_home
+      - superset-data:/app/superset_home
 
 volumes:
+  # MariaDB data
+  mariadb-data:
+  # ColumnStore data volumes (z oficiálního compose)
+  data1:
+  data2:
+  data3:
+  storagemanager:
+  # Cube.js a Superset volumes
   cubestore-data:
-  superset_data:
+  superset-data:
