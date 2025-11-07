@@ -2411,8 +2411,8 @@
     <bcf:citekey order="10" intorder="1">priebe2022datawarehouse</bcf:citekey>
     <bcf:citekey order="11" intorder="1">amazon2019datawarehouse</bcf:citekey>
     <bcf:citekey order="11" intorder="2">databricks2024modernstack</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">geeksforgeeks_star_schema</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">geeksforgeeks_star_schema</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
     <bcf:citekey order="14" intorder="1">cube2024semantic</bcf:citekey>
     <bcf:citekey order="14" intorder="2">dbt2024semanticlayer</bcf:citekey>
     <bcf:citekey order="14" intorder="3">looker2024semanticmodel</bcf:citekey>
