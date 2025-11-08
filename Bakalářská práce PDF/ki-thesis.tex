@@ -657,7 +657,6 @@ Při rozhodování je vhodné zohlednit následující kritéria:
 V praxi organizace často kombinují více nástrojů – například open-source řešení pro interní analýzy a komerční systém pro prezentaci výsledků managementu.  
 Tento přístup umožňuje optimalizovat náklady a zároveň využít silných stránek jednotlivých platforem.  
 V případě datové platformy Portabo by mohl být takový přístup vhodný při implementaci vizualizační vrstvy nad datovým skladem.
-\clearpage
 
 \section{Přehled a charakteristika využitých technologií}
 \label{sec:prehled_technologii}
@@ -666,9 +665,8 @@ Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativ
 
 \definecolor{osgreen}{HTML}{DFF0D8} % Light green
 \definecolor{comred}{HTML}{F2DEDE}  % Light red
-\definecolor{osgreentitle}{HTML}{3C763D}
-\definecolor{comredtitle}{HTML}{A94442}
 
+% Ujistěte se, že máte v preambuli dokumentu: \usepackage{colortbl}
 \begin{longtable}{|p{\dimexpr.5\textwidth-2\tabcolsep-1.5\arrayrulewidth} | p{\dimexpr.5\textwidth-2\tabcolsep-1.5\arrayrulewidth}|}
 \hline
 \multicolumn{1}{|c|}{\textbf{Open-source řešení}} & \multicolumn{1}{c|}{\textbf{Komerční řešení}} \\
@@ -676,66 +674,49 @@ Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativ
 \endhead
 
 \hline
-\multicolumn{2}{|c|}{\cellcolor{gray!20}\textbf{Vrstva: Databáze / Datové úložiště}} \\
+\multicolumn{2}{|c|}{\cellcolor{gray!20}\textbf{Vrstva: Datový sklad}} \\
 \hline
+
 % Databases
-\begin{tcolorbox}[colback=osgreen, colframe=osgreentitle, title=\textbf{PostgreSQL a TimescaleDB}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Databáze / Datový sklad (Time-series) \vspace{0.5em}
-
-    PostgreSQL je pokročilý open-source objektově-relační databázový systém s výbornou podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady (time-series data). Tato kombinace je ideální pro telemetrická data z platformy Portabo, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a efektivní kompresi dat.
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=osgreen, colframe=osgreentitle, title=\textbf{ClickHouse}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Databáze / Datový sklad (OLAP) \vspace{0.5em}
-
+\cellcolor{osgreen}
+    \textbf{PostgreSQL a TimescaleDB} \par
+    PostgreSQL je open-source relační databázový systém s podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a efektivní kompresi dat.
+    \vspace{1em} \par
+    \textbf{ClickHouse} \par
     ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v reálném čase bez nutnosti rozsáhlých předagregací.
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=osgreen, colframe=osgreentitle, title=\textbf{MariaDB}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Databáze / Datové jezero \vspace{0.5em}
-
-    MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. V architektuře této práce slouží primárně jako \textbf{datové jezero (Data Lake)}, kde jsou ukládána surová data (např. JSON payloady z MQTT zpráv) před jejich transformací a načtením do analytických databází. Jeho role spočívá v poskytování spolehlivého úložiště pro nezpracovaná data s možností jejich následné extrakce.
-\end{tcolorbox}
+    \vspace{1em} \par
+    \textbf{MariaDB} \par
+    MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP)
 &
-\begin{tcolorbox}[colback=comred, colframe=comredtitle, title=\textbf{Microsoft SQL Server}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Databáze / Datový sklad \vspace{0.5em}
-
+\cellcolor{comred}
+    \textbf{Microsoft SQL Server} \par
     Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
-\end{tcolorbox}
 \\
 \hline
 
+\pagebreak
 \hline
 \multicolumn{2}{|c|}{\cellcolor{gray!20}\textbf{Vrstva: Sémantická vrstva / OLAP}} \\
 \hline
-\begin{tcolorbox}[colback=osgreen, colframe=osgreentitle, title=\textbf{Cube.js}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Sémantická vrstva / OLAP \vspace{0.5em}
-
+\cellcolor{osgreen}
+    \textbf{Cube.js} \par
     Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním úkolem je abstrahovat technickou komplexitu datového skladu a poskytovat konzistentní business logiku. Definuje datové modely, metriky (measures) a dimenze pomocí JavaScriptu. Klíčovou vlastností je poskytování standardizovaného rozhraní (API), včetně emulace \textbf{PostgreSQL SQL API}. To umožňuje, aby se vizualizační nástroje (jako Apache Superset) připojovaly ke Cube.js stejným způsobem, jako by se připojovaly k běžné databázi, čímž se výrazně zjednodušuje integrace a zvyšuje výkon díky pokročilému cachování a předagregacím.
-\end{tcolorbox}
 &
-\begin{tcolorbox}[colback=comred, colframe=comredtitle, title=\textbf{Microsoft SQL Server Analysis Services (SSAS)}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Sémantická vrstva / OLAP \vspace{0.5em}
-
+\cellcolor{comred}
+    \textbf{Microsoft SQL Server Analysis Services (SSAS)} \par
     SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a Business Intelligence. V této práci je využíván jeho \textbf{Tabulární model (Tabular Model)}, který funguje jako \textit{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k Cube.js, poskytující podobnou sémantickou vrstvu s pokročilými možnostmi bezpečnosti, správy a hlubokou integrací s nástroji Microsoft ekosystému.
-\end{tcolorbox}
 \\
 \hline
-
 \hline
 \multicolumn{2}{|c|}{\cellcolor{gray!20}\textbf{Vrstva: Vizualizace / BI}} \\
 \hline
-\begin{tcolorbox}[colback=osgreen, colframe=osgreentitle, title=\textbf{Apache Superset}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Vizualizace / BI \vspace{0.5em}
-
+\cellcolor{osgreen}
+    \textbf{Apache Superset} \par
     Apache Superset je moderní open-source platforma pro vizualizaci dat a business intelligence. Umožňuje snadné připojení k široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a intuitivní tvorbu interaktivních dashboardů a reportů. V této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a customizaci.
-\end{tcolorbox}
 &
-\begin{tcolorbox}[colback=comred, colframe=comredtitle, title=\textbf{Microsoft Power BI}, sharp corners, boxrule=1pt]
-    \textbf{Role:} Vizualizace / BI \vspace{0.5em}
-
+\cellcolor{comred}
+    \textbf{Microsoft Power BI} \par
     Power BI je komerční analytický nástroj od společnosti Microsoft, který představuje průmyslový standard pro vizualizaci dat a business intelligence. Vyniká těsnou integrací s celým ekosystémem Microsoftu, zejména s SSAS Tabular, což umožňuje efektivní analýzu, sdílení reportů a spolupráci v rámci organizace. V kontextu této práce slouží jako reprezentant komerční vizualizační platformy s pokročilými funkcemi pro datovou transformaci, modelování a distribuci obsahu.
-\end{tcolorbox}
 \\
 \hline
 \end{longtable}
@@ -748,15 +729,36 @@ V rámci řešení byly navrženy a implementovány datové toky, které respekt
 
 Data využitá pro testování pocházejí převážně z datového toku města Bílina, konkrétně z MQTT témat obsahujících telemetrické údaje o kamerových detekcích vozidel. V případě implementace nad PostgreSQL/TimescaleDB byla navíc použita širší množina dat zahrnující také Wi-Fi senzory, elektrické měřiče a další zdroje. Tyto zprávy byly zpracovány pomocí implementovaných ETL procesů a uloženy do datového skladu vytvořeného nad několika databázovými technologiemi (PostgreSQL/TimescaleDB, MariaDB, Microsoft SQL Server a ClickHouse). Každá z těchto technologií představuje odlišný přístup -- od komerčního řešení po výkonné open-source systémy určené pro analytické zpracování dat.
 
-Výchozím bodem pro naplnění datového jezera (Data Lake), které sloužilo jako zdroj pro všechny následné ETL procesy, byl poskytnutý SQL dump určený pro databázi \textbf{MariaDB}. Jelikož metodika srovnání zahrnovala i jiné databázové systémy (MSSQL, PostgreSQL), bylo nutné provést migraci těchto dat.
+\subsection{Příprava a migrace datové základny}
 
-Pro \textbf{Microsoft SQL Server} byl zvolen dvoukrokový přístup, neboť původní pokusy o vytvoření vlastního konverzního skriptu se ukázaly jako nespolehlivé. V prvním kroku byla data z SQL dumpu naimportována do instance MariaDB. Následně byla z této databáze exportována do univerzálního formátu CSV pomocí SQL dotazu \texttt{SELECT ... INTO OUTFILE}. Tento export vyžadoval specifické ošetření uvozovek v JSON datech, aby byl výsledný soubor validní. Výsledný CSV soubor byl poté naimportován do MSSQL pomocí příkazu \texttt{BULK INSERT}.Během tohoto procesu bylo také nutné manuálně omezit maximální přidělenou operační paměť (RAM) pro instanci MSSQL serveru, aby nedošlo k zahlcení systémových prostředků a zamrznutí operačního systému.
+Výchozím bodem pro naplnění datového jezera (Data Lake), které sloužilo jako zdroj pro všechny následné ETL procesy, byl poskytnutý SQL dump určený pro databázi \textbf{MariaDB}. Jelikož metodika srovnání zahrnovala i jiné databázové systémy, bylo nutné provést migraci těchto dat do jednotlivých cílových prostředí. Pro každou technologii byl zvolen specifický přístup:
 
-Pro \textbf{PostgreSQL} byl využit nástroj \texttt{pgloader}. Tento nástroj byl spuštěn v rámci vlastního Docker kontejneru, který byl sestaven pomocí \texttt{docker build}. Nástroj \texttt{pgloader} se přímo připojil ke zdrojové MariaDB databázi (\texttt{host.docker.internal:3306}) a provedl kompletní migraci dat do cílové PostgreSQL databáze (\texttt{host.docker.internal:5433}).
+\begin{description}[style=unboxed, leftmargin=0pt]
+    \item[\textbf{Microsoft SQL Server:}] Pro migraci do MSSQL byl zvolen dvoukrokový přístup, neboť původní pokusy o vytvoření vlastního konverzního skriptu se ukázaly jako nespolehlivé.
+    \begin{enumerate}[leftmargin=2em, label=\arabic*.]
+        \item \textbf{Export z MariaDB:} Data byla nejprve naimportována do dočasné instance MariaDB. Následně byla z této databáze exportována do univerzálního formátu CSV pomocí SQL dotazu \texttt{SELECT ... INTO OUTFILE}. Tento export vyžadoval specifické ošetření uvozovek v JSON datech, aby byl výsledný soubor validní.
+        \item \textbf{Import do MSSQL:} Výsledný CSV soubor byl naimportován do MSSQL pomocí příkazu \texttt{BULK INSERT}. Během tohoto procesu bylo také nutné manuálně omezit maximální přidělenou operační paměť (RAM) pro instanci MSSQL serveru, aby nedošlo k zahlcení systémových prostředků.
+    \end{enumerate}
 
-Konfigurace \texttt{pgloader} byla optimalizována pro co nejvyšší rychlost přenosu. Bylo využito paralelní zpracování (nastavením \texttt{workers = 4} a \texttt{concurrency = 4}), dávkování dat po 50\,000 řádcích (\texttt{batch rows = 50000}) a navýšení operační paměti pro proces migrace (\texttt{maintenance\_work\_mem to '512MB'}). Součástí konfiguračního souboru byla také explicitní pravidla pro přetypování datových typů mezi oběma systémy, zejména pro správnou interpretaci časových údajů (\texttt{CAST type datetime to timestamptz...}).
+    \item[\textbf{PostgreSQL:}] Pro migraci do PostgreSQL byl využit nástroj \texttt{pgloader}, který umožňuje přímou migraci mezi různými databázovými systémy.
+    \begin{itemize}[leftmargin=2em, label=\textbullet]
+        \item \textbf{Konfigurace a spuštění:} Nástroj byl spuštěn v rámci vlastního Docker kontejneru. Konfigurační soubor definoval přímé připojení ke zdrojové MariaDB databázi (\texttt{host.docker.internal:3306}) a cílové PostgreSQL databázi (\texttt{host.docker.internal:5433}).
+        \item \textbf{Optimalizace výkonu:} Konfigurace \texttt{pgloader} byla optimalizována pro co nejvyšší rychlost přenosu. Bylo využito paralelní zpracování (\texttt{workers = 4}, \texttt{concurrency = 4}), dávkování dat po 50\,000 řádcích (\texttt{batch rows = 50000}) a navýšení operační paměti pro proces migrace (\texttt{maintenance\_work\_mem to '512MB'}).
+        \item \textbf{Přetypování dat:} Součástí konfiguračního souboru byla také explicitní pravidla pro přetypování datových typů mezi oběma systémy, zejména pro správnou interpretaci časových údajů (\texttt{CAST type datetime to timestamptz...}).
+    \end{itemize}
+\end{description}
 
 Těmito postupy bylo zajištěno, že identická datová základna (datové jezero) byla k dispozici ve všech testovaných databázových systémech.
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/SQLDump.png}
+  \caption{Aktivity diagram nahrání MariaSQL dumpu do odlišných databází.}
+  \label{fig:sqldump}
+\end{figure}
+
+\clearpage
+
 
 \section{Návrh metodiky porovnání}
 
@@ -791,30 +793,38 @@ Metodika tedy určuje rámec, v němž budou jednotlivé technologie nasazeny, n
 \end{figure}
 
 Z obrázku je patrná struktura vstupních dat. Ze sloupce \texttt{topic} lze částečně odvodit, o jaký typ senzoru se jedná.  
-Na první pohled by se mohlo zdát, že na základě názvů témat lze vytvořit logické vazby mezi jednotlivými senzory.  
-Podrobnější analýza však ukázala, že názvy nejsou konzistentní. Například kamera z Bíliny může mít téma \texttt{/Bilina/kamery/camea/BI-TP-O2}, zatímco vodoměr je označen jednoduše \texttt{/vodomery/decin}.  
-V databázi se rovněž vyskytují senzory, které vykonávají stejnou funkci, avšak používají odlišné pojmenování. Některé dokonce uvádějí na konci názvu i měřenou veličinu, přičemž jejich JSON obsahuje pouze jedinou hodnotu.  
+Podrobnější analýza však ukázala, že názvy témat nejsou konzistentní. Například kamera z Bíliny může mít téma \texttt{/Bilina/kamery/camea/BI-TP-O2}, zatímco vodoměr je označen jednoduše \texttt{/vodomery/decin}.  
+V databázi se rovněž vyskytují senzory, které vykonávají stejnou funkci, avšak používají odlišné pojmenování.  
 
-Z těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamicky parsoval JSON struktury na základě názvů témat, není vzhledem k nekonzistenci dat reálně možné.  
-K dosažení jednotného přístupu by bylo nezbytné sjednotit pojmenování témat na úrovni zdroje.
+Z těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamicky parsoval JSON struktury na základě názvů témat, není vzhledem k nekonzistenci dat reálně možné. Bylo nutné zvolit robustnější přístup založený na analýze obsahu samotných zpráv.
 
-Následně byla provedena analýza samotné JSON struktury.  
-Byl zvolen přístup, který seskupoval témata do logických celků podle podobnosti jejich JSON schémat ve sloupci \texttt{payload}.  
-K tomu byl vytvořen skript \texttt{analyze\_json.py}, který využíval Jaccardovu podobnost pro porovnání struktury jednotlivých zpráv.
+\subsubsection{Automatizovaná analýza JSON struktur pomocí skriptu analyze\_json.py}
 
-Analýza s prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v několika atributech — pravděpodobně kvůli odlišným verzím zařízení.  
-Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
+Pro systematickou analýzu JSON struktur byl vytvořen vlastní skript v jazyce Python, \texttt{analyze\_json.py}. Tento skript seskupuje MQTT témata do logických celků na základě strukturální podobnosti jejich JSON schémat ve sloupci \texttt{payload}.
 
-Na základě výsledků byly pro další zpracování vybrány skupiny témat označené žlutě a oranžově, které vykazovaly největší logickou podobnost.
+K porovnání struktury dvou JSON objektů byla využita \textbf{Jaccardova podobnost}, která měří poměr velikosti průniku a sjednocení množin jejich klíčů. Analýza s prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v několika atributech – pravděpodobně kvůli odlišným verzím firmwaru. Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
 
-\clearpage
+Výstupem této první fáze analýzy jsou skupiny témat, které sdílejí podobnou datovou strukturu, jak je znázorněno na obrázku \ref{fig:topic_groups_initial}.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{img/topic50.png}
-  \caption{Výstup skriptu \texttt{analyze\_json.py} – logické skupiny JSON struktur s 50\,\% Jaccardovou podobností}
-  \label{fig:topic50}
+  \includegraphics[width=\textwidth]{img/topic50.png} 
+  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat.}
+  \label{fig:topic_groups_initial}
 \end{figure}
+
+V dalším kroku bylo nutné tyto automaticky vygenerované skupiny ručně zrevidovat. Ukázalo se, že některé skupiny, ačkoliv měly mírně odlišnou JSON strukturu, patřily ke stejnému typu zařízení, které pouze měřilo jinou veličinu (např. jeden senzor měřící napětí a druhý proud). Tyto logicky související skupiny byly následně sloučeny do finálních celků určených pro ETL zpracování. Tento proces je znázorněn na obrázku \ref{fig:topic_groups_merged}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/topic50_2.png}
+  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napřič skupiny}
+  \label{fig:topic_groups_merged}
+\end{figure}
+
+Na základě výsledků byly pro další zpracování vybrány skupiny témat označené žlutě a oranžově, které vykazovaly největší logickou podobnost a datový objem.
+
+\clearpage
 
 \section{ETL procesy}
 

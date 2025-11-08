@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  7 NOV 2025 21:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  8 NOV 2025 13:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1068,9 +1068,6 @@ LaTeX Warning: Label `fig:topic50' multiply defined.
 
 LaTeX Warning: Label `fig:topic50' multiply defined.
 
-
-LaTeX Warning: Label `fig:topic50' multiply defined.
-
 )
 \openout1 = `ki-thesis.aux'.
 
@@ -1448,125 +1445,113 @@ Package pdftex.def Info: img/snowflake.png  used on input line 554.
 
 [31]
 
-[32]
-Underfull \hbox (badness 1158) in paragraph at lines 697--698
-\T1/LibertinusSerif-TLF/m/n/12 (+20) MySQL a za-cho-vává si s ním vy-so-
- []
+[32] [33]
 
-
-Underfull \hbox (badness 2384) in paragraph at lines 703--704
-\T1/LibertinusSerif-TLF/m/n/12 (+20) na-bízí ro-bustní ná-stroje pro da-tové
- []
-
-
-Underfull \hbox (badness 7869) in paragraph at lines 714--715
-[]\T1/LibertinusSerif-TLF/m/n/12 (+20) Cube.js je open-source sé-man-tická
- []
-
-
-Underfull \hbox (badness 1838) in paragraph at lines 714--715
-\T1/LibertinusSerif-TLF/m/n/12 (+20) vrstva (se-man-tic la-yer), je-jímº hlav-
- []
-
-
-Underfull \hbox (badness 4673) in paragraph at lines 731--732
-[]\T1/LibertinusSerif-TLF/m/n/12 (+20) Apache Su-per-set je mo-derní open-
- []
-
-
-Underfull \hbox (badness 8132) in paragraph at lines 731--732
-\T1/LibertinusSerif-TLF/m/n/12 (+20) p°i-po-jení k ²i-roké ²kále da-to-vých
- []
-
-[33
-
-] [34]
-
-[35]
-
-[36
-
-
-]
+[34]
 chapter 3.
 
 
-[37]
-Overfull \hbox (5.31082pt too wide) in paragraph at lines 757--758
-\T1/LibertinusSerif-TLF/m/n/12 (-20) (\T1/pxtt/m/n/12 batch rows = 50000\T1/LibertinusSerif-TLF/m/n/12 (-20) ) a na-vý-²ení ope-ra£ní pa-m¥ti pro pro-ces mi-grace (\T1/pxtt/m/n/12 maintenance_work_mem
+[35
+
+
+]
+Overfull \hbox (45.64264pt too wide) in paragraph at lines 745--746
+\T1/LibertinusSerif-TLF/m/n/12 (-20) ra£ní sou-bor de-fi-no-val p°ímé p°i-po-jení ke zdro-jové Ma-ri-aDB da-ta-bázi (\T1/pxtt/m/n/12 host.docker.internal:3306\T1/LibertinusSerif-TLF/m/n/12 (-20) )
  []
 
+<img/SQLDump.png, id=341, 2053.6725pt x 2071.74pt>
+File: img/SQLDump.png Graphic file (type png)
+<use img/SQLDump.png>
+Package pdftex.def Info: img/SQLDump.png  used on input line 755.
+(pdftex.def)             Requested size: 469.47049pt x 473.58186pt.
 
-Overfull \hbox (31.48177pt too wide) in paragraph at lines 781--784
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[36]
+
+[37 <./img/SQLDump.png>]
+Overfull \hbox (31.48177pt too wide) in paragraph at lines 783--786
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
-<img/mqttentries_structure.png, id=347, 1248.46425pt x 451.6875pt>
+<img/mqttentries_structure.png, id=354, 1420.1055pt x 177.66376pt>
 File: img/mqttentries_structure.png Graphic file (type png)
 <use img/mqttentries_structure.png>
-Package pdftex.def Info: img/mqttentries_structure.png  used on input line 788.
-(pdftex.def)             Requested size: 469.47049pt x 169.85106pt.
+Package pdftex.def Info: img/mqttentries_structure.png  used on input line 790.
+(pdftex.def)             Requested size: 469.47049pt x 58.73222pt.
 
 
-[38]
+[38
 
-[39 <./img/mqttentries_structure.png>]
-<img/topic50.png, id=360, 786.5385pt x 422.17725pt>
+ <./img/mqttentries_structure.png>]
+Overfull \hbox (29.61703pt too wide) in paragraph at lines 803--804
+\T1/LibertinusSerif-TLF/m/n/12 (-20) Pro sys-te-ma-tic-kou ana-lýzu JSON struk-tur byl vy-tvo-°en vlastní skript v ja-zyce Py-thon, \T1/pxtt/m/n/12 analyze_json.py\T1/LibertinusSerif-TLF/m/n/12 (-20) .
+ []
+
+<img/topic50.png, id=364, 1007.56425pt x 141.52875pt>
 File: img/topic50.png Graphic file (type png)
 <use img/topic50.png>
-Package pdftex.def Info: img/topic50.png  used on input line 814.
-(pdftex.def)             Requested size: 469.47049pt x 251.9877pt.
+Package pdftex.def Info: img/topic50.png  used on input line 811.
+(pdftex.def)             Requested size: 469.47049pt x 65.94623pt.
+<img/topic50_2.png, id=366, 1009.97325pt x 40.953pt>
+File: img/topic50_2.png Graphic file (type png)
+<use img/topic50_2.png>
+Package pdftex.def Info: img/topic50_2.png  used on input line 820.
+(pdftex.def)             Requested size: 469.47049pt x 19.03606pt.
 
-Overfull \hbox (21.24648pt too wide) in paragraph at lines 824--827
+
+[39 <./img/topic50.png> <./img/topic50_2.png>]
+Overfull \hbox (21.24648pt too wide) in paragraph at lines 834--837
 \T1/LibertinusSerif-TLF/m/n/12 (-20) skriptu za-£íná na-£te-ním po-sled-ního zpra-co-va-ného iden-ti-fi-ká-toru z ta-bulky \T1/pxtt/m/n/12 ETL_IncrementalControl
  []
 
 
-Overfull \hbox (3.3615pt too wide) in paragraph at lines 828--833
+Overfull \hbox (3.3615pt too wide) in paragraph at lines 838--843
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Data jsou zpra-co-vá-vána v dáv-kách (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) batchích\T1/LibertinusSerif-TLF/m/n/12 (-20) ), je-jichº ve-li-kost je °í-zena pa-ra-me-t-rem \T1/pxtt/m/n/12 BATCH_SIZE\T1/LibertinusSerif-TLF/m/n/12 (-20) .
  []
 
+LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <14.4> not available
+(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 849.
 
 
 [40
 
- <./img/topic50.png>]
-LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <14.4> not available
-(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 839.
-
-
-[41]
-<img/MariaDW_staging.png, id=378, 933.4875pt x 415.5525pt>
+]
+<img/MariaDW_staging.png, id=384, 1447.20676pt x 119.2455pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 866.
-(pdftex.def)             Requested size: 469.47049pt x 208.99316pt.
+Package pdftex.def Info: img/MariaDW_staging.png  used on input line 876.
+(pdftex.def)             Requested size: 469.47049pt x 38.68335pt.
 
 
-[42 <./img/MariaDW_staging.png>]
+[41 <./img/MariaDW_staging.png>]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 905.
+            Default family used instead on input line 915.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 905.
+            Default family used instead on input line 915.
 
 
-[43{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<img/PBIreport.png, id=395, 1765.59625pt x 995.72pt>
+[42{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+
+[43]
+<img/PBIreport.png, id=409, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 915.
+Package pdftex.def Info: img/PBIreport.png  used on input line 925.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 
 
 [44
 
  <./img/PBIreport.png>]
-<img/Supersetreport.png, id=404, 1392.402pt x 682.34924pt>
+<img/Supersetreport.png, id=418, 1392.402pt x 682.34924pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 945.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 955.
 (pdftex.def)             Requested size: 469.47049pt x 230.05908pt.
 
 
@@ -1599,7 +1584,7 @@ chapter 5.
 [53]
 
 [54]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1181--1182
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1191--1192
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
@@ -1666,18 +1651,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43073 strings out of 467748
- 861656 string characters out of 5431137
- 1860815 words of memory out of 5000000
- 70464 multiletter control sequences out of 15000+600000
- 777900 words of font info for 385 fonts, out of 8000000 for 9000
+ 43060 strings out of 467748
+ 861263 string characters out of 5431137
+ 1853126 words of memory out of 5000000
+ 70434 multiletter control sequences out of 15000+600000
+ 778732 words of font info for 391 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,12n,121p,11305b,3055s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (67 pages, 2088558 bytes).
+Output written on ki-thesis.pdf (67 pages, 2055063 bytes).
 PDF statistics:
- 748 PDF objects out of 1000 (max. 8388607)
- 628 compressed objects within 7 object streams
- 228 named destinations out of 1000 (max. 500000)
- 85265 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 764 PDF objects out of 1000 (max. 8388607)
+ 640 compressed objects within 7 object streams
+ 236 named destinations out of 1000 (max. 500000)
+ 85275 words of extra memory for PDF output out of 89155 (max. 10000000)
 
