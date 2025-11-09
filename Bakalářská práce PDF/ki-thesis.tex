@@ -837,46 +837,90 @@ Průběh každého běhu je zapisován do tabulky \texttt{ETL\_RunLog}, kde jsou
 
 Data jsou zpracovávána v dávkách (tzv. \textit{batchích}), jejichž velikost je řízena parametrem \texttt{BATCH\_SIZE}. Každý skript používá databázové kurzory a příkazy \texttt{fetchmany()}, aby se minimalizovalo zatížení paměti.  
 V rámci každé dávky jsou načteny nové záznamy z tabulky \texttt{mqttentries}, která obsahuje surové MQTT zprávy.  
-Klíčovým polem v těchto datech je \texttt{payload}, obsahující JSON strukturu s detaily detekce. U většiny implementací (SQL Server, MariaDB a MariaDB+ClickHouse) je z názvu MQTT topicu navíc extrahováno město pomocí funkce \texttt{parse\_city\_from\_topic}.  
-Implementace pro TimescaleDB tuto logiku nevyužívá, jelikož její hlavní cíl spočívá v univerzálním zpracování a automatické adaptaci struktury dat bez vazby na konkrétní topologii MQTT témat.
-!! TOTO DODĚLAT !! Upravíme dle úpravy scriptu. Pravděpodobně udělám dva. Jeden na bílinu a druhý na zbytek.
+Klíčovým polem v těchto datech je \texttt{payload}, obsahující JSON strukturu s detaily detekce. Pro jeho zpracování byly v rámci práce implementovány dva odlišné přístupy:
+
+\begin{itemize}
+    \item \textbf{Statické ETL (SQL Server, MariaDB, MariaDB+ClickHouse):} Tento přístup byl implementován pro data z kamerového systému města Bílina (\texttt{/Bilina/kamery/camea/\%}). Vytvořené skripty využívají předem definovanou znalost struktury JSON dat. Atributy z \texttt{payload} jsou mapovány na pevně dané sloupce ve staging tabulce. Jedná se o rigidní, ale vysoce efektivní metodu, vhodnou pro konkrétní, neměnné datové zdroje, kde je prioritou maximální výkon a předvídatelnost zpracování.
+
+    \item \textbf{Dynamické ETL (PostgreSQL s TimescaleDB):} Naopak pro implementaci nad databází PostgreSQL byl zvolen univerzální přístup. Skript (\texttt{pg\_timescale\_lake\_to\_staging.py}) byl navržen tak, aby se dokázal automaticky adaptovat na různorodé a vyvíjející se JSON struktury z různých MQTT témat. Během zpracování dynamicky analyzuje obsah \texttt{payload}, pomocí funkce \texttt{infer\_pg\_type} odvozuje datové typy jednotlivých atributů a v případě potřeby sám upravuje cílovou staging tabulku příkazem \texttt{ALTER TABLE}, aby přidal nové sloupce. Tento flexibilní mechanismus umožňuje zpracovávat data i z dosud neznámých senzorů bez nutnosti jakékoliv změny v kódu.
+\end{itemize}
 
 Následně je JSON dekódován a rozparsován na jednotlivé atributy – typ detekce, registrační značka, senzor, třída vozidla, rychlost a další hodnoty. Při zpracování dat jsou prováděny převody datových formátů (například převod časových značek nebo číselných hodnot z textu).  
 Skripty zároveň ošetřují nekorektní nebo chybějící hodnoty – \texttt{NULL}, prázdné řetězce či nevalidní JSON. Tyto hodnoty jsou nahrazovány výchozími konstantami, případně je záznam přeskočen.  
 Každý skript je obalen konstrukcí \texttt{try/except}, která zajišťuje zachycení výjimek a zapsání chybového stavu do logu běhu.  
 Všechny transakce jsou explicitně potvrzovány příkazem \texttt{commit()}, což zabraňuje částečnému načtení dat v případě přerušení.
 
-\subsection{SQL Server (\texttt{bilina\_kamery\_lake\_to\_staging.py})}
+\subsection{SQL Server}
 
-ETL proces pro SQL Server využívá knihovnu \texttt{pyodbc} a ODBC ovladač. Po připojení k databázím se načte hodnota \texttt{LastLoadedID}, poté se založí záznam o běhu v tabulce \texttt{ETL\_RunLog}, přičemž identifikátor běhu (\texttt{RunID}) je okamžitě vrácen pomocí klauzule \texttt{OUTPUT inserted.RunID}.  
-Následně jsou po dávkách (10~000 záznamů) načítána data z tabulky \texttt{mqttentries}. Každý záznam je rozparsován z JSON formátu, doplněn o město extrahované z MQTT topicu a vložen do tabulky \texttt{[Stg].[CameraCamea]}.  
-Po každé úspěšné dávce je aktualizován \texttt{LastLoadedID} v tabulce kontrolních hodnot. Tento skript je doplněn o ošetření výjimek a zápis chyb do logu běhu.
+ETL proces pro SQL Server je dvoukrokový a obsluhují jej dva samostatné skripty.
 
-\subsection{MariaDB (\texttt{maria\_bilina\_kamery\_lake\_to\_staging.py})}
+\begin{itemize}
+    \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{bilina\_kamery\_lake\_to\_staging.py})} \\
+    Tento skript využívá knihovnu \texttt{pyodbc}. Inkrementálně načítá surová data z tabulky \texttt{mqttentries}, parsuje JSON \texttt{payload} a očištěné záznamy vkládá po dávkách do staging tabulky \texttt{[Stg].[CameraCamea]}. Každý běh je logován v tabulce \texttt{ETL\_RunLog}, přičemž pro získání ID běhu efektivně využívá T-SQL klauzuli \texttt{OUTPUT inserted.RunID}.
 
-Verze pro MariaDB je implementována pomocí knihovny \texttt{pymysql}. Logika odpovídá variantě pro SQL Server, avšak využívá syntaxi MySQL.  
-Každý běh je logován do tabulky \texttt{ETL\_RunLog} a potvrzován metodou \texttt{commit()}. Skript načítá data po dávkách o velikosti 10~000 řádků, zpracovává JSON payload, provádí datové konverze a výsledky ukládá do tabulky \texttt{Stg\_CameraCamea}.  
-Záznamy jsou validovány a doplněny o odvozené informace, například město detekce.  
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{bilina\_kamery\_staging\_to\_fact.py})} \\
+    Druhý skript zpracovává data připravená ve stagingu. Pro efektivní nalezení nových dimenzních hodnot nejprve vloží unikátní záznamy z dávky do dočasné tabulky \texttt{\#\#TempDimensions}. Následně pomocí T-SQL klauzule \texttt{EXCEPT} porovná obsah dočasné tabulky s existujícími dimenzemi a vloží pouze chybějící záznamy. Poté konstruuje záznamy pro faktovou tabulku \texttt{FactCameraDetection} pomocí \texttt{LEFT JOIN} na dimenze pro získání číselných klíčů.
+\end{itemize}
 
-\subsection{TimescaleDB (\texttt{pg\_timescale\_lake\_to\_staging.py})}
+\subsection{MariaDB}
 
-ETL proces pro TimescaleDB využívá pokročilou automatickou správu schématu. Pomocí funkcí \texttt{flatten\_json()} a \texttt{infer\_pg\_type()} se JSON payload rozbaluje do jednotlivých atributů a dynamicky se vytvářejí chybějící sloupce podle zjištěných datových typů (\texttt{BOOLEAN}, \texttt{BIGINT}, \texttt{DOUBLE PRECISION}, \texttt{JSONB}, \texttt{TIMESTAMPTZ} apod.).  
-Díky funkcím \texttt{ensure\_table\_and\_columns()} \newline a \texttt{ensure\_new\_columns()} není nutné znát strukturu předem – systém se adaptuje na příchozí data.  
-Vkládání probíhá dávkově pomocí \texttt{execute\_batch()}, čímž je dosaženo vysoké efektivity. Tento přístup se ukázal jako ideální v prostředí, kde se struktura MQTT zpráv často mění.  
+Implementace pro MariaDB se řídí stejnou dvoukrokovou logikou, avšak krok 2 je výrazně optimalizován pro specifika enginu ColumnStore.
 
-\subsection{MariaDB + ClickHouse (\texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py})}
+\begin{itemize}
+    \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{maria\_bilina\_kamery\_lake\_to\_staging.py})} \\
+    Skript používá knihovnu \texttt{pymysql}. Načítá data z datového jezera, zpracovává JSON a ukládá je do staging tabulky \texttt{Stg\_CameraCamea}. Pro aktualizaci kontrolní tabulky využívá MySQL klauzuli \texttt{ON DUPLICATE KEY UPDATE}.
 
-Nejvýkonnější varianta ETL procesu kombinuje připojení na MariaDB (landing) a ClickHouse (staging).  
-Použitý je server-side kurzor (\texttt{SSCursor}), který umožňuje streamové načítání dat bez zatížení operační paměti. Data jsou přenášena po dávkách (5~000 řádků) a zapisována do tabulky \texttt{Stg\_CameraCamea} v ClickHouse.  
-Každý běh je logován přímo v tabulkách \texttt{ETL\_RunLog} a \texttt{ETL\_IncrementalControl} uložených v ClickHouse.  
-Z důvodu výkonu je používán binární protokol ClickHouse, který výrazně zrychluje přenos i zápis dat. Skript zároveň zahrnuje ošetření výjimek a bezpečné ukončení v případě chyby.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_bilina\_kamery\_staging\_to\_fact.py})} \\
+    Tento skript používá pro plnění dimenzí efektivní příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Klíčová optimalizace nastává při plnění faktové tabulky: skript nejprve v Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}, což je doporučená metoda pro hromadné vkládání do MariaDB ColumnStore.
+    MariaDB v engine=columnstore nepodporuje auto inkrement. Tato logika je tedy řešena přímo v ETL scriptu.
+\end{itemize}
+
+\subsection{PostgreSQL (TimescaleDB)}
+
+ETL proces pro PostgreSQL je unikátní svým dynamickým přístupem v prvním kroku a efektivním hromadným vkládáním ve druhém.
+
+\begin{itemize}
+    \item \textbf{Krok 1: Dynamické ETL z jezera do stagingu (\texttt{pg\_timescale\_lake\_to\_staging.py})} \\
+    Tento skript automaticky analyzuje JSON \texttt{payload}. Pomocí funkcí \texttt{flatten\_json()} a \texttt{infer\_pg\_type()} dynamicky odvozuje schéma a datové typy. Pokud narazí na nový atribut, sám upraví cílovou staging tabulku příkazem \texttt{ALTER TABLE}. Tím je zajištěna schopnost zpracovat i data z nových senzorů bez úpravy kódu.
+
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{pg\_timescale\_staging\_to\_fact.py})} \\
+    Druhý skript využívá pro plnění dimenzí specifickou vlastnost PostgreSQL – příkaz \texttt{INSERT ... ON CONFLICT DO NOTHING}. Tento příkaz je spouštěn pomocí optimalizační funkce \texttt{execute\_values} z knihovny \texttt{psycopg2}. Její efektivita spočívá v tom, že namísto odesílání velkého množství jednotlivých \texttt{INSERT} příkazů (jeden pro každý záznam) sestaví jediný rozsáhlý \texttt{INSERT} příkaz, který obsahuje všechny hodnoty najednou. Tím se dramaticky snižuje komunikační režie mezi aplikací a databázovým serverem a umožňuje to databázi zpracovat celou dávku v jediné operaci. Tímto způsobem je zajištěno velmi rychlé vložení pouze unikátních hodnot. Následně jsou data ze stagingu pomocí standardního \texttt{INSERT INTO ... SELECT} s \texttt{LEFT JOIN}y transformována do faktové tabulky.
+\end{itemize}
+
+\subsection{MariaDB + ClickHouse}
+
+Tato varianta je optimalizována na maximální výkon, přičemž většina logiky kroku 2 je přenesena přímo do SQL dotazů v ClickHouse.
+
+\begin{itemize}
+\item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py})} \\
+    Proces kombinuje připojení na MariaDB (datové jezero) a ClickHouse (staging). Pro čtení z MariaDB využívá server-side kurzor (\texttt{SSCursor}), který minimalizuje paměťové nároky. Data jsou do ClickHouse zapisována po dávkách pomocí nativního binárního protokolu, což výrazně zrychluje přenos. Logovací a kontrolní tabulky jsou vedeny přímo v ClickHouse.
+
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_click\_kamery\_staging\_to\_fact.py})} \\
+    Celý tento krok probíhá výhradně v rámci ClickHouse. Skript spouští sérii SQL dotazů. Pro naplnění dimenzí se používá konstrukce \texttt{INSERT INTO ... SELECT ... WHERE NOT IN}, která vybere a vloží pouze nové hodnoty. Následně jsou data transformována do faktové tabulky jediným příkazem \texttt{INSERT INTO ... SELECT} obsahujícím všechny potřebné \texttt{LEFT JOIN}y na dimenzní tabulky.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/lake_to_staging.png}
+  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \label{fig:laketostaging}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/staging_to_fact.png}
+  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \label{fig:stagingtofact}
+\end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/MariaDW_staging.png}
   \caption{Staging tabulka v datovém skladu}
-  \label{fig:topic50}
+  \label{fig:mariadwstaging}
 \end{figure}
+
+\clearpage
 
 \section{Příprava dat a návrh datového skladu}
 

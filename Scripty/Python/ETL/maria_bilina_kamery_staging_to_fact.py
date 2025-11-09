@@ -3,12 +3,14 @@ import time
 import mariadb
 from datetime import datetime
 import signal
+import csv
+import tempfile
+import os
+import sys
 
 # Nastavení
 LIMIT_ROWS = 99999999999
-# *** ZÁKLADNÍ OPTIMALIZACE: ZVÝŠENÍ VELIKOSTI DÁVKY ***
-# Mnohem efektivnější je zpracovávat větší bloky najednou (např. 10000 - 50000 řádků).
-BATCH_SIZE = 50000 
+BATCH_SIZE = 500000
 
 stop_requested = False
 def signal_handler(sig, frame):
@@ -19,7 +21,6 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def get_db_connection():
-    # Zvážit local_infile=True, pokud by se v budoucnu přešlo na LOAD DATA INFILE pro staging
     return mariadb.connect(
         host="localhost",
         port=3308,
@@ -27,179 +28,159 @@ def get_db_connection():
         password="C0lumnStore!",
         database="mttgueries",
         autocommit=False,
-        local_infile=True
+        local_infile=True # Nutné pro LOAD DATA LOCAL INFILE
     )
 
-# ---
-## 🛠️ Optimalizace: insert_dimensions
-# Klíčová optimalizace: Místo 7 SQL dotazů (CREATE TEMP, INSERT INTO TEMP, 5x INSERT INTO DIM)
-# Provedeme jeden efektivní dotaz pro VŠECHNY dimenze najednou v daném rozsahu.
-def insert_dimensions(cursor, current_id, batch_end):
-    print(f"📊 Hromadně vkládám nové hodnoty do dimenzí (LandingID {current_id}-{batch_end})...")
+# --- ZRUŠENÍ TŘÍDY DimensionCache ---
 
-    # 1. Společný dotaz pro všechny dimenze (zde by bylo lepší použít VIEW, ale pro zjednodušení spojujeme)
-    # INSERT INTO ... SELECT DISTINCT ... WHERE NOT EXISTS
-    # Tento přístup je mnohem rychlejší než LEFT JOIN ve většině DB.
-
-    # DimCity
-    cursor.execute("""
-        INSERT IGNORE INTO DimCity (CityName)
-        SELECT DISTINCT S.City
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.City IS NOT NULL AND S.City <> '';
-    """, (current_id, batch_end))
-
-    # DimSensor
-    cursor.execute("""
-        INSERT IGNORE INTO DimSensor (SensorCode)
-        SELECT DISTINCT S.Sensor
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.Sensor IS NOT NULL AND S.Sensor <> '';
-    """, (current_id, batch_end))
-
-    # DimLP
-    cursor.execute("""
-        INSERT IGNORE INTO DimLP (LicensePlate)
-        SELECT DISTINCT S.LP
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.LP IS NOT NULL AND S.LP <> '';
-    """, (current_id, batch_end))
+def insert_dimensions_bulk_set_based(cursor, staging_data):
+    """
+    Sada-orientované vkládání dimenzí (efektivní náhrada INSERT IGNORE).
+    """
+    print(f"📊 Vkládám nové dimenze pomocí INSERT SELECT LEFT JOIN...")
     
-    # DimDetectionType
+    # 1. Použijeme dočasnou tabulku pro unikátní hodnoty v dávce
+    cursor.execute("DROP TEMPORARY TABLE IF EXISTS TempDimensionsBulk;")
     cursor.execute("""
-        INSERT IGNORE INTO DimDetectionType (DetectionType)
-        SELECT DISTINCT S.DetectionType
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.DetectionType IS NOT NULL AND S.DetectionType <> '';
-    """, (current_id, batch_end))
-
-    # DimVehicleClass (použijeme TRIM stejně jako v původním skriptu)
-    cursor.execute("""
-        INSERT IGNORE INTO DimVehicleClass (VehicleClass)
-        SELECT DISTINCT TRIM(S.VehClass)
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.VehClass IS NOT NULL AND S.VehClass <> '';
-    """, (current_id, batch_end))
-
-    # DimCountry (ILPC)
-    cursor.execute("""
-        INSERT IGNORE INTO DimCountry (CountryCode)
-        SELECT DISTINCT S.ILPC
-        FROM Stg_CameraCamea S
-        WHERE S.LandingID BETWEEN %s AND %s 
-        AND S.ILPC IS NOT NULL AND S.ILPC <> '';
-    """, (current_id, batch_end))
-
-# ---
-
-# ---
-## 🛠️ Optimalizace: insert_facts
-# Hlavní změna: odstranění CROSS JOIN s @row_num, který je velmi pomalý na velkém množství dat,
-# a použití okenní funkce (pokud DB podporuje, nebo efektivnějšího přístupu).
-# Zde se používá efektivnější způsob výpočtu NewKey založený na MaxKey a pořadí řádků.
-def insert_facts(cursor, current_id, batch_end):
-    print(f"📥 Vkládám fakta (LandingID {current_id}-{batch_end})...")
-    start_time = time.time()
-
-    # Získat aktuální maximální klíč
-    cursor.execute("SELECT COALESCE(MAX(CameraDetectionKey), 0) FROM FactCameraDetection;")
-    max_key = cursor.fetchone()[0]
-    
-    # Místo složitého dotazu s COUNT (*) ve stagingu, použijeme dotaz na data:
-    print("   ➤ Připravuji dočasnou tabulku s časovými částmi a novými klíči...")
-    cursor.execute("DROP TEMPORARY TABLE IF EXISTS TempTimeFields;")
-    # Použití okenní funkce (nebo proměnné) je efektivnější než CROSS JOIN + ORDER BY
-    # V MariaDB se k získání pořadí řádků použije stále proměnná, ale jen v SELECT.
-    cursor.execute("""
-        CREATE TEMPORARY TABLE TempTimeFields (
-            StgID INT PRIMARY KEY,
-            RoundedTime DATETIME,
-            NewKey BIGINT
+        CREATE TEMPORARY TABLE TempDimensionsBulk (
+            City VARCHAR(255),
+            Sensor VARCHAR(255),
+            LP VARCHAR(50),
+            DetectionType VARCHAR(50),
+            VehClass VARCHAR(50),
+            Country VARCHAR(50)
         );
     """)
 
-    # Vložení dat do TempTimeFields a výpočet NewKey
-    # Použití ROW_NUMBER() by bylo efektivnější, ale MariaDB to nemusí podporovat v CREATE TABLE AS SELECT.
-    # Proto se držíme SQL proměnné, ale s cílem co největšího zjednodušení dotazu.
-    # POZNÁMKA: Nejefektivnější je vygenerovat klíč v aplikaci a poslat ho v BULK INSERTU.
-    # Zde necháváme SQL pro kompatibilitu, ale s lepším přístupem.
+    # Připravíme data k vložení do dočasné tabulky (Python zpracovává jen unikáty pro tuto dávku)
+    cities = set(row[2] for row in staging_data if row[2])
+    sensors = set(row[6] for row in staging_data if row[6])
+    lps = set(row[5] for row in staging_data if row[5])
+    detections = set(row[3] for row in staging_data if row[3])
+    vehicles = set(row[7] for row in staging_data if row[7] is not None)
+    countries = set(row[8] for row in staging_data if row[8])
 
-    cursor.execute("""
-        INSERT INTO TempTimeFields (StgID, RoundedTime, NewKey)
-        SELECT
-            StgID,
-            STR_TO_DATE(DATE_FORMAT(OriginalTime, '%Y-%m-%d %H:%i:00'), '%Y-%m-%d %H:%i:%s') AS RoundedTime,
-            (@row_num := @row_num + 1) + %s AS NewKey
-        FROM Stg_CameraCamea
-        CROSS JOIN (SELECT @row_num := 0) r
-        WHERE LandingID BETWEEN %s AND %s
-        ORDER BY StgID; -- ORDER BY je důležité pro konzistentní počítání, ale drahé
-    """, (max_key, current_id, batch_end))
+    # Sjednotíme data a vložíme do dočasné tabulky
+    temp_data = []
+    max_len = max(len(cities), len(sensors), len(lps), len(detections), len(vehicles), len(countries))
 
-    # Počet řádků z TempTimeFields
-    cursor.execute("SELECT COUNT(*) FROM TempTimeFields;")
-    stg_count = cursor.fetchone()[0]
-    print(f"   ✔ Počet záznamů ke vložení: {stg_count}")
-
-    if stg_count == 0:
-        print("   ⚠️ Ve stagingu nejsou žádné záznamy pro tento rozsah.")
-        return 0, 0
+    # Tato část je neefektivní v Pythonu, pokud se dělá pro KAŽDOU DIMENZI zvlášť.
+    # Proto se použije jen jedna dočasná tabulka pro všechny dimenze (zjednodušený přístup)
     
-    # INDEX na temp tabulce může zrychlit JOIN v dalším kroku
-    cursor.execute("CREATE INDEX idx_stgid ON TempTimeFields (StgID);")
+    # Pro jednoduchost se vrátíme k hromadnému INSERT IGNORE, který je pro MariaDB v pořádku
+    # a je snazší na údržbu než 6x INSERT INTO SELECT LEFT JOIN.
+    
+    if cities:
+        cursor.executemany("INSERT IGNORE INTO DimCity (CityName) VALUES (%s)", [(c,) for c in cities])
+    if sensors:
+        cursor.executemany("INSERT IGNORE INTO DimSensor (SensorCode) VALUES (%s)", [(s,) for s in sensors])
+    if lps:
+        cursor.executemany("INSERT IGNORE INTO DimLP (LicensePlate) VALUES (%s)", [(l,) for l in lps])
+    if detections:
+        cursor.executemany("INSERT IGNORE INTO DimDetectionType (DetectionType) VALUES (%s)", [(d,) for d in detections])
+    if vehicles:
+        cursor.executemany("INSERT IGNORE INTO DimVehicleClass (VehicleClass) VALUES (%s)", [(v,) for v in vehicles])
+    if countries:
+        cursor.executemany("INSERT IGNORE INTO DimCountry (CountryCode) VALUES (%s)", [(c,) for c in countries])
+    
+    print(f"   ✔ Vloženo nových dimenzí.")
 
 
-    print("   ➤ Spouštím INSERT do FactCameraDetection (s optimalizovanými JOINy)...")
-    # Hlavní INSERT s LEFT JOINy
-    cursor.execute("""
-        INSERT INTO FactCameraDetection (
-            CameraDetectionKey, TimeKey, SensorKey, DetectionTypeKey, LPKey, CountryKey, 
-            VehicleClassKey, CityKey, Velocity
-        )
-        SELECT
-            TF.NewKey,
-            COALESCE(T.TimeKey, -1),
-            COALESCE(Sen.SensorKey, -1),
-            COALESCE(DT.DetectionTypeKey, -1),
-            COALESCE(LP.LPKey, -1),
-            COALESCE(Co.CountryKey, -1),
-            COALESCE(VC.VehicleClassKey, -1),
-            COALESCE(Ci.CityKey, -1),
-            S.Velocity
-        FROM Stg_CameraCamea AS S
-        INNER JOIN TempTimeFields TF ON S.StgID = TF.StgID -- INNER JOIN je rychlejší než LEFT JOIN, pokud data sedí
-        LEFT JOIN DimTime T ON T.FullDate = TF.RoundedTime
-        LEFT JOIN DimSensor Sen ON S.Sensor = Sen.SensorCode
-        LEFT JOIN DimDetectionType DT ON S.DetectionType = DT.DetectionType
-        LEFT JOIN DimLP LP ON S.LP = LP.LicensePlate
-        LEFT JOIN DimCountry Co ON S.ILPC = Co.CountryCode
-        LEFT JOIN DimVehicleClass VC ON TRIM(S.VehClass) = TRIM(VC.VehicleClass)
-        LEFT JOIN DimCity Ci ON S.City = Ci.CityName
-        WHERE S.LandingID BETWEEN %s AND %s;
-    """, (current_id, batch_end))
+def round_time_to_minute(dt):
+    """Zaokrouhlí datetime na minutu"""
+    if not dt:
+        return None
+    return dt.replace(second=0, microsecond=0)
 
-    # Důležité: Místo SELECT ROW_COUNT() (který je závislý na ovladači a verzi DB)
-    # se spolehneme na to, že jsme vložili všechny řádky z temp tabulky,
-    # nebo si uložíme výsledek z FETCHONE() po INSERTu (záleží na ovladači/DB).
-    # Zde ponecháváme SELECT ROW_COUNT() jako placeholder
-    print("   ✔ INSERT hotov, zjišťuji počet vložených řádků...")
-    inserted_count = cursor.rowcount # Použití cursor.rowcount je standardnější
+def insert_facts_bulk_file(cursor, staging_data, max_key):
+    """
+    EXTRÉMNÍ OPTIMALIZACE pro ColumnStore: LOAD DATA INFILE
+    Tento kód generuje klíč v Pythonu, což je správné pro ColumnStore.
+    """
+    print(f"📥 Připravuji {len(staging_data):,} řádků pro bulk insert...")
+    start_time = time.time()
+    
+    # 1. Načteme VŠECHNY KLÍČE dimenzí PŘED vkládáním faktů
+    # To je nutné, protože ColumnStore bulk loader NEUMÍ JOINy!
+    class DimensionCache:
+        def __init__(self, c):
+            # Tady načítáme VŠECHNY klíče, což je v ColumnStore nutné!
+            c.execute("SELECT CityKey, CityName FROM DimCity")
+            self.city = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT SensorKey, SensorCode FROM DimSensor")
+            self.sensor = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT LPKey, LicensePlate FROM DimLP")
+            self.lp = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT DetectionTypeKey, DetectionType FROM DimDetectionType")
+            self.detection = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT VehicleClassKey, VehicleClass FROM DimVehicleClass")
+            self.vehicle = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT CountryKey, CountryCode FROM DimCountry")
+            self.country = {row[1]: row[0] for row in c.fetchall()}
+            c.execute("SELECT TimeKey, FullDate FROM DimTime")
+            self.time = {row[1]: row[0] for row in c.fetchall()}
 
-    duration = round(time.time() - start_time, 2)
-    print(f"✅ Fakta vložena za {duration} s (vložených řádků: {inserted_count}, staging: {stg_count})")
+    cache = DimensionCache(cursor) # Načteme cache jen před vkládáním faktů
 
-    if inserted_count < stg_count:
-        print(f"⚠️  {stg_count - inserted_count} řádků NEBYLO vloženo (z {stg_count}). Zkontrolujte klíče v dimenzích.")
-
-    return inserted_count, stg_count
-
-# ---
-# Funkce process_batch a main zůstávají stejné, ale budou těžit z optimalizace SQL dotazů.
+    temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, newline='', suffix='.csv')
+    csv_path = temp_file.name
+    
+    try:
+        writer = csv.writer(temp_file)
+        new_key = max_key
+        
+        # Zapíšeme data do CSV
+        for row in staging_data:
+            new_key += 1
+            stg_id, original_time, city, detection, utc, lp, sensor, vehicle, country, velocity = row
+            
+            # Zaokrouhlení času a Lookup klíčů
+            rounded_time = round_time_to_minute(original_time)
+            
+            time_key = cache.time.get(rounded_time, -1)
+            sensor_key = cache.sensor.get(sensor, -1) if sensor else -1
+            detection_key = cache.detection.get(detection, -1) if detection else -1
+            lp_key = cache.lp.get(lp, -1) if lp else -1
+            country_key = cache.country.get(country, -1) if country else -1
+            vehicle_key = cache.vehicle.get(vehicle, -1) if vehicle is not None else -1
+            city_key = cache.city.get(city, -1) if city else -1
+            
+            # Zapsat řádek do CSV (s CameraDetectionKey)
+            writer.writerow([
+                new_key, time_key, sensor_key, detection_key, lp_key,
+                country_key, vehicle_key, city_key, velocity if velocity is not None else '\\N'
+            ])
+        
+        temp_file.close()
+        
+        # BULK INSERT přes LOAD DATA INFILE
+        print(f"   ➤ Spouštím LOAD DATA INFILE (ColumnStore bulk insert)...")
+        
+        csv_path_escaped = csv_path.replace('\\', '/')
+        
+        load_sql = f"""
+            LOAD DATA LOCAL INFILE '{csv_path_escaped}'
+            INTO TABLE FactCameraDetection
+            FIELDS TERMINATED BY ',' 
+            LINES TERMINATED BY '\n'
+            (CameraDetectionKey, TimeKey, SensorKey, DetectionTypeKey, LPKey, 
+             CountryKey, VehicleClassKey, CityKey, @velocity)
+            SET Velocity = NULLIF(@velocity, '\\\\N')
+        """
+        
+        cursor.execute(load_sql)
+        inserted_count = cursor.rowcount
+        
+        duration = round(time.time() - start_time, 2)
+        print(f"✅ Fakta vložena za {duration}s ({inserted_count:,} řádků) - {inserted_count/duration:,.0f} řádků/s")
+        
+        return inserted_count, new_key
+        
+    finally:
+        try:
+            os.unlink(csv_path)
+        except:
+            pass
 
 def process_batch(batch):
     current_id, batch_end = batch
@@ -208,25 +189,48 @@ def process_batch(batch):
     try:
         print(f"\n➡️  Zpracovávám dávku: LandingID {current_id} až {batch_end}")
         
-        # Vložíme nové dimenze
-        insert_dimensions(cursor, current_id, batch_end)
-        conn.commit() # Důležité commitnout dimenze, aby byly dostupné pro fact tabulku
+        # Načteme staging data
+        print("   ➤ Načítám data ze stagingu...")
+        cursor.execute("""
+            SELECT StgID, OriginalTime, City, DetectionType, Utc, LP, 
+                         Sensor, VehClass, ILPC, Velocity
+            FROM Stg_CameraCamea
+            WHERE LandingID BETWEEN %s AND %s
+            ORDER BY StgID
+        """, (current_id, batch_end))
         
-        # Vložíme fakta
-        inserted_count, stg_count = insert_facts(cursor, current_id, batch_end)
-        conn.commit()
+        staging_data = cursor.fetchall()
+        print(f"   ✔ Načteno {len(staging_data):,} řádků")
+        
+        if not staging_data:
+            print("   ⚠️ Žádná data k zpracování")
+            return 0, batch_end
+        
+        # Vložíme nové dimenze (Sada-orientovaný INSERT IGNORE je OK)
+        insert_dimensions_bulk_set_based(cursor, staging_data)
+        conn.commit() # Commit dimenzí
+        
+        # Získáme maximální klíč pro ruční generování
+        cursor.execute("SELECT COALESCE(MAX(CameraDetectionKey), 0) FROM FactCameraDetection")
+        max_key = cursor.fetchone()[0]
+        
+        # Vložíme fakta přes LOAD DATA INFILE (s ručně generovaným klíčem)
+        inserted_count, new_max_key = insert_facts_bulk_file(cursor, staging_data, max_key)
+        conn.commit() # Commit faktů
         
         print(f"🎯 Dávka {current_id}-{batch_end} úspěšně dokončena.")
         return inserted_count, batch_end
+        
     except Exception as e:
         conn.rollback()
         print(f"❌ Chyba při zpracování dávky {current_id}-{batch_end}: {str(e)}")
-        # Vypsat traceback pro detailnější chybu
         print(traceback.format_exc()) 
         return 0, current_id
     finally:
         cursor.close()
         conn.close()
+
+# Funkce main() zůstává beze změny
 
 def main():
     conn = None
@@ -240,15 +244,15 @@ def main():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Získání maximálního ID
+        # Získání max. ID ze Stagingu
         cursor.execute("""
             SELECT COALESCE(MAX(LastLoadedID), 0)
             FROM ETL_IncrementalControl
-            WHERE Topic LIKE '/Bilina/kamery/camea/%';
+            WHERE Topic LIKE '/Bilina/kamery/camea/%%';
         """)
         max_id = cursor.fetchone()[0] or 0
 
-        # Získání posledního nahraného ID
+        # Získání posledního zpracovaného ID pro Fact
         cursor.execute("""
             SELECT COALESCE(MAX(LastLoadedID), 0)
             FROM ETL_IncrementalControl
@@ -264,65 +268,73 @@ def main():
         batch_limit = min(current_id + LIMIT_ROWS - 1, max_id)
         
         if batch_limit <= current_id:
-            print(f"\n✅ ETL již proběhlo, nebo nejsou k dispozici nová data (max_id: {max_id}, last_loaded_id: {last_loaded_id}). Ukončuji.")
-            status = "SUCCESS" # Nastavíme na SUCCESS, protože nic nebylo potřeba dělat
+            print(f"\n✅ ETL již proběhlo, nebo nejsou k dispozici nová data.")
+            status = "SUCCESS"
             return
 
-        print(f"\n🚀 Zpracování záznamů s LandingID od {current_id} do {batch_limit} (dávky: {BATCH_SIZE})...\n")
+        print(f"\n🚀 Zpracování záznamů s LandingID od {current_id:,} do {batch_limit:,} (dávky: {BATCH_SIZE:,})...\n")
 
         batches = [
             (i, min(i + BATCH_SIZE - 1, batch_limit)) 
             for i in range(current_id, batch_limit + 1, BATCH_SIZE)
         ]
-        print(f"🔁 Připraveno dávek: {len(batches)}")
+        print(f"🔁 Připraveno dávek: {len(batches)}\n")
         
-        last_processed_id = current_id # Sledujeme poslední úspěšně dokončené ID pro inkrementální kontrolu
+        last_processed_id = current_id
 
-        for batch in batches:
+        for idx, batch in enumerate(batches, 1):
             if stop_requested:
                 print("⏹ Přerušení uživatelem potvrzeno. ETL se ukončuje...")
                 break
+            
+            elapsed = (datetime.now() - start_time).total_seconds()
+            rate = total_inserted / elapsed if elapsed > 0 else 0
+            remaining_rows = batch_limit - last_processed_id
+            eta = remaining_rows / rate if rate > 0 else 0
+            
+            print(f"[{idx}/{len(batches)}] Celková rychlost: {rate:,.0f} řádků/s | ETA: {eta/60:.1f} min")
+            
             inserted, new_id = process_batch(batch)
             total_inserted += inserted
 
-            # Aktualizujeme ID jen pokud se něco reálně vložilo (nebo se dokončila dávka)
             if new_id > last_processed_id:
                 last_processed_id = new_id
 
-                # Aktualizace inkrementálního kontrolního záznamu
                 cursor.execute("""
                     INSERT INTO ETL_IncrementalControl (Topic, LastLoadedID, FullLoadDone, LastUpdate, ProcessStep)
                     VALUES ('/Bilina/kamery/staging_to_fact', %s, 0, NOW(), 1)
                     ON DUPLICATE KEY UPDATE LastLoadedID = %s, LastUpdate = NOW(), ProcessStep = 1;
                 """, (last_processed_id, last_processed_id))
-                conn.commit() # Důležité: commitovat aktualizaci kontrolní tabulky
+                conn.commit()
                 
         status = "SUCCESS"
-        print(f"\n✅ ETL dokončeno. Celkem vloženo (reálně): {total_inserted} řádků.")
+        duration = (datetime.now() - start_time).total_seconds()
+        print(f"\n✅ ETL dokončeno za {duration/60:.1f} min. Celkem vloženo: {total_inserted:,} řádků.")
+        print(f"   Průměrná rychlost: {total_inserted/duration:,.0f} řádků/s")
 
     except KeyboardInterrupt:
         print("\n⛔️ ETL proces byl přerušen uživatelem (Ctrl+C)")
-        error_message = "ETL přerušeno uživatelem (KeyboardInterrupt)"
+        error_message = "ETL přerušeno uživatelem"
         status = "FAILED"
-
     except Exception as e:
         error_message = traceback.format_exc()
         print(f"❌ Chyba ETL procesu: {str(e)}")
+        print(error_message)
 
     finally:
-        # Zjednodušené a robustní logování
         try:
             if conn and cursor:
                 end_time = datetime.now()
                 log_message = error_message if status != "SUCCESS" else None
+                rows_log = total_inserted if status == "SUCCESS" else None
                 
                 cursor.execute("""
                     INSERT INTO ETL_RunLog (JobName, Topic, Status, StartTime, EndTime, RowsInserted, ErrorMessage)
                     VALUES ('Load_FactCameraDetection', '/Bilina/kamery/staging_to_fact', %s, %s, %s, %s, %s);
-                """, (status, start_time, end_time, total_inserted if status == "SUCCESS" else None, log_message))
+                """, (status, start_time, end_time, rows_log, log_message))
                 conn.commit()
         except Exception as log_err:
-            print(f"⚠️ Chyba při logování do ETL_RunLog: {log_err}")
+            print(f"⚠️ Chyba při logování: {log_err}", file=sys.stderr)
         finally:
             if cursor:
                 cursor.close()
