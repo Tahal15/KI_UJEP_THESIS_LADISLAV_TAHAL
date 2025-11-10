@@ -20,7 +20,7 @@ split
         :Načti `LastLoadedID`;
         :Loguj start běhu;
         partition "Smyčka po dávkách (Batch)" {
-            :Čti data z MariaDB Lake\n(pyodbc, client-side cursor);
+            :Čti data z MS SQL Lake\n(pyodbc);
             
             :Parsovat JSON v Pythonu;
             :Vložit dávku do Staging tabulky\n(pyodbc, `executemany`);
@@ -34,7 +34,7 @@ split again
         :Načti `LastLoadedID`;
         :Loguj start běhu;
         partition "Smyčka po dávkách (Batch)" {
-            :Čti data z MariaDB Lake\n(pymysql, client-side cursor);
+            :Čti data z MariaDB Lake\n(pymysql);
             :Parsovat JSON v Pythonu;
             :Vložit dávku do Staging tabulky\n(pymysql, `executemany`);
         }
@@ -65,7 +65,7 @@ split again
         :Načti `LastLoadedID`;
         :Loguj start běhu;
         partition "Smyčka po dávkách (Batch)" {
-            :Čti data z MariaDB Lake\n(pymysql, **server-side cursor**);
+            :Čti data z MariaDB Lake\n(pymysql);
             :Parsovat JSON v Pythonu;
             :Vložit dávku do Staging tabulky;
          

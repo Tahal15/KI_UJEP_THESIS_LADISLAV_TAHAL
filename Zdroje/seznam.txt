@@ -5,3 +5,5 @@ https://datacadamia.com/data/type/cube/semantic/semantic
 https://pypi.org/project/pyadomd/
 
 https://stackoverflow.com/questions/1936828/how-get-sound-input-from-microphone-in-python-and-process-it-on-the-fly
+
+https://www.psycopg.org/docs/extras.html

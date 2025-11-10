@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  9 NOV 2025 19:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  10 NOV 2025 22:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1469,44 +1469,61 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [36]
 
 [37 <./img/SQLDump.png>]
-Overfull \hbox (31.48177pt too wide) in paragraph at lines 783--786
+Overfull \hbox (31.48177pt too wide) in paragraph at lines 785--788
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 <img/mqttentries_structure.png, id=354, 1420.1055pt x 177.66376pt>
 File: img/mqttentries_structure.png Graphic file (type png)
 <use img/mqttentries_structure.png>
-Package pdftex.def Info: img/mqttentries_structure.png  used on input line 790.
+Package pdftex.def Info: img/mqttentries_structure.png  used on input line 791.
 (pdftex.def)             Requested size: 469.47049pt x 58.73222pt.
 
 
 [38
 
  <./img/mqttentries_structure.png>]
-Overfull \hbox (29.61703pt too wide) in paragraph at lines 803--804
+Overfull \hbox (29.61703pt too wide) in paragraph at lines 804--805
 \T1/LibertinusSerif-TLF/m/n/12 (-20) Pro sys-te-ma-tic-kou ana-lýzu JSON struk-tur byl vy-tvo-°en vlastní skript v ja-zyce Py-thon, \T1/pxtt/m/n/12 analyze_json.py\T1/LibertinusSerif-TLF/m/n/12 (-20) .
  []
 
 <img/topic50.png, id=364, 1007.56425pt x 141.52875pt>
 File: img/topic50.png Graphic file (type png)
 <use img/topic50.png>
-Package pdftex.def Info: img/topic50.png  used on input line 811.
+Package pdftex.def Info: img/topic50.png  used on input line 812.
 (pdftex.def)             Requested size: 469.47049pt x 65.94623pt.
 <img/topic50_2.png, id=366, 1009.97325pt x 40.953pt>
 File: img/topic50_2.png Graphic file (type png)
 <use img/topic50_2.png>
-Package pdftex.def Info: img/topic50_2.png  used on input line 820.
+Package pdftex.def Info: img/topic50_2.png  used on input line 821.
 (pdftex.def)             Requested size: 469.47049pt x 19.03606pt.
 
 
 [39 <./img/topic50.png> <./img/topic50_2.png>]
-Overfull \hbox (21.24648pt too wide) in paragraph at lines 834--837
+Overfull \hbox (21.24648pt too wide) in paragraph at lines 832--833
 \T1/LibertinusSerif-TLF/m/n/12 (-20) skriptu za-£íná na-£te-ním po-sled-ního zpra-co-va-ného iden-ti-fi-ká-toru z ta-bulky \T1/pxtt/m/n/12 ETL_IncrementalControl
  []
 
 
-Overfull \hbox (3.3615pt too wide) in paragraph at lines 838--841
+Overfull \hbox (3.3615pt too wide) in paragraph at lines 834--835
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Data jsou zpra-co-vá-vána v dáv-kách (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) batchích\T1/LibertinusSerif-TLF/m/n/12 (-20) ), je-jichº ve-li-kost je °í-zena pa-ra-me-t-rem \T1/pxtt/m/n/12 BATCH_SIZE\T1/LibertinusSerif-TLF/m/n/12 (-20) .
+ []
+
+LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <12> not available
+(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 848.
+
+Overfull \hbox (3.32286pt too wide) in paragraph at lines 848--850
+[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 mssql_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
+ []
+
+
+Overfull \hbox (25.08615pt too wide) in paragraph at lines 848--850
+\T1/LibertinusSerif-TLF/m/n/12 (-20) Tento skript vy-u-ºívá kni-hovnu \T1/pxtt/m/n/12 pyodbc\T1/LibertinusSerif-TLF/m/n/12 (-20) . In-kre-men-táln¥ na-£ítá su-rová data z ta-bulky \T1/pxtt/m/n/12 mqttentries\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
+ []
+
+
+Overfull \hbox (63.60466pt too wide) in paragraph at lines 848--850
+\T1/LibertinusSerif-TLF/m/n/12 (-20) par-suje JSON \T1/pxtt/m/n/12 payload \T1/LibertinusSerif-TLF/m/n/12 (-20) a o£i²-t¥né zá-znamy vkládá po dáv-kách do sta-ging ta-bulky \T1/pxtt/m/n/12 [Stg].[CameraCamea]\T1/LibertinusSerif-TLF/m/n/12 (-20) .
  []
 
 
@@ -1514,125 +1531,104 @@ Overfull \hbox (3.3615pt too wide) in paragraph at lines 838--841
 [40
 
 ]
-LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <12> not available
-(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 858.
-
-Overfull \hbox (25.08615pt too wide) in paragraph at lines 858--860
-\T1/LibertinusSerif-TLF/m/n/12 (-20) Tento skript vy-u-ºívá kni-hovnu \T1/pxtt/m/n/12 pyodbc\T1/LibertinusSerif-TLF/m/n/12 (-20) . In-kre-men-táln¥ na-£ítá su-rová data z ta-bulky \T1/pxtt/m/n/12 mqttentries\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (63.60466pt too wide) in paragraph at lines 858--860
-\T1/LibertinusSerif-TLF/m/n/12 (-20) par-suje JSON \T1/pxtt/m/n/12 payload \T1/LibertinusSerif-TLF/m/n/12 (-20) a o£i²-t¥né zá-znamy vkládá po dáv-kách do sta-ging ta-bulky \T1/pxtt/m/n/12 [Stg].[CameraCamea]\T1/LibertinusSerif-TLF/m/n/12 (-20) .
- []
-
-
-Overfull \hbox (2.06445pt too wide) in paragraph at lines 861--863
-\T1/LibertinusSerif-TLF/m/n/12 (-20) ních hod-not nej-prve vloºí uni-kátní zá-znamy z dávky do do-£asné ta-bulky \T1/pxtt/m/n/12 ##TempDimensions\T1/LibertinusSerif-TLF/m/n/12 (-20) .
- []
-
-
-Overfull \hbox (3.32286pt too wide) in paragraph at lines 870--872
+Overfull \hbox (3.32286pt too wide) in paragraph at lines 858--860
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 maria_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
  []
 
 
-Overfull \hbox (8.79506pt too wide) in paragraph at lines 873--876
+Overfull \hbox (8.79506pt too wide) in paragraph at lines 861--863
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 2: Ze sta-gingu do di-menzí a fakt· (\T1/pxtt/bx/n/12 maria_bilina_kamery_staging_to_fact.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
  []
 
 
 
 [41]
-Overfull \hbox (41.12279pt too wide) in paragraph at lines 895--897
+Overfull \hbox (41.12279pt too wide) in paragraph at lines 878--880
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 maria_click_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
  []
 
 
-Overfull \hbox (2.49507pt too wide) in paragraph at lines 898--900
+Overfull \hbox (2.49507pt too wide) in paragraph at lines 880--882
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 2: Ze sta-gingu do di-menzí a fakt· (\T1/pxtt/bx/n/12 maria_click_kamery_staging_to_fact.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
  []
 
-<img/lake_to_staging.png, id=390, 3360.555pt x 2511.3825pt>
+<img/lake_to_staging.png, id=396, 3360.555pt x 2511.3825pt>
 File: img/lake_to_staging.png Graphic file (type png)
 <use img/lake_to_staging.png>
-Package pdftex.def Info: img/lake_to_staging.png  used on input line 904.
+Package pdftex.def Info: img/lake_to_staging.png  used on input line 886.
 (pdftex.def)             Requested size: 469.47049pt x 350.82475pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/staging_to_fact.png, id=391, 4017.0075pt x 3459.92625pt>
+<img/staging_to_fact.png, id=397, 4017.0075pt x 3459.92625pt>
 File: img/staging_to_fact.png Graphic file (type png)
 <use img/staging_to_fact.png>
-Package pdftex.def Info: img/staging_to_fact.png  used on input line 911.
+Package pdftex.def Info: img/staging_to_fact.png  used on input line 893.
 (pdftex.def)             Requested size: 469.47049pt x 404.35043pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/MariaDW_staging.png, id=392, 1447.20676pt x 119.2455pt>
+<img/MariaDW_staging.png, id=398, 1447.20676pt x 119.2455pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 918.
+Package pdftex.def Info: img/MariaDW_staging.png  used on input line 900.
 (pdftex.def)             Requested size: 469.47049pt x 38.68335pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[42]
+[42 <./img/lake_to_staging.png>]
 
-[43 <./img/lake_to_staging.png>]
-
-[44 <./img/staging_to_fact.png> <./img/MariaDW_staging.png>]
+[43 <./img/staging_to_fact.png> <./img/MariaDW_staging.png>]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 959.
+            Default family used instead on input line 941.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 959.
+            Default family used instead on input line 941.
 
 
-[45
+[44
 
 {c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
-[46]
-<img/PBIreport.png, id=427, 1765.59625pt x 995.72pt>
+[45]
+<img/PBIreport.png, id=428, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 969.
+Package pdftex.def Info: img/PBIreport.png  used on input line 951.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 
 
-[47
+[46
 
  <./img/PBIreport.png>]
 <img/Supersetreport.png, id=437, 1392.402pt x 682.34924pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 999.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 981.
 (pdftex.def)             Requested size: 469.47049pt x 230.05908pt.
 
 
-[48 <./img/Supersetreport.png>]
+[47 <./img/Supersetreport.png>]
 
-[49]
+[48]
+chapter 4.
+
+
+[49
+
+
+]
 
 [50
 
 
 ]
-chapter 4.
+chapter 5.
 
 
 [51]
 
-[52
-
-
-]
-chapter 5.
-
+[52]
 
 [53]
 
@@ -1641,19 +1637,24 @@ chapter 5.
 [55]
 
 [56]
-
-[57]
-
-[58]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1235--1236
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1217--1218
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
 
 
+[57]
+
+[58]
+
 [59]
 
-[60]
+[60
+
+
+]
+chapter 6.
+
 
 [61]
 
@@ -1661,7 +1662,7 @@ Overfull \hbox (94.72713pt too wide) in paragraph at lines 1235--1236
 
 
 ]
-chapter 6.
+chapter 7.
 
 
 [63]
@@ -1670,35 +1671,26 @@ chapter 6.
 
 
 ]
-chapter 7.
-
 
 [65]
 
-[66
-
-
-]
-
-[67]
-
-[68]
+[66]
 chapter A.
 
 
-[69
+[67
 
 
 ]
 
-[70
+[68
 
 
 ]
 chapter B.
 
 
-[71] (./ki-thesis.aux)
+[69] (./ki-thesis.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -1712,18 +1704,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43086 strings out of 467748
- 861874 string characters out of 5431137
- 1853334 words of memory out of 5000000
+ 43088 strings out of 467748
+ 861922 string characters out of 5431137
+ 1853335 words of memory out of 5000000
  70451 multiletter control sequences out of 15000+600000
  779000 words of font info for 393 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,12n,121p,11305b,3055s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (71 pages, 2784486 bytes).
+Output written on ki-thesis.pdf (69 pages, 2779099 bytes).
 PDF statistics:
- 787 PDF objects out of 1000 (max. 8388607)
- 655 compressed objects within 7 object streams
- 242 named destinations out of 1000 (max. 500000)
+ 783 PDF objects out of 1000 (max. 8388607)
+ 653 compressed objects within 7 object streams
+ 244 named destinations out of 1000 (max. 500000)
  85285 words of extra memory for PDF output out of 89155 (max. 10000000)
 
