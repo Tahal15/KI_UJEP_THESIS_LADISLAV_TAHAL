@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  10 NOV 2025 22:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  12 NOV 2025 18:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1589,46 +1589,54 @@ LaTeX Info: Symbol \textrightarrow not provided by
 [44
 
 {c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-
-[45]
-<img/PBIreport.png, id=428, 1765.59625pt x 995.72pt>
+<img/PBIreport.png, id=423, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 951.
+Package pdftex.def Info: img/PBIreport.png  used on input line 949.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 
 
-[46
-
- <./img/PBIreport.png>]
-<img/Supersetreport.png, id=437, 1392.402pt x 682.34924pt>
+[45 <./img/PBIreport.png>]
+<img/Supersetreport.png, id=433, 1370.721pt x 726.91576pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 981.
-(pdftex.def)             Requested size: 469.47049pt x 230.05908pt.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 979.
+(pdftex.def)             Requested size: 469.47049pt x 248.96713pt.
 
 
-[47 <./img/Supersetreport.png>]
+[46 <./img/Supersetreport.png>]
+Overfull \hbox (15.62857pt too wide) in paragraph at lines 1010--1010
+[]\T1/pxtt/m/n/12 CREATE INDEX IX_FactCameraDetection_TimeKey ON FactCameraDetection (TimeKey);[] 
+ []
+
+
+Overfull \hbox (116.42838pt too wide) in paragraph at lines 1011--1011
+[]\T1/pxtt/m/n/12 CREATE INDEX IX_FactCameraDetection_VehicleClassKey ON FactCameraDetection (VehicleClassKey);[] 
+ []
+
+
+
+[47]
 
 [48]
-chapter 4.
 
-
-[49
-
-
-]
+[49]
 
 [50
 
 
 ]
-chapter 5.
+chapter 4.
 
 
 [51]
 
-[52]
+[52
+
+
+]
+chapter 5.
+
 
 [53]
 
@@ -1637,24 +1645,19 @@ chapter 5.
 [55]
 
 [56]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1217--1218
+
+[57]
+
+[58]
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1267--1268
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
 
 
-[57]
-
-[58]
-
 [59]
 
-[60
-
-
-]
-chapter 6.
-
+[60]
 
 [61]
 
@@ -1662,7 +1665,7 @@ chapter 6.
 
 
 ]
-chapter 7.
+chapter 6.
 
 
 [63]
@@ -1671,26 +1674,35 @@ chapter 7.
 
 
 ]
+chapter 7.
+
 
 [65]
 
-[66]
-chapter A.
-
-
-[67
+[66
 
 
 ]
 
-[68
+[67]
+
+[68]
+chapter A.
+
+
+[69
+
+
+]
+
+[70
 
 
 ]
 chapter B.
 
 
-[69] (./ki-thesis.aux)
+[71] (./ki-thesis.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -1704,18 +1716,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43088 strings out of 467748
- 861922 string characters out of 5431137
+ 43115 strings out of 467748
+ 862283 string characters out of 5431137
  1853335 words of memory out of 5000000
- 70451 multiletter control sequences out of 15000+600000
+ 70460 multiletter control sequences out of 15000+600000
  779000 words of font info for 393 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,12n,121p,11305b,3055s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (69 pages, 2779099 bytes).
+Output written on ki-thesis.pdf (71 pages, 2792488 bytes).
 PDF statistics:
- 783 PDF objects out of 1000 (max. 8388607)
- 653 compressed objects within 7 object streams
- 244 named destinations out of 1000 (max. 500000)
+ 811 PDF objects out of 1000 (max. 8388607)
+ 679 compressed objects within 7 object streams
+ 262 named destinations out of 1000 (max. 500000)
  85285 words of extra memory for PDF output out of 89155 (max. 10000000)
 

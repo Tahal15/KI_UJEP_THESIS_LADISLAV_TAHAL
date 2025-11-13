@@ -944,8 +944,6 @@ V Power BI byly vytvořen interaktivní report zobrazující přehled detekcí p
 Některé metriky byly navíc doplněny o logiku pro kontrolu konzistence dat a filtrování extrémních hodnot.  
 Výhodou tohoto přístupu byla plná integrace s ekosystémem Microsoft, vysoký výkon in-memory výpočtů a možnost implementace bezpečnostních pravidel na úrovni datového modelu.
 
-\clearpage
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/PBIreport.png}
@@ -995,14 +993,66 @@ Obě řešení tak umožnila plnohodnotnou vizualizaci a analýzu dat z detekčn
 
 \section{Provedení srovnávací analýzy}
 
-V této fázi byly implementované datové sklady naplněny daty a připojeny k vizualizační vrstvě. Pomocí nástroje \texttt{Cube.js} byla připravena sada standardizovaných dotazů, které umožní srovnání výkonu jednotlivých databází při:
+Cílem této kapitoly je objektivní srovnání výkonu implementovaných datových skladů. Analýza je navržena tak, aby otestovala klíčové operace typické pro analytickou zátěž a odhalila výkonnostní rozdíly mezi jednotlivými databázovými platformami a jejich úložnými enginy.
+
+\subsection{Metodika měření}
+
+Pro zajištění konzistentních a srovnatelných výsledků byla stanovena jasná metodika, která se skládá z několika kroků. Měření probíhalo ve dvou hlavních fázích: první fáze se zaměřila na výkon tradičního řádkového úložiště a druhá na výkon moderního sloupcového úložiště.
+
+\subsubsection{Standardizace prostředí a indexace}
+
+Před samotným měřením bylo nutné zajistit, aby prostředí pro srovnávací testy byla co nejvíce konzistentní. Výchozí datové jezero obsahovalo pro všechny technologie stejný objem surových dat. Rozdíl v implementaci nastal v prvním ETL kroku (z datového jezera do staging vrstvy): zatímco pro většinu databází byl zpracováván pouze topik týkající se kamerového systému města Bílina, pro PostgreSQL byl použit dynamický ETL skript, který do staging vrstvy načetl data z více topiků. Pro samotné výkonnostní měření však bylo klíčové, že v navazujícím ETL procesu (ze stagingu do finálního datového skladu) byla pro všechny databáze vybrána pouze data z topiku kamerového systému Bílina. Tím bylo zajištěno, že finální dimenzionální model — tedy tabulky faktů a dimenzí, nad kterými probíhalo měření — obsahoval pro všechny testované varianty naprosto identický objem dat. Všechny implementace rovněž sdílely shodné datové schéma hvězdy.
+
+Klíčovým krokem byla standardizace indexace napříč platformami. U všech databází byly v první fázi vytvořeny standardní B-stromové indexy na cizích klíčích faktové tabulky a na relevantních sloupcích v dimenzionálních tabulkách, jak je uvedeno níže. Cílem bylo poskytnout každé databázi stejné výchozí podmínky pro optimalizaci dotazů v řádkovém režimu.
+
+\begin{verbatim}
+-- Indexy na faktové tabulce
+CREATE INDEX IX_FactCameraDetection_TimeKey ON FactCameraDetection (TimeKey);
+CREATE INDEX IX_FactCameraDetection_VehicleClassKey ON FactCameraDetection (VehicleClassKey);
+-- ... (a další klíče)
+
+-- Příklad indexu na dimenzi
+CREATE INDEX IX_DimCity_Name ON DimCity (CityName);
+\end{verbatim}
+
+\subsubsection{Sada testovacích dotazů}
+
+Byla připravena sada pěti reprezentativních SQL dotazů, které simulují běžné analytické úlohy. Dotazy byly navrženy tak, aby otestovaly různé aspekty výkonu databáze, od jednoduchých agregací po komplexní spojení s filtrováním a použitím okenních funkcí. Syntaxe dotazů byla dle potřeby upravena pro konkrétní SQL dialekt testované databáze.
+
 \begin{itemize}
-  \item agregacích nad časem (měsíční a hodinové sumáře),
-  \item filtrování podle města, typu detekce nebo třídy vozidla,
-  \item výpočtu metrik (průměrná rychlost, počet detekcí, počet unikátních SPZ).
+    \item \textbf{Dotaz 1:} Jednoduchá agregace s jedním spojením (průměrná rychlost podle třídy vozidla).
+    \item \textbf{Dotaz 2:} Agregace nad časovou dimenzí (počet detekcí za den).
+    \item \textbf{Dotaz 3:} Spojení více tabulek s filtrováním a řazením (průměrná rychlost pro 10 měst v ČR pro vozidla třídy '2').
+    \item \textbf{Dotaz 4:} Agregace nad více dimenzemi (průměrná rychlost podle typu detekce a třídy vozidla).
+    \item \textbf{Dotaz 5:} Komplexní dotaz s CTE a okenní funkcí (průměrná rychlost o víkendech a rankování měst).
+    \item \textbf{Dotaz 6:} Načtení všech dat z faktové tabulky (\texttt{Select * from FactCameraDetection}).
 \end{itemize}
 
-Pro samotné měření a vizualizaci výsledků bude použit software poskytnutý vedoucím práce. Tento nástroj umožní jednotným způsobem zaznamenávat časy dotazů, vytížení databází a odezvu vizualizační vrstvy.
+\subsubsection{Nástroje pro měření}
+
+Měření časů probíhalo dvěma způsoby:
+\begin{enumerate}
+    \item \textbf{Přímé měření v databázi:} Doba provedení (Execution Time) každého z testovacích SQL dotazů byla měřena pomocí nativních nástrojů databázových klientů -- \texttt{SQL Server Management Studio} pro MS SQL a \texttt{DBeaver} pro ostatní databáze.
+    \item \textbf{Měření v BI nástroji:} Měřila se celková doba načtení a vykreslení dashboardu. V \texttt{Power BI} byl využit nástroj "Performance Analyzer", zatímco v \texttt{Supersetu} byly pro měření použity vývojářské nástroje webového prohlížeče.
+\end{enumerate}
+
+\subsection{Fáze 1: Benchmark řádkového úložiště (Row-Store)}
+
+V první fázi byly všechny databáze konfigurovány tak, aby využívaly své výchozí, řádkově orientované úložiště (např. \texttt{InnoDB} v případě MariaDB). Byly provedeny všechny testovací dotazy a měření v BI nástrojích. Získané časy byly zaznamenány a slouží jako základní výkonnostní baseline pro srovnání.
+
+\subsection{Fáze 2: Benchmark sloupcového úložiště (Column-Store)}
+
+Ve druhé fázi byla provedena konverze faktové tabulky \texttt{FactCameraDetection} z řádkového na sloupcové úložiště. Tento proces se lišil v závislosti na použité databázové platformě:
+\begin{itemize}
+    \item U \textbf{MS SQL Serveru} stačilo aplikovat clusterovaný columnstore index, což je relativně přímočará operace.
+    \item U \textbf{MariaDB} byl proces složitější. Bylo nutné nejprve manuálně odstranit všechny existující B-stromové indexy a cizí klíče z faktové tabulky, a teprve poté bylo možné změnit úložný engine na \texttt{ColumnStore} pomocí příkazu \texttt{ALTER TABLE ... ENGINE=ColumnStore;}.
+\end{itemize}
+
+Po úspěšné konverzi na sloupcové úložiště byla celá sada testů (přímé dotazy i načítání dashboardů) provedena znovu a časy byly opět zaznamenány.
+
+\subsection{Vyhodnocení výsledků}
+
+Získaná data z obou fází měření umožňují provést detailní srovnání. Analýza se zaměří na vyhodnocení přínosu sloupcového úložiště pro každou platformu a na přímé srovnání výkonu mezi MS SQL Serverem a MariaDB v obou konfiguracích. Výsledky budou prezentovány a okomentovány v následující kapitole.
 
 \section{Zhodnocení výsledků}
 

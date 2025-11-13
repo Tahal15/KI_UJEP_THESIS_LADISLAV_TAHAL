@@ -45,25 +45,32 @@
 \contentsline {section}{\numberline {3.3}Příprava dat a návrh datového skladu}{44}{section.3.3}%
 \contentsline {section}{\numberline {3.4}OLAP a vizualizace}{44}{section.3.4}%
 \contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{44}{subsection*.66}%
-\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{46}{subsection*.68}%
-\contentsline {subsection}{\nonumberline Porovnání přístupů}{47}{subsection*.70}%
+\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{45}{subsection*.68}%
+\contentsline {subsection}{\nonumberline Porovnání přístupů}{46}{subsection*.70}%
 \contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{47}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{48}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{49}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{51}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{52}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{53}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{54}{subsection*.72}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{55}{subsection*.74}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{56}{subsection*.76}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{57}{subsection*.78}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{57}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{57}{subsection*.80}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{58}{subsection*.82}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{58}{subsection*.84}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{58}{subsection*.86}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{61}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{63}{chapter.7}%
+\contentsline {subsection}{\nonumberline Metodika měření}{47}{subsection*.72}%
+\contentsline {subsubsection}{\nonumberline Standardizace prostředí a indexace}{47}{subsubsection*.74}%
+\contentsline {subsubsection}{\nonumberline Sada testovacích dotazů}{47}{subsubsection*.76}%
+\contentsline {subsubsection}{\nonumberline Nástroje pro měření}{48}{subsubsection*.78}%
+\contentsline {subsection}{\nonumberline Fáze 1: Benchmark řádkového úložiště (Row-Store)}{48}{subsection*.80}%
+\contentsline {subsection}{\nonumberline Fáze 2: Benchmark sloupcového úložiště (Column-Store)}{48}{subsection*.82}%
+\contentsline {subsection}{\nonumberline Vyhodnocení výsledků}{49}{subsection*.84}%
+\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{49}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{51}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Citace}{53}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Označování citací}{54}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bibliografický záznam}{55}{section.5.2}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{56}{subsection*.86}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{57}{subsection*.88}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{58}{subsection*.90}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{59}{subsection*.92}%
+\contentsline {section}{\numberline {5.3}Často kladené otázky}{59}{section.5.3}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{59}{subsection*.94}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{60}{subsection*.96}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{60}{subsection*.98}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{60}{subsection*.100}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{63}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{65}{chapter.7}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -101,6 +108,6 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{67}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{69}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{69}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{71}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
