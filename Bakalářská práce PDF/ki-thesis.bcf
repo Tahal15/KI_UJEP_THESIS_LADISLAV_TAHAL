@@ -2401,21 +2401,27 @@
     <bcf:citekey order="3" intorder="2">heyayush2023cubeintro</bcf:citekey>
     <bcf:citekey order="3" intorder="3">datasemlayer2023medium</bcf:citekey>
     <bcf:citekey order="4" intorder="1">mssql2024overview</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">powerbi2024docs</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">bigquery2024docs</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">redshift2024overview</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">cube2024semantic</bcf:citekey>
-    <bcf:citekey order="8" intorder="2">dbt2024semanticlayer</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">superset2024docs</bcf:citekey>
-    <bcf:citekey order="9" intorder="2">metabase2024overview</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">priebe2022datawarehouse</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">amazon2019datawarehouse</bcf:citekey>
-    <bcf:citekey order="11" intorder="2">databricks2024modernstack</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">azure_data_warehousing</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">azure_data_warehousing</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">powerbi2024docs</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">bigquery2024docs</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">google_data_products</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">google_data_products</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">redshift2024overview</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">aws_redshift_arch</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">aws_redshift_arch</bcf:citekey>
     <bcf:citekey order="14" intorder="1">cube2024semantic</bcf:citekey>
     <bcf:citekey order="14" intorder="2">dbt2024semanticlayer</bcf:citekey>
-    <bcf:citekey order="14" intorder="3">looker2024semanticmodel</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">superset2024docs</bcf:citekey>
+    <bcf:citekey order="15" intorder="2">metabase2024overview</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">priebe2022datawarehouse</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">amazon2019datawarehouse</bcf:citekey>
+    <bcf:citekey order="17" intorder="2">databricks2024modernstack</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">cube2024semantic</bcf:citekey>
+    <bcf:citekey order="20" intorder="2">dbt2024semanticlayer</bcf:citekey>
+    <bcf:citekey order="20" intorder="3">looker2024semanticmodel</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
