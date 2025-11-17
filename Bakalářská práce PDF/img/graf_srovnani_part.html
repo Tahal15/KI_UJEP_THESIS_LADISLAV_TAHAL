@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafy pro Bakalářskou práci</title>
+    <!-- 1. Načtení Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 2. Načtení Pluginu pro Data Labels -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 20px; 
+            background-color: #f5f5f5;
+        }
+        .chart-wrapper { 
+            background: white;
+            padding: 30px;
+            margin-bottom: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+
+            /* Nech wrapper přizpůsobit výšku obsahu */
+            height: auto;
+        }
+
+        .chart-wrapper canvas {
+            /* Fixní výška canvasu zabrání přetečení */
+            height: 500px !important;
+        }
+        /* Hlavní nadpisy jsou větší */
+        h2 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 5px; 
+            font-size: 1.8em; 
+        }
+        p.subtitle { 
+            text-align: center; 
+            color: #666; 
+            margin-top: 0; 
+            font-size: 1.1em; 
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Grafy budou generovány sem -->
+    
+    <div class="chart-wrapper">
+        <h2>Dotaz 1: Agregace s 1 JOIN</h2>
+        <p class="subtitle">Logaritmická stupnice (Méně je lépe)</p>
+        <canvas id="chart1"></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+        <h2>Dotaz 2: Agregace přes čas (Time-series)</h2>
+        <p class="subtitle">Logaritmická stupnice (Méně je lépe)</p>
+        <canvas id="chart2"></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+        <h2>Dotaz 3: Více JOIN s filtrem</h2>
+        <p class="subtitle">Logaritmická stupnice (Méně je lépe)</p>
+        <canvas id="chart3"></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+        <h2>Dotaz 4: Agregace přes 2 dimenze</h2>
+        <p class="subtitle">Logaritmická stupnice (Méně je lépe)</p>
+        <canvas id="chart4"></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+        <h2>Dotaz 5: Komplexní dotaz (CTE)</h2>
+        <p class="subtitle">Logaritmická stupnice (Méně je lépe)</p>
+        <canvas id="chart5"></canvas>
+    </div>
+
+    <script>
+        // 3. Registrace pluginu
+        Chart.register(ChartDataLabels);
+
+        // Globální nastavení písma pro všechny grafy
+        Chart.defaults.font.weight = 'bold';
+        Chart.defaults.font.size = 13;
+        Chart.defaults.color = '#222'; // Tmavší písmo
+
+        // Definice databází (Barvy a data)
+        const dbConfig = [
+            { label: 'ClickHouse', data: [0.27, 0.33, 0.57, 0.65, 0.33], color: '#4BC0C0', border: '#4BC0C0', width: 1 },
+            { label: 'MSSQL (Row)', data: [0.52, 1.50, 0.25, 0.75, 0.55], color: '#C9CBCF', border: '#C9CBCF', width: 1 },
+            { label: 'MSSQL (Col)', data: [0.42, 1.33, 0.04, 0.50, 0.65], color: '#A0A2A8', border: '#606266', width: 2 },
+            { label: 'MariaDB (Row)', data: [125.0, 0.32, 18.0, 105.0, 142.0], color: '#FFB3CC', border: '#FFB3CC', width: 1 },
+            { label: 'MariaDB (Col)', data: [2.49, 3.07, 1.59, 5.63, 2.83], color: '#FF6384', border: '#D43F60', width: 2 },
+            { label: 'PostgreSQL', data: [7.39, 8.71, 6.10, 8.69, 4.86], color: '#FF9F40', border: '#FF9F40', width: 1 },
+            { label: 'TimescaleDB', data: [6.71, 9.02, 5.63, 9.54, 12.00], color: '#FFCD56', border: '#FFCD56', width: 1 }
+        ];
+
+        // Funkce pro vytvoření jednoho grafu
+        function createChart(canvasId, queryIndex) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            const chartLabels = dbConfig.map(db => db.label);
+            const chartData = dbConfig.map(db => db.data[queryIndex]);
+            const backgroundColors = dbConfig.map(db => db.color);
+            const borderColors = dbConfig.map(db => db.border);
+            const borderWidths = dbConfig.map(db => db.width);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        data: chartData,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: borderWidths,
+                        barPercentage: 0.7 // Trochu širší sloupce
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 30 } }, // Ponecháno pro 125s popisek
+                    plugins: {
+                        legend: { display: false }, 
+                        tooltip: { enabled: true },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'end',
+                            rotation: -90, 
+                            offset: 4,
+                            color: '#333',
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value) => value + ' s'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: { 
+                                display: true, 
+                                text: 'Čas (s) - Logaritmická osa',
+                                font: {
+                                    size: 16 // Větší nadpis osy
+                                } 
+                            },
+                            ticks: {
+                                // Zobrazení jen hlavních řádů pro čistotu
+                                callback: function(value) {
+                                    if (value === 0.01 || value === 0.1 || value === 1 || value === 10 || value === 100 || value === 1000) {
+                                        return value;
+                                    }
+                                    return null;
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0, // VODOROVNĚ
+                                minRotation: 0  // VODOROVNĚ
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Vygenerování 5 grafů
+        createChart('chart1', 0);
+        createChart('chart2', 1);
+        createChart('chart3', 2);
+        createChart('chart4', 3);
+        createChart('chart5', 4);
+
+    </script>
+</body>
+</html>

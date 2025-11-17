@@ -59,6 +59,8 @@
 \fi
 
 \usepackage[style=iso-numeric,shortnumeration=true]{biblatex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \addbibresource{thesis.bib}
 
 
@@ -993,66 +995,100 @@ Obě řešení tak umožnila plnohodnotnou vizualizaci a analýzu dat z detekčn
 
 \section{Provedení srovnávací analýzy}
 
-Cílem této kapitoly je objektivní srovnání výkonu implementovaných datových skladů. Analýza je navržena tak, aby otestovala klíčové operace typické pro analytickou zátěž a odhalila výkonnostní rozdíly mezi jednotlivými databázovými platformami a jejich úložnými enginy.
+Cílem této kapitoly je objektivní srovnání výkonu a funkčních vlastností implementovaných datových architektur. Analýza byla záměrně koncipována jako \textbf{„out-of-the-box“ srovnání}, což znamená, že primárně hodnotí výkon a jednoduchost instalace jednotlivých systémů v jejich výchozí konfiguraci, s minimem dodatečných optimalizací. Tento přístup lépe odráží realitu organizací, které nemusí disponovat hlubokou IT expertizou pro pokročilé ladění.
 
-\subsection{Metodika měření}
-
-Pro zajištění konzistentních a srovnatelných výsledků byla stanovena jasná metodika, která se skládá z několika kroků. Měření probíhalo ve dvou hlavních fázích: první fáze se zaměřila na výkon tradičního řádkového úložiště a druhá na výkon moderního sloupcového úložiště.
-
-\subsubsection{Standardizace prostředí a indexace}
-
-Před samotným měřením bylo nutné zajistit, aby prostředí pro srovnávací testy byla co nejvíce konzistentní. Výchozí datové jezero obsahovalo pro všechny technologie stejný objem surových dat. Rozdíl v implementaci nastal v prvním ETL kroku (z datového jezera do staging vrstvy): zatímco pro většinu databází byl zpracováván pouze topik týkající se kamerového systému města Bílina, pro PostgreSQL byl použit dynamický ETL skript, který do staging vrstvy načetl data z více topiků. Pro samotné výkonnostní měření však bylo klíčové, že v navazujícím ETL procesu (ze stagingu do finálního datového skladu) byla pro všechny databáze vybrána pouze data z topiku kamerového systému Bílina. Tím bylo zajištěno, že finální dimenzionální model — tedy tabulky faktů a dimenzí, nad kterými probíhalo měření — obsahoval pro všechny testované varianty naprosto identický objem dat. Všechny implementace rovněž sdílely shodné datové schéma hvězdy.
-
-Klíčovým krokem byla standardizace indexace napříč platformami. U všech databází byly v první fázi vytvořeny standardní B-stromové indexy na cizích klíčích faktové tabulky a na relevantních sloupcích v dimenzionálních tabulkách, jak je uvedeno níže. Cílem bylo poskytnout každé databázi stejné výchozí podmínky pro optimalizaci dotazů v řádkovém režimu.
-
-\begin{verbatim}
--- Indexy na faktové tabulce
-CREATE INDEX IX_FactCameraDetection_TimeKey ON FactCameraDetection (TimeKey);
-CREATE INDEX IX_FactCameraDetection_VehicleClassKey ON FactCameraDetection (VehicleClassKey);
--- ... (a další klíče)
-
--- Příklad indexu na dimenzi
-CREATE INDEX IX_DimCity_Name ON DimCity (CityName);
-\end{verbatim}
-
-\subsubsection{Sada testovacích dotazů}
-
-Byla připravena sada pěti reprezentativních SQL dotazů, které simulují běžné analytické úlohy. Dotazy byly navrženy tak, aby otestovaly různé aspekty výkonu databáze, od jednoduchých agregací po komplexní spojení s filtrováním a použitím okenních funkcí. Syntaxe dotazů byla dle potřeby upravena pro konkrétní SQL dialekt testované databáze.
-
-\begin{itemize}
-    \item \textbf{Dotaz 1:} Jednoduchá agregace s jedním spojením (průměrná rychlost podle třídy vozidla).
-    \item \textbf{Dotaz 2:} Agregace nad časovou dimenzí (počet detekcí za den).
-    \item \textbf{Dotaz 3:} Spojení více tabulek s filtrováním a řazením (průměrná rychlost pro 10 měst v ČR pro vozidla třídy '2').
-    \item \textbf{Dotaz 4:} Agregace nad více dimenzemi (průměrná rychlost podle typu detekce a třídy vozidla).
-    \item \textbf{Dotaz 5:} Komplexní dotaz s CTE a okenní funkcí (průměrná rychlost o víkendech a rankování měst).
-    \item \textbf{Dotaz 6:} Načtení všech dat z faktové tabulky (\texttt{Select * from FactCameraDetection}).
-\end{itemize}
-
-\subsubsection{Nástroje pro měření}
-
-Měření časů probíhalo dvěma způsoby:
+Srovnání probíhalo ve dvou hlavních rovinách:
 \begin{enumerate}
-    \item \textbf{Přímé měření v databázi:} Doba provedení (Execution Time) každého z testovacích SQL dotazů byla měřena pomocí nativních nástrojů databázových klientů -- \texttt{SQL Server Management Studio} pro MS SQL a \texttt{DBeaver} pro ostatní databáze.
-    \item \textbf{Měření v BI nástroji:} Měřila se celková doba načtení a vykreslení dashboardu. V \texttt{Power BI} byl využit nástroj "Performance Analyzer", zatímco v \texttt{Supersetu} byly pro měření použity vývojářské nástroje webového prohlížeče.
+    \item \textbf{Výkon na úrovni databáze:} Přímé měření doby odezvy SQL dotazů na různých databázových systémech a úložných enginech.
+    \item \textbf{Výkon na úrovni BI nástroje:} Hodnocení uživatelského prožitku, konkrétně rychlosti načtení a interakce s dashboardem v komerčním a open-source řešení.
 \end{enumerate}
 
-\subsection{Fáze 1: Benchmark řádkového úložiště (Row-Store)}
+\subsection{Srovnání výkonu na úrovni databáze}
 
-V první fázi byly všechny databáze konfigurovány tak, aby využívaly své výchozí, řádkově orientované úložiště (např. \texttt{InnoDB} v případě MariaDB). Byly provedeny všechny testovací dotazy a měření v BI nástrojích. Získané časy byly zaznamenány a slouží jako základní výkonnostní baseline pro srovnání.
+V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů přímo na databázových systémech. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště napříč všemi testovanými platformami.
 
-\subsection{Fáze 2: Benchmark sloupcového úložiště (Column-Store)}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/agregace1.png}
+  \caption{Výkon jednoduché agregace s jedním spojením (Dotaz 1). Méně je lépe}
+  \label{fig:srovnani1}
+\end{figure}
 
-Ve druhé fázi byla provedena konverze faktové tabulky \texttt{FactCameraDetection} z řádkového na sloupcové úložiště. Tento proces se lišil v závislosti na použité databázové platformě:
+\clearpage
+
+Graf \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz, který počítá průměrnou rychlost pro každou třídu vozidla. Tento typ dotazu vyžaduje přečtení pouze dvou sloupců z hlavní faktové tabulky. Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které jsou schopny načíst pouze data z potřebných sloupců. Naopak tradiční řádkové úložiště (MariaDB Row) musí načítat celé řádky, což při milionech záznamů vede k masivnímu I/O a extrémně pomalé odezvě.
+
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/agregace2.png}
+  \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
+  \label{fig:srovnani2}
+\end{figure}
+
+Druhý dotaz sčítal počet detekcí pro každý den a odhalil zajímavé chování. Ačkoliv sloupcové databáze byly stále velmi rychlé, překvapivě dobrého výsledku dosáhla i řádková MariaDB. Tento jev je pravděpodobně způsoben efektivním využitím B-stromového indexu na sloupci `TimeKey` ve faktové tabulce. Řádkový engine dokázal díky indexu rychle provést spojení s dimenzí času a sečíst záznamy, čímž dočasně kompenzoval nevýhodu svého úložného formátu.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/agregace3.png}
+  \caption{Výkon dotazu s vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe}
+  \label{fig:srovnani3}
+\end{figure}
+
+Třetí, komplexnější dotaz s několika `JOIN` operacemi a `WHERE` klauzulí, nejlépe demonstroval sílu moderních dotazovacích optimalizátorů. Extrémně rychlá odezva u MS SQL Serveru (Columnstore) a ClickHouse je dána jejich schopností aplikovat filtry co nejdříve v exekučním plánu (tzv. \textit{predicate pushdown}). Tím se dramaticky sníží objem dat vstupujících do náročných operací spojení, což vede k řádovému zrychlení.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/agregace4.png}
+  \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe}
+  \label{fig:srovnani4}
+\end{figure}
+
+Čtvrtý dotaz, který agregoval data podle dvou dimenzí, opět potvrdil výhody sloupcového přístupu. Vyšší počet unikátních kombinací (kardinalita) při seskupování klade větší nároky na agregační engine. Výkonnostní propad řádkové MariaDB je zde opět fatální, zatímco všechny sloupcové varianty poskytují odezvu v řádu jednotek sekund, což je pro analytické účely přijatelné.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/agregace5.png}
+  \caption{Výkon komplexního dotazu s CTE a okenní funkcí (Dotaz 5). Méně je lépe}
+  \label{fig:srovnani5}
+\end{figure}
+
+Poslední dotaz testoval schopnost databází zpracovat moderní SQL konstrukce jako Common Table Expressions (CTE) a okenní funkce. Graf \ref{fig:srovnani5} ukazuje, že databáze jako ClickHouse a MS SQL Server mají vysoce vyspělé optimalizátory, které si s touto komplexitou poradí efektivně. Naopak extrémně špatný výsledek řádkové MariaDB naznačuje, že její engine není pro tento typ analytických operací navržen a optimalizován.
+
+\subsubsection{Interpretace výsledků}
+Souhrnná analýza grafů demonstruje několik klíčových zjištění:
 \begin{itemize}
-    \item U \textbf{MS SQL Serveru} stačilo aplikovat clusterovaný columnstore index, což je relativně přímočará operace.
-    \item U \textbf{MariaDB} byl proces složitější. Bylo nutné nejprve manuálně odstranit všechny existující B-stromové indexy a cizí klíče z faktové tabulky, a teprve poté bylo možné změnit úložný engine na \texttt{ColumnStore} pomocí příkazu \texttt{ALTER TABLE ... ENGINE=ColumnStore;}.
+    \item \textbf{Nezbytnost sloupcového úložiště:} Nejvýraznějším poznatkem je propastný rozdíl ve výkonu mezi řádkovým a sloupcovým úložištěm pro analytické dotazy. U \textbf{MariaDB} se časy u komplexních dotazů zkrátily z více než 100 sekund na jednotky sekund. To jednoznačně potvrzuje, že pro seriózní BI je použití sloupcového enginu (nebo nativní sloupcové databáze) absolutní nutností.
+    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse}, jako databáze od základu navržená pro OLAP, dosahovala ve všech testech vynikajících výsledků a u většiny dotazů byla nejrychlejší. Její časy se konzistentně pohybovaly pod jednou sekundou.
+    \item \textbf{Výkon komerčního řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a u dotazu č. 3 (spojení více tabulek s filtrem) byl dokonce nejrychlejší. 
+    \item \textbf{Role PostgreSQL:} PostgreSQL s rozšířením TimescaleDB, ačkoliv je optimalizován pro časové řady, v tomto obecném analytickém benchmarku zaostával za nativními sloupcovými řešeními. Jeho výkon byl sice výrazně lepší než u řádkové MariaDB, ale na ClickHouse či MS SQL Columnstore nestačil.
 \end{itemize}
 
-Po úspěšné konverzi na sloupcové úložiště byla celá sada testů (přímé dotazy i načítání dashboardů) provedena znovu a časy byly opět zaznamenány.
+\subsection{Srovnání výkonu na úrovni BI nástrojů a role pre-agregací}
 
-\subsection{Vyhodnocení výsledků}
+Druhá fáze testování se zaměřila na rychlost odezvy z pohledu koncového uživatele. Zde se ukázaly zásadní rozdíly plynoucí z odlišných architektur obou řešení.
 
-Získaná data z obou fází měření umožňují provést detailní srovnání. Analýza se zaměří na vyhodnocení přínosu sloupcového úložiště pro každou platformu a na přímé srovnání výkonu mezi MS SQL Serverem a MariaDB v obou konfiguracích. Výsledky budou prezentovány a okomentovány v následující kapitole.
+\textbf{Komerční varianta (Power BI + MS SSAS)} funguje na principu \textbf{MOLAP (Multidimensional OLAP)}. Data z datového skladu jsou předem zpracována a kompletně načtena do tabulárního modelu v operační paměti. To sice vyžaduje delší čas při prvotním zpracování modelu, ale veškeré následné interakce uživatele v reportu (filtrování, proklikávání) jsou téměř okamžité (<1s), protože se počítají pouze nad daty v rychlé RAM. Pro koncového uživatele je tento prožitek velmi plynulý a komfortní.
+
+\textbf{Open-source varianta (Superset + Cube.js)} naopak ve výchozím stavu pracuje na principu \textbf{ROLAP (Relational OLAP)}. Každý vizuální prvek na dashboardu generuje v reálném čase SQL dotaz, který je odeslán do databáze. Rychlost odezvy je tak přímo závislá na výkonu podkladové databáze. Jak ukázal test, při napojení na ClickHouse byly odezvy rychlé a srovnatelné s komerčním řešením.
+
+\subsubsection{Vysvětlení nekonzistentního výkonu pre-agregací}
+
+Během testování open-source varianty se podařilo zprovoznit \textbf{pre-agregace} v Cube.js, což vedlo k výraznému zrychlení. Byl však pozorován nekonzistentní výkon: někdy se dashboard obnovil za \textbf{2 sekundy}, jindy za \textbf{7 sekund}. Tento jev je klíčový pro pochopení fungování moderních BI akceleračních vrstev.
+
+Příčinou je způsob, jakým Cube.js spravuje své pre-agregační tabulky (předpočítané, sumarizované tabulky):
+\begin{itemize}
+    \item \textbf{Rychlá odezva (2s):} Nastává ve chvíli, kdy Cube.js obdrží dotaz a zjistí, že pro něj existuje již \textbf{postavená a platná pre-agregace}. V takovém případě se vůbec nedotazuje hlavní databáze (ClickHouse), ale vrátí výsledek přímo z této malé, optimalizované sumarizační tabulky. To je extrémně rychlé.
+    \item \textbf{Pomalá odezva (7s):} Nastává tehdy, pokud pre-agregace ještě neexistuje, nebo ji Cube.js vyhodnotí jako \textbf{zastaralou} (neaktuální). To se děje na základě pravidla `refreshKey`, které periodicky kontroluje, zda se zdrojová data nezměnila. Pokud ano, Cube.js musí pre-agregaci \textbf{znovu postavit}. Těchto 7 sekund tedy nepředstavuje čas dotazu uživatele, ale čas, který Cube.js potřeboval na pozadí ke spuštění dotazu proti velké faktové tabulce v ClickHouse, aby vytvořil novou, aktuální pre-agregační tabulku. Jakmile je jednou postavena, všechny další identické dotazy jsou opět rychlé (2s), dokud `refreshKey` opět nevyvolá její obnovu.
+\end{itemize}
+
+\subsection{Shrnutí a interpretace}
+
+Srovnávací analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury klíčová. Komerční řešení (Power BI + SSAS) nabízí vynikající výkon a uživatelský prožitek „out-of-the-box“ díky své propracované in-memory (MOLAP) architektuře.
+
+Open-source stack (Superset + Cube.js) dokáže nabídnout srovnatelný výkon, ale pouze za předpokladu, že je postaven nad vysoce výkonnou analytickou databází jako ClickHouse, nebo pokud jsou správně nakonfigurovány a spravovány \textbf{pre-agregace}. Právě zkušenost s pre-agregacemi ukázala, že ačkoliv jsou extrémně mocným nástrojem, jejich zprovoznění a pochopení jejich chování (cykly obnovování) vyžaduje hlubší technické znalosti. To potvrzuje závěr, že open-source řešení nabízejí obrovskou flexibilitu a škálovatelnost, avšak za cenu vyšších nároků na expertizu a čas věnovaný ladění.
+
 
 \section{Zhodnocení výsledků}
 
