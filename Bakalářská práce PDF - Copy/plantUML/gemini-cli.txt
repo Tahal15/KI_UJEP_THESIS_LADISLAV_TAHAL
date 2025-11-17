@@ -1,0 +1,52 @@
+@startuml
+!pragma layout smetana
+
+skinparam component {
+  backgroundColor<<client>> #AAFFAA
+  backgroundColor<<gateway>> #CCCCFF
+  backgroundColor<<storage>> #FFFFCC
+  backgroundColor<<database>> #FFE5E5
+}
+
+' Klientská komponenta
+component "gemini_cli" <<client>> as CLI
+
+' Centrální brána
+package "MCP Gateway" <<gateway>> {
+  component "API Gateway" as GW
+}
+
+' Databázové komponenty
+package "Databázové zdroje" <<database>> {
+  database "ClickHouse" as CH
+  database "MS SQL" as MSSQL
+  database "PostgreSQL" as PGSQL
+  database "MariaDB" as MDB
+}
+
+' Souborové zdroje
+package "Souborové zdroje" <<storage>> {
+  component "Google Drive" as GD
+  component "GitHub" as GH
+  component "LATEX Dokument" as LATEX
+}
+
+' Explicitní layout pomocí hidden vztahů
+CLI -[hidden]right- "Databázové zdroje"
+"MCP Gateway" -[hidden]down- "Souborové zdroje"
+
+' Připojení klienta k bráně
+CLI --> GW : MCP protokol
+
+' Připojení brány k databázím
+GW --> CH : SQL dotaz
+GW --> MSSQL : SQL dotaz
+GW --> PGSQL : SQL dotaz
+GW --> MDB : SQL dotaz
+
+' Připojení brány k souborovým zdrojům
+GW --> GD : Čtení/Zápis
+GW --> GH : Git operace
+GW --> LATEX : Zpracování textu
+
+@enduml

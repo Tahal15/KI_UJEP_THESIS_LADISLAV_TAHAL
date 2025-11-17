@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Porovnání výkonu databází</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; }
+        .container { position: relative; height: 80vh; width: 90vw; margin: auto; }
+    </style>
+</head>
+<body>
+
+    <h2>Porovnání výkonu (čas v sekundách)</h2>
+    <p><em>Použita logaritmická stupnice na ose Y. Méně je lépe.</em></p>
+    
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        // 3. Registrace pluginu
+        Chart.register(ChartDataLabels);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        
+        const data = {
+            labels: [
+                'Agregace s 1 JOIN', 
+                'Agregace přes čas', 
+                'Více JOIN s filtrem', 
+                'Agregace přes 2 dim.', 
+                'Komplexní dotaz (CTE)'
+            ],
+            datasets: [
+                // ClickHouse
+                {
+                    label: 'ClickHouse',
+                    data: [0.27, 0.33, 0.57, 0.65, 0.33],
+                    backgroundColor: '#4BC0C0',
+                    borderColor: '#4BC0C0',
+                    borderWidth: 1
+                },
+                // MSSQL
+                {
+                    label: 'MSSQL (Řádkový)',
+                    data: [0.52, 1.50, 0.25, 0.75, 0.55],
+                    backgroundColor: '#C9CBCF',
+                    borderColor: '#C9CBCF',
+                    borderWidth: 1
+                },
+                {
+                    label: 'MSSQL (Sloupcový)',
+                    data: [0.42, 1.33, 0.04, 0.50, 0.65],
+                    backgroundColor: '#A0A2A8',
+                    borderColor: '#606266',
+                    borderWidth: 2 
+                },
+                // MariaDB
+                {
+                    label: 'MariaDB (Řádkový)',
+                    data: [125.0, 0.32, 18.0, 105.0, 142.0],
+                    backgroundColor: '#FFB3CC',
+                    borderColor: '#FFB3CC',
+                    borderWidth: 1
+                },
+                {
+                    label: 'MariaDB (Sloupcový)',
+                    data: [2.49, 3.07, 1.59, 5.63, 2.83],
+                    backgroundColor: '#FF6384',
+                    borderColor: '#D43F60',
+                    borderWidth: 2
+                },
+                // PostgreSQL
+                {
+                    label: 'PostgreSQL',
+                    data: [7.39, 8.71, 6.10, 8.69, 4.86],
+                    backgroundColor: '#FF9F40',
+                    borderColor: '#FF9F40',
+                    borderWidth: 1
+                },
+                // TimescaleDB
+                {
+                    label: 'TimescaleDB',
+                    data: [6.71, 9.02, 5.63, 9.54, 12.00],
+                    backgroundColor: '#FFCD56',
+                    borderColor: '#FFCD56',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 40 // Místo nahoře pro popisky vysokých sloupců
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: true // Tooltip necháme zapnutý pro detail
+                    },
+                    // 4. Konfigurace Data Labels
+                    datalabels: {
+                        anchor: 'end', // Kotva na konci sloupce
+                        align: 'end',  // Zarovnání nad konec
+                        rotation: -90, // Svislý text pro úsporu místa
+                        offset: 4,     // Odsazení od sloupce
+                        color: '#333', // Barva textu
+                        font: {
+                            weight: 'bold',
+                            size: 11
+                        },
+                        formatter: function(value) {
+                            return value; // Zobrazit pouze číslo (bez 's' kvůli místu)
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'logarithmic',
+                        title: {
+                            display: true,
+                            text: 'Čas v sekundách (Logaritmická osa)'
+                        },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return Number(value.toString());
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+
+</body>
+</html>

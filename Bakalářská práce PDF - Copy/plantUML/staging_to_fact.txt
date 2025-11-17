@@ -1,0 +1,98 @@
+@startuml
+
+
+skinparam titleFontSize 16
+skinparam activity {
+    BackgroundColor #F8F8F8
+    BorderColor #A0A0A0
+    ArrowColor #555555
+    FontName Technical
+    FontSize 10
+}
+skinparam partition {
+    BackgroundColor #EEEEEE
+    BorderColor #A0A0A0
+    FontName Technical
+    FontSize 11
+}
+
+start
+split
+ 
+    partition "SQL Server (MSSQL)" {
+        :Zjisti rozsah ID ke zpracování;
+        partition "Smyčka po dávkách (BATCH_SIZE=50000)" {
+            partition "INSERT DIMENZE - T-SQL EXCEPT" {
+                :SELECT DISTINCT ...\nINTO ##TempDimensions\n Temporary table;
+                :Pro každou dimenzi:\n**INSERT ... SELECT ... EXCEPT ...**\n `EXCEPT` vrátí řádky z 1. dotazu,\n které nejsou ve 2.;
+                :DROP TABLE ##TempDimensions;
+            }
+            partition "INSERT FAKTA - LEFT JOIN" {
+                :INSERT INTO Fact... SELECT\n  **ISNULL(T.TimeKey, -1)**;
+                :LEFT JOIN na všechny dimenze;
+                
+            }
+        }
+        :Aktualizuj ETL_IncrementalControl (MERGE);
+        :Zapiš do ETL_RunLog;
+    }
+
+split again
+ 
+    partition "MariaDB (ColumnStore)" {
+        :Zjisti rozsah ID ke zpracování;
+        partition "Smyčka po dávkách (BATCH_SIZE=50000)" {
+            partition " INSERT DIMENZE - INSERT IGNORE" {
+                :Načti záznamy ze Stagingu\npro danou dávku do paměti;
+                :Pro každou dimenzi:\n**INSERT IGNORE INTO Dim...**\n;
+                :conn.commit();
+            }
+            partition " INSERT FAKTA - CSV + LOAD DATA" {
+                :Načti staging data pro dávku do paměti;
+                :Načti VŠECHNY dimenze do slovníků;
+                :Pro každý záznam vyhledej klíče v cache\na zapiš transformovaný řádek do CSV;
+                :**LOAD DATA LOCAL INFILE 'file.csv' ...**\n obejde SQL parser,\n zapisuje přímo do storage engine.\n;
+                :Smaž dočasný CSV soubor;
+                :conn.commit();
+            }
+        }
+        :Aktualizuj ETL_IncrementalControl;
+        :Zapiš do ETL_RunLog;
+    }
+
+split again
+    
+    partition "PostgreSQL (TimescaleDB);" {
+        :Zjisti rozsah ID ke zpracování;
+        partition "Smyčka po dávkách (BATCH_SIZE=500000)" {
+            partition " INSERT DIMENZE - ON CONFLICT" {
+                :SELECT DISTINCT hodnoty dimenzí;
+                :V Pythonu vytvoř `set()` pro deduplikaci v paměti;
+                :Pro každou dimenzi:\n`execute_values` s příkazem\n**INSERT ... ON CONFLICT DO NOTHING**;
+            }
+            partition " INSERT FAKTA - LEFT JOIN" {
+                :INSERT INTO Fact... SELECT\n  **COALESCE(T.timekey, -1)**, ...;
+                :LEFT JOIN DimTime ...\n// Používá efektivnější `EXTRACT`\n// pro práci s částmi data;
+                :LEFT JOIN na ostatní dimenze;
+            }
+        }
+        :conn.commit();
+    }
+
+split again
+  
+    partition "ClickHouse" {
+        :Zjisti rozsah ID ke zpracování;
+        partition "Smyčka po dávkách (BATCH_SIZE=500000)" {
+            partition " INSERT DIMENZE - WHERE NOT IN" {
+                :Pro každou dimenzi:\n INSERT ... SELECT DISTINCT ...\n WHERE ... NOT IN ... ;
+            }
+            partition " INSERT FAKTA - MULTILFJOIN" {
+                :INSERT INTO Fact... SELECT\n  **multiIf(key IS NULL, unk, key)**, ...\n ekvivalent COALESCE;
+                :LEFT JOIN na všechny dimenze;
+            }
+        }
+    }
+end split
+stop
+@enduml

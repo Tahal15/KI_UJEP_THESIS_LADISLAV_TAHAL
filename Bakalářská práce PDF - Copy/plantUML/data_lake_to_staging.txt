@@ -1,0 +1,78 @@
+@startuml
+
+skinparam activity {
+    BackgroundColor #F8F8F8
+    BorderColor #A0A0A0
+    ArrowColor #555555
+    FontName Technical
+}
+
+skinparam note {
+    BackgroundColor #FEFEFE
+    BorderColor #A0A0A0
+    FontName Technical
+}
+
+start
+split
+  
+    partition "MSSQL" {
+        :Načti `LastLoadedID`;
+        :Loguj start běhu;
+        partition "Smyčka po dávkách (Batch)" {
+            :Čti data z MS SQL Lake\n(pyodbc);
+            
+            :Parsovat JSON v Pythonu;
+            :Vložit dávku do Staging tabulky\n(pyodbc, `executemany`);
+        }
+        :Aktualizuj `LastLoadedID`\npomocí `MERGE`;
+        :Loguj úspěch;
+    }
+split again
+   
+     partition "MariaDB (ColumnStore)" {
+        :Načti `LastLoadedID`;
+        :Loguj start běhu;
+        partition "Smyčka po dávkách (Batch)" {
+            :Čti data z MariaDB Lake\n(pymysql);
+            :Parsovat JSON v Pythonu;
+            :Vložit dávku do Staging tabulky\n(pymysql, `executemany`);
+        }
+        :Aktualizuj `LastLoadedID`\npomocí `ON DUPLICATE KEY UPDATE`;
+        :Loguj úspěch;
+    }
+split again
+ 
+       
+    partition "PostgreSQL (TimescaleDB)" {
+        :Načti MQTT témata ke zpracování;
+        
+        partition "Smyčka po skupinách témat" {
+            :Čti data z PostgreSQL Lake\n(psycopg2, `fetchmany`);
+            :Parsovat a "zploštit" JSON v Pythonu\n(`flatten_json`);
+            :Odvodit datové typy sloupců\n(`infer_pg_type`);
+            if (Existuje nový sloupec?) then (ano)
+                :Dynamicky upravit schéma Staging tabulky\n(psycopg2, `ALTER TABLE ... ADD COLUMN`);
+               
+            endif
+            :Vložit dávku do dynamické Staging tabulky\n(psycopg2, `execute_values`);
+        }
+        :Loguj úspěch;
+    }
+split again
+  
+    partition "MariaDB -> ClickHouse" {
+        :Načti `LastLoadedID`;
+        :Loguj start běhu;
+        partition "Smyčka po dávkách (Batch)" {
+            :Čti data z MariaDB Lake\n(pymysql);
+            :Parsovat JSON v Pythonu;
+            :Vložit dávku do Staging tabulky;
+         
+        }
+        :Aktualizuj `LastLoadedID`;
+        :Loguj úspěch;
+    }
+end split
+stop
+@enduml
