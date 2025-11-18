@@ -312,51 +312,66 @@ Tato klasifikace je zásadní pro pozdější srovnání celkových nákladů na
 
 \subsection{Microsoft Data Platform (komerční, on-premise/cloud)}
 
-Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v možnosti nasazení jak v tradičním on-premise prostředí, tak v cloudu, případně v hybridním režimu.
+Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v možnosti nasazení jak v tradičním on-premise prostředí, tak v cloudu, případně v hybridním režimu. Komponenty platformy lze rozdělit následovně:
 
-Základem tradiční infrastruktury je \emph{Microsoft SQL Server}, relační databázový systém. Pro integraci dat (ETL) je standardně využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP kostky, tabulární modely) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \cite{mssql2024overview}.
+\begin{itemize}
+    \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \cite{mssql2024overview}.
+    
+    \item \textbf{Cloudová platforma (Microsoft Azure):} S nástupem cloudu se architektura posouvá do prostředí Azure (viz Obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a celková orchestrace se sjednocuje v rámci platformy \emph{Microsoft Fabric}.
+    
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
+      \caption{Architektura moderního datového skladu v prostředí Microsoft Azure - převzato z \protect\cite{azure_data_warehousing}}
+      \label{fig:MSplatform}
+    \end{figure}
+    
+    \item \textbf{Vizuální a sémantická vrstva:} Sjednocující vrstvou pro on-premise i cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a dashboardů a díky své sémantické vrstvě dokáže zastoupit i některé funkce SSAS \cite{powerbi2024docs}.
+    
+    \item \textbf{Výhody a nevýhody:} Hlavní výhodou je hluboká integrace všech komponent. Nevýhodou, zejména u cloudových služeb, může být silný „vendor lock-in“ a závislost na licenční politice poskytovatele.
+\end{itemize}
 
-S nástupem cloud computingu se však architektura posouvá do prostředí \emph{Microsoft Azure} (viz Obrázek \ref{fig:MSplatform}). Zde roli datového skladu přebírá \emph{Azure Synapse Analytics} (dříve SQL DW), který umožňuje masivně paralelní zpracování dat (MPP). Tradiční ETL procesy z SSIS jsou v cloudu nahrazovány službou \emph{Azure Data Factory} a orchestrace dat se stále častěji sjednocuje v rámci nové SaaS platformy \emph{Microsoft Fabric}, která kombinuje datové inženýrství, sklady i real-time analytiku do jednoho prostředí.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
-  \caption{Architektura moderního datového skladu v prostředí Microsoft Azure - převzato z \protect\cite{azure_data_warehousing}}
-  \label{fig:MSplatform}
-\end{figure}
-
-Sjednocující vizuální vrstvou pro oba světy (on-premise i cloud) je \emph{Power BI}. Tento nástroj zajišťuje nejen tvorbu reportů a dashboardů, ale díky své sémantické vrstvě dokáže efektivně zastoupit i některé funkce SSAS \cite{powerbi2024docs}.
-
-Hlavní výhodou Microsoft Data Platform je hluboká integrace všech komponent a rozšířenost mezi vývojáři. Nevýhodou, zejména u cloudových služeb, může být silný „vendor lock-in“ a závislost na licenční politice a ceníku poskytovatele.
 \subsection{Google Cloud Data Analytics (komerční, cloud)}
 
-Společnost Google přistupuje k analytice jako k plně cloudové službě (cloud-native). Na rozdíl od Microsoftu, který svou cloudovou platformu budoval postupnou evolucí on-premise produktů, je ekosystém Google Cloud od počátku navržen pro distribuované výpočty v datových centrech Googlu.
+Společnost Google přistupuje k analytice jako k plně cloudové službě, navržené od počátku pro distribuované výpočty. Klíčové komponenty ekosystému jsou:
 
-Jádrem platformy je \emph{Google BigQuery}, což je tzv. serverless (bezserverový) datový sklad. To znamená, že uživatel nespravuje žádnou infrastrukturu ani servery, ale platí pouze za uložená data a zpracované dotazy. BigQuery využívá kolumnární uložení. \cite{bigquery2024docs}.
+\begin{itemize}
+    \item \textbf{Datový sklad:} Jádrem platformy je \emph{Google BigQuery}, serverless datový sklad s kolumnárním uložením, kde se platí pouze za uložená data a zpracované dotazy \cite{bigquery2024docs}.
+    
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/google-cloud.png}
+      \caption{Architektura analytické platformy Google Cloud - převzato z \protect\cite{google_data_products}}
+      \label{fig:Googleplatform}
+    \end{figure}
+    
+    \item \textbf{Integrace a příprava dat:} Pro tyto účely slouží služby jako \emph{Dataflow} (založené na Apache Beam) nebo \emph{Dataprep}.
+    
+    \item \textbf{Prezentační vrstva:} Zastupuje ji \emph{Looker Studio} pro rychlou vizualizaci, případně platforma \emph{Looker}, která nabízí pokročilou sémantickou vrstvu a governance dat.
+    
+    \item \textbf{Výhody a omezení:} Hlavní výhodou je nulová starost o hardware, vysoká škálovatelnost a integrace s AI nástroji (\emph{Vertex AI}). Zásadním omezením je absence on-premise řešení, což znemožňuje využití organizacím, které vyžadují uložení dat na vlastním hardwaru.
+\end{itemize}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/google-cloud.png}
-  \caption{Architektura analytické platformy Google Cloud - převzato z \protect\cite{google_data_products}}
-  \label{fig:Googleplatform}
-\end{figure}
-
-Pro integraci a přípravu dat slouží služby jako \emph{Dataflow} (založené na Apache Beam) nebo \emph{Dataprep}. Prezentační vrstvu zastupuje \emph{Looker Studio} (dříve Google Data Studio) pro rychlou vizualizaci, případně robustní platforma \emph{Looker}, která nabízí pokročilou sémantickou vrstvu a governance dat.
-
-Hlavní výhodou tohoto řešení je nulová starost o hardware, vysoká škálovatelnost a integrace s AI nástroji (\emph{Vertex AI}). Zásadním omezením však je absence tradičního on-premise řešení. Organizace, které z legislativních nebo bezpečnostních důvodů vyžadují uložení dat na vlastním hardwaru (mimo veřejný cloud), tak nemohou tento ekosystém v jeho plné šíři využít.
 \subsection{Amazon Web Services (komerční, cloud)}
 
-Dalším významným hráčem je společnost Amazon, jejíž cloudová platforma \emph{Amazon Web Services} (AWS) nabízí rozsáhlý ekosystém pro datové inženýrství a analytiku. Klíčovou roli zde zastává \emph{Amazon Redshift} – cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.  
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/AWSarchitecture.png}
-  \caption{Cloudové řešení Amazon Web Services - převzato z \protect\cite{aws_redshift_arch}}
-  \label{fig:AWSplatform}
-\end{figure}
+Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nabízí rozsáhlý a modulární ekosystém pro datové inženýrství a analytiku.
 
-Doplňkové služby jako \emph{AWS Glue} umožňují automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting. AWS zároveň podporuje integraci s open-source systémy, například \emph{Apache Spark} (prostřednictvím \emph{EMR}) nebo \emph{Presto}.  
-
-Výhodou AWS je modularita – jednotlivé komponenty lze kombinovat podle potřeb projektu. Podobně jako u Google se jedná o výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady při rozsáhlém využívání více služeb současně.
+\begin{itemize}
+    \item \textbf{Datový sklad:} Klíčovou roli zde zastává \emph{Amazon Redshift} – cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.
+    
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/AWSarchitecture.png}
+      \caption{Cloudové řešení Amazon Web Services - převzato z \protect\cite{aws_redshift_arch}}
+      \label{fig:AWSplatform}
+    \end{figure}
+    
+    \item \textbf{Zpracování a vizualizace:} Služba \emph{AWS Glue} umožňuje automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting.
+    
+    \item \textbf{Integrace s open-source:} AWS podporuje integraci s open-source systémy, například \emph{Apache Spark} (prostřednictvím služby \emph{EMR}) nebo \emph{Presto}.
+    
+    \item \textbf{Výhody a slabiny:} Výhodou AWS je modularita, která umožňuje komponenty kombinovat podle potřeb. Podobně jako u Google se jedná o výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady.
+\end{itemize}
 
 \subsection{Ekosystém Apache Software Foundation}
 
@@ -372,7 +387,7 @@ Nejvýznamnějším hráčem v oblasti otevřených datových technologií je na
 
 Výhodou tohoto ekosystému je jeho modularita a fakt, že tvoří technologický základ i pro mnoho komerčních cloudových služeb (např. AWS EMR).
 
-\subsubsection{Platforma MariaDB (Community / Enterprise)}
+\subsection{Platforma MariaDB (Community / Enterprise)}
 
 Příkladem open-source ekosystému, který se transformoval do podoby robustní podnikové platformy, je \emph{MariaDB}. Ačkoliv původně vznikla jako fork databáze MySQL, ve své edici \emph{MariaDB Enterprise Platform} dnes nabízí sadu integrovaných komponent pro transakční, analytické i hybridní zpracování dat a nově i pro umělou inteligenci.
 
@@ -387,45 +402,33 @@ Základem platformy je \emph{MariaDB Enterprise Server}, který podporuje práci
 
 
 Tato architektura umožňuje organizacím začít s open-source řešením (Community verze) a v případě potřeby škálovat na plnohodnotnou enterprise platformu s podporou pro AI a real-time analytiku, aniž by musely migrovat na proprietární databázové systémy typu Oracle či MS SQL.
-\subsubsection{Moderní modulární stack (Best-of-Breed)}
+\subsection{Moderní modulární a hybridní architektury}
 
-V současné praxi se často ustupuje od využívání jednoho "megabalíku" (jako je kompletní Apache stack) směrem k flexibilnímu skládání specializovaných nástrojů od různých tvůrců. Typická moderní open-source architektura může vypadat následovně:
+V současné praxi se stále častěji ustupuje od využívání jednoho monolitického „megabalíku“ (jako je kompletní Apache stack) směrem k flexibilním, modulárním architekturám. Tento trend umožňuje skládat platformu z několika specializovaných nástrojů od různých tvůrců, a to přesně podle potřeb daného projektu \cite{priebe2022datawarehouse}. Tento přístup lze realizovat dvěma hlavními způsoby:
 
-Typickým příkladem je kombinace relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) používané jako datový sklad, s nadřazenou semantickou vrstvou v podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky, dimenze a vztahy mezi tabulkami a umožňují jednotnou logiku pro přístup k datům napříč celým analytickým systémem \cite{cube2024semantic,dbt2024semanticlayer}.  
+\begin{itemize}
+    \item \textbf{Čistě open-source stack:} Tento model kombinuje výhradně open-source komponenty. Typickým příkladem je použití relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) jako datového skladu, nad kterým je postavena sémantická vrstva v podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky a business logiku, kterou následně konzumuje vizualizační nástroj jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana} \cite{cube2024semantic,dbt2024semanticlayer,superset2024docs,metabase2024overview}.
+     \item \textbf{Hybridní stack:} V praxi je velmi běžné kombinovat open-source a komerční technologie, aby se využily výhody obou světů. Častým scénářem je provozování výkonné a nákladově efektivní open-source databáze (např. \emph{MariaDB}, \emph{PostgreSQL}) jako datového skladu, nad nímž je nasazen uživatelsky přívětivý komerční vizualizační nástroj jako \emph{Power BI} nebo \emph{Tableau}. Tento přístup umožňuje optimalizovat náklady na back-end a zároveň poskytnout koncovým uživatelům komfort a pokročilé funkce komerčních platforem.
 
-Nad touto vrstvou je pak možné postavit vizualizační a analytické prostředí, které interpretuje modelovaná data do uživatelsky přívětivé podoby. V praxi se často používají nástroje jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana}, které se dokážou k semantické vrstvě připojit přímo pomocí SQL nebo prostřednictvím API \cite{superset2024docs,metabase2024overview}.  
-Tento modulární přístup umožňuje organizacím skládat vlastní analytickou platformu „na míru“ – například kombinaci \emph{MariaDB} pro uložení dat, \emph{Cube.js} pro definici logiky a metrik a \emph{Superset} pro vizualizaci výsledků.  
-
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/Modularita.png}
-  \caption{Příklad možné open source sestavy}
-  \label{fig:modularita}
-\end{figure}
-
-Výhodou těchto řešení je transparentnost, možnost úprav zdrojového kódu a nezávislost na licenčních poplatcích. Slabinou může být potřeba vyšší technické znalosti při konfiguraci a údržbě systému, zejména při integraci více komponent od různých vývojářů. Přesto jsou open-source datové ekosystémy v praxi stále častěji využívány – zejména v akademickém prostředí, start-upech a menších organizacích, které preferují flexibilitu a kontrolu nad celým datovým procesem.
-
-\subsection{Hybridní a vícevrstvá řešení}
-
-Moderní datové prostředí se často neomezuje na jediný ekosystém. V praxi je běžné kombinovat open-source a komerční komponenty – například provozovat \emph{MariaDB}, \emph{PostgreSQL} či \emph{ClickHouse} jako datový sklad a nad nimi využívat vizualizační nástroje typu \emph{Power BI} nebo \emph{Tableau}.  
+    
+Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, transparentnost a nezávislost na jednom dodavateli, což umožňuje reagovat na technologické změny a optimalizovat náklady. Společnou slabinou je však vyšší technická složitost. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich licenčních modelů a zajištění vzájemné kompatibility. Pro úspěšnou implementaci je proto klíčová standardizace rozhraní a pečlivé řízení verzí jednotlivých nástrojů.
 
 \begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/Hybrid.png}
-  \caption{Příklad možného hybridního systému}
-  \label{fig:hybrid}
-\end{figure}
+      \centering
+      \includegraphics[width=\textwidth]{img/Modularita.png}
+      \caption{Příklad možné plně open-source sestavy}
+      \label{fig:modularita}
+    \end{figure}
 
-Tento přístup umožňuje organizacím optimalizovat náklady a současně využít výhod obou světů – otevřenost a flexibilitu open-source řešení v kombinaci s uživatelským komfortem a technickou podporou komerčních platforem.  
+   
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/Hybrid.png}
+      \caption{Příklad možného hybridního systému}
+      \label{fig:hybrid}
+    \end{figure}
+\end{itemize}
 
-V posledních letech lze v oblasti datové analytiky pozorovat trend tzv. \emph{composable data stack}, tedy modulární architektury, která umožňuje skládat jednotlivé komponenty platformy podle konkrétních potřeb projektu \cite{priebe2022datawarehouse}. Namísto používání jednoho monolitického systému organizace kombinují specializované nástroje – například \emph{dbt} pro transformaci dat, \emph{Cube.js} jako sémantickou vrstvu a \emph{Superset} nebo \emph{Power BI} pro vizualizaci.  
-
-Tento přístup přináší vyšší míru škálovatelnosti a nezávislosti na jednom dodavateli, což umožňuje reagovat na technologické změny a rozšiřovat platformu o nové nástroje.  
-
-Stejně jako u čistě open-source ekosystémů však i hybridní architektury narážejí na problém vyšší technické složitosti. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich odlišných licenčních modelů, způsobů autentizace a~řízení přístupu. Zatímco open-source řešení bývají náročná na konfiguraci a údržbu, hybridní přístup přidává další vrstvu komplexity v podobě nutnosti zajištění kompatibility mezi komerčními a~otevřenými systémy.  
-
-Pro úspěšnou implementaci hybridního modelu je proto klíčová standardizace rozhraní, pečlivé řízení verzí a využití integračních nástrojů, které umožňují monitorovat a spravovat datové toky napříč prostředím. Pokud jsou tyto výzvy zvládnuty, může hybridní architektura představovat efektivní kompromis mezi nákladovou efektivitou open-source řešení a robustní podporou komerčních platforem.
 
 \clearpage
 
@@ -968,7 +971,7 @@ Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými techn
 
 \clearpage
 
-\section{Příprava dat a návrh datového skladu}
+\section{Struktura a vrstvy datového skladu}
 
 Zdrojová data byla získávána ze systému Portabo, kde jsou ukládána jako MQTT zprávy v JSON formátu. Data mi byli poskytnuty zašifrované, abychom je mohli v rámci bakalářské práce využít.
 Tyto zprávy obsahují informace o detekcích vozidel – například registrační značku, typ detekce, rychlost, město, čas a senzor. Data z vodoměrů, elektroměrů a dalších senzorů. 
@@ -1147,9 +1150,40 @@ Příčinou je způsob, jakým Cube.js spravuje své pre-agregační tabulky (p�
 
 \subsection{Shrnutí a interpretace}
 
-Srovnávací analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury klíčová. Komerční řešení (Power BI + SSAS) nabízí vynikající výkon a uživatelský prožitek „out-of-the-box“ díky své propracované in-memory (MOLAP) architektuře.
+Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury klíčová. Komerční řešení (Power BI + SSAS) nabízí vynikající výkon a uživatelský prožitek „out-of-the-box“ díky své propracované in-memory (MOLAP) architektuře.
 
 Open-source stack (Superset + Cube.js) dokáže nabídnout srovnatelný výkon, ale pouze za předpokladu, že je postaven nad vysoce výkonnou analytickou databází jako ClickHouse, nebo pokud jsou správně nakonfigurovány a spravovány \textbf{pre-agregace}. Právě zkušenost s pre-agregacemi ukázala, že ačkoliv jsou extrémně mocným nástrojem, jejich zprovoznění a pochopení jejich chování (cykly obnovování) vyžaduje hlubší technické znalosti. To potvrzuje závěr, že open-source řešení nabízejí obrovskou flexibilitu a škálovatelnost, avšak za cenu vyšších nároků na expertizu a čas věnovaný ladění.
+
+\subsection{Analýza celkových nákladů na vlastnictví (TCO)}
+
+Analýza celkových nákladů na vlastnictví (Total Cost of Ownership, TCO) je klíčovým faktorem při rozhodování o implementaci datové platformy. Zahrnuje nejen přímé náklady (licence, hardware, software), ale i nepřímé náklady (údržba, školení, expertíza, čas). V kontextu open-source a komerčních řešení se tyto náklady významně liší.
+
+\subsubsection{Open-source řešení (MariaDB, ClickHouse, Superset)}
+\begin{itemize}
+    \item \textbf{Nižší přímé náklady:} Open-source software je zpravidla zdarma, což eliminuje licenční poplatky. Náklady na hardware mohou být nižší díky efektivnějšímu využití zdrojů nebo možnosti provozu na méně výkonném hardware.
+    \item \textbf{Vyšší nepřímé náklady:}
+    \begin{itemize}
+        \item \textbf{Expertíza a vývoj:} Implementace a správa open-source řešení vyžaduje vyšší úroveň technické expertízy. Organizace musí investovat do školení vlastních zaměstnanců nebo najmout externí specialisty. Vývoj customizovaných řešení a integrace různých komponent může být časově náročný.
+        \item \textbf{Údržba a podpora:} Podpora je často komunitní, což může vést k delším dobám řešení problémů. Pro kritické systémy je nutné zvážit placenou podporu od třetích stran, což zvyšuje TCO.
+        \item \textbf{Časová náročnost:} Počáteční nastavení a konfigurace mohou trvat déle kvůli nutnosti integrace různých nástrojů a absenci jednotného ekosystému.
+    \end{itemize}
+    \item \textbf{Flexibilita a vendor lock-in:} Vysoká flexibilita a minimální riziko vendor lock-in jsou významnými výhodami, které se však projevují v nepřímých nákladech na správu a integraci.
+\end{itemize}
+
+\subsubsection{Komerční řešení (MSSQL, Power BI)}
+\begin{itemize}
+    \item \textbf{Vyšší přímé náklady:} Komerční software vyžaduje nákup licencí, které mohou být značně drahé, zejména pro velké podniky. Náklady na hardware mohou být také vyšší, pokud je vyžadován specifický hardware pro optimální výkon.
+    \item \textbf{Nižší nepřímé náklady:}
+    \begin{itemize}
+        \item \textbf{Integrovaná podpora a ekosystém:} Komerční řešení často nabízejí komplexní podporu od dodavatele, pravidelné aktualizace a dobře integrovaný ekosystém nástrojů. To snižuje potřebu interní expertízy a zkracuje dobu řešení problémů.
+        \item \textbf{Předvídatelnost a rychlost implementace:} Díky uceleným balíkům a profesionální podpoře je implementace často rychlejší a předvídatelnější.
+        \item \textbf{Školení a dokumentace:} Komerční produkty mají obvykle rozsáhlou dokumentaci a dostupné školicí programy, což usnadňuje zaškolení uživatelů.
+    \end{itemize}
+    \item \textbf{Vendor lock-in:} Riziko vendor lock-in je vyšší, což může omezit budoucí flexibilitu a vyjednávací pozici s dodavatelem.
+\end{itemize}
+
+\subsubsection{Závěr TCO analýzy}
+Volba mezi open-source a komerčním řešením závisí na strategii organizace, dostupných zdrojích a úrovni interní expertízy. Open-source řešení nabízejí úsporu na licenčních poplatcích, ale vyžadují značné investice do lidských zdrojů a času. Komerční řešení sice přinášejí vyšší počáteční náklady, ale mohou nabídnout rychlejší implementaci, nižší nároky na interní IT tým a vyšší předvídatelnost provozu díky komplexní podpoře. Pro platformu Portabo, která cílí na efektivní datovou analytiku bez nutnosti vysoké IT expertízy, by hybridní přístup kombinující silné stránky obou světů mohl představovat optimální řešení, kde se open-source komponenty využijí pro datový sklad a komerční pro vizualizaci.
 
 
 \section{Zhodnocení výsledků}

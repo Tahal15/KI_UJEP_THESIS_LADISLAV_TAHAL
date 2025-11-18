@@ -1,0 +1,95 @@
+@startuml
+!theme plain
+skinparam componentStyle rectangle
+
+title Apache Hadoop Ecosystem Architecture
+
+package "Hadoop Core" {
+    component [HDFS] as HDFS {
+        node "NameNode" as NN
+        node "DataNode" as DN
+    }
+    component [YARN] as YARN {
+        node "ResourceManager" as RM
+        node "NodeManager" as NM
+    }
+    component [MapReduce] as MR
+}
+
+package "Data Processing" {
+    component [Apache Spark] as Spark
+    component [Apache Hive] as Hive
+    component [Apache Pig] as Pig
+    component [Apache HBase] as HBase
+}
+
+package "Data Ingestion & Orchestration" {
+    component [Apache Sqoop] as Sqoop
+    component [Apache Flume] as Flume
+    component [Apache Kafka] as Kafka
+    component [Apache Oozie] as Oozie
+    component [Apache ZooKeeper] as ZK
+}
+
+actor "User/Client" as User
+
+' HDFS Internal
+NN -- DN : Manages blocks
+
+' Core Interactions
+User --> HDFS : Stores/Retrieves Data
+User --> YARN : Submits Jobs
+User --> MR : Submits Jobs
+
+MR --> HDFS : Reads/Writes Data
+MR --> YARN : Requests Resources
+
+Spark --> HDFS : Reads/Writes Data
+Spark --> YARN : Requests Resources
+
+Hive --> HDFS : Reads/Writes Data
+Hive --> MR : (Can use)
+Hive --> Spark : (Can use)
+
+Pig --> HDFS : Reads/Writes Data
+Pig --> MR : (Can use)
+
+HBase --> HDFS : Stores Data
+HBase --> ZK : Coordination
+
+Sqoop --> HDFS : Imports/Exports Data
+Flume --> HDFS : Streams Data
+Kafka --> HDFS : Streams Data
+
+Oozie --> YARN : Schedules Workflows
+Oozie --> HDFS : Accesses Data
+Oozie --> MR : Orchestrates Jobs
+Oozie --> Hive : Orchestrates Jobs
+Oozie --> Pig : Orchestrates Jobs
+
+ZK --> YARN : High Availability
+ZK --> HBase : Coordination
+ZK --> Kafka : Coordination
+
+' General Data Flow
+Sqoop --> HDFS
+Flume --> HDFS
+Kafka --> HDFS
+
+HDFS <--> HBase
+HDFS <--> Hive
+HDFS <--> Pig
+HDFS <--> Spark
+HDFS <--> MR
+
+YARN <--> Spark
+YARN <--> MR
+YARN <--> Hive
+YARN <--> Pig
+
+User --> Hive : Queries
+User --> Pig : Scripts
+User --> Spark : Applications
+User --> HBase : Real-time Access
+
+@enduml
