@@ -2410,18 +2410,19 @@
     <bcf:citekey order="11" intorder="1">redshift2024overview</bcf:citekey>
     <bcf:citekey order="12" intorder="1">aws_redshift_arch</bcf:citekey>
     <bcf:citekey order="13" intorder="1">aws_redshift_arch</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">cube2024semantic</bcf:citekey>
-    <bcf:citekey order="14" intorder="2">dbt2024semanticlayer</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">superset2024docs</bcf:citekey>
-    <bcf:citekey order="15" intorder="2">metabase2024overview</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">priebe2022datawarehouse</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">amazon2019datawarehouse</bcf:citekey>
-    <bcf:citekey order="17" intorder="2">databricks2024modernstack</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">apachekylin2024</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">cube2024semantic</bcf:citekey>
+    <bcf:citekey order="15" intorder="2">dbt2024semanticlayer</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">superset2024docs</bcf:citekey>
+    <bcf:citekey order="16" intorder="2">metabase2024overview</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">priebe2022datawarehouse</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">amazon2019datawarehouse</bcf:citekey>
+    <bcf:citekey order="18" intorder="2">databricks2024modernstack</bcf:citekey>
     <bcf:citekey order="19" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">cube2024semantic</bcf:citekey>
-    <bcf:citekey order="20" intorder="2">dbt2024semanticlayer</bcf:citekey>
-    <bcf:citekey order="20" intorder="3">looker2024semanticmodel</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">cube2024semantic</bcf:citekey>
+    <bcf:citekey order="21" intorder="2">dbt2024semanticlayer</bcf:citekey>
+    <bcf:citekey order="21" intorder="3">looker2024semanticmodel</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
