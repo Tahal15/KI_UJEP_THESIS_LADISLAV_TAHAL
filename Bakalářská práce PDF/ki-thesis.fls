@@ -1,8 +1,8 @@
-PWD c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF
+PWD e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
+INPUT e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
 OUTPUT ki-thesis.log
 INPUT ./kitheses.cls
 INPUT kitheses.cls
@@ -602,11 +602,16 @@ INPUT ./img/Modularita.png
 INPUT ./img/Modularita.png
 INPUT ./img/Modularita.png
 INPUT ./img/Modularita.png
-INPUT ./img/Hybrid.png
-INPUT ./img/Hybrid.png
-INPUT ./img/Hybrid.png
-INPUT ./img/Hybrid.png
-INPUT ./img/Hybrid.png
+INPUT ./img/hybrid2.png
+INPUT ./img/hybrid2.png
+INPUT ./img/hybrid2.png
+INPUT ./img/hybrid2.png
+INPUT ./img/hybrid2.png
+INPUT ./img/NLQ.png
+INPUT ./img/NLQ.png
+INPUT ./img/NLQ.png
+INPUT ./img/NLQ.png
+INPUT ./img/NLQ.png
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Regular-tlf-t1.tfm
 INPUT ./img/Gemini-cli-architecture.png
 INPUT ./img/Gemini-cli-architecture.png

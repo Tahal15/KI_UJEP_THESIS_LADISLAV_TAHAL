@@ -1,0 +1,42 @@
+graph LR
+    %% -- STYLOVÁNÍ --
+    classDef db fill:#E1F5FE,stroke:#01579B,stroke-width:2px,color:#000;
+    classDef process fill:#F3E5F5,stroke:#4A148C,stroke-width:1px,stroke-dasharray: 5 5,color:#000;
+    classDef app fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#000;
+    classDef cluster style fill:#FAFAFA,stroke:#999,stroke-width:1px,color:#555;
+
+    %% -- STRUKTURA --
+    
+    subgraph DL [Data Lake]
+        direction TB
+        A[("MariaDB")]:::db
+    end
+
+    %% Proces mimo cluster pro úsporu místa
+    Process1("Python ETL <br/>Load & Transform<br/>to Staging"):::process
+
+    subgraph CH [ClickHouse DW]
+        direction LR
+        C[("Staging<br/>Table")]:::db
+        Process2("Python ETL <br/>Cleansing<br/>& Modeling"):::process
+        E[("Facts &<br/>Dims")]:::db
+        
+        %% Vztahy uvnitř DW
+        C --> Process2
+        Process2 --> E
+    end
+
+    subgraph BI [BI Layer]
+        direction LR
+        F["Cube.js<br/>"]:::app
+        G["Apache<br/>Superset"]:::app
+    end
+
+    %% -- HLAVNÍ VZTAHY --
+    A --> Process1
+    Process1 --> C
+    E --> F
+    F --> G
+
+    %% -- Aplikace stylu na subgraph --
+    class DL,CH,BI cluster;

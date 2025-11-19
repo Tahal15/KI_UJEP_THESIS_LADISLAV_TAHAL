@@ -1,0 +1,77 @@
+graph LR
+    %% -- NASTAVENÍ VZHLEDU --
+    %% Použijeme ortogonální čáry (hranaté), působí to v procesech lépe
+    %% Ale pro plynulost toku necháme křivky, jen je lépe navedeme
+    linkStyle default interpolation basis
+
+    %% Definice stylů - čistý "paper" design pro bakalářku
+    classDef user fill:#fff,stroke:#333,stroke-width:3px,color:#000;
+    classDef inputNode fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1;
+    classDef aiNode fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C;
+    classDef dataNode fill:#E8F5E9,stroke:#388E3C,stroke-width:1px,color:#1B5E20;
+    classDef outputNode fill:#FFEBEE,stroke:#D32F2F,stroke-width:1px,color:#B71C1C;
+    
+    %% -- STRUKTURA DIAGRAMU --
+
+    %% 1. Uživatel (Start i Cíl)
+    User((("<b>UŽIVATEL</b><br/>(Iniciátor)")))
+
+    %% 2. Hlavní kontejner pro logiku (aby to drželo pohromadě)
+    subgraph Processing [Architektura NLQ]
+        direction LR
+        
+        %% Horní větev - VSTUP (Body 1, 2, 3)
+        subgraph IN [Vstupní kanál]
+            direction LR
+            Mic("1. Mikrofon<br/>(PyAudio)")
+            STT("2. Speech-to-Text<br/>(Převod na text)")
+        end
+
+        %% Střed - MOZEK (Body 3, 4, 6)
+        LLM{"3. & 6. LLM<br/>(Gemini API)"}
+
+        %% Pravá větev - DATA (Body 4, 5)
+        subgraph DATA [Datová vrstva]
+            direction TB
+            Conn("4. Pyadomd<br/>(Konektor)")
+            DB[("5. OLAP Kostka<br/>(Exekuce)")]
+        end
+
+        %% Spodní větev - VÝSTUP (Body 7)
+        subgraph OUT [Výstupní kanál]
+            direction RL
+            TTS("7. Text-to-Speech<br/>(Převod na hlas)")
+            Speaker("Reproduktor<br/>(Odpověď)")
+        end
+    end
+
+    %% -- PROPOJENÍ DLE BODŮ V TEXTU --
+
+    %% Cesta tam (1 -> 5)
+    User --> Mic
+    Mic --> STT
+    STT -- "Text dotazu" --> LLM
+    
+    LLM -- "Připojení" --> Conn
+    Conn --"Kolik vyrobeno?" --> DB
+
+    %% Cesta zpět (6 -> 7 -> User)
+    DB -.->|"Výsledek (např. 420)"| Conn
+    Conn -.-> LLM
+    
+    LLM -- "Formulace odpovědi" --> TTS
+    TTS --> Speaker
+    Speaker --> User
+
+    %% -- APLIKACE STYLŮ --
+    class User user;
+    class Mic,STT inputNode;
+    class LLM aiNode;
+    class Conn,DB dataNode;
+    class TTS,Speaker outputNode;
+
+    %% Zarovnání stylu subgraphů (průhledné, jen jemný rámeček)
+    style Processing fill:#fafafa,stroke:#ddd,stroke-width:1px;
+    style IN fill:none,stroke:none;
+    style DATA fill:none,stroke:none;
+    style OUT fill:none,stroke:none;

@@ -13,11 +13,11 @@
 \contentsline {subsection}{\nonumberline Ekosystém Apache Software Foundation}{20}{subsection*.18}%
 \contentsline {subsection}{\nonumberline Platforma MariaDB (Community / Enterprise)}{21}{subsection*.20}%
 \contentsline {subsection}{\nonumberline Moderní modulární a hybridní architektury}{21}{subsection*.22}%
-\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{23}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{22}{section.1.3}%
 \contentsline {subsection}{\nonumberline Automatizace a ELT přístup}{23}{subsection*.24}%
 \contentsline {subsection}{\nonumberline Datová governance a kvalita dat}{23}{subsection*.26}%
 \contentsline {subsection}{\nonumberline Dotazování přirozeným jazykem a role LLM}{23}{subsection*.28}%
-\contentsline {subsubsection}{\nonumberline Architektura řešení}{24}{subsubsection*.30}%
+\contentsline {subsubsection}{\nonumberline Architektura řešení}{23}{subsubsection*.30}%
 \contentsline {subsubsection}{\nonumberline Role MCP serverů a Gemini CLI}{24}{subsubsection*.32}%
 \contentsline {subsubsection}{\nonumberline Kontext a praktické využití pro revizi práce}{25}{subsubsection*.34}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{27}{chapter.2}%
