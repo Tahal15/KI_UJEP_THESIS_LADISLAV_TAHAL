@@ -291,25 +291,30 @@ Na trhu existuje široké spektrum nástrojů, od komerčních platforem po open
 Z open-source nástrojů se výrazně prosadily \emph{Apache Superset}, \emph{Grafana} a \emph{Metabase}, které poskytují flexibilní možnosti přizpůsobení, automatizace a integrace.Zajímavým směrem vývoje je i koncept tzv. \emph{sémantické vrstvy} (\emph{semantic layer}). Ta slouží jako překladový můstek mezi technickou strukturou databáze a byznysovým pohledem uživatele. Reprezentantem tohoto přístupu je například framework \emph{Cube.js}, který umožňuje firmám zpřístupnit datový sklad i uživatelům bez hluboké znalosti SQL. \cite{cube2024semantic,heyayush2023cubeintro,datasemlayer2023medium}.
 
 \section{Přehled současných open-source a komerčních řešení}
+\label{sec:prehled_reseni}
 
 V současné době existuje řada komplexních ekosystémů určených pro správu, zpracování a analýzu dat. Tyto ekosystémy zpravidla zahrnují nástroje pro integraci dat (ETL/ELT), datové sklady, OLAP vrstvy a vizualizační rozhraní. Cílem této části je poskytnout rešeršní přehled nejrozšířenějších řešení, která se využívají při budování datových platforem.
 
 Před samotným přehledem je důležité vymezit klíčové pojmy, které budou v práci dále používány. Jedná se především o dělení na \textbf{komerční} a \textbf{open-source} software a dále na \textbf{on-premise} a~\textbf{cloudová} řešení.
 
+\subsection{Klasifikace řešení}
+
 \begin{itemize}
-    \item \textbf{Komerční software} je vyvíjen a distribuován za účelem zisku. Jeho zdrojový kód je zpravidla uzavřený (proprietární) a jeho použití je podmíněno zakoupením licence. Výhodou bývá profesionální podpora, garantovaná kvalita a ucelený ekosystém nástrojů.
-    \item \textbf{Open-source software} poskytuje veřejně dostupný zdrojový kód s právem jej používat, modifikovat a šířit. Zásadní roli však hraje typ konkrétní licence, který určuje další nakládání s dílem.
-\begin{itemize}
-    \item \textit{Permisivní licence} (např. MIT, Apache) jsou maximálně benevolentní a umožňují upravený kód uzavřít a následně jej komerčně prodávat jako proprietární produkt.
-    \item \textit{Copyleftové licence} (např. GPL) naopak vyžadují, aby jakékoliv odvozené dílo nebo úprava byly šířeny pod stejnou svobodnou licencí, čímž je vynuceno, aby zdrojový kód zůstal trvale veřejně přístupný i v budoucích verzích.
-\end{itemize}
-     Mezi obecné výhody open-source softwaru patří nezávislost na dodavateli a možnost auditu bezpečnosti. Nevýhodou mohou být vyšší nároky na technické znalosti při implementaci a nutnost řešit podporu buď komunitně, nebo placenou službou třetí strany.
+    \item \textbf{Komerční software} je software, jehož distribuce a používání je podmíněno zakoupením licence. Jeho \textbf{zdrojový kód je uzavřený (proprietární)}, což znamená, že uživatelé nemají kód k dispozici, nemohou jej prohlížet, modifikovat, ani provádět zpětné inženýrství. Důsledkem je \textbf{nemožnost modifikovat} chování systému a potenciální \textbf{závislost na dodavateli} v otázkách úprav a oprav. Komerční řešení bývají vyvíjena a distribuována za účelem zisku. Výhodou bývá profesionální podpora, garantovaná kvalita a ucelený ekosystém nástrojů.
+
+    \item \textbf{Open-source software} poskytuje uživatelům přístup k veřejně dostupnému zdrojovému kódu a uděluje jim práva k jeho používání, studování, modifikaci a šíření. Klíčovým prvkem je zde \textbf{open-source licence}, která přesně definuje, jakým způsobem lze s dílem a jeho modifikacemi nakládat. \textbf{Detailní pochopení licenčních podmínek je pro praktické nasazení zásadní} (pro přehled a podmínky licencí je nutné nahlédnout do oficiální dokumentace konkrétní licence).
+    \begin{itemize}
+        \item \textit{Permisivní licence} (např. \textbf{MIT}, \textbf{Apache 2.0}) jsou maximálně benevolentní, kladou minimální omezení a obvykle umožňují upravený kód uzavřít a následně komerčně prodávat jako proprietární produkt.
+        \item \textit{Copyleftové licence} (např. \textbf{GPL}) jsou přísnější a vyžadují, aby jakékoliv odvozené dílo nebo úprava byly šířeny pod stejnou svobodnou licencí. Tím je zajištěno, že zdrojový kód zůstane trvale veřejně přístupný i v budoucích verzích.
+    \end{itemize}
+    Mezi obecné výhody open-source softwaru patří nezávislost na dodavateli, nižší počáteční náklady a možnost bezpečnostního auditu komunitou. Nevýhodou mohou být vyšší nároky na technické znalosti při implementaci a nutnost řešit podporu buď komunitně, nebo placenou službou třetí strany.
+
     \item \textbf{On-premise řešení} je provozováno na vlastní infrastruktuře organizace (vlastních serverech). To poskytuje plnou kontrolu nad daty a systémem, ale zároveň vyžaduje vyšší počáteční investice do hardwaru a personálu pro jeho správu.
+
     \item \textbf{Cloudové řešení} je poskytováno jako služba (SaaS, PaaS, IaaS) třetí stranou (např. Microsoft Azure, AWS, Google Cloud). Výhodou je škálovatelnost, platba za skutečné využití (pay-as-you-go) a menší nároky na vlastní IT oddělení. Nevýhodou může být menší kontrola nad infrastrukturou a potenciální závislost na poskytovateli.
 \end{itemize}
 
 Tato klasifikace je zásadní pro pozdější srovnání celkových nákladů na vlastnictví (TCO), kde se projeví rozdíly v licenčních poplatcích, nákladech na infrastrukturu a správu.
-
 \subsection{Microsoft Data Platform (komerční, on-premise/cloud)}
 
 Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v možnosti nasazení jak v tradičním on-premise prostředí, tak v cloudu, případně v hybridním režimu. Komponenty platformy lze rozdělit následovně:
@@ -408,17 +413,21 @@ V současné praxi se stále častěji ustupuje od využívání jednoho monolit
 
 \begin{itemize}
     \item \textbf{Čistě open-source stack:} Tento model kombinuje výhradně open-source komponenty. Typickým příkladem je použití relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) jako datového skladu, nad kterým je postavena sémantická vrstva v podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky a business logiku, kterou následně konzumuje vizualizační nástroj jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana} \cite{cube2024semantic,dbt2024semanticlayer,superset2024docs,metabase2024overview}.
-     \item \textbf{Hybridní stack:} V praxi je velmi běžné kombinovat open-source a komerční technologie, aby se využily výhody obou světů. Častým scénářem je provozování výkonné a nákladově efektivní open-source databáze (např. \emph{MariaDB}, \emph{PostgreSQL}) jako datového skladu, nad nímž je nasazen uživatelsky přívětivý komerční vizualizační nástroj jako \emph{Power BI} nebo \emph{Tableau}. Tento přístup umožňuje optimalizovat náklady na back-end a zároveň poskytnout koncovým uživatelům komfort a pokročilé funkce komerčních platforem.
-
-    
-Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, transparentnost a nezávislost na jednom dodavateli, což umožňuje reagovat na technologické změny a optimalizovat náklady. Společnou slabinou je však vyšší technická složitost. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich licenčních modelů a zajištění vzájemné kompatibility. Pro úspěšnou implementaci je proto klíčová standardizace rozhraní a pečlivé řízení verzí jednotlivých nástrojů.
-
-\begin{figure}[h]
+     
+    \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/Modularita.png}
       \caption{Příklad možné plně open-source sestavy}
       \label{fig:modularita}
     \end{figure}
+    
+    
+    \item \textbf{Hybridní stack:} V praxi je velmi běžné kombinovat open-source a komerční technologie, aby se využily výhody obou světů. Častým scénářem je provozování výkonné a nákladově efektivní open-source databáze (např. \emph{MariaDB}, \emph{PostgreSQL}) jako datového skladu, nad nímž je nasazen uživatelsky přívětivý komerční vizualizační nástroj jako \emph{Power BI} nebo \emph{Tableau}. Tento přístup umožňuje optimalizovat náklady na back-end a zároveň poskytnout koncovým uživatelům komfort a pokročilé funkce komerčních platforem.
+
+    
+Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, transparentnost a nezávislost na jednom dodavateli, což umožňuje reagovat na technologické změny a optimalizovat náklady. Společnou slabinou je však vyšší technická složitost. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich licenčních modelů a zajištění vzájemné kompatibility. Pro úspěšnou implementaci je proto klíčová standardizace rozhraní a pečlivé řízení verzí jednotlivých nástrojů.
+
+
 
    
     \begin{figure}[h]
@@ -429,8 +438,6 @@ Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, t
     \end{figure}
 \end{itemize}
 
-
-\clearpage
 
 \section{Analýza trendů v implementaci}
 
