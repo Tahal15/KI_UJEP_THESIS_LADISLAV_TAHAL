@@ -2424,6 +2424,8 @@
     <bcf:citekey order="21" intorder="1">cube2024semantic</bcf:citekey>
     <bcf:citekey order="21" intorder="2">dbt2024semanticlayer</bcf:citekey>
     <bcf:citekey order="21" intorder="3">looker2024semanticmodel</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">rfc8259</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">mining_massive_datasets</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

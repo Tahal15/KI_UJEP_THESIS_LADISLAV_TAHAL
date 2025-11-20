@@ -781,10 +781,12 @@ Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relač
 \\ 
 \bottomrule
 
+\clearpage
+
 % ==========================================
 % 2. VRSTVA: OLAP
 % ==========================================
-\\ [1em] % Mezera mezi tabulkami
+\\ [0.2em] % Mezera mezi tabulkami
 \toprule
 \rowcolor{gray!20}
 \multicolumn{2}{c}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\ 
@@ -825,6 +827,13 @@ Power BI je komerční analytický nástroj od společnosti Microsoft, který p�
 
 \end{longtable}
 
+% --- MANUÁLNÍ VLOŽENÍ VAKÁTU (PRÁZDNÉ STRÁNKY) ---
+\clearpage              % 1. Ukončí stránku s tabulkou
+\thispagestyle{empty}   % 2. Zruší záhlaví a číslování na té prázdné stránce
+\hbox{}                 % 3. Vloží "neviditelný" box (aby LaTeX stránku nevyhodil jako prázdnou)
+\newpage                % 4. Vynutí přechod na další
+% -------------------------------------------------
+
 \chapter{Praktická část}
 
 Praktická část této práce se zaměřuje na návrh, implementaci a ověření metodiky pro srovnání open-source a komerčních nástrojů využitelných pro analýzu a vizualizaci dat na datové platformě Portabo. Cílem bylo vytvořit plně funkční datový sklad s podporou OLAP analýz, který umožňuje zpracovávat reálná data poskytovaná datovým centrem Ústeckého kraje a připravit prostředí pro následné výkonové a funkční porovnání vizualizačních nástrojů.
@@ -856,7 +865,7 @@ Těmito postupy bylo zajištěno, že identická datová základna (datové jeze
 
   \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{img/SQLDump.png}
+  \includegraphics[width=\textwidth]{img/sqldump_v2.png}
   \caption{Aktivity diagram nahrání MariaSQL dumpu do odlišných databází.}
   \label{fig:sqldump}
 \end{figure}
@@ -905,12 +914,11 @@ Z těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamick
 
 \subsubsection{Automatizovaná analýza JSON struktur}
 
-Pro systematickou analýzu JSON struktur byl vytvořen vlastní skript v jazyce Python, \texttt{analyze\_json.py}. Tento skript seskupuje MQTT témata do logických celků na základě strukturální podobnosti jejich JSON schémat ve sloupci \texttt{payload}.
+Pro systematickou analýzu JSON~\cite{rfc8259} struktur byl vytvořen vlastní skript v~jazyce Python, \texttt{analyze\_json.py}. Tento skript seskupuje MQTT témata do logických celků na základě strukturální podobnosti jejich JSON schémat ve sloupci \texttt{payload}.
 
-K porovnání struktury dvou JSON objektů byla využita \textbf{Jaccardova podobnost}, která měří poměr velikosti průniku a sjednocení množin jejich klíčů. Analýza s prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v několika atributech – pravděpodobně kvůli odlišným verzím firmwaru. Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
+K~porovnání struktury dvou JSON objektů byla využita \textbf{Jaccardova podobnost}~\cite{mining_massive_datasets}, která měří poměr velikosti průniku a sjednocení množin jejich klíčů. Analýza s~prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v~několika atributech – pravděpodobně kvůli odlišným verzím firmwaru. Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
 
 Výstupem této první fáze analýzy jsou skupiny témat, které sdílejí podobnou datovou strukturu, jak je znázorněno na obrázku \ref{fig:topic_groups_initial}.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/topic50.png}
@@ -1164,72 +1172,114 @@ Třetí, komplexnější dotaz s několika `JOIN` operacemi a `WHERE` klauzulí,
 
 Poslední dotaz testoval schopnost databází zpracovat moderní SQL konstrukce jako Common Table Expressions (CTE) a okenní funkce. Graf \ref{fig:srovnani5} ukazuje, že databáze jako ClickHouse a MS SQL Server mají vysoce vyspělé optimalizátory, které si s touto komplexitou poradí efektivně. Naopak extrémně špatný výsledek řádkové MariaDB naznačuje, že její engine není pro tento typ analytických operací navržen a optimalizován.
 
-\subsubsection{Interpretace výsledků}
+\subsubsection{Interpretace výsledků databázové vrstvy}
 Souhrnná analýza grafů demonstruje několik klíčových zjištění:
 \begin{itemize}
-    \item \textbf{Nezbytnost sloupcového úložiště:} Nejvýraznějším poznatkem je propastný rozdíl ve výkonu mezi řádkovým a sloupcovým úložištěm pro analytické dotazy. U \textbf{MariaDB} se časy u komplexních dotazů zkrátily z více než 100 sekund na jednotky sekund. To jednoznačně potvrzuje, že pro seriózní BI je použití sloupcového enginu (nebo nativní sloupcové databáze) absolutní nutností.
-    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse}, jako databáze od základu navržená pro OLAP, dosahovala ve všech testech vynikajících výsledků a u většiny dotazů byla nejrychlejší. Její časy se konzistentně pohybovaly pod jednou sekundou.
-    \item \textbf{Výkon komerčního řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a u dotazu č. 3 (spojení více tabulek s filtrem) byl dokonce nejrychlejší. 
-    \item \textbf{Role PostgreSQL:} PostgreSQL s rozšířením TimescaleDB, ačkoliv je optimalizován pro časové řady, v tomto obecném analytickém benchmarku zaostával za nativními sloupcovými řešeními. Jeho výkon byl sice výrazně lepší než u řádkové MariaDB, ale na ClickHouse či MS SQL Columnstore nestačil.
+    \item \textbf{Nezbytnost sloupcového úložiště:} Nejvýraznějším poznatkem je propastný rozdíl ve výkonu mezi řádkovým a sloupcovým úložištěm. U \textbf{MariaDB} se časy u komplexních dotazů zkrátily z více než 100 sekund na jednotky sekund. To potvrzuje, že pro seriózní BI je použití sloupcového enginu absolutní nutností.
+    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse}, jako databáze od základu navržená pro OLAP, dosahovala ve všech testech vynikajících výsledků a u většiny dotazů byla nejrychlejší s časy konzistentně pod jednou sekundou.
+    \item \textbf{Výkon komerčního řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a u dotazu č. 3 byl dokonce nejrychlejší. 
+    \item \textbf{Role PostgreSQL:} PostgreSQL s rozšířením TimescaleDB, ačkoliv je optimalizován pro časové řady, v tomto obecném analytickém benchmarku zaostával za nativními sloupcovými řešeními.
 \end{itemize}
 
-\subsection{Srovnání výkonu na úrovni BI nástrojů a role pre-agregací}
+\subsection{Srovnání výkonu a architektury BI nástrojů}
 
 Druhá fáze testování se zaměřila na rychlost odezvy z pohledu koncového uživatele. Zde se ukázaly zásadní rozdíly plynoucí z odlišných architektur obou řešení.
 
-\textbf{Komerční varianta (Power BI + MS SSAS)} funguje na principu \textbf{MOLAP (Multidimensional OLAP)}. Data z datového skladu jsou předem zpracována a kompletně načtena do tabulárního modelu v operační paměti. To sice vyžaduje delší čas při prvotním zpracování modelu, ale veškeré následné interakce uživatele v reportu (filtrování, proklikávání) jsou téměř okamžité (<1s), protože se počítají pouze nad daty v rychlé RAM. Pro koncového uživatele je tento prožitek velmi plynulý a komfortní.
-
-\textbf{Open-source varianta (Superset + Cube.js)} naopak ve výchozím stavu pracuje na principu \textbf{ROLAP (Relational OLAP)}. Každý vizuální prvek na dashboardu generuje v reálném čase SQL dotaz, který je odeslán do databáze. Rychlost odezvy je tak přímo závislá na výkonu podkladové databáze. Jak ukázal test, při napojení na ClickHouse byly odezvy rychlé a srovnatelné s komerčním řešením.
-
-\subsubsection{Vysvětlení nekonzistentního výkonu pre-agregací}
-
-Během testování open-source varianty se podařilo zprovoznit \textbf{pre-agregace} v Cube.js, což vedlo k výraznému zrychlení. Byl však pozorován nekonzistentní výkon: někdy se dashboard obnovil za \textbf{2 sekundy}, jindy za \textbf{7 sekund}. Tento jev je klíčový pro pochopení fungování moderních BI akceleračních vrstev.
-
-Příčinou je způsob, jakým Cube.js spravuje své pre-agregační tabulky (předpočítané, sumarizované tabulky):
 \begin{itemize}
-    \item \textbf{Rychlá odezva (2s):} Nastává ve chvíli, kdy Cube.js obdrží dotaz a zjistí, že pro něj existuje již \textbf{postavená a platná pre-agregace}. V takovém případě se vůbec nedotazuje hlavní databáze (ClickHouse), ale vrátí výsledek přímo z této malé, optimalizované sumarizační tabulky. To je extrémně rychlé.
-    \item \textbf{Pomalá odezva (7s):} Nastává tehdy, pokud pre-agregace ještě neexistuje, nebo ji Cube.js vyhodnotí jako \textbf{zastaralou} (neaktuální). To se děje na základě pravidla `refreshKey`, které periodicky kontroluje, zda se zdrojová data nezměnila. Pokud ano, Cube.js musí pre-agregaci \textbf{znovu postavit}. Těchto 7 sekund tedy nepředstavuje čas dotazu uživatele, ale čas, který Cube.js potřeboval na pozadí ke spuštění dotazu proti velké faktové tabulce v ClickHouse, aby vytvořil novou, aktuální pre-agregační tabulku. Jakmile je jednou postavena, všechny další identické dotazy jsou opět rychlé (2s), dokud `refreshKey` opět nevyvolá její obnovu.
+    \item \textbf{Komerční varianta (Power BI + MS SSAS) -- MOLAP In-Memory}
+    \begin{itemize}
+        \item \textbf{Princip:} Data jsou z datového skladu předem zpracována a kompletně načtena do tabulárního modelu v operační paměti (RAM).
+        \item \textbf{Výhody:} Extrémní rychlost odezvy ($<1$ s u náročných vizuálů, $\sim 100$ ms u běžných). Dotazy nečekají na I/O operace disku, což poskytuje maximální uživatelský komfort. Výkon je dostupný „out-of-the-box“.
+        \item \textbf{Nevýhody:} Omezení velikostí operační paměti serveru a fakt, že data nejsou živá (nutnost periodického refreshe modelu).
+    \end{itemize}
+
+    \item \textbf{Open-source varianta (Superset + Cube.js) -- ROLAP}
+    \begin{itemize}
+        \item \textbf{Princip:} Pracuje nad daty v databázi. Každý vizuální prvek generuje SQL dotaz v reálném čase.
+        \item \textbf{Výhody:} Obrovská škálovatelnost (terabajty dat) a flexibilita architektury (možnost výměny DB enginu, např. ClickHouse). Nulové licenční náklady.
+        \item \textbf{Nevýhody:} Nižší hrubý výkon oproti in-memory řešení. Vysoká náročnost na optimalizaci (indexy, partitioning) a správu pre-agregací.
+    \end{itemize}
 \end{itemize}
 
-\subsection{Shrnutí a interpretace}
+\subsubsection{Klíčová role pre-agregací v open-source stacku}
 
-Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury klíčová. Komerční řešení (Power BI + SSAS) nabízí vynikající výkon a uživatelský prožitek „out-of-the-box“ díky své propracované in-memory (MOLAP) architektuře.
+Během testování open-source varianty se ukázalo jako klíčové nasazení \textbf{pre-agregací} v Cube.js.
 
-Open-source stack (Superset + Cube.js) dokáže nabídnout srovnatelný výkon, ale pouze za předpokladu, že je postaven nad vysoce výkonnou analytickou databází jako ClickHouse, nebo pokud jsou správně nakonfigurovány a spravovány \textbf{pre-agregace}. Právě zkušenost s pre-agregacemi ukázala, že ačkoliv jsou extrémně mocným nástrojem, jejich zprovoznění a pochopení jejich chování (cykly obnovování) vyžaduje hlubší technické znalosti. To potvrzuje závěr, že open-source řešení nabízejí obrovskou flexibilitu a škálovatelnost, avšak za cenu vyšších nároků na expertizu a čas věnovaný ladění.
+Bez nich byla odezva závislá čistě na výkonu databáze (u ClickHouse cca \textbf{5 sekund}). Implementace pre-agregací – tedy malých, předpočítaných sumarizačních tabulek – umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
 
+\subsection{Závěrečné shrnutí výsledků}
+
+Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury rozhodující.
+
+Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu „out-of-the-box“. Měření ukázala prakticky okamžité reakce: vykreslení nejnáročnějšího grafu trvalo přibližně \textbf{1 sekundu}, zatímco ostatní vizualizace se načítaly v řádu \textbf{100 ms}.
+
+\clearpage
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/PowerBI - analyzer.png}
+  \caption{Power BI Performance Analyzer - analýza vykreslování}
+  \label{fig:srovnani5}
+\end{figure}
+
+Open-source stack (Superset + Cube.js) se tomuto výkonu dokázal přiblížit, ale pouze za cenu výrazného ladění. Kombinace databáze MariaDB ColumnStore s pre-agregacemi dosáhla času \textbf{2 sekundy}. 
+
+Ačkoliv je tento výsledek pro open-source řešení úspěchem, k extrémnímu výkonu SSAS (100 ms) se nepřiblížilo. Tento rozdíl není chybou konfigurace, ale důsledkem fyzikálních limitů architektur. Zatímco SSAS čte předpočítaná data přímo z operační paměti (MOLAP), open-source řešení – i přes veškeré optimalizace – naráží na limity ROLAP přístupu, který vyžaduje překlad na SQL a komunikaci s databází či pre-agregační vrstvou.
+
+Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
 \subsection{Analýza celkových nákladů na vlastnictví (TCO)}
 
-Analýza celkových nákladů na vlastnictví (Total Cost of Ownership, TCO) je klíčovým faktorem při rozhodování o implementaci datové platformy. Zahrnuje nejen přímé náklady (licence, hardware, software), ale i nepřímé náklady (údržba, školení, expertíza, čas). V kontextu open-source a komerčních řešení se tyto náklady významně liší.
+Vzhledem k tomu, že praktická část této práce ověřovala široké spektrum technologií – od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) – je nutné náklady hodnotit v širším kontextu.
 
-\subsubsection{Open-source řešení (MariaDB, ClickHouse, Superset)}
+TCO v tomto případě dělíme na tři hlavní složky: \textbf{Licenční náklady}, \textbf{Infrastrukturní náklady} a \textbf{Náklady na lidský kapitál}.
+
+\subsubsection{Náklady na implementaci a lidský kapitál}
+Tradiční předpoklad, že open-source řešení vyžadují výrazně vyšší úsilí při integraci se v kontextu této práce \textbf{nepotvrdil}.
+
 \begin{itemize}
-    \item \textbf{Nižší přímé náklady:} Open-source software je zpravidla zdarma, což eliminuje licenční poplatky. Náklady na hardware mohou být nižší díky efektivnějšímu využití zdrojů nebo možnosti provozu na méně výkonném hardware.
-    \item \textbf{Vyšší nepřímé náklady:}
-    \begin{itemize}
-        \item \textbf{Expertíza a vývoj:} Implementace a správa open-source řešení vyžaduje vyšší úroveň technické expertízy. Organizace musí investovat do školení vlastních zaměstnanců nebo najmout externí specialisty. Vývoj customizovaných řešení a integrace různých komponent může být časově náročný.
-        \item \textbf{Údržba a podpora:} Podpora je často komunitní, což může vést k delším dobám řešení problémů. Pro kritické systémy je nutné zvážit placenou podporu od třetích stran, což zvyšuje TCO.
-        \item \textbf{Časová náročnost:} Počáteční nastavení a konfigurace mohou trvat déle kvůli nutnosti integrace různých nástrojů a absenci jednotného ekosystému.
-    \end{itemize}
-    \item \textbf{Flexibilita a vendor lock-in:} Vysoká flexibilita a minimální riziko vendor lock-in jsou významnými výhodami, které se však projevují v nepřímých nákladech na správu a integraci.
+    \item \textbf{Srovnatelná pracnost implementace:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
+    \item \textbf{Rozdíl v expertíze:} Hlavní rozdíl tedy nespočívá v objemu práce, ale v typu požadované znalosti. Zatímco správa MSSQL je na trhu běžnou komoditou, efektivní konfigurace \textbf{MariaDB Columnstore} technologie nebo ladění \textbf{Cube.js} schémat vyžaduje specifičtější, a často dražší, know-how.
 \end{itemize}
 
-\subsubsection{Komerční řešení (MSSQL, Power BI)}
+\subsubsection{Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}
 \begin{itemize}
-    \item \textbf{Vyšší přímé náklady:} Komerční software vyžaduje nákup licencí, které mohou být značně drahé, zejména pro velké podniky. Náklady na hardware mohou být také vyšší, pokud je vyžadován specifický hardware pro optimální výkon.
-    \item \textbf{Nižší nepřímé náklady:}
-    \begin{itemize}
-        \item \textbf{Integrovaná podpora a ekosystém:} Komerční řešení často nabízejí komplexní podporu od dodavatele, pravidelné aktualizace a dobře integrovaný ekosystém nástrojů. To snižuje potřebu interní expertízy a zkracuje dobu řešení problémů.
-        \item \textbf{Předvídatelnost a rychlost implementace:} Díky uceleným balíkům a profesionální podpoře je implementace často rychlejší a předvídatelnější.
-        \item \textbf{Školení a dokumentace:} Komerční produkty mají obvykle rozsáhlou dokumentaci a dostupné školicí programy, což usnadňuje zaškolení uživatelů.
-    \end{itemize}
-    \item \textbf{Vendor lock-in:} Riziko vendor lock-in je vyšší, což může omezit budoucí flexibilitu a vyjednávací pozici s dodavatelem.
+    \item \textbf{Licence:} Nulové přímé náklady (Apache 2.0, MIT, GPL). Umožňuje neomezené horizontální škálování bez růstu administrativních nákladů.
+    \item \textbf{Hardware:} Vysoká efektivita. Sloupcové databáze jako ClickHouse streamují data z disku a nevyžadují, aby se celý datový model vešel do operační paměti. To umožňuje dosahovat vysokého výkonu i na levnějším hardwaru.
 \end{itemize}
 
-\subsubsection{Závěr TCO analýzy}
-Volba mezi open-source a komerčním řešením závisí na strategii organizace, dostupných zdrojích a úrovni interní expertízy. Open-source řešení nabízejí úsporu na licenčních poplatcích, ale vyžadují značné investice do lidských zdrojů a času. Komerční řešení sice přinášejí vyšší počáteční náklady, ale mohou nabídnout rychlejší implementaci, nižší nároky na interní IT tým a vyšší předvídatelnost provozu díky komplexní podpoře. Pro platformu Portabo, která cílí na efektivní datovou analytiku bez nutnosti vysoké IT expertízy, by hybridní přístup kombinující silné stránky obou světů mohl představovat optimální řešení, kde se open-source komponenty využijí pro datový sklad a komerční pro vizualizaci.
+\subsubsection{Ekonomika komerčního řešení (Microsoft Stack)}
+U varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantní složku TCO. 
 
+\begin{itemize}
+    \item \textbf{SQL Server – Licenční model:}
+    Pro backend (DB + SSAS) se nabízí dva modely, přičemž pro veřejnou analytickou platformu je obvykle nutný model \textbf{Per Core}:
+    \begin{itemize}
+        \item \textbf{SQL Server Standard:} Cena se pohybuje okolo \textbf{3 500 -- 4 000 USD} za balík 2 jader. Tato edice je však limitována maximálně \textbf{128 GB RAM} pro databázový engine a \textbf{64 GB RAM} pro SSAS (Tabular).
+        \item \textbf{SQL Server Enterprise:} Pro využití větší paměti (nutné pro velké in-memory modely) je nutná Enterprise edice, kde cena strmě stoupá (cca \textbf{15 000 USD} za 2 jádra).
+    \end{itemize}
 
-\section{Zhodnocení výsledků}
+    \item \textbf{Infrastrukturní dopad (In-Memory daň):}
+    Jelikož SSAS Tabular drží data v paměti, naráží u velkých objemů dat (Big Data) na hardwarové a licenční limity. Pokud datový model přesáhne 64 GB (limit Standard edice), organizace je nucena přejít na násobně dražší Enterprise edici, což skokově zvyšuje TCO.
+
+    \item \textbf{Power BI (Vizualizace):}
+    Zatímco Superset je zdarma pro libovolný počet uživatelů, Power BI účtuje poplatky za sdílení reportů:
+    \begin{itemize}
+        \item \textbf{Power BI Pro:} Cca \textbf{13 USD / uživatel / měsíc}.
+        \item \textbf{Power BI Premium:} Cca \textbf{23 USD / uživatel / měsíc}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Závěrečné porovnání}
+
+Analýza ukázala, že zatímco pracnost implementace (ETL v Pythonu) je u obou řešení srovnatelná, ekonomické nůžky se rozevírají při škálování:
+
+\begin{itemize}
+    \item \textbf{Komerční řešení} je ekonomicky výhodné pro menší datové modely (do limitu RAM edice Standard) a uzavřené skupiny uživatelů. Poskytuje komfort integrovaného prostředí.
+    \item \textbf{Open-source řešení} (ClickHouse + Cube.js) má zpočátku vyšší nároky na specifickou expertízu, ale s růstem objemu dat se stává výrazně levnějším. Neexistuje zde "skokový" náklad při přechodu na vyšší edici a neplatí se za pasivní konzumenty reportů.
+\end{itemize}
+
+DOPSAT!!
+
 
 Na základě provedené analýzy budou jednotlivé technologie porovnány z hlediska:
 \begin{itemize}

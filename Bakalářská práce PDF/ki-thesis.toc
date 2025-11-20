@@ -50,31 +50,35 @@
 \contentsline {subsection}{\nonumberline Porovnání přístupů}{51}{subsection*.72}%
 \contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{52}{section.3.5}%
 \contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni databáze}{52}{subsection*.74}%
-\contentsline {subsubsection}{\nonumberline Interpretace výsledků}{56}{subsubsection*.76}%
-\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni BI nástrojů a role pre-agregací}{57}{subsection*.78}%
-\contentsline {subsubsection}{\nonumberline Vysvětlení nekonzistentního výkonu pre-agregací}{57}{subsubsection*.80}%
-\contentsline {subsection}{\nonumberline Shrnutí a interpretace}{57}{subsection*.82}%
+\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{56}{subsubsection*.76}%
+\contentsline {subsection}{\nonumberline Srovnání výkonu a architektury BI nástrojů}{57}{subsection*.78}%
+\contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v open-source stacku}{57}{subsubsection*.80}%
+\contentsline {subsection}{\nonumberline Závěrečné shrnutí výsledků}{57}{subsection*.82}%
 \contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{58}{subsection*.84}%
-\contentsline {subsubsection}{\nonumberline Open-source řešení (MariaDB, ClickHouse, Superset)}{58}{subsubsection*.86}%
-\contentsline {subsubsection}{\nonumberline Komerční řešení (MSSQL, Power BI)}{58}{subsubsection*.88}%
-\contentsline {subsubsection}{\nonumberline Závěr TCO analýzy}{59}{subsubsection*.90}%
-\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{59}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Využití AI pro validaci a revizi textu}{59}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{61}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{63}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{64}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{65}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{66}{subsection*.92}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{67}{subsection*.94}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{68}{subsection*.96}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{69}{subsection*.98}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{69}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{69}{subsection*.100}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{70}{subsection*.102}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{70}{subsection*.104}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{70}{subsection*.106}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{73}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{75}{chapter.7}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{58}{subsubsection*.86}%
+\contentsline {subsubsection}{\nonumberline Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}{59}{subsubsection*.88}%
+\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{59}{subsubsection*.90}%
+\contentsline {subsubsection}{\nonumberline Závěrečné porovnání}{60}{subsubsection*.92}%
+\contentsline {section}{\numberline {3.6}Využití AI pro validaci a revizi textu}{60}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{63}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Citace}{65}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Označování citací}{66}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bibliografický záznam}{67}{section.5.2}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{68}{subsection*.94}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{69}{subsection*.96}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{70}{subsection*.98}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{71}{subsection*.100}%
+\contentsline {section}{\numberline {5.3}Často kladené otázky}{71}{section.5.3}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{71}{subsection*.102}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{72}{subsection*.104}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{72}{subsection*.106}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{72}{subsection*.108}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{75}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{77}{chapter.7}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -136,6 +140,6 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{79}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{81}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{81}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{83}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

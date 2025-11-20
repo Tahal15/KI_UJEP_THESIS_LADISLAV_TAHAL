@@ -1,0 +1,54 @@
+@startuml
+' Nastavení vzhledu (monochromatické pro tisk, stíny vypnuty)
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultTextAlignment center
+
+start
+
+' 1. NOVÁ ČÁST: Vstup z Portabo
+:Datová platforma Portabo;
+
+:SQL Dump MariaDB;
+
+:HeidiSQL File -> Load SQL File;
+
+:Import dat do dočasné instance MariaDB;
+
+' Rozdělení procesu (Fork)
+fork
+
+  ' Větev 1: MSSQL (Původní)
+  partition "MSSQL Cíl" {
+    :Export dat do CSV (SELECT... INTO OUTFILE);
+    :Ošetření uvozovek v JSON datech;
+    :CSV soubor validní;
+    :Omezení RAM pro MSSQL instanci;
+    :Import do MSSQL (BULK INSERT);
+    :Microsoft SQL Server naplněn;
+  }
+
+fork again
+
+  ' Větev 2: PostgreSQL (Původní)
+  partition "PostgreSQL Cíl" {
+    :Spuštění pgloader v Docker kontejneru;
+    :Konfigurace pgloader (Připojení, Optimalizace,\nPřetypování);
+    :Migrace dat přes pgloader;
+    :PostgreSQL naplněno;
+  }
+
+fork again
+
+  ' Větev 3: MariaDB (NOVÁ - Prázdná/Přímá)
+  partition "MariaDB Cíl" {
+    ' Zde není žádná transformace
+    :Nativní kompatibilita;
+    :MariaDB naplněna;
+  }
+
+end fork
+
+stop
+
+@enduml

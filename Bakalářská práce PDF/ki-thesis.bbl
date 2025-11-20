@@ -651,6 +651,91 @@
       \verb https://cloud.google.com/looker/docs/semantic-model-overview
       \endverb
     \endentry
+    \entry{rfc8259}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=3e2f0f38495aebf8b91a698c2ccbfae3}{%
+           family={Bray},
+           familyi={B\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Internet Engineering Task Force (IETF)}%
+      }
+      \list{publisher}{1}{%
+        {RFC Editor}%
+      }
+      \strng{namehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{fullhash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{fullhashraw}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{bibnamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorbibnamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authornamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorfullhash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorfullhashraw}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Internet Requests for Comments}
+      \field{month}{12}
+      \field{note}{Dostupné online}
+      \field{number}{8259}
+      \field{title}{The JavaScript Object Notation (JSON) Data Interchange Format}
+      \field{type}{RFC}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.rfc-editor.org/rfc/rfc8259.txt
+      \endverb
+      \verb{url}
+      \verb https://www.rfc-editor.org/rfc/rfc8259.txt
+      \endverb
+    \endentry
+    \entry{mining_massive_datasets}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=900d107125ff0ca84698cb909e4f6c51}{%
+           family={Leskovec},
+           familyi={L\bibinitperiod},
+           given={Jure},
+           giveni={J\bibinitperiod}}}%
+        {{hash=45500b3dfad3d2cf0ce07cd00149af68}{%
+           family={Rajaraman},
+           familyi={R\bibinitperiod},
+           given={Anand},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cafe1d770c56825ebccdb81e9f7c9b3b}{%
+           family={Ullman},
+           familyi={U\bibinitperiod},
+           given={Jeffrey\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{908fe1724df35af8b8071b559533f902}
+      \strng{fullhash}{908fe1724df35af8b8071b559533f902}
+      \strng{fullhashraw}{908fe1724df35af8b8071b559533f902}
+      \strng{bibnamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorbibnamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authornamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorfullhash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorfullhashraw}{908fe1724df35af8b8071b559533f902}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{978-1108476348}
+      \field{note}{Kapitola 3: Finding Similar Items}
+      \field{title}{Mining of Massive Datasets}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb http://www.mmds.org/
+      \endverb
+      \verb{url}
+      \verb http://www.mmds.org/
+      \endverb
+    \endentry
   \enddatalist
   \missing{apachekylin2024}
 \endrefsection
