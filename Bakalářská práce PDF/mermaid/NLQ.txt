@@ -1,76 +1,92 @@
 graph LR
     %% -- NASTAVENÍ VZHLEDU --
-    %% Použijeme ortogonální čáry (hranaté), působí to v procesech lépe
-    %% Ale pro plynulost toku necháme křivky, jen je lépe navedeme
     linkStyle default interpolation basis
 
-    %% Definice stylů - čistý "paper" design pro bakalářku
+    %% Definice barev a stylů (Jemný, "bakalářský" styl)
     classDef user fill:#fff,stroke:#333,stroke-width:3px,color:#000;
     classDef inputNode fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1;
     classDef aiNode fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C;
     classDef dataNode fill:#E8F5E9,stroke:#388E3C,stroke-width:1px,color:#1B5E20;
     classDef outputNode fill:#FFEBEE,stroke:#D32F2F,stroke-width:1px,color:#B71C1C;
-    
+    classDef txtNode fill:#FFF3E0,stroke:#F57C00,stroke-width:1px,stroke-dasharray: 5 5,color:#E65100;
+
     %% -- STRUKTURA DIAGRAMU --
 
-    %% 1. Uživatel (Start i Cíl)
-    User((("<b>UŽIVATEL</b><br/>(Iniciátor)")))
+    %% 1. Uživatel
+    User((("<b>UŽIVATEL</b>")))
 
-    %% 2. Hlavní kontejner pro logiku (aby to drželo pohromadě)
-    subgraph Processing [Architektura NLQ]
+    %% Hlavní kontejner
+    subgraph Processing [ ]
         direction LR
         
-        %% Horní větev - VSTUP (Body 1, 2, 3)
+        %% --- VSTUPY ---
         subgraph IN [Vstupní kanál]
-            direction LR
+            direction TB
+            %% Varianta A: Hlas
             Mic("1. Mikrofon<br/>(PyAudio)")
-            STT("2. Speech-to-Text<br/>(Převod na text)")
+            STT("2. Speech-to-Text<br/>(Převod)")
+            %% Varianta B: Text
+            TxtIn("1. Textový vstup<br/>(Alternativa)")
         end
 
-        %% Střed - MOZEK (Body 3, 4, 6)
+        %% --- MOZEK ---
         LLM{"3. & 6. LLM<br/>(Gemini API)"}
 
-        %% Pravá větev - DATA (Body 4, 5)
+        %% --- DATA ---
         subgraph DATA [Datová vrstva]
             direction TB
             Conn("4. Pyadomd<br/>(Konektor)")
-            DB[("5. OLAP Kostka<br/>(Exekuce)")]
+            DB[("5. OLAP nebo DWH<br/>(Exekuce)")]
         end
 
-        %% Spodní větev - VÝSTUP (Body 7)
+        %% --- VÝSTUPY ---
         subgraph OUT [Výstupní kanál]
-            direction RL
-            TTS("7. Text-to-Speech<br/>(Převod na hlas)")
-            Speaker("Reproduktor<br/>(Odpověď)")
+            direction TB
+            %% Primární výstup
+            Display("7. Textová odpověď<br/>(Zobrazení)")
+            %% Volitelný výstup
+            TTS("7. Text-to-Speech<br/>(Převod)")
+            Speaker("7. Reproduktor<br/>(Audio)")
         end
     end
 
-    %% -- PROPOJENÍ DLE BODŮ V TEXTU --
+    %% -- PROPOJENÍ --
 
-    %% Cesta tam (1 -> 5)
-    User --> Mic
+    %% Vstupní větev HLAS
+    User -- "Hlas" --> Mic
     Mic --> STT
-    STT -- "Text dotazu" --> LLM
+    STT --> LLM
     
-    LLM -- "Připojení" --> Conn
-    Conn --"Kolik vyrobeno?" --> DB
+    %% Vstupní větev TEXT
+    User -- "Text" --> TxtIn
+    TxtIn --> LLM
 
-    %% Cesta zpět (6 -> 7 -> User)
-    DB -.->|"Výsledek (např. 420)"| Conn
+    %% Proces AI -> Data
+    LLM -- "4. Generování" --> Conn
+    Conn -- "SQL/DAX" --> DB
+
+    %% Návrat dat (Tečkovaně = nesou data zpět)
+    DB -.->|"Výsledek"| Conn
     Conn -.-> LLM
     
-    LLM -- "Formulace odpovědi" --> TTS
+    %% Výstupní proces
+    LLM -- "6. Formulace" --> Display
+    
+    Display -- "Čtení" --> User
+    Display -.->|"Pokud hlas"| TTS
     TTS --> Speaker
-    Speaker --> User
+    Speaker -- "Poslech" --> User
 
     %% -- APLIKACE STYLŮ --
     class User user;
     class Mic,STT inputNode;
+    class TxtIn txtNode;
     class LLM aiNode;
     class Conn,DB dataNode;
     class TTS,Speaker outputNode;
+    class Display txtNode;
 
-    %% Zarovnání stylu subgraphů (průhledné, jen jemný rámeček)
+    %% Styly rámečků (neviditelné nebo jemné)
     style Processing fill:#fafafa,stroke:#ddd,stroke-width:1px;
     style IN fill:none,stroke:none;
     style DATA fill:none,stroke:none;

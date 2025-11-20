@@ -9,6 +9,12 @@
 % edu_ing
 
 \documentclass[male,czech,api_bc]{kitheses}
+\usepackage{booktabs}   % Pro hezčí vodorovné čáry
+\usepackage{ragged2e}   % Pro inteligentní zarovnání vlevo (neláme ošklivě slova)
+\usepackage{array}      % Pro lepší definici sloupců
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{xcolor}
 \usepackage{ifthen}
 \usepackage{enumitem}
 \usepackage{amsmath,amssymb}
@@ -457,20 +463,38 @@ Implementace těchto principů je klíčová nejen z hlediska efektivity, ale i 
 
 \subsection{Dotazování přirozeným jazykem a role LLM}
 
-V posledních letech lze pozorovat výrazný rozvoj velkých jazykových modelů (LLM, \emph{Large Language Models}) a jejich integraci do analytických platforem. Tento trend, často označovaný jako \emph{Natural Language Querying} (NLQ), slibuje revoluci ve způsobu, jakým uživatelé interagují s daty. Místo psaní složitých SQL dotazů nebo manuálního proklikávání dashboardů mohou uživatelé pokládat otázky v přirozeném jazyce, a to i hlasem.
+V tomto roce lze pozorovat výrazný rozvoj velkých jazykových modelů (LLM, \emph{Large Language Models}) a jejich integraci do analytických platforem. Tento trend, často označovaný jako \emph{Natural Language Querying} (NLQ), slibuje revoluci ve způsobu, jakým uživatelé interagují s daty. Místo psaní složitých SQL dotazů nebo manuálního proklikávání dashboardů mohou uživatelé pokládat otázky v přirozeném jazyce, a to jak v psané formě (zadáním textu), tak i hlasem.
+
 
 \subsubsection{Architektura řešení}
 
-Systém pro dotazování přirozeným jazykem je komplexní architektura složená z několika komponent, které spolupracují na transformaci lidské řeči na strojově čitelný dotaz a zpět na srozumitelnou odpověď. Typický proces lze popsat v následujících krocích:
+Systém pro dotazování přirozeným jazykem (NLQ) představuje komplexní architekturu složenou z několika komponent, které spolupracují na transformaci lidské řeči či psaného textu na strojově čitelný dotaz a následně zpět na srozumitelnou odpověď.
+
+Níže popsaná architektura vychází z návrhu, který autor implementoval v praxi v rámci firemního prostředí. Toto řešení vzniklo jako reakce na limity standardních dashboardů v nástroji Power BI, konkrétně na časovou náročnost (latenci) při získávání specifických ad-hoc informací. Navržený koncept kombinuje hlasové i textové rozhraní s analytickým backendem a koresponduje s aktuálními trendy v oblasti moderní Business Intelligence.
+
+Typický proces zpracování dotazu lze rozdělit do následujících kroků:
 
 \begin{enumerate}
-    \item \textbf{Zpracování hlasového vstupu:} Uživatel položí dotaz hlasem, například: „Zjisti, kolik tun papíru bylo vyrobeno za poslední týden.“ Tento vstup je zachycen mikrofonem a zpracován pomocí knihovny jako \textbf{PyAudio}.
-    \item \textbf{Převod řeči na text (Speech-to-Text):} Zvukový záznam je odeslán do služby pro převod řeči na text, která jej transformuje do textové podoby.
-    \item \textbf{Interpretace dotazu pomocí LLM:} Získaný text je předán velkému jazykovému modelu, například přes \textbf{Gemini API}. Model analyzuje text, identifikuje záměr uživatele a klíčové entity (metriku „tuny papíru“, časové období „poslední týden“).
-    \item \textbf{Plánování a volání nástrojů:} Na základě interpretace LLM naplánuje, jaké kroky jsou potřeba k získání odpovědi. To typicky zahrnuje volání externích nástrojů – v tomto případě dotaz do databáze. Toto volání se neděje napřímo, ale prostřednictvím specializované mezivrstvy (viz níže).
-    \item \textbf{Exekuce dotazu:} Požadavek od LLM je přeložen na konkrétní SQL nebo DAX dotaz a vykonán v cílovém datovém skladu nebo OLAP kostce (např. pomocí knihovny \textbf{Pyadomd} pro komunikaci s MS SSAS).
-    \item \textbf{Zpracování výsledku a formulace odpovědi:} Výsledek dotazu (např. číslo 420) je vrácen LLM, který jej interpretuje a zformuluje odpověď v přirozeném jazyce: „Za poslední týden bylo vyrobeno 420 tun papíru.“
-    \item \textbf{Převod textu na řeč (Text-to-Speech):} Odpověď může být převedena zpět do zvukové podoby a přehrána uživateli.
+    \item \textbf{Zpracování hlasového vstupu:} 
+    Proces začíná položením dotazu uživatelem, například: „Zjisti, kolik tun papíru bylo vyrobeno papírenským strojem 10 za poslední týden.“ Tento zvukový vstup je zachycen mikrofonem a technicky zpracován pomocí audio knihovny, například \textbf{PyAudio}.
+
+    \item \textbf{Převod řeči na text (Speech-to-Text) / Příjem textového vstupu:} 
+    Pokud byl vstup hlasový, zvukový záznam je odeslán do služby pro rozpoznávání řeči, která zajistí jeho transkripci do textové podoby. Pokud byl vstup textový, dojde k jeho přímému předání k dalšímu zpracování.
+
+    \item \textbf{Sémantická analýza a interpretace (LLM):} 
+    Získaný text je předán velkému jazykovému modelu (např. prostřednictvím \textbf{Gemini API}). Model provede sémantickou analýzu, identifikuje záměr uživatele (intent) a extrahuje klíčové entity, jako jsou měřené metriky („tuny papíru“), časové filtry („poslední týden“) a dimenze („papírenský stroj 10“).
+
+    \item \textbf{Generování dotazu a orchestrace:} 
+    Na základě interpretace LLM vygeneruje odpovídající databázový dotaz. V tomto kroku model nepracuje s daty přímo, ale funguje jako orchestrátor, který připraví syntaxi pro externí nástroj.
+
+    \item \textbf{Exekuce dotazu:} 
+    Vygenerovaný požadavek (typicky v jazyce DAX nebo SQL) je vykonán nad cílovým datovým skladem nebo OLAP kostkou. Pro komunikaci s technologiemi jako MS SSAS lze využít specializované knihovny, např. \textbf{Pyadomd}.
+
+    \item \textbf{Zpracování výsledku a formulace odpovědi:} 
+    Číselný výsledek dotazu (např. hodnota 420) je vrácen jazykovému modelu. Ten jej zasadí do kontextu a zformuluje přirozenou větu: „Za poslední týden bylo vyrobeno 420 tun papíru papírenským strojem 10.“
+
+    \item \textbf{Výstupní kanál (Text / Text-to-Speech):} 
+    Textová odpověď je primárně zobrazena uživateli na rozhraní. Pokud byl původní vstup hlasový, je textová odpověď následně převedena do zvukové podoby pomocí služby \textbf{Text-to-Speech} a přehrána uživateli, čímž se uzavírá konverzační smyčka.
 \end{enumerate}
 
 Celý tento proces elegantně skrývá technickou složitost a poskytuje uživateli iluzi plynulé konverzace s datovým systémem. 
@@ -484,28 +508,17 @@ Celý tento proces elegantně skrývá technickou složitost a poskytuje uživat
 
 \subsubsection{Role MCP serverů a Gemini CLI}
 
-Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a externími systémy (databáze, soubory, API) jsou tzv. \textbf{MCP (Multi-Context Prompt) servery}. Tyto servery fungují jako řízená brána neboli „toolbox“ pro umělou inteligenci. Místo toho, aby měl LLM přímý a nekontrolovaný přístup k datovým zdrojům, MCP server mu poskytuje sadu jasně definovaných \textbf{nástrojů} (tools). Každý nástroj reprezentuje konkrétní operaci, například „spusť SQL dotaz v~databázi ClickHouse“ nebo „přečti soubor z Google Drive“.
-
-Pro interakci s těmito servery a pro definici toho, jaké nástroje a kontext má AI k dispozici, se používají nástroje příkazové řádky jako \textbf{Gemini CLI}. Tento nástroj umožňuje vývojáři „uzemnit“ (ground) model tím, že mu poskytne veškeré potřebné informace a oprávnění pro řešení daného úkolu. LLM se pak nedotazuje přímo databáze, ale volá nástroje zpřístupněné přes MCP server, který se stará o samotnou exekuci, autentizaci a logování.
-
-\subsubsection{Kontext a praktické využití pro revizi práce}
-
-Samotný LLM bez dodatečných informací nedokáže odpovídat na specifické otázky týkající se konkrétního projektu. Aby mohl efektivně pracovat, musí mu být poskytnuta \textbf{paměť neboli kontext}. V mém případě jsem pro revizi a kontrolu konzistence této bakalářské práce využil právě \textbf{Gemini CLI}. Tímto nástrojem jsem AI poskytl přístup k veškerým relevantním zdrojům:
-
-\begin{itemize}
-    \item \textbf{Zdrojové kódy práce} a související soubory uložené na \textbf{Google Drive} a v repozitáři na \textbf{GitHubu}.
-    \item Přímé napojení na testovací \textbf{databáze} (ClickHouse, MS SQL, PostgreSQL, MariaDB) pro ověřování informací o jejich struktuře a obsahu.
-    \item Samotný \LaTeX{} soubor této práce pro kontrolu textu a struktury.
-\end{itemize}
-
-Díky tomuto rozsáhlému kontextu jsem mohl pokládat komplexní dotazy jako: „Jsem ve své práci konzistentní v pojmenování ETL skriptů?“ nebo „Odpovídá popis architektury v kapitole 3 implementaci v mých Docker souborech?“. Ačkoliv má Gemini kontextové okno o velikosti 1 milionu tokenů, pro komplexní analýzu je stále nutné pokládat dotazy strategicky. Například místo dotazu na kompletní obsah databáze (což by rychle vyčerpalo kontext) je efektivnější ptát se na její strukturu, indexaci nebo metadata, a tím nechat AI ověřit soulad mezi implementací a~popisem v textu práce.
+Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a externími systémy (databáze, soubory, API) jsou tzv. \textbf{MCP (Model Context Protokol) servery}~\cite{mcp_protocol}. Tyto servery fungují jako řízená brána neboli „toolbox“ pro umělou inteligenci. Místo toho, aby měl LLM přímý a nekontrolovaný přístup k datovým zdrojům, MCP server mu poskytuje sadu jasně definovaných \textbf{nástrojů} (tools). Každý nástroj reprezentuje konkrétní operaci, například „spusť SQL dotaz v~databázi ClickHouse“ nebo „přečti soubor z Google Drive“.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{img/Gemini-cli-architecture.png}
-  \caption{Popis struktury pomocí UML komponent diagramu}
+  \includegraphics[width=\textwidth]{img/mcp-simple-diagram.png}
+  \caption{Model context protocol - převzato z}
   \label{fig:gemini_cli_architecture}
 \end{figure}
+
+Pro interakci s~těmito servery a definici dostupného kontextu slouží různé \textbf{klientské aplikace} (\emph{MCP Clients/Hosts}). Může se jednat o~nástroje příkazové řádky (např. \textbf{Gemini CLI}), desktopové aplikace (např. \textbf{Claude Desktop App}), vývojová prostředí (IDE jako VS Code, Cursor) nebo webová rozhraní. Tyto aplikace umožňují vývojáři či uživateli „uzemnit“ model tím, že mu zprostředkují připojení ke~konkrétním MCP serverům. LLM se následně nedotazuje přímo cílové databáze, ale volá nástroje zpřístupněné skrze klienta a MCP server, který se stará o~samotnou exekuci, autentizaci a bezpečnostní logování.
+
 
 \chapter{Teoretická část}
 
@@ -528,7 +541,7 @@ Celý systém je rozdělen do pěti vrstev, jak je znázorněno na obrázku \ref
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/reporting_structure.png}
-  \caption{Navržená struktura systému. Datové zdroje jsou ilustrační.}
+  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \textit{Zdroj: vlastní zpracování autora dle architektury Mondi Štětí a.s.}}
   \label{fig:architecture}
 \end{figure}
 
@@ -555,7 +568,7 @@ se určuje staticky / dynamicky \textbf{až v rámci transformačního (ETL) pro
 Klíčové role a cíle Datového jezera:
 \begin{enumerate}
     \item \textbf{Konsolidace a Vstupní Zóna (\textit{Landing Zone}):} Primární funkcí je konsolidovat data z~mnoha heterogenních zdrojů na jedinou platformu, sloužící jako \textbf{vstupní zóna} pro surová data před jejich dalším zpracováním.
-    \item \textbf{Oddělení Integrační Logiky:} Umožňuje \textbf{oddělit logiku připojení a sběru dat} od vlastního Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v~DWH nejsou bezprostředně zatíženy problémy s konektivitou, dostupností zdrojů nebo dynamickou strukturou dat.
+    \item \textbf{Oddělení Integrační Logiky:} Umožňuje \textbf{oddělit logiku připojení a sběru dat} od vlastního Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v~Datovém skladu nejsou bezprostředně zatíženy problémy s konektivitou, dostupností zdrojů nebo dynamickou strukturou dat.
     \item \textbf{Audit a Rodokmen Dat (\textit{Data Lineage}):} Uchovávání dat v jejich \textbf{původním (surovém) formátu} umožňuje kdykoliv ověřit, z jakých zdrojových dat byla odvozena data v Datovém skladu. To je nezbytné pro \textbf{auditní účely} a pro \textbf{reprodukci analytických výsledků} při změnách transformačních pravidel.
 \end{enumerate}
 \subsection{Datový sklad}
@@ -590,7 +603,7 @@ Data warehouse z pravidla obsahuje:
 
 \begin{itemize}
     \item \textbf{Staging Area:}
-    Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} ve Vaší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+    Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} v naší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
 
     \item \textbf{Dimenze a Fakta:}
     Hlavní vrstva organizovaná dle Kimballova modelu (tedy Datový Mart pro tuto analytickou doménu). Skládá se z:
@@ -611,7 +624,7 @@ Základními modely používanými pro návrh datového skladu v rámci dimenzio
 
     \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\textwidth]{img/ERD.png}
+  \includegraphics[width=0.7\textwidth]{img/Star-schema.png}
  \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
 \end{figure}
 \clearpage
@@ -658,7 +671,7 @@ V praxi tento koncept implementují moderní frameworky jako \emph{Cube.js}, \em
 K hlavním přínosům sémantické vrstvy patří:
 \begin{itemize}
     \item \textbf{Konzistence metrik a výpočtů:} Veškeré reporty a dashboardy využívají jednotně definované ukazatele, čímž se eliminuje riziko rozdílné interpretace dat.
-    \item \textbf{Zjednodušení analytické práce:} Uživatelé mohou tvořit vizualizace nebo reporty bez nutnosti znalosti komplexní struktury DWH.
+    \item \textbf{Zjednodušení analytické práce:} Uživatelé mohou tvořit vizualizace nebo reporty bez nutnosti znalosti komplexní struktury datového skladu.
     \item \textbf{Zvýšení výkonu a bezpečnosti:} Sémantická vrstva často zajišťuje cachování a řízení přístupů na úrovni obchodních objektů, což zlepšuje odezvu systému a kontrolu nad daty.
 \end{itemize}
 
@@ -731,73 +744,87 @@ V případě datové platformy Portabo by mohl být takový přístup vhodný p�
 
 Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativní soubor technologií, které pokrývají jak komerční, tak open-source přístupy k budování datové platformy. Následující tabulka poskytuje jejich přehled, charakteristiku a popisuje jejich specifickou roli v navržené architektuře.
 
-\definecolor{osgreen}{HTML}{DFF0D8} % Light green
-\definecolor{comred}{HTML}{F2DEDE}  % Light red
+% Nastavení odsazení a řádkování
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.3}
 
-% Ujistěte se, že máte v preambuli dokumentu: \usepackage{colortbl}
-\begin{longtable}{|p{\dimexpr.5\textwidth-2\tabcolsep-1.5\arrayrulewidth} | p{\dimexpr.5\textwidth-2\tabcolsep-1.5\arrayrulewidth}|}
-\hline
-\multicolumn{1}{|c|}{\textbf{Open-source řešení}} & \multicolumn{1}{c|}{\textbf{Komerční řešení}} \\
-\hline
-\endhead
+\begin{longtable}{ 
+    >{\RaggedRight\arraybackslash}p{\dimexpr0.5\textwidth-2\tabcolsep} 
+    >{\RaggedRight\arraybackslash}p{\dimexpr0.5\textwidth-2\tabcolsep} 
+}
 
-\hline
-\multicolumn{2}{|c|}{\textbf{Vrstva: Datový sklad}} \\
-\hline
+% ==========================================
+% 1. VRSTVA: DATOVÝ SKLAD
+% ==========================================
+\toprule
+\rowcolor{gray!20}
+\multicolumn{2}{c}{\textbf{Vrstva: Datový sklad}} \\ 
+\midrule
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\midrule
 
-% Databases
-\cellcolor{gray!10}
-    \textbf{PostgreSQL a TimescaleDB} \par
-    PostgreSQL je open-source relační databázový systém s podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a~efektivní kompresi dat.
-    \vspace{1em} \par
-    \textbf{ClickHouse} \par
-    ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v reálném čase bez nutnosti rozsáhlých předagregací.
-    \vspace{1em} \par
-    \textbf{MariaDB} \par
-    MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP)
-&
-\cellcolor{gray!10}
-    \textbf{Microsoft SQL Server} \par
-    Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
-\\
-\hline
+% --- OBSAH DWH ---
+\textbf{PostgreSQL a TimescaleDB} \par
+PostgreSQL je open-source relační databázový systém s podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a efektivní kompresi dat.
+\vspace{1em} \par
 
-\pagebreak
-\hline
-\multicolumn{2}{|c|}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\
-\hline
-\cellcolor{gray!10}
-    \textbf{Cube.js} \par
-    Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním úkolem je abstrahovat technickou komplexitu datového skladu a poskytovat konzistentní business logiku. Definuje datové modely, metriky (measures) a~dimenze pomocí JavaScriptu. Klíčovou vlastností je poskytování standardizovaného rozhraní (API), včetně emulace \textbf{PostgreSQL SQL API}. To umožňuje, aby se vizualizační nástroje (jako Apache Superset) připojovaly ke Cube.js stejným způsobem, jako by se připojovaly k~běžné databázi, čímž se výrazně zjednodušuje integrace a zvyšuje výkon díky pokročilému cachování a předagregacím.
-&
-\cellcolor{gray!10}
-    \textbf{Microsoft SQL Server Analysis Services} \par
-    SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a Business Intelligence. V~této práci je využíván jeho \textbf{Tabulární model (Tabular Model)}, který funguje jako \textit{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k Cube.js, poskytující podobnou sémantickou vrstvu s pokročilými možnostmi bezpečnosti, správy a hlubokou integrací s nástroji Microsoft ekosystému.
-\\
-\hline
-\hline
-\multicolumn{2}{|c|}{\textbf{Vrstva: Vizualizace / BI}} \\
-\hline
-\cellcolor{gray!10}
-    \textbf{Apache Superset} \par
-    Apache Superset je moderní open-source platforma pro vizualizaci dat a business intelligence. Umožňuje snadné připojení k široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a intuitivní tvorbu interaktivních dashboardů a reportů. V této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a customizaci.
-&
-\cellcolor{gray!10}
-    \textbf{Microsoft Power BI} \par
-    Power BI je komerční analytický nástroj od společnosti Microsoft, který představuje průmyslový standard pro vizualizaci dat a business intelligence. Vyniká těsnou integrací s celým ekosystémem Microsoftu, zejména s SSAS Tabular, což umožňuje efektivní analýzu, sdílení reportů a spolupráci v rámci organizace. V kontextu této práce slouží jako reprezentant komerční vizualizační platformy s pokročilými funkcemi pro datovou transformaci, modelování a distribuci obsahu.
-\\
-\hline
+\textbf{ClickHouse} \par
+ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v reálném čase bez nutnosti rozsáhlých předagregací.
+\vspace{1em} \par
+
+\textbf{MariaDB} \par
+MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP).
+& 
+% --- KOMERČNÍ DWH ---
+\textbf{Microsoft SQL Server} \par
+Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
+\\ 
+\bottomrule
+
+% ==========================================
+% 2. VRSTVA: OLAP
+% ==========================================
+\\ [1em] % Mezera mezi tabulkami
+\toprule
+\rowcolor{gray!20}
+\multicolumn{2}{c}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\ 
+\midrule
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\midrule
+
+% --- OBSAH OLAP ---
+\textbf{Cube.js} \par
+Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním úkolem je abstrahovat technickou komplexitu datového skladu a poskytovat konzistentní business logiku. Definuje datové modely, metriky (measures) a dimenze pomocí JavaScriptu. Klíčovou vlastností je poskytování standardizovaného rozhraní (API), včetně emulace \textbf{PostgreSQL SQL API}. To umožňuje, aby se vizualizační nástroje (jako Apache Superset) připojovaly ke Cube.js stejným způsobem, jako by se připojovaly k běžné databázi, čímž se výrazně zjednodušuje integrace a zvyšuje výkon díky pokročilému cachování a předagregacím.
+& 
+% --- KOMERČNÍ OLAP ---
+\textbf{Microsoft SQL Server Analysis Services} \par
+SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a Business Intelligence. V této práci je využíván jeho \textbf{Tabulární model (Tabular Model)}, který funguje jako \textit{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k Cube.js, poskytující podobnou sémantickou vrstvu s pokročilými možnostmi bezpečnosti, správy a hlubokou integrací s nástroji Microsoft ekosystému.
+\\ 
+\bottomrule
+
+% ==========================================
+% 3. VRSTVA: BI
+% ==========================================
+\\ [1em] 
+\toprule
+\rowcolor{gray!20}
+% ZDE JE ZMĚNA: přidal jsem * za \\ (zakazuje zlom stránky pod tímto řádkem)
+\multicolumn{2}{c}{\textbf{Vrstva: Vizualizace / BI}} \\* \midrule
+% ZDE TAKÉ ZMĚNA: * za \\ (aby se neodtrhly podnadisy od textu)
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\* \midrule
+
+% --- OBSAH BI ---
+\textbf{Apache Superset} \par
+Apache Superset je moderní open-source platforma pro vizualizaci dat a business intelligence. Umožňuje snadné připojení k široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a intuitivní tvorbu interaktivních dashboardů a reportů. V této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a customizaci.
+& 
+% --- KOMERČNÍ BI ---
+\textbf{Microsoft Power BI} \par
+Power BI je komerční analytický nástroj od společnosti Microsoft, který představuje průmyslový standard pro vizualizaci dat a business intelligence. Vyniká těsnou integrací s celým ekosystémem Microsoftu, zejména s SSAS Tabular, což umožňuje efektivní analýzu, sdílení reportů a spolupráci v rámci organizace. V kontextu této práce slouží jako reprezentant komerční vizualizační platformy s pokročilými funkcemi pro datovou transformaci, modelování a distribuci obsahu.
+\\ 
+\bottomrule
+
 \end{longtable}
 
-\clearpage % 1. Vyčistí veškerý floating obsah (možná i longtable)
-
-% 2. Vytvoří prázdnou stránku s potlačeným stylem (vakát)
-\mbox{}
-\thispagestyle{empty}
-\clearpage
-
-% 3. Vynutí novou lichou stránku pro \chapter
-\cleardoublepage
 \chapter{Praktická část}
 
 Praktická část této práce se zaměřuje na návrh, implementaci a ověření metodiky pro srovnání open-source a komerčních nástrojů využitelných pro analýzu a vizualizaci dat na datové platformě Portabo. Cílem bylo vytvořit plně funkční datový sklad s podporou OLAP analýz, který umožňuje zpracovávat reálná data poskytovaná datovým centrem Ústeckého kraje a připravit prostředí pro následné výkonové a funkční porovnání vizualizačních nástrojů.
@@ -935,9 +962,10 @@ Implementace pro MariaDB se řídí stejnou dvoukrokovou logikou, avšak krok 2 
     \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{maria\_bilina\_kamery\_lake\_to\_staging.py})} \\
     Skript používá knihovnu \texttt{pymysql}. Načítá data z datového jezera, zpracovává JSON a ukládá je do staging tabulky \texttt{Stg\_CameraCamea}. Pro aktualizaci kontrolní tabulky využívá MySQL klauzuli \texttt{ON DUPLICATE KEY UPDATE}.
 
-    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_bilina\_kamery\_staging\_to\_fact.py})} \\
-    Tento skript používá pro plnění dimenzí příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Při plnění faktové tabulky skript nejprve v Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}. Protože MariaDB v enginu ColumnStore nepodporuje auto-inkrementaci, je generování primárního klíče řešeno přímo v ETL skriptu.
-\end{itemize}
+ \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_bilina\_kamery\_staging\_to\_fact.py})} \\
+Tento skript používá pro plnění dimenzí příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Při plnění faktové tabulky skript nejprve v~Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}.
+
+V~kontextu enginu ColumnStore, který nativně nepodporuje auto-inkrementaci, existují dvě hlavní strategie pro generování primárních klíčů. V~této práci byla zvolena cesta \textbf{generování klíčů přímo v~ETL procesu}. Alternativní možností je využití řádkového enginu \textbf{InnoDB} (který auto-inkrementaci podporuje) pro prvotní nahrání dat, následné odstranění indexů a finální přepnutí tabulky na sloupcový formát (\texttt{ALTER TABLE ... ENGINE=ColumnStore}). Nicméně tato strategie nebyla pro můj případ vyhovující.\end{itemize}
 
 \subsubsection{PostgreSQL + PostgreSQL TimescaleDB ETL}
 ETL proces pro PostgreSQL je unikátní svým dynamickým přístupem v prvním kroku a hromadným vkládáním ve druhém.
@@ -994,6 +1022,11 @@ V rámci ETL procesu byla provedena tato fáze:
 \end{itemize}
 
 Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a kontrolu posledního zpracovaného záznamu (\texttt{LastLoadedID}), aby bylo možné ETL proces spouštět opakovaně a inkrementálně.
+    \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/ERD.png}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
+\end{figure}
 
 \section{OLAP a vizualizace}
 
@@ -1205,6 +1238,30 @@ Na základě provedené analýzy budou jednotlivé technologie porovnány z hled
   \item \textbf{Ekonomických aspektů} – licenční podmínky, náklady na provoz a škálování.
 \end{itemize}
 Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytne doporučení vhodné platformy pro využití v rámci Portabo.
+
+\section{Využití AI pro validaci a revizi textu}
+
+Nad rámec samotné implementace a srovnání datových platforem byly při tvorbě této práce aplikovány moderní nástroje umělé inteligence, konkrétně \textbf{Gemini CLI}, s~cílem zajistit maximální kvalitu a konzistenci výstupů. Tato sekce popisuje metodiku využití velkého jazykového modelu (LLM) pro automatizovanou revizi a demonstruje, jak lze prostřednictvím dodání relevantního kontextu ověřovat soulad mezi teoretickým textem práce a praktickými artefakty (zdrojové kódy, databázová schémata).
+
+Standardní jazykové modely bez přístupu k~externím informacím nedokáží validovat specifické detaily konkrétního projektu, jelikož jim chybí znalost privátních dat. Pro efektivní analýzu je nezbytné modelu poskytnout tzv. \textbf{kontext} (uzemnění). Pro účely této práce bylo zvoleno řešení postavené na \textbf{Gemini CLI}, které umožnilo propojení modelu s~následujícími zdroji:
+
+\begin{itemize}
+    \item \textbf{Repozitář zdrojových kódů:} Kompletní projektová dokumentace a skripty uložené na službách \textbf{Google Drive} a \textbf{GitHub}.
+    \item \textbf{Živá databázová spojení:} Přímé napojení na testovací instance databází (ClickHouse, MS SQL, PostgreSQL, MariaDB), což umožnilo modelu analyzovat aktuální strukturu (DDL) a metadata.
+    \item \textbf{Text práce:} Zdrojový \LaTeX{} soubor, který sloužil jako referenční bod pro kontrolu obsahu.
+\end{itemize}
+
+Díky zpřístupnění tohoto kontextu bylo možné formulovat komplexní validační dotazy, například: \emph{„Je v~celém textu konzistentně dodržováno pojmenování ETL skriptů oproti repozitáři?“} nebo \emph{„Odpovídá popis architektury v~kapitole 3 reálné konfiguraci v~Docker souborech?“}.
+
+Ačkoliv model Gemini disponuje rozsáhlým kontextovým oknem (přesahujícím 1 milion tokenů), pro efektivní analýzu je nutná optimalizace dotazů. Namísto načítání kompletního obsahu databáze (což by bylo výpočetně neefektivní) je vhodnější modelu zpřístupnit pouze schémata tabulek, indexy a systémové pohledy. Tímto způsobem lze nechat umělou inteligenci autonomně ověřit soulad mezi technickou implementací a jejím popisem v~textové části práce.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/Gemini-cli-architecture.png}
+  \caption{Architektura propojení LLM s lokálními zdroji (Component Diagram)}
+  \label{fig:gemini_cli_uml}
+\end{figure}
 
 
 \chapter{Sazba ukázek kódu}

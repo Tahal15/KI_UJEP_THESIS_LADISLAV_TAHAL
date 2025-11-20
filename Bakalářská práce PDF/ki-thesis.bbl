@@ -555,6 +555,38 @@
       \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
       \endverb
     \endentry
+    \entry{mcp_protocol}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=9f3bca5afd75e8272ebde12ef64f3a81}{%
+           family={{Model Context Protocol}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{fullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{fullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{bibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorbibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authornamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorfullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorfullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[Online; navštíveno 20.11.2024]}
+      \field{title}{Model Context Protocol: An open standard for building AI assistants}
+      \field{urlday}{20}
+      \field{urlmonth}{11}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+      \verb{url}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+    \endentry
     \entry{wikipedia_snowflake_schema}{online}{}{}
       \name{author}{1}{}{%
         {{hash=28b6ba9f3638a296385fabdb51df1580}{%

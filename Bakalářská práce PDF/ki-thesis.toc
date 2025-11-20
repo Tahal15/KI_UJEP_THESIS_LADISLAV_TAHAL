@@ -18,63 +18,69 @@
 \contentsline {subsection}{\nonumberline Datová governance a kvalita dat}{23}{subsection*.26}%
 \contentsline {subsection}{\nonumberline Dotazování přirozeným jazykem a role LLM}{23}{subsection*.28}%
 \contentsline {subsubsection}{\nonumberline Architektura řešení}{23}{subsubsection*.30}%
-\contentsline {subsubsection}{\nonumberline Role MCP serverů a Gemini CLI}{24}{subsubsection*.32}%
-\contentsline {subsubsection}{\nonumberline Kontext a praktické využití pro revizi práce}{25}{subsubsection*.34}%
+\contentsline {subsubsection}{\nonumberline Role MCP serverů a Gemini CLI}{25}{subsubsection*.32}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{27}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{27}{section.2.1}%
-\contentsline {subsection}{\nonumberline Datové zdroje}{27}{subsection*.36}%
-\contentsline {subsection}{\nonumberline Datové jezero}{28}{subsection*.38}%
-\contentsline {subsection}{\nonumberline Datový sklad}{29}{subsection*.40}%
-\contentsline {subsection}{\nonumberline OLAP technologie}{31}{subsection*.42}%
-\contentsline {subsection}{\nonumberline Sémantická vrstva}{32}{subsection*.44}%
+\contentsline {subsection}{\nonumberline Datové zdroje}{27}{subsection*.34}%
+\contentsline {subsection}{\nonumberline Datové jezero}{28}{subsection*.36}%
+\contentsline {subsection}{\nonumberline Datový sklad}{29}{subsection*.38}%
+\contentsline {subsection}{\nonumberline OLAP technologie}{31}{subsection*.40}%
+\contentsline {subsection}{\nonumberline Sémantická vrstva}{32}{subsection*.42}%
 \contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{33}{section.2.2}%
-\contentsline {subsection}{\nonumberline Funkční oblasti nástrojů Business Intelligence}{33}{subsection*.46}%
-\contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{33}{subsection*.48}%
-\contentsline {subsection}{\nonumberline Kritéria výběru BI nástroje}{34}{subsection*.50}%
+\contentsline {subsection}{\nonumberline Funkční oblasti nástrojů Business Intelligence}{33}{subsection*.44}%
+\contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{33}{subsection*.46}%
+\contentsline {subsection}{\nonumberline Kritéria výběru BI nástroje}{34}{subsection*.48}%
 \contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{34}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Praktická část}{39}{chapter.3}%
-\contentsline {subsection}{\nonumberline Příprava a migrace datové základny}{39}{subsection*.52}%
+\contentsline {subsection}{\nonumberline Příprava a migrace datové základny}{39}{subsection*.50}%
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{42}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{42}{section.3.2}%
-\contentsline {subsection}{\nonumberline Analýza a příprava zdrojových dat}{42}{subsection*.54}%
-\contentsline {subsubsection}{\nonumberline Automatizovaná analýza JSON struktur}{43}{subsubsection*.56}%
-\contentsline {subsection}{\nonumberline Návrh a principy ETL procesů}{44}{subsection*.58}%
-\contentsline {subsection}{\nonumberline Implementace ETL pro jednotlivé technologie}{44}{subsection*.60}%
-\contentsline {subsubsection}{\nonumberline SQL Server ETL}{44}{subsubsection*.62}%
-\contentsline {subsubsection}{\nonumberline MariaDB + MariaDB ColumnStore ETL}{45}{subsubsection*.64}%
-\contentsline {subsubsection}{\nonumberline PostgreSQL + PostgreSQL TimescaleDB ETL}{45}{subsubsection*.66}%
-\contentsline {subsubsection}{\nonumberline MariaDB + ClickHouse ETL}{46}{subsubsection*.68}%
-\contentsline {section}{\numberline {3.3}Struktura a vrstvy datového skladu}{48}{section.3.3}%
-\contentsline {section}{\numberline {3.4}OLAP a vizualizace}{48}{section.3.4}%
-\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{48}{subsection*.70}%
-\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{49}{subsection*.72}%
-\contentsline {subsection}{\nonumberline Porovnání přístupů}{50}{subsection*.74}%
-\contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{51}{section.3.5}%
-\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni databáze}{51}{subsection*.76}%
-\contentsline {subsubsection}{\nonumberline Interpretace výsledků}{54}{subsubsection*.78}%
-\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni BI nástrojů a role pre-agregací}{55}{subsection*.80}%
-\contentsline {subsubsection}{\nonumberline Vysvětlení nekonzistentního výkonu pre-agregací}{55}{subsubsection*.82}%
-\contentsline {subsection}{\nonumberline Shrnutí a interpretace}{55}{subsection*.84}%
-\contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{56}{subsection*.86}%
-\contentsline {subsubsection}{\nonumberline Open-source řešení (MariaDB, ClickHouse, Superset)}{56}{subsubsection*.88}%
-\contentsline {subsubsection}{\nonumberline Komerční řešení (MSSQL, Power BI)}{56}{subsubsection*.90}%
-\contentsline {subsubsection}{\nonumberline Závěr TCO analýzy}{57}{subsubsection*.92}%
-\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{57}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{59}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{61}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{62}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{63}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{64}{subsection*.94}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{65}{subsection*.96}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{66}{subsection*.98}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{67}{subsection*.100}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{67}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{67}{subsection*.102}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{68}{subsection*.104}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{68}{subsection*.106}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{68}{subsection*.108}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{71}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{73}{chapter.7}%
+\contentsline {subsection}{\nonumberline Analýza a příprava zdrojových dat}{42}{subsection*.52}%
+\contentsline {subsubsection}{\nonumberline Automatizovaná analýza JSON struktur}{43}{subsubsection*.54}%
+\contentsline {subsection}{\nonumberline Návrh a principy ETL procesů}{44}{subsection*.56}%
+\contentsline {subsection}{\nonumberline Implementace ETL pro jednotlivé technologie}{44}{subsection*.58}%
+\contentsline {subsubsection}{\nonumberline SQL Server ETL}{44}{subsubsection*.60}%
+\contentsline {subsubsection}{\nonumberline MariaDB + MariaDB ColumnStore ETL}{45}{subsubsection*.62}%
+\contentsline {subsubsection}{\nonumberline PostgreSQL + PostgreSQL TimescaleDB ETL}{45}{subsubsection*.64}%
+\contentsline {subsubsection}{\nonumberline MariaDB + ClickHouse ETL}{46}{subsubsection*.66}%
+\contentsline {section}{\numberline {3.3}Struktura a vrstvy datového skladu}{49}{section.3.3}%
+\contentsline {section}{\numberline {3.4}OLAP a vizualizace}{49}{section.3.4}%
+\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular}{50}{subsection*.68}%
+\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{50}{subsection*.70}%
+\contentsline {subsection}{\nonumberline Porovnání přístupů}{51}{subsection*.72}%
+\contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{52}{section.3.5}%
+\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni databáze}{52}{subsection*.74}%
+\contentsline {subsubsection}{\nonumberline Interpretace výsledků}{56}{subsubsection*.76}%
+\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni BI nástrojů a role pre-agregací}{57}{subsection*.78}%
+\contentsline {subsubsection}{\nonumberline Vysvětlení nekonzistentního výkonu pre-agregací}{57}{subsubsection*.80}%
+\contentsline {subsection}{\nonumberline Shrnutí a interpretace}{57}{subsection*.82}%
+\contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{58}{subsection*.84}%
+\contentsline {subsubsection}{\nonumberline Open-source řešení (MariaDB, ClickHouse, Superset)}{58}{subsubsection*.86}%
+\contentsline {subsubsection}{\nonumberline Komerční řešení (MSSQL, Power BI)}{58}{subsubsection*.88}%
+\contentsline {subsubsection}{\nonumberline Závěr TCO analýzy}{59}{subsubsection*.90}%
+\contentsline {section}{\numberline {3.6}Zhodnocení výsledků}{59}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Využití AI pro validaci a revizi textu}{59}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{61}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Citace}{63}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Označování citací}{64}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bibliografický záznam}{65}{section.5.2}%
+\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{66}{subsection*.92}%
+\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{67}{subsection*.94}%
+\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{68}{subsection*.96}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{69}{subsection*.98}%
+\contentsline {section}{\numberline {5.3}Často kladené otázky}{69}{section.5.3}%
+\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{69}{subsection*.100}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{70}{subsection*.102}%
+\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{70}{subsection*.104}%
+\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{70}{subsection*.106}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{73}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{75}{chapter.7}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -130,6 +136,6 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{77}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Další přílohy}{79}{appendix.B}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{79}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Další přílohy}{81}{appendix.B}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
