@@ -1111,17 +1111,17 @@ Obě řešení tak umožnila plnohodnotnou vizualizaci a analýzu dat z detekčn
 
 \section{Provedení srovnávací analýzy}
 
-Cílem této kapitoly je objektivní srovnání výkonu a funkčních vlastností implementovaných datových architektur. Analýza byla záměrně koncipována jako \textbf{„out-of-the-box“ srovnání}, což znamená, že primárně hodnotí výkon a jednoduchost instalace jednotlivých systémů v jejich výchozí konfiguraci, s minimem dodatečných optimalizací. Tento přístup lépe odráží realitu organizací, které nemusí disponovat hlubokou IT expertizou pro pokročilé ladění.
+Cílem této kapitoly je objektivní srovnání výkonu a funkčních vlastností implementovaných datových architektur. Analýza byla primárně koncipována jako \textbf{„out-of-the-box“ srovnání}, což znamená, že hodnotí výkon systémů v jejich výchozí konfiguraci s běžně používanými indexy. Tento přístup reflektuje realitu organizací, které často nedisponují hlubokou expertizou pro pokročilé ladění databázového jádra.
 
 Srovnání probíhalo ve dvou hlavních rovinách:
 \begin{enumerate}
     \item \textbf{Výkon na úrovni databáze:} Přímé měření doby odezvy SQL dotazů na různých databázových systémech a úložných enginech.
-    \item \textbf{Výkon na úrovni BI nástroje:} Hodnocení uživatelského prožitku, konkrétně rychlosti načtení a interakce s dashboardem v komerčním a open-source řešení.
+    \item \textbf{Výkon na úrovni BI nástroje:} Hodnocení uživatelského prožitku, konkrétně rychlosti načtení dashboardů.
 \end{enumerate}
 
 \subsection{Srovnání výkonu na úrovni databáze}
 
-V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů přímo na databázových systémech. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště napříč všemi testovanými platformami.
+V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště.
 
 \begin{figure}[h!]
   \centering
@@ -1130,11 +1130,7 @@ V první fázi byl měřen čas provedení sady pěti reprezentativních analyti
   \label{fig:srovnani1}
 \end{figure}
 
-\clearpage
-
-Graf \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz, který počítá průměrnou rychlost pro každou třídu vozidla. Tento typ dotazu vyžaduje přečtení pouze dvou sloupců z hlavní faktové tabulky. Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které jsou schopny načíst pouze data z potřebných sloupců. Naopak tradiční řádkové úložiště (MariaDB Row) musí načítat celé řádky, což při milionech záznamů vede k masivnímu I/O a extrémně pomalé odezvě.
-
-
+Graf \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
 
 \begin{figure}[h!]
   \centering
@@ -1143,7 +1139,7 @@ Graf \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz, kte
   \label{fig:srovnani2}
 \end{figure}
 
-Druhý dotaz sčítal počet detekcí pro každý den a odhalil zajímavé chování. Ačkoliv sloupcové databáze byly stále velmi rychlé, překvapivě dobrého výsledku dosáhla i řádková MariaDB. Tento jev je pravděpodobně způsoben efektivním využitím B-stromového indexu na sloupci `TimeKey` ve faktové tabulce. Řádkový engine dokázal díky indexu rychle provést spojení s dimenzí času a sečíst záznamy, čímž dočasně kompenzoval nevýhodu svého úložného formátu.
+%Druhý dotaz (počet detekcí v čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku. To je způsobeno efektivním využitím B-stromového indexu na sloupci `TimeKey`, díky kterému engine nemusel provádět sken celé tabulky.
 
 \begin{figure}[h!]
   \centering
@@ -1152,7 +1148,7 @@ Druhý dotaz sčítal počet detekcí pro každý den a odhalil zajímavé chov�
   \label{fig:srovnani3}
 \end{figure}
 
-Třetí, komplexnější dotaz s několika `JOIN` operacemi a `WHERE` klauzulí, nejlépe demonstroval sílu moderních dotazovacích optimalizátorů. Extrémně rychlá odezva u MS SQL Serveru (Columnstore) a ClickHouse je dána jejich schopností aplikovat filtry co nejdříve v exekučním plánu (tzv. \textit{predicate pushdown}). Tím se dramaticky sníží objem dat vstupujících do náročných operací spojení, což vede k řádovému zrychlení.
+%Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL a ClickHouse, které efektivně aplikují filtry (predicate pushdown) ještě před samotným spojením tabulek.
 
 \begin{figure}[h!]
   \centering
@@ -1161,7 +1157,7 @@ Třetí, komplexnější dotaz s několika `JOIN` operacemi a `WHERE` klauzulí,
   \label{fig:srovnani4}
 \end{figure}
 
-Čtvrtý dotaz, který agregoval data podle dvou dimenzí, opět potvrdil výhody sloupcového přístupu. Vyšší počet unikátních kombinací (kardinalita) při seskupování klade větší nároky na agregační engine. Výkonnostní propad řádkové MariaDB je zde opět fatální, zatímco všechny sloupcové varianty poskytují odezvu v řádu jednotek sekund, což je pro analytické účely přijatelné.
+%U čtvrtého dotazu s vyšší kardinalitou seskupování je opět patrný fatální propad řádkové MariaDB ve srovnání se sloupcovými variantami, které poskytují odezvu v řádu sekund.
 
 \begin{figure}[h!]
   \centering
@@ -1170,15 +1166,36 @@ Třetí, komplexnější dotaz s několika `JOIN` operacemi a `WHERE` klauzulí,
   \label{fig:srovnani5}
 \end{figure}
 
-Poslední dotaz testoval schopnost databází zpracovat moderní SQL konstrukce jako Common Table Expressions (CTE) a okenní funkce. Graf \ref{fig:srovnani5} ukazuje, že databáze jako ClickHouse a MS SQL Server mají vysoce vyspělé optimalizátory, které si s touto komplexitou poradí efektivně. Naopak extrémně špatný výsledek řádkové MariaDB naznačuje, že její engine není pro tento typ analytických operací navržen a optimalizován.
+%Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a MS SQL si s komplexitou poradí, řádková MariaDB v základním nastavení naráží na své limity.
+
+\subsubsection{Vliv strategie indexace na výkon MariaDB (InnoDB)}
+
+Vzhledem k výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti ostatním systémům (PostgreSQL, MS SQL), které i v řádkovém režimu dosahovaly lepších časů, byla provedena dodatečná analýza indexace.
+
+Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy (např. díky pokročilejší paralelizaci dotazů), MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z indexové struktury a zcela eliminuje nákladné čtení z datových souborů na disku.
+
+\begin{figure}[h!]
+  \centering
+   Zde vložte graf porovnávající "MariaDB Před" a "MariaDB Po" optimalizaci
+  \includegraphics[width=\textwidth]{img/agregace-maria.png} 
+  \caption{Dopad nasazení pokrývajících indexů na výkon MariaDB (InnoDB)}
+  \label{fig:mariadb_opt}
+\end{figure}
+
+Jak ukazuje graf \ref{fig:mariadb_opt}, po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
+\begin{itemize}
+    \item U komplexní analýzy víkendů (Dotaz 5) klesl čas z \textbf{2 minut 22 sekund} na pouhé \textbf{3 sekundy}.
+    \item U agregace dle typu detekce (Dotaz 4) došlo ke zrychlení z \textbf{1 minuty 45 sekund} na \textbf{7 sekund}.
+\end{itemize}
+Tento experiment potvrzuje, že MariaDB je schopna sloužit i pro analytické dotazy, vyžaduje však – na rozdíl od sloupcových databází nebo PostgreSQL – striktní a manuální optimalizaci indexů na míru konkrétním dotazům.
 
 \subsubsection{Interpretace výsledků databázové vrstvy}
-Souhrnná analýza grafů demonstruje několik klíčových zjištění:
+Souhrnná analýza demonstruje několik klíčových zjištění:
 \begin{itemize}
-    \item \textbf{Nezbytnost sloupcového úložiště:} Nejvýraznějším poznatkem je propastný rozdíl ve výkonu mezi řádkovým a sloupcovým úložištěm. U \textbf{MariaDB} se časy u komplexních dotazů zkrátily z více než 100 sekund na jednotky sekund. To potvrzuje, že pro seriózní BI je použití sloupcového enginu absolutní nutností.
-    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse}, jako databáze od základu navržená pro OLAP, dosahovala ve všech testech vynikajících výsledků a u většiny dotazů byla nejrychlejší s časy konzistentně pod jednou sekundou.
-    \item \textbf{Výkon komerčního řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a u dotazu č. 3 byl dokonce nejrychlejší. 
-    \item \textbf{Role PostgreSQL:} PostgreSQL s rozšířením TimescaleDB, ačkoliv je optimalizován pro časové řady, v tomto obecném analytickém benchmarku zaostával za nativními sloupcovými řešeními.
+    \item \textbf{Dominance sloupcového úložiště:} Pro OLAP zátěž je sloupcový přístup (ClickHouse, MariaDB ColumnStore) bezkonkurenční, poskytující vysoký výkon bez nutnosti složitého ladění každého dotazu.
+    \item \textbf{Specifika MariaDB:} Jak bylo prokázáno v doplňkovém testu, řádková MariaDB může být výkonná, ale vyžaduje pokročilou správu indexů (covering indexes), což zvyšuje nároky na údržbu oproti systémům, které jsou výkonné „out-of-the-box“.
+    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse} dosahoval ve většině testů nejlepších výsledků s časy pod jednu sekundu.
+    \item \textbf{Komerční řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a v některých případech jej překonal.
 \end{itemize}
 
 \subsection{Srovnání výkonu a architektury BI nástrojů}

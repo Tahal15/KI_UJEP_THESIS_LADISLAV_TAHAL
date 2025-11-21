@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Optimalizace MariaDB - Covering Indexy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; }
+        .container { position: relative; height: 70vh; width: 80vw; margin: auto; }
+    </style>
+</head>
+<body>
+
+    <h2>Dopad optimalizace indexů na výkon MariaDB (InnoDB)</h2>
+    <p><em>Srovnání časů před a po nasazení "Covering Indexů". Osa Y je logaritmická. Méně je lépe.</em></p>
+    
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        
+        const data = {
+            labels: [
+                '1. Agregace (1 JOIN)', 
+                '2. Časová řada (COUNT)', 
+                '3. Města (Více JOIN)', 
+                '4. Detekce (2 dim.)', 
+                '5. Víkendy (Komplexní)'
+            ],
+            datasets: [
+                {
+                    label: 'Původní indexy (Standard)',
+                    data: [125.0, 0.32, 18.0, 105.0, 142.0], // Vaše staré časy
+                    backgroundColor: '#FF6384', // Červená
+                    borderColor: '#FF6384',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Covering Indexy (Optimalizace)',
+                    data: [15.0, 3.70, 1.90, 6.87, 3.28], // Vaše nové časy
+                    backgroundColor: '#36A2EB', // Modrá
+                    borderColor: '#36A2EB',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 40
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: true,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + ' s';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        rotation: 0, // Tady jsem dal 0, aby se to lépe četlo, když jsou jen dva sloupce
+                        offset: 4,
+                        color: '#333',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value) {
+                            return value + " s";
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'logarithmic',
+                        title: {
+                            display: true,
+                            text: 'Čas v sekundách (Logaritmická škála)'
+                        },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                // Zobrazit hezky čísla na logaritmické ose (1, 10, 100...)
+                                if (value === 100 || value === 10 || value === 1 || value === 0.1) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+
+</body>
+</html>

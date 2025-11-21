@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber ki-thesis"] 1763662470.42664 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1763674678.3464 0
-  "ki-thesis.bcf" 1763674677 110849 14c023a28e5088748731d55300f7efdd "pdflatex"
+["biber ki-thesis"] 1763662470.42664 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1763720780.46751 0
+  "ki-thesis.bcf" 1763720779 110849 14c023a28e5088748731d55300f7efdd "pdflatex"
   "thesis.bib" 1763662456 12401 f17fb9d917e7b256d7f99d82d7612d51 ""
   (generated)
   "ki-thesis.bbl"
   "ki-thesis.blg"
   (rewritten before read)
-["pdflatex"] 1763674667.35821 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1763674678.34729 0
+["pdflatex"] 1763720769.21143 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1763720780.46841 0
   "LOGO_PRF_CZ_RGB_standard.jpg" 1763413833 68207 90135c26da1c81d9e05374386a905769 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1760370297 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc" 1760371621 3035 7d37ee7011b797a1b8ca3680e8da3d4d ""
@@ -324,7 +324,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1760373927 5574153 af86687748baf417d9e7d549313527be ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760374145 3629007 cf5b8e55ffd15773add2b20a8add7508 ""
   "c:/texlive/2025/texmf.cnf" 1760373898 713 e69b156964470283e0530f5060668171 ""
-  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1763674655 136367 182da6eb94fcb213a06f24d747ef423b ""
+  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1763720756 136809 afc6e8b1dcc4321dc8cd673a00da2bfb ""
   "img/AWSarchitecture.png" 1763413833 213963 60f4b8b6b1dd636531ad5056812f1936 ""
   "img/ERD.png" 1763413833 474365 b0e511e3b21756f8293be33c0a140808 ""
   "img/Gemini-cli-architecture.png" 1763413833 193459 82548b91f8740ccdb2f34fab516afc10 ""
@@ -335,6 +335,7 @@
   "img/PowerBI - analyzer.png" 1763665019 37526 9012469a21c06717123fc81913b9d285 ""
   "img/Star-schema.png" 1763645712 16792 7c53cc26d2c04a430717bf910aa8185a ""
   "img/Supersetreport.png" 1763413833 197793 5383449952cc453c3a4a41dd03cefa28 ""
+  "img/agregace-maria.png" 1763720750 56822 ab2bbe45457685e06231648ff7abfb92 ""
   "img/agregace1.png" 1763413833 30929 2926af2b3d75e551ebfc955d255d99e9 ""
   "img/agregace2.png" 1763413833 29310 30bf1b5954c2d50ae46b167b5c85472d ""
   "img/agregace3.png" 1763413833 32737 874b64d6518d2911ed6378619e441d48 ""
@@ -352,11 +353,11 @@
   "img/staging_to_fact.png" 1763413834 1002992 add33fb00c77afe50328be6248f88992 ""
   "img/topic50.png" 1763663477 43991 85d2d53dde50569c9beb69b9d227aa42 ""
   "img/topic50_2.png" 1763663561 11521 b4a0c764d587218fa1e02cf1d69989ca ""
-  "ki-thesis.aux" 1763674677 36316 be9a5523e50d3ef59b8eff371b127320 "pdflatex"
+  "ki-thesis.aux" 1763720779 36786 4879e95fc6600a958e38e2dfe144c254 "pdflatex"
   "ki-thesis.bbl" 1763662472 31521 6b7e80e820b7274ec6cd8cd9f09d4a15 "biber ki-thesis"
-  "ki-thesis.run.xml" 1763674677 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
-  "ki-thesis.tex" 1763674655 136367 182da6eb94fcb213a06f24d747ef423b ""
-  "ki-thesis.toc" 1763674677 9494 a6b8dc76ae7ab66d61b1ac537082ce09 "pdflatex"
+  "ki-thesis.run.xml" 1763720779 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
+  "ki-thesis.tex" 1763720756 136809 afc6e8b1dcc4321dc8cd673a00da2bfb ""
+  "ki-thesis.toc" 1763720779 9615 9e8c7817d514067a0ef6e2620856e182 "pdflatex"
   "kitheses.cls" 1763413833 2587 9561996a4af1ad19a1771c7d967fe489 ""
   (generated)
   "ki-thesis.aux"
