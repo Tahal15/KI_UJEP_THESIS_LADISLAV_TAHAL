@@ -1416,4 +1416,222 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
 <LOGO_PRF_CZ_RGB_standard.jpg, id=7, 166.4619pt x 63.5976pt>
 File: LOGO_PRF_CZ_RGB_standard.jpg Graphic file (type jpg)
 <use LOGO_PRF_CZ_RGB_standard.jpg>
-Packa
+Package pdftex.def Info: LOGO_PRF_CZ_RGB_standard.jpg  used on input line 193.
+(pdftex.def)             Requested size: 166.46147pt x 63.59743pt.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 24.88pt on input line 197.
+LaTeX Font Info:    Trying to load font information for T1+LibertinusSans-TLF on input line 197.
+(c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/T1LibertinusSans-TLF.fd
+File: T1LibertinusSans-TLF.fd 2024/09/22 (autoinst) Font definitions for T1/LibertinusSans-TLF.
+)
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
+(Font)              scaled to size 24.88pt on input line 197.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `LibertinusSans-TLF' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
+(Font)              scaled to size 17.28pt on input line 200.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/sc' will be
+(Font)              scaled to size 17.28pt on input line 200.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 14.4pt on input line 206.
+ (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 207.
+ (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 207.
+ (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
+(Font)              scaled to size 14.4pt on input line 208.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 17.28pt on input line 217.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
+(Font)              scaled to size 17.28pt on input line 217.
+
+
+[1
+
+\openout5 = `ki-thesis.ist'.
+
+{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_mfadfl.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_cb34qf.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sfissr.enc} <./LOGO_PRF_CZ_RGB_standard.jpg>]
+
+[2
+
+
+]
+LaTeX Font Info:    Trying to load font information for T1+pxtt on input line 230.
+ (c:/texlive/2025/texmf-dist/tex/latex/pxfonts/t1pxtt.fd
+File: t1pxtt.fd 2000/12/14 v1.0
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pxtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+
+[3]
+
+[4
+
+]
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 239.
+
+
+[5
+
+]
+
+[6
+
+
+]
+
+[7]
+
+[8
+
+
+]
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
+(Font)              scaled to size 12.0pt on input line 277.
+
+
+[9]
+
+[10
+
+
+]
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 297.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 297.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
+(Font)              scaled to size 24.88pt on input line 297.
+Package tocbasic Info: character protrusion at toc deactivated on input line 297.
+ (./ki-thesis.toc)
+\tf@toc=\write8
+\openout8 = `ki-thesis.toc'.
+
+
+
+[11]
+
+[12
+
+
+]
+chapter without number
+
+
+[13]
+
+[14
+
+
+]
+chapter 1.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
+(Font)              scaled to size 17.28pt on input line 311.
+LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
+(Font)              scaled to size 14.4pt on input line 315.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
+(Font)              scaled to size 12.0pt on input line 321.
+
+
+[15{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}]
+
+Package babel Info: 'czech' activates 'czech' shorthands.
+(babel)             Reported on input line 346.
+[16
+
+]
+LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 350.
+ (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/TS1LibertinusSerif-TLF.fd
+File: TS1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for TS1/LibertinusSerif-TLF.
+)
+LaTeX Font Info:    Font shape `TS1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 350.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `LibertinusSerif-TLF' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 354.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 354.
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 354.
+
+
+[17{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
+<img/architecture-data-warehousing.png, id=171, 971.63pt x 530.98375pt>
+File: img/architecture-data-warehousing.png Graphic file (type png)
+<use img/architecture-data-warehousing.png>
+Package pdftex.def Info: img/architecture-data-warehousing.png  used on input line 375.
+(pdftex.def)             Requested size: 469.47049pt x 256.55453pt.
+
+
+[18 <./img/architecture-data-warehousing.png>]
+<img/google-cloud.png, id=188, 2419.0375pt x 1268.74pt>
+File: img/google-cloud.png Graphic file (type png)
+<use img/google-cloud.png>
+Package pdftex.def Info: img/google-cloud.png  used on input line 393.
+(pdftex.def)             Requested size: 469.47049pt x 246.21269pt.
+
+
+[19 <./img/google-cloud.png>]
+<img/AWSarchitecture.png, id=204, 900.36375pt x 413.545pt>
+File: img/AWSarchitecture.png Graphic file (type png)
+<use img/AWSarchitecture.png>
+Package pdftex.def Info: img/AWSarchitecture.png  used on input line 414.
+(pdftex.def)             Requested size: 469.47049pt x 215.63147pt.
+<img/hadoop.png, id=207, 803.0pt x 498.86375pt>
+File: img/hadoop.png Graphic file (type png)
+<use img/hadoop.png>
+Package pdftex.def Info: img/hadoop.png  used on input line 429.
+(pdftex.def)             Requested size: 469.47049pt x 291.66284pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[20 <./img/AWSarchitecture.png>]
+
+LaTeX Warning: Citation 'apachekylin2024' on page 21 undefined on input line 438.
+
+<img/mariadb_architecture.jpg, id=222, 4801.94pt x 2063.71pt>
+File: img/mariadb_architecture.jpg Graphic file (type jpg)
+<use img/mariadb_architecture.jpg>
+Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 450.
+(pdftex.def)             Requested size: 469.47049pt x 201.7541pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[21 <./img/hadoop.png>]
+<img/Modularita.png, id=239, 1283.997pt x 290.88675pt>
+File: img/Modularita.png Graphic file (type png)
+<use img/Modularita.png>
+Package pdftex.def Info: img/Modularita.png  used on input line 474.
+(pdftex.def)             Requested size: 469.47049pt x 106.35698pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[22 <./img/mariadb_a
