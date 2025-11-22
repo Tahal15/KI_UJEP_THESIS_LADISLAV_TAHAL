@@ -1956,4 +1956,172 @@ File: img/agregace5.png Graphic file (type png)
 Package pdftex.def Info: img/agregace5.png  used on input line 1213.
 (pdftex.def)             Requested size: 469.47049pt x 366.17322pt.
 
-LaTeX Warning: `!h' float specifier chan
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[53 <./img/agregace1.png> <./img/agregace2.png>]
+
+[54 <./img/agregace3.png> <./img/agregace4.png>]
+<img/agregace-maria.png, id=550, 1683.891pt x 605.8635pt>
+File: img/agregace-maria.png Graphic file (type png)
+<use img/agregace-maria.png>
+Package pdftex.def Info: img/agregace-maria.png  used on input line 1229.
+(pdftex.def)             Requested size: 469.47049pt x 168.91028pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[55 <./img/agregace5.png>]
+
+[56 <./img/agregace-maria.png>]
+
+[57]
+<img/PowerBI - analyzer.png, id=580, 314.3745pt x 272.81924pt>
+File: img/PowerBI - analyzer.png Graphic file (type png)
+<use img/PowerBI - analyzer.png>
+Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1286.
+(pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
+
+
+[58
+
+ <./img/PowerBI - analyzer.png>]
+
+[59]
+
+[60]
+<img/Gemini-cli-architecture.png, id=606, 2634.84375pt x 1011.78pt>
+File: img/Gemini-cli-architecture.png Graphic file (type png)
+<use img/Gemini-cli-architecture.png>
+Package pdftex.def Info: img/Gemini-cli-architecture.png  used on input line 1377.
+(pdftex.def)             Requested size: 469.47049pt x 180.27536pt.
+
+
+[61 <./img/Gemini-cli-architecture.png>]
+
+[62
+
+
+]
+chapter 4.
+
+
+[63]
+
+[64
+
+
+]
+chapter 5.
+
+
+[65]
+
+[66]
+
+[67]
+
+[68]
+
+[69]
+
+[70]
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1582--1583
+\T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
+ []
+
+
+
+[71]
+
+[72]
+
+[73]
+
+[74
+
+
+]
+chapter 6.
+
+
+[75]
+
+[76
+
+
+]
+chapter 7.
+(./ki-thesis.gls
+
+[77]
+
+[78
+
+
+]
+
+[79
+
+
+])
+
+[80]
+
+[81
+
+
+]
+
+[82]
+
+[83]
+
+[84
+
+
+]
+chapter A.
+
+
+[85]
+
+[86
+
+
+]
+chapter B.
+
+
+[87] (./ki-thesis.aux)
+ ***********
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-09-02>
+ ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
+\openout1 = `ki-thesis.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 61290 strings out of 467748
+ 1389390 string characters out of 5431137
+ 2502448 words of memory out of 5000000
+ 88295 multiletter control sequences out of 15000+600000
+ 793593 words of font info for 425 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 122i,12n,121p,11341b,3063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
+Output written on ki-thesis.pdf (87 pages, 4906486 bytes).
+PDF statistics:
+ 1088 PDF objects out of 1200 (max. 8388607)
+ 900 compressed objects within 9 object streams
+ 350 named destinations out of 1000 (max. 500000)
+ 94584 words of extra memory for PDF output out of 106986 (max. 10000000)
+
