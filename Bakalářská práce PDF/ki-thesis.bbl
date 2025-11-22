@@ -466,6 +466,36 @@
       \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
       \endverb
     \endentry
+    \entry{oracle_data_platform}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=df7230d2b70aadf5214a562c748f6fad}{%
+           family={Junior},
+           familyi={J\bibinitperiod},
+           given={Juarez},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{fullhash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{fullhashraw}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{bibnamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorbibnamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authornamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorfullhash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorfullhashraw}{df7230d2b70aadf5214a562c748f6fad}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-22}
+      \field{title}{Oracle Autonomous Data Warehouse Cloud Service (ADW) — Part 3 — Getting Started with Oracle Machine Learning}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
+      \endverb
+      \verb{url}
+      \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
+      \endverb
+    \endentry
     \entry{hadoop_ecosystem_perficient}{online}{}{}
       \name{author}{1}{}{%
         {{hash=c5ae24b19b1da73ba4d8495589c28a19}{%
@@ -513,8 +543,8 @@
       \strng{authornamehash}{163552afdb677ad6688e22981475efda}
       \strng{authorfullhash}{163552afdb677ad6688e22981475efda}
       \strng{authorfullhashraw}{163552afdb677ad6688e22981475efda}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Obrázek: MariaDB Architecture}
@@ -764,8 +794,8 @@
       \strng{authornamehash}{b4e595bd8646c01df540ff38696a35be}
       \strng{authorfullhash}{b4e595bd8646c01df540ff38696a35be}
       \strng{authorfullhashraw}{b4e595bd8646c01df540ff38696a35be}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}

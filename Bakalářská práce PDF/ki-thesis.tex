@@ -422,6 +422,24 @@ Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nab�
     \item \textbf{Výhody a slabiny:} Výhodou AWS je modularita, která umožňuje komponenty kombinovat podle potřeb. Podobně jako u Google se jedná o výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady.
 \end{itemize}
 
+\subsection{Oracle Data Platform (komerční, cloud/on-premise)}
+
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/oracle_architecture.png}
+      \caption{Architektura Oracle Data Platform. Zdroj: medium.com \protect\cite{oracle_data_platform}}
+      \label{fig:OraclePlatform}
+    \end{figure}
+
+Společnost Oracle nabízí komplexní datovou platformu, která kombinuje tradiční silné stránky v oblasti relačních databází s moderními cloudovými technologiemi. Její ekosystém je navržen tak, aby pokrýval celý životní cyklus dat, od jejich pořízení až po pokročilou analytiku a využití umělé inteligence.
+
+\begin{itemize}
+    \item \textbf{Datový sklad a databáze:} Vlajkovou lodí je \emph{Oracle Autonomous Data Warehouse} (ADW), který využívá strojové učení k automatizaci správy, ladění výkonu a zabezpečení. Pro transakční a smíšené zátěže je k dispozici \emph{Oracle Database}, kterou lze provozovat jak v cloudu (OCI), tak na on-premise hardwaru \emph{Exadata}.
+    \item \textbf{Integrace a správa dat:} Služba \emph{Oracle Cloud Infrastructure (OCI) Data Integration} zajišťuje bezkódové ETL/ELT procesy. Pro správu metadat a governance slouží \emph{OCI Data Catalog}.
+    \item \textbf{Analytika a vizualizace:} \emph{Oracle Analytics Cloud} (OAC) poskytuje nástroje pro samoobslužnou vizualizaci, reporting a rozšířenou analytiku s podporou AI.
+    \item \textbf{Výhody a nevýhody:} Hlavní předností je vysoký výkon, bezpečnost a možnost hybridního nasazení (Cloud@Customer), což oceňují zejména velké korporace a státní správa. Nevýhodou mohou být vyšší licenční náklady a komplexita celého ekosystému.
+\end{itemize}
+
 \subsection{Ekosystém Apache Software Foundation}
 
   \begin{figure}[h]
@@ -590,7 +608,7 @@ Celý systém je rozdělen do pěti vrstev, jak je znázorněno na obrázku \ref
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/reporting_structure.png}
-  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \textit{Zdroj: vlastní zpracování autora dle architektury Mondi Štětí a.s.}}
+  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \textit{Zdroj: vlastní zpracování autora, dle architektury Mondi Štětí a.s.}}
   \label{fig:architecture}
 \end{figure}
 
@@ -827,6 +845,10 @@ MariaDB je open-source relační databázový systém, který vznikl jako fork M
 % --- KOMERČNÍ DWH ---
 \textbf{Microsoft SQL Server} \par
 Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
+\vspace{1em} \par
+
+\textbf{Oracle Database a Autonomous Data Warehouse} \par
+Oracle Database je robustní komerční databázový systém, který v rámci své cloudové platformy nabízí službu \textbf{Autonomous Data Warehouse (ADW)}. Ta využívá strojové učení pro automatickou správu, zabezpečení a optimalizaci výkonu. Systém podporuje hybridní nasazení a je navržen pro zpracování smíšených zátěží (OLTP i OLAP) s vysokou dostupností a bezpečností.
 \\ 
 \bottomrule
 
@@ -951,7 +973,7 @@ Tyto údaje představovaly surová telemetrická data, původně pocházející 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/mqttentries_structure.png}
-  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data}
+  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data. Zdroj: Dbeaver}
   \label{fig:mqttentries}
 \end{figure}
 
@@ -971,7 +993,7 @@ Výstupem této první fáze analýzy jsou skupiny témat, které sdílejí podo
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/topic50.png}
-  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat.}
+  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat. Zdroj: Excel}
   \label{fig:topic_groups_initial}
 \end{figure}
 
@@ -980,7 +1002,7 @@ V dalším kroku bylo nutné tyto automaticky vygenerované skupiny ručně zrev
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/topic50_2.png}
-  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napříč skupiny}
+  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napříč skupiny. Zdroj: Excel}
   \label{fig:topic_groups_merged}
 \end{figure}
 
@@ -1006,41 +1028,40 @@ Při zpracování dat jsou prováděny převody datových formátů, ošetřová
 \subsubsection{SQL Server ETL}
 ETL proces pro SQL Server je dvoukrokový a obsluhují jej dva samostatné skripty.
 \begin{itemize}
-    \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{mssql\_bilina\_kamery\_lake\_to\_staging.py})} \\
-    Tento skript využívá knihovnu \texttt{pyodbc}. Inkrementálně načítá surová data z tabulky \texttt{mqttentries}, parsuje JSON \texttt{payload} a očištěné záznamy vkládá po dávkách do staging tabulky \texttt{[Stg].[CameraCamea]}. Každý běh je logován v tabulce \texttt{ETL\_RunLog}, přičemž pro získání ID běhu využívá T-SQL klauzuli \texttt{OUTPUT inserted.RunID}.
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+     \texttt{mssql\_bilina\_kamery\_lake\_to\_staging.py} skript využívá knihovnu \texttt{pyodbc}. Inkrementálně načítá surová data z tabulky \texttt{mqttentries}, parsuje JSON \texttt{payload} a očištěné záznamy vkládá po dávkách do staging tabulky \texttt{[Stg].[CameraCamea]}. Každý běh je logován v tabulce \texttt{ETL\_RunLog}, přičemž pro získání ID běhu využívá T-SQL klauzuli \texttt{OUTPUT inserted.RunID}.
 
-    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{mssql\_bilina\_kamery\_staging\_to\_fact})} \\
-    Druhý skript zpracovává data připravená ve stagingu. Pro nalezení nových dimenzních hodnot nejprve vloží unikátní záznamy z dávky do dočasné tabulky \texttt{\#\#TempDimensions}. Následně pomocí T-SQL klauzule \texttt{EXCEPT} porovná obsah dočasné tabulky s existujícími dimenzemi a vloží pouze chybějící záznamy. Poté konstruuje záznamy pro faktovou tabulku \texttt{FactCameraDetection} pomocí \texttt{LEFT JOIN} na dimenze.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+    \texttt{mssql\_bilina\_kamery\_staging\_to\_fact.py} skript zpracovává data připravená ve stagingu. Pro nalezení nových dimenzních hodnot nejprve vloží unikátní záznamy z dávky do dočasné tabulky \texttt{\#\#TempDimensions}. Následně pomocí T-SQL klauzule \texttt{EXCEPT} porovná obsah dočasné tabulky s existujícími dimenzemi a vloží pouze chybějící záznamy. Poté konstruuje záznamy pro faktovou tabulku \texttt{FactCameraDetection} pomocí \texttt{LEFT JOIN} na dimenze.
 \end{itemize}
 
 \subsubsection{MariaDB + MariaDB ColumnStore ETL}
 Implementace pro MariaDB se řídí stejnou dvoukrokovou logikou, avšak krok 2 je přizpůsoben pro specifika enginu ColumnStore.
 \begin{itemize}
-    \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{maria\_bilina\_kamery\_lake\_to\_staging.py})} \\
-    Skript používá knihovnu \texttt{pymysql}. Načítá data z datového jezera, zpracovává JSON a ukládá je do staging tabulky \texttt{Stg\_CameraCamea}. Pro aktualizaci kontrolní tabulky využívá MySQL klauzuli \texttt{ON DUPLICATE KEY UPDATE}.
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+    \texttt{maria\_bilina\_kamery\_lake\_to\_staging.py} skript používá knihovnu \texttt{pymysql}. Načítá data z datového jezera, zpracovává JSON a ukládá je do staging tabulky \texttt{Stg\_CameraCamea}. Pro aktualizaci kontrolní tabulky využívá MySQL klauzuli \texttt{ON DUPLICATE KEY UPDATE}.
 
- \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_bilina\_kamery\_staging\_to\_fact.py})} \\
-Tento skript používá pro plnění dimenzí příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Při plnění faktové tabulky skript nejprve v~Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}.
+ \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+ \texttt{maria\_bilina\_kamery\_staging\_to\_fact.py} skript používá pro plnění dimenzí příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Při plnění faktové tabulky skript nejprve v~Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}.
 
 V~kontextu enginu ColumnStore, který nativně nepodporuje auto-inkrementaci, existují dvě hlavní strategie pro generování primárních klíčů. V~této práci byla zvolena cesta \textbf{generování klíčů přímo v~ETL procesu}. Alternativní možností je využití řádkového enginu \textbf{InnoDB} (který auto-inkrementaci podporuje) pro prvotní nahrání dat, následné odstranění indexů a finální přepnutí tabulky na sloupcový formát (\texttt{ALTER TABLE ... ENGINE=ColumnStore}). Nicméně tato strategie nebyla pro můj případ vyhovující.\end{itemize}
 
 \subsubsection{PostgreSQL + PostgreSQL TimescaleDB ETL}
 ETL proces pro PostgreSQL je unikátní svým dynamickým přístupem v prvním kroku a hromadným vkládáním ve druhém.
 \begin{itemize}
-    \item \textbf{Krok 1: Dynamické ETL z jezera do stagingu (\texttt{pg\_timescale\_lake\_to\_staging.py})} \\
-    Tento skript automaticky analyzuje JSON \texttt{payload}. Pomocí funkcí \texttt{flatten\_json()} a~\texttt{infer\_pg\_type()} dynamicky odvozuje schéma a datové typy. Pokud narazí na nový atribut, sám upraví cílovou staging tabulku příkazem \texttt{ALTER TABLE}.
-
-    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{pg\_timescale\_staging\_to\_fact.py})} \\
-    Druhý skript využívá pro plnění dimenzí specifickou vlastnost PostgreSQL – příkaz \texttt{INSERT ... ON CONFLICT DO NOTHING}. Tento příkaz je spouštěn pomocí optimalizační funkce \texttt{execute\_values} z knihovny \texttt{psycopg2}, která sestaví jediný rozsáhlý \texttt{INSERT} příkaz obsahující všechny hodnoty najednou. Toto umožňuje databázi zpracovat celou dávku v jediné operaci. Následně jsou data ze stagingu pomocí standardního \texttt{INSERT INTO ... SELECT} s \texttt{LEFT JOIN}y transformována do faktové tabulky.
+    \item \textbf{Krok 1: Dynamické ETL z jezera do stagingu} \\
+    \texttt{pg\_timescale\_lake\_to\_staging.py} skript automaticky analyzuje JSON \texttt{payload}. Pomocí funkcí \texttt{flatten\_json()} a~\texttt{infer\_pg\_type()} dynamicky odvozuje schéma a datové typy. Pokud narazí na nový atribut, sám upraví cílovou staging tabulku příkazem \texttt{ALTER TABLE}.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+    \texttt{pg\_timescale\_staging\_to\_fact.py} skript využívá pro plnění dimenzí specifickou vlastnost PostgreSQL – příkaz \texttt{INSERT ... ON CONFLICT DO NOTHING}. Tento příkaz je spouštěn pomocí optimalizační funkce \texttt{execute\_values} z knihovny \texttt{psycopg2}, která sestaví jediný rozsáhlý \texttt{INSERT} příkaz obsahující všechny hodnoty najednou. Toto umožňuje databázi zpracovat celou dávku v jediné operaci. Následně jsou data ze stagingu pomocí standardního \texttt{INSERT INTO ... SELECT} s \texttt{LEFT JOIN}y transformována do faktové tabulky.
 \end{itemize}
 
 \subsubsection{MariaDB + ClickHouse ETL}
 Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými technologiemi a specifickým způsobem přenosu dat.
 \begin{itemize}
-    \item \textbf{Krok 1: Z datového jezera do stagingu (\texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py})} \\
-    Skript zajišťuje přenos dat z MariaDB do ClickHouse. Pro zápis do ClickHouse je využit nativní binární protokol (port 9000), přičemž data jsou v Pythonu agregována do dávky záznamů (tuples) a odeslána v jedné operaci. Data z MariaDB jsou čtena proudově (streaming) po menších dávkách, čímž se zamezuje načtení celého objemu dat do paměti najednou. Veškeré řídicí a logovací tabulky (\texttt{ETL\_IncrementalControl}, \texttt{ETL\_RunLog}) jsou spravovány přímo v ClickHouse.
-    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů (\texttt{maria\_click\_kamery\_staging\_to\_fact.py})} \\
-    Celý tento krok probíhá výhradně v rámci ClickHouse. Skript spouští sérii SQL dotazů. Pro naplnění dimenzí se používá konstrukce \texttt{INSERT INTO ... SELECT ... WHERE NOT IN}, která vybere a vloží pouze nové hodnoty. Následně jsou data transformována do faktové tabulky jediným příkazem \texttt{INSERT INTO ... SELECT} obsahujícím všechny potřebné \texttt{LEFT JOIN}y na dimenzní tabulky.
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+    \texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py} skript zajišťuje přenos dat z MariaDB do ClickHouse. Pro zápis do ClickHouse je využit nativní binární protokol (port 9000), přičemž data jsou v Pythonu agregována do dávky záznamů (tuples) a odeslána v jedné operaci. Data z MariaDB jsou čtena proudově (streaming) po menších dávkách, čímž se zamezuje načtení celého objemu dat do paměti najednou. Veškeré řídicí a logovací tabulky (\texttt{ETL\_IncrementalControl}, \texttt{ETL\_RunLog}) jsou spravovány přímo v ClickHouse.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů } \\
+    \texttt{maria\_click\_bilina\_kamery\_staging\_to\_fact.py} skript spouští sérii SQL dotazů. Pro naplnění dimenzí se používá konstrukce \texttt{INSERT INTO ... SELECT ... WHERE NOT IN}, která vybere a vloží pouze nové hodnoty. Následně jsou data transformována do faktové tabulky jediným příkazem \texttt{INSERT INTO ... SELECT} obsahujícím všechny potřebné \texttt{LEFT JOIN}y na dimenzní tabulky.
 \end{itemize}
 
 \begin{figure}[h]
@@ -1060,7 +1081,7 @@ Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými techn
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/MariaDW_staging.png}
-  \caption{Staging tabulka v datovém skladu}
+  \caption{Staging tabulka v datovém skladu. Zdroj: DBeaver}
   \label{fig:mariadwstaging}
 \end{figure}
 
@@ -1090,7 +1111,7 @@ Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a 
 V rámci praktické části byly nad vytvořenými datovými sklady vystavěny dvě samostatné analytické vrstvy – každá odpovídající jedné z testovaných technologií.  
 Cílem bylo vytvořit funkční OLAP modely umožňující tvorbu interaktivních vizualizací, a současně porovnat rozdíly mezi komerčním řešením na platformě Microsoft SQL Server a open-source přístupem postaveným na nástroji Cube.js.
 
-\subsection{Komerční varianta – SSAS Tabular}
+\subsection{Komerční varianta – SSAS Tabular a Power BI}
 
 V komerční větvi datové platformy byl vytvořen datový model v prostředí \textbf{SQL Server Analysis Services (SSAS) Tabular}.  
 Model byl vystavěn nad tabulkami \texttt{FactCameraDetection} a~dimenzemi \texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}.  
@@ -1105,18 +1126,19 @@ Jednalo se například o:
   \item \texttt{Detections Over Time} – časová agregace počtu detekcí podle dne a hodiny.
 \end{itemize}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/PBIreport.png}
+  \caption{Ukázka výsledného PBI reportu}
+  \label{fig:pbi}
+\end{figure}
+
 Součástí modelu byla také implementace základních hierarchií (například \textit{Rok → Měsíc → Den}) a vybraných filtračních atributů pro přehlednější práci v Power BI.  
 Po ověření funkčnosti byl model nasazen na instanci \texttt{SSAS Tabular} a zpřístupněn uživatelům prostřednictvím \textbf{Microsoft Power BI} a \textbf{Excel PivotTables}.  
 V Power BI byly vytvořen interaktivní report zobrazující přehled detekcí podle města, typu vozidla, senzoru a času.  
 Některé metriky byly navíc doplněny o logiku pro kontrolu konzistence dat a filtrování extrémních hodnot.  
 Výhodou tohoto přístupu byla plná integrace s ekosystémem Microsoft, vysoký výkon in-memory výpočtů a možnost implementace bezpečnostních pravidel na úrovni datového modelu.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/PBIreport.png}
-  \caption{Ukázka výsledného PBI reportu}
-  \label{fig:topic50}
-\end{figure}
 
 
 
@@ -1135,18 +1157,20 @@ Po sestavení modelu byl \textbf{Cube.js} spuštěn jako samostatná \texttt{Nod
 Toto rozhraní umožňuje klientským aplikacím komunikovat s~Cube.js stejným způsobem, jako by šlo o běžnou SQL databázi – tedy pomocí SQL dotazů.  
 Díky tomu bylo možné na Cube.js napojit nástroj \textbf{Apache Superset}, který byl použit jako hlavní vizualizační platforma open-source řešení.  
 
-V rámci Superset byly vytvořen interaktivní dashboard zobrazující klíčové metriky:  
-počty detekcí v čase, rozložení typů vozidel, přehled rychlostí.  
-Data byla načítána prostřednictvím SQL dotazů směrovaných na PostgreSQL endpoint poskytovaný Cube.js, čímž byla zajištěna kompatibilita bez nutnosti dalších úprav.  
-Pro zvýšení výkonu byly v Cube.js aktivovány funkce \textit{pre-aggregations} a~\textit{query caching}, které umožňovaly ukládat výsledky často opakovaných dotazů.  
-
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/Supersetreport.png}
   \caption{Ukázka výsledného Superset reportu}
   \label{fig:topic50}
 \end{figure}
+
+V rámci Superset byly vytvořen interaktivní dashboard zobrazující klíčové metriky:  
+počty detekcí v čase, rozložení typů vozidel, přehled rychlostí.  
+Data byla načítána prostřednictvím SQL dotazů směrovaných na PostgreSQL endpoint poskytovaný Cube.js, čímž byla zajištěna kompatibilita bez nutnosti dalších úprav.  
+Pro zvýšení výkonu byly v Cube.js aktivovány funkce \textit{pre-aggregations} a~\textit{query caching}, které umožňovaly ukládat výsledky často opakovaných dotazů.  
+
+
+
 
 
 \subsection{Porovnání přístupů}
@@ -1170,7 +1194,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 \subsection{Srovnání výkonu na úrovni databáze}
 
-V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště.
+V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v řádech několika magnitud.
 
 \begin{figure}[h!]
   \centering
@@ -1179,7 +1203,7 @@ V první fázi byl měřen čas provedení sady pěti reprezentativních analyti
   \label{fig:srovnani1}
 \end{figure}
 
-Graf \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
+Obrázek \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
 
 \begin{figure}[h!]
   \centering
@@ -1225,13 +1249,12 @@ Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat
 
 \begin{figure}[h!]
   \centering
-   Zde vložte graf porovnávající "MariaDB Před" a "MariaDB Po" optimalizaci
   \includegraphics[width=\textwidth]{img/agregace-maria.png} 
   \caption{Dopad nasazení pokrývajících indexů na výkon MariaDB (InnoDB)}
   \label{fig:mariadb_opt}
 \end{figure}
 
-Jak ukazuje graf \ref{fig:mariadb_opt}, po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
+Jak ukazuje obrázek \ref{fig:mariadb_opt} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
 \begin{itemize}
     \item U komplexní analýzy víkendů (Dotaz 5) klesl čas z \textbf{2 minut 22 sekund} na pouhé \textbf{3 sekundy}.
     \item U agregace dle typu detekce (Dotaz 4) došlo ke zrychlení z \textbf{1 minuty 45 sekund} na \textbf{7 sekund}.

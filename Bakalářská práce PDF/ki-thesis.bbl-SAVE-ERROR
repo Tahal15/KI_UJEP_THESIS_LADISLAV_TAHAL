@@ -191,6 +191,101 @@
       \verb https://medium.com/codex/cube-creating-a-semantic-data-layer-a947fd0c11f6
       \endverb
     \endentry
+    \entry{osi_web}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=35d827e2a8f2127b88fab45ef43a4f09}{%
+           family={{Open Source Initiative}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{fullhash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{fullhashraw}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{bibnamehash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{authorbibnamehash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{authornamehash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{authorfullhash}{35d827e2a8f2127b88fab45ef43a4f09}
+      \strng{authorfullhashraw}{35d827e2a8f2127b88fab45ef43a4f09}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Open Source Definition}
+      \field{urlday}{22}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://opensource.org/osd
+      \endverb
+      \verb{url}
+      \verb https://opensource.org/osd
+      \endverb
+    \endentry
+    \entry{ibm_onprem_cloud}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=cbf44511d041dc6d1dd73cc0c033122c}{%
+           family={{IBM}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{fullhash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{fullhashraw}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{bibnamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authorbibnamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authornamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authorfullhash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authorfullhashraw}{cbf44511d041dc6d1dd73cc0c033122c}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{On-premises vs. Cloud: What's the difference?}
+      \field{urlday}{22}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ibm.com/topics/on-premises-vs-cloud
+      \endverb
+      \verb{url}
+      \verb https://www.ibm.com/topics/on-premises-vs-cloud
+      \endverb
+    \endentry
+    \entry{azure_data_warehousing}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=5651d0cfdf9bf2afb754bee02dafe11c}{%
+           family={Buck},
+           familyi={B\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{fullhash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{fullhashraw}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{bibnamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{authorbibnamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{authornamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{authorfullhash}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \strng{authorfullhashraw}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Obrázek: Data warehousing and analytics architecture}
+      \field{title}{Data warehousing and analytics - Azure Architecture Center}
+      \field{urlday}{14}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/azure/architecture/example-scenario/data/data-warehouse
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/azure/architecture/example-scenario/data/data-warehouse
+      \endverb
+    \endentry
     \entry{mssql2024overview}{online}{}{}
       \name{author}{1}{}{%
         {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
@@ -206,8 +301,8 @@
       \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
       \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
       \field{extraname}{1}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -235,8 +330,8 @@
       \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
       \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
       \field{extraname}{2}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -247,6 +342,39 @@
       \endverb
       \verb{url}
       \verb https://learn.microsoft.com/en-us/power-bi/
+      \endverb
+    \endentry
+    \entry{google_data_products}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=6b45cad11c80bfc384cfc516dacc3994}{%
+           family={Yadav},
+           familyi={Y\bibinitperiod},
+           given={Jitendra},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{fullhash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{fullhashraw}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{bibnamehash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{authorbibnamehash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{authornamehash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{authorfullhash}{6b45cad11c80bfc384cfc516dacc3994}
+      \strng{authorfullhashraw}{6b45cad11c80bfc384cfc516dacc3994}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Publikováno na Google Cloud - Community (Medium)}
+      \field{title}{Implementing Data Products on Google Data Lakehouse Architecture}
+      \field{urlday}{14}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://medium.com/google-cloud/implementing-data-products-on-google-data-lakehouse-architecture-df5c5f4cc07e
+      \endverb
+      \verb{url}
+      \verb https://medium.com/google-cloud/implementing-data-products-on-google-data-lakehouse-architecture-df5c5f4cc07e
       \endverb
     \endentry
     \entry{bigquery2024docs}{online}{}{}
@@ -263,8 +391,8 @@
       \strng{authornamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
       \strng{authorfullhash}{57f3af2a3d1051c172ab3c3db7d5409d}
       \strng{authorfullhashraw}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -291,8 +419,9 @@
       \strng{authornamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
       \strng{authorfullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
       \strng{authorfullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -303,6 +432,133 @@
       \endverb
       \verb{url}
       \verb https://aws.amazon.com/redshift/
+      \endverb
+    \endentry
+    \entry{aws_redshift_arch}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
+           family={{Amazon Web Services}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{fullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{fullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{bibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorbibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authornamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorfullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \strng{authorfullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Obrázek: Amazon Redshift Architecture}
+      \field{title}{Data warehouse system architecture}
+      \field{urlday}{14}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
+      \endverb
+      \verb{url}
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
+      \endverb
+    \endentry
+    \entry{oracle_data_platform}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=df7230d2b70aadf5214a562c748f6fad}{%
+           family={Junior},
+           familyi={J\bibinitperiod},
+           given={Juarez},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{fullhash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{fullhashraw}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{bibnamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorbibnamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authornamehash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorfullhash}{df7230d2b70aadf5214a562c748f6fad}
+      \strng{authorfullhashraw}{df7230d2b70aadf5214a562c748f6fad}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-22}
+      \field{title}{Oracle Autonomous Data Warehouse Cloud Service (ADW) — Part 3 — Getting Started with Oracle Machine Learning}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
+      \endverb
+      \verb{url}
+      \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
+      \endverb
+    \endentry
+    \entry{hadoop_ecosystem_perficient}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=c5ae24b19b1da73ba4d8495589c28a19}{%
+           family={{Perficient}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{fullhash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{fullhashraw}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{bibnamehash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{authorbibnamehash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{authornamehash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{authorfullhash}{c5ae24b19b1da73ba4d8495589c28a19}
+      \strng{authorfullhashraw}{c5ae24b19b1da73ba4d8495589c28a19}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{8}
+      \field{note}{Obrázek: Hadoop Ecosystem Components}
+      \field{title}{Hadoop Ecosystem Components}
+      \field{urlday}{22}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://blogs.perficient.com/2022/08/10/hadoop-ecosystem-components/
+      \endverb
+      \verb{url}
+      \verb https://blogs.perficient.com/2022/08/10/hadoop-ecosystem-components/
+      \endverb
+    \endentry
+    \entry{mariadb_smartdatainstitute}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=163552afdb677ad6688e22981475efda}{%
+           family={{Smart Data Institute}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{163552afdb677ad6688e22981475efda}
+      \strng{fullhash}{163552afdb677ad6688e22981475efda}
+      \strng{fullhashraw}{163552afdb677ad6688e22981475efda}
+      \strng{bibnamehash}{163552afdb677ad6688e22981475efda}
+      \strng{authorbibnamehash}{163552afdb677ad6688e22981475efda}
+      \strng{authornamehash}{163552afdb677ad6688e22981475efda}
+      \strng{authorfullhash}{163552afdb677ad6688e22981475efda}
+      \strng{authorfullhashraw}{163552afdb677ad6688e22981475efda}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Obrázek: MariaDB Architecture}
+      \field{title}{MariaDB}
+      \field{urlday}{22}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://smartdatainstitute.com/mariadb/
+      \endverb
+      \verb{url}
+      \verb https://smartdatainstitute.com/mariadb/
       \endverb
     \endentry
     \entry{dbt2024semanticlayer}{online}{}{}
@@ -319,8 +575,8 @@
       \strng{authornamehash}{22ff9be0746331cd14a49b056da5518b}
       \strng{authorfullhash}{22ff9be0746331cd14a49b056da5518b}
       \strng{authorfullhashraw}{22ff9be0746331cd14a49b056da5518b}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -347,8 +603,8 @@
       \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
       \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
       \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -375,8 +631,8 @@
       \strng{authornamehash}{3a4f3127b2885e4bf694e49c65be36f3}
       \strng{authorfullhash}{3a4f3127b2885e4bf694e49c65be36f3}
       \strng{authorfullhashraw}{3a4f3127b2885e4bf694e49c65be36f3}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -411,8 +667,8 @@
       \strng{authornamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
       \strng{authorfullhash}{fb76dd574e3114a24f068a1c2a06d1ce}
       \strng{authorfullhashraw}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -442,8 +698,8 @@
       \strng{authornamehash}{4e3f864ba9cf3c62d471e1c62414d098}
       \strng{authorfullhash}{4e3f864ba9cf3c62d471e1c62414d098}
       \strng{authorfullhashraw}{4e3f864ba9cf3c62d471e1c62414d098}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -454,6 +710,69 @@
       \endverb
       \verb{url}
       \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
+      \endverb
+    \endentry
+    \entry{mcp_protocol}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=9f3bca5afd75e8272ebde12ef64f3a81}{%
+           family={{Model Context Protocol}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{fullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{fullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{bibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorbibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authornamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorfullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{authorfullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[Online; navštíveno 20.11.2024]}
+      \field{title}{Model Context Protocol: An open standard for building AI assistants}
+      \field{urlday}{20}
+      \field{urlmonth}{11}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+      \verb{url}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+    \endentry
+    \entry{wikipedia_snowflake_schema}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=28b6ba9f3638a296385fabdb51df1580}{%
+           family={{Wikimedia Foundation}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{fullhash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{fullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{bibnamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorbibnamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authornamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorfullhash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorfullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Použito pro ilustraci vločkového schématu. Obrázek: \url{https://en.wikipedia.org/wiki/Snowflake_schema\#/media/File:Snowflake-schema.png}}
+      \field{title}{Snowflake schema}
+      \field{urlday}{7}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/wiki/Snowflake_schema
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Snowflake_schema
       \endverb
     \endentry
     \entry{looker2024semanticmodel}{online}{}{}
@@ -475,8 +794,8 @@
       \strng{authornamehash}{b4e595bd8646c01df540ff38696a35be}
       \strng{authorfullhash}{b4e595bd8646c01df540ff38696a35be}
       \strng{authorfullhashraw}{b4e595bd8646c01df540ff38696a35be}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accessed 2025-10-23}
@@ -489,7 +808,93 @@
       \verb https://cloud.google.com/looker/docs/semantic-model-overview
       \endverb
     \endentry
+    \entry{rfc8259}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=3e2f0f38495aebf8b91a698c2ccbfae3}{%
+           family={Bray},
+           familyi={B\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Internet Engineering Task Force (IETF)}%
+      }
+      \list{publisher}{1}{%
+        {RFC Editor}%
+      }
+      \strng{namehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{fullhash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{fullhashraw}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{bibnamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorbibnamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authornamehash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorfullhash}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \strng{authorfullhashraw}{3e2f0f38495aebf8b91a698c2ccbfae3}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Internet Requests for Comments}
+      \field{month}{12}
+      \field{note}{Dostupné online}
+      \field{number}{8259}
+      \field{title}{The JavaScript Object Notation (JSON) Data Interchange Format}
+      \field{type}{RFC}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.rfc-editor.org/rfc/rfc8259.txt
+      \endverb
+      \verb{url}
+      \verb https://www.rfc-editor.org/rfc/rfc8259.txt
+      \endverb
+    \endentry
+    \entry{mining_massive_datasets}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=900d107125ff0ca84698cb909e4f6c51}{%
+           family={Leskovec},
+           familyi={L\bibinitperiod},
+           given={Jure},
+           giveni={J\bibinitperiod}}}%
+        {{hash=45500b3dfad3d2cf0ce07cd00149af68}{%
+           family={Rajaraman},
+           familyi={R\bibinitperiod},
+           given={Anand},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cafe1d770c56825ebccdb81e9f7c9b3b}{%
+           family={Ullman},
+           familyi={U\bibinitperiod},
+           given={Jeffrey\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{908fe1724df35af8b8071b559533f902}
+      \strng{fullhash}{908fe1724df35af8b8071b559533f902}
+      \strng{fullhashraw}{908fe1724df35af8b8071b559533f902}
+      \strng{bibnamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorbibnamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authornamehash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorfullhash}{908fe1724df35af8b8071b559533f902}
+      \strng{authorfullhashraw}{908fe1724df35af8b8071b559533f902}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{978-1108476348}
+      \field{note}{Kapitola 3: Finding Similar Items}
+      \field{title}{Mining of Massive Datasets}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb http://www.mmds.org/
+      \endverb
+      \verb{url}
+      \verb http://www.mmds.org/
+      \endverb
+    \endentry
   \enddatalist
+  \missing{apachekylin2024}
 \endrefsection
 \endinput
 

@@ -1,0 +1,86 @@
+@startuml
+' Nastavení vodorovného směru (klíčová změna)
+left to right direction
+
+' Skrytí automatického vypisování stereotypů (odstraní zdvojení <<DL>>)
+hide stereotype
+skinparam shadow false
+skinparam defaultTextAlignment center
+
+' Definice barev a stylů
+skinparam rectangle {
+    RoundCorner 15
+    
+    BackgroundColor<<DL>> #E6F2FF
+    BorderColor<<DL>> #4472C4
+    FontColor<<DL>> #203764
+    
+    BackgroundColor<<DWH>> #E2F0D9
+    BorderColor<<DWH>> #548235
+    FontColor<<DWH>> #385723
+
+    BackgroundColor<<OLAP>> #FCE4D6
+    BorderColor<<OLAP>> #ED7D31
+    FontColor<<OLAP>> #984807
+
+    BackgroundColor<<BI>> #F2E6F5
+    BorderColor<<BI>> #7030A0
+    FontColor<<BI>> #502274
+}
+
+skinparam note {
+    BackgroundColor #FFFFE0
+    BorderColor #F0E68C
+    TextAlignment left
+}
+
+skinparam arrow {
+    Color #555555
+    Thickness 2
+}
+
+' Definice bloků s přesným textem
+rectangle "<i><<DL>></i>\n<b>Datové jezero</b>\n(Data Lake)" as DL <<DL>>
+rectangle "<i><<DWH>></i>\n<b>Datový sklad</b>\n(Data Warehouse)" as DWH <<DWH>>
+rectangle "<i><<OLAP>></i>\n<b>OLAP</b>\n(Sémantická vrstva)" as OLAP <<OLAP>>
+rectangle "<i><<BI>></i>\n<b>BI & Reporting</b>\n(Vizualizace)" as BI <<BI>>
+
+' Propojení (obarvené šipky)
+DL -[#4472C4]-> DWH
+DWH -[#548235]-> OLAP
+OLAP -[#ED7D31]-> BI
+
+' Poznámky pod prvky
+note bottom of DL
+    <b>Příklady technologií:</b>
+    * PostgreSQL, MariaDB
+    * Azure Data Lake
+    * Google Cloud Storage
+    * MS SQL
+end note
+
+note bottom of DWH
+    <b>Příklady technologií:</b>
+    * Snowflake, BigQuery
+    * MS SQL, Synapse
+    * TimescaleDB
+    * MariaDB ColumnStore
+end note
+
+note bottom of OLAP
+    <b>Příklady technologií:</b>
+    * SSAS (Analysis Services)
+    * Cube.js
+    * Druid
+    * ClickHouse
+end note
+
+note bottom of BI
+    <b>Příklady technologií:</b>
+    * Power BI
+    * Tableau
+    * Superset
+    * Looker
+end note
+
+@enduml

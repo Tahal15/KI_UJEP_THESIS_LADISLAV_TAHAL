@@ -1,17 +1,17 @@
 # Fdb version 4
-["biber ki-thesis"] 1763815035.55041 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1763815912.16084 0
-  "ki-thesis.bcf" 1763815911 111450 0f0198f986d2aa188a30318c2d5417ae "pdflatex"
-  "thesis.bib" 1763815857 12750 5670c5029917f61fd71859f7bb716d63 ""
+["biber ki-thesis"] 1763833025.77123 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1763833674.51399 0
+  "ki-thesis.bcf" 1763833673 111602 309075abf5c3d77af1772c93aaaf1003 "pdflatex"
+  "thesis.bib" 1763832295 13144 695ee71ca56a9884d0129e406ff4fd05 ""
   (generated)
   "ki-thesis.bbl"
   "ki-thesis.blg"
   (rewritten before read)
-["cusdep glo gls ki-thesis"] 1763815887.0043 "ki-thesis.glo" "ki-thesis.gls" "ki-thesis" 1763815912.16028 0
-  "ki-thesis.glo" 1763815911 2851 b21f7d9e78de287126676b49e8fae4a1 "pdflatex"
+["cusdep glo gls ki-thesis"] 1763833024.56517 "ki-thesis.glo" "ki-thesis.gls" "ki-thesis" 1763833674.51339 0
+  "ki-thesis.glo" 1763833673 2851 610a44caefcb24bfffc23a6a3e968e99 "pdflatex"
   (generated)
   "ki-thesis.gls"
   (rewritten before read)
-["pdflatex"] 1763815899.9697 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1763815912.16165 0
+["pdflatex"] 1763833662.55405 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1763833674.51477 0
   "LOGO_PRF_CZ_RGB_standard.jpg" 1763413833 68207 90135c26da1c81d9e05374386a905769 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1760370297 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc" 1760371621 3035 7d37ee7011b797a1b8ca3680e8da3d4d ""
@@ -61,7 +61,6 @@
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Regular-tlf-t1.tfm" 1760371622 19260 23a3b2196ddead7d519ade3691097bba ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Regular-tlf-ts1--base.tfm" 1760371622 1388 07aaed408372eb9416ac6095d4eab065 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Regular-tlf-ts1.tfm" 1760371622 1396 9e09fdea098b5be68e4859195e5f9726 ""
-  "c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/t1xbtt.tfm" 1760373477 1436 f00b2a275be56a8355f5c3b07a5a7a4c ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/t1xtt.tfm" 1760373477 1384 8943063000d26272532f74ca134dfecd ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1760369774 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1760369774 32722 d7379af29a190c3f453aba36302ff5a9 ""
@@ -73,7 +72,6 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb" 1760371622 536972 54f97678e7ab0b18962cdfde8e861f1c ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb" 1760371622 695407 c459400f7492db4f034dc3ed720ed2fc ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb" 1760371622 770618 ec987f8fd84084a72512fb85338c3336 ""
-  "c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb" 1760373478 26580 8886cc7827569e05fd10df25f221aef6 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb" 1760373478 26301 f08b3c26ea42c3177a262c2ac37d6a91 ""
   "c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSans-Bold-tlf-t1.vf" 1760371622 1700 6e7ac88e1bb4baba0224d1e4fd17038c ""
   "c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSans-Regular-tlf-sc-t1.vf" 1760371622 1732 0882330578f45bb1dabcbcc0e7d060fc ""
@@ -346,13 +344,13 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1760373927 5574153 af86687748baf417d9e7d549313527be ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760374145 3629007 cf5b8e55ffd15773add2b20a8add7508 ""
   "c:/texlive/2025/texmf.cnf" 1760373898 713 e69b156964470283e0530f5060668171 ""
-  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1763815859 143316 bae2a6328599318dc399e0d0e8bc563b ""
+  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1763833648 145797 23603ad735ab4432091ef2dd70c544e1 ""
   "img/AWSarchitecture.png" 1763413833 213963 60f4b8b6b1dd636531ad5056812f1936 ""
   "img/ERD.png" 1763413833 474365 b0e511e3b21756f8293be33c0a140808 ""
   "img/Gemini-cli-architecture.png" 1763413833 193459 82548b91f8740ccdb2f34fab516afc10 ""
   "img/MariaDW_staging.png" 1763413833 48494 d3ece8dc04db731efec10b9e3d18f560 ""
   "img/Modularita.png" 1763580703 84647 f6d900cfe2be7446ffe873bd0288876d ""
-  "img/NLQ.png" 1763639363 220949 cabe562ae5741c124751b0da0b6aae63 ""
+  "img/NLQ.png" 1763829962 217050 142afee928ad917786d3e0f92a8ae9dc ""
   "img/PBIreport.png" 1763413833 192314 80bb5edd485870d8d7143d27e9311262 ""
   "img/PowerBI - analyzer.png" 1763665019 37526 9012469a21c06717123fc81913b9d285 ""
   "img/Star-schema.png" 1763645712 16792 7c53cc26d2c04a430717bf910aa8185a ""
@@ -366,23 +364,24 @@
   "img/architecture-data-warehousing.png" 1763413834 59194 abe752698f9edd580e2972aece32d53c ""
   "img/google-cloud.png" 1763413834 885383 f78e4707158ddd7c370ecd442dd1fe05 ""
   "img/hadoop.png" 1763814217 106478 bb625c92fb597fa03e7cd50ee59ef9ba ""
-  "img/hybrid2.png" 1763579373 161510 cd0d86afac5eaff78124ca41c0f711ea ""
+  "img/hybrid2.png" 1763828716 176665 24631651c05d27f68ac3f786641e4893 ""
   "img/lake_to_staging.png" 1763413834 599665 7c5faaee9d5665cae885c63f26dec15b ""
   "img/mariadb_architecture.jpg" 1763814929 259250 a8600ac0b0b0d778f1c429d84bfce6bf ""
   "img/mcp-simple-diagram.png" 1763639802 373763 7c37c6aa2559f2f5f0587db7f8f08230 ""
   "img/mqttentries_structure.png" 1763413834 66731 737734e897e1cba0b1404669162ba291 ""
+  "img/oracle_architecture.png" 1763832141 293454 3ad366958e4c7a13030f0403b04dd971 ""
   "img/reporting_structure.png" 1763413834 427559 c9f483dc35338b421b757c71fce5d2f8 ""
   "img/snowflake.png" 1763413834 22747 7c44d8c52d2fcbe9fa038f15e6f91046 ""
   "img/sqldump_v2.png" 1763662107 341303 1b191c2ab52ab1db5b4d7ad63812a40f ""
   "img/staging_to_fact.png" 1763413834 1002992 add33fb00c77afe50328be6248f88992 ""
   "img/topic50.png" 1763663477 43991 85d2d53dde50569c9beb69b9d227aa42 ""
   "img/topic50_2.png" 1763663561 11521 b4a0c764d587218fa1e02cf1d69989ca ""
-  "ki-thesis.aux" 1763815911 40241 a3f1ff4bb169445aaad8b187898d6cc5 "pdflatex"
-  "ki-thesis.bbl" 1763815037 36748 0846732dbfd02fe5d541e261ef8c562a "biber ki-thesis"
-  "ki-thesis.gls" 1763815888 4368 559ed6d70201369ee94fc662ef4e5794 "cusdep glo gls ki-thesis"
-  "ki-thesis.run.xml" 1763815911 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
-  "ki-thesis.tex" 1763815859 143316 bae2a6328599318dc399e0d0e8bc563b ""
-  "ki-thesis.toc" 1763815911 10367 59512db467181178bb7ba96a9170483e "pdflatex"
+  "ki-thesis.aux" 1763833673 41161 52a24a10693a29abe35ce9ce2ebb107d "pdflatex"
+  "ki-thesis.bbl" 1763833028 38278 e5c8e71741e3f0d9467db3235ca47bed "biber ki-thesis"
+  "ki-thesis.gls" 1763833025 4368 737cbb6388bdebc8b50f3423a8b437cc "cusdep glo gls ki-thesis"
+  "ki-thesis.run.xml" 1763833673 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
+  "ki-thesis.tex" 1763833648 145797 23603ad735ab4432091ef2dd70c544e1 ""
+  "ki-thesis.toc" 1763833673 10550 a4c2fe111094f9db2a3413fcf1303f02 "pdflatex"
   "kitheses.cls" 1763413833 2587 9561996a4af1ad19a1771c7d967fe489 ""
   (generated)
   "ki-thesis.acn"
