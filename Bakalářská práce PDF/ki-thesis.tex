@@ -125,7 +125,48 @@
 \usepackage[unicode=true,pdfusetitle,
  bookmarks=true,
  breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]{hyperref} % hypertextové odkazy v PDF
- 
+
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\makeglossaries
+
+% Definice skupin
+\newglossaryentry{licence}{name={Licence},description={Právní nástroj upravující práva a povinnosti při užití díla}}
+
+% Definice pojmů
+\newglossaryentry{mit}{name={MIT},description={Permisivní softwarová licence vytvořená Massachusetts Institute of Technology, umožňující volné užití kódu s minimálními omezeními},parent=licence}
+\newglossaryentry{gpl}{name={GPL},description={General Public License, copyleftová licence vyžadující, aby odvozená díla byla šířena pod stejnou licencí},parent=licence}
+\newglossaryentry{apache}{name={Apache 2.0},description={Permisivní licence od Apache Software Foundation, umožňující komerční využití a modifikaci},parent=licence}
+
+\newglossaryentry{ssas}{name={SSAS},description={SQL Server Analysis Services. Technologie společnosti Microsoft pro online analytické zpracování (OLAP) a dolování dat}}
+\newglossaryentry{ssis}{name={SSIS},description={SQL Server Integration Services. Platforma pro integraci dat a transformace (ETL) od společnosti Microsoft}}
+\newglossaryentry{olap}{name={OLAP},description={Online Analytical Processing. Technologie pro rychlé provádění složitých analytických dotazů nad vícerozměrnými daty}}
+\newglossaryentry{etl}{name={ETL},description={Extract, Transform, Load. Proces extrakce dat ze zdrojů, jejich transformace a následné nahrání do cílového systému}}
+\newglossaryentry{elt}{name={ELT},description={Extract, Load, Transform. Moderní přístup k integraci dat, kdy transformace probíhá až v cílovém datovém skladu}}
+\newglossaryentry{bi}{name={BI},description={Business Intelligence. Sada procesů, architektur a technologií pro převod surových dat na smysluplné informace pro podporu rozhodování}}
+\newglossaryentry{sql}{name={SQL},description={Structured Query Language. Standardizovaný dotazovací jazyk pro práci s relačními databázemi}}
+\newglossaryentry{saas}{name={SaaS},description={Software as a Service. Model poskytování softwaru jako služby přes internet}}
+\newglossaryentry{paas}{name={PaaS},description={Platform as a Service. Cloudový model poskytující vývojářům platformu pro tvorbu aplikací}}
+\newglossaryentry{iaas}{name={IaaS},description={Infrastructure as a Service. Cloudový model poskytující virtualizované výpočetní zdroje přes internet}}
+\newglossaryentry{dwh}{name={DWH},description={Data Warehouse (Datový sklad). Centrální úložiště dat integrovaných z různých zdrojů, optimalizované pro analýzu}}
+\newglossaryentry{dbms}{name={DBMS},description={Database Management System (SŘBD). Software pro správu databází}}
+\newglossaryentry{rdbms}{name={RDBMS},description={Relational Database Management System. Systém řízení báze dat založený na relačním modelu}}
+\newglossaryentry{csv}{name={CSV},description={Comma-Separated Values. Jednoduchý textový formát pro výměnu tabulkových dat}}
+\newglossaryentry{json}{name={JSON},description={JavaScript Object Notation. Odlehčený formát pro výměnu dat, snadno čitelný pro lidi i stroje}}
+\newglossaryentry{xml}{name={XML},description={Extensible Markup Language. Značkovací jazyk pro ukládání a přenos dat}}
+\newglossaryentry{api}{name={API},description={Application Programming Interface. Rozhraní pro programování aplikací, umožňující komunikaci mezi softwarovými komponentami}}
+\newglossaryentry{rest}{name={REST},description={Representational State Transfer. Architektonický styl pro návrh síťových aplikací}}
+\newglossaryentry{llm}{name={LLM},description={Large Language Model. Typ modelu umělé inteligence trénovaný na obrovském množství textu}}
+\newglossaryentry{nlq}{name={NLQ},description={Natural Language Querying. Dotazování se na data pomocí přirozeného jazyka}}
+\newglossaryentry{mcp}{name={MCP},description={Model Context Protocol. Standard pro propojení AI modelů s externími daty a nástroji}}
+\newglossaryentry{gdpr}{name={GDPR},description={General Data Protection Regulation. Nařízení EU o ochraně osobních údajů}}
+\newglossaryentry{iso}{name={ISO},description={International Organization for Standardization. Mezinárodní organizace pro normalizaci}}
+\newglossaryentry{tco}{name={TCO},description={Total Cost of Ownership. Celkové náklady na vlastnictví, zahrnující pořizovací i provozní náklady}}
+\newglossaryentry{dax}{name={DAX},description={Data Analysis Expressions. Jazyk vzorců a dotazů používaný v Power BI a SSAS}}
+\newglossaryentry{iot}{name={IoT},description={Internet of Things. Síť fyzických zařízení vybavených senzory a softwarem pro výměnu dat}}
+\newglossaryentry{mpp}{name={MPP},description={Massively Parallel Processing. Architektura pro paralelní zpracování dat na mnoha uzlech}}
+\newglossaryentry{rag}{name={RAG},description={Retrieval-Augmented Generation. Technika pro zlepšení přesnosti generativních AI modelů pomocí externích dat}}
+\newglossaryentry{ide}{name={IDE},description={Integrated Development Environment. Integrované vývojové prostředí}}
+
 \newcommand{\UV}[1]{\quotedblbase#1\textquotedblleft}
  
 % odstraňte pokud vám vadí absence zarovnání dole 
@@ -306,66 +347,64 @@ Před samotným přehledem je důležité vymezit klíčové pojmy, které budou
 \subsection{Klasifikace řešení}
 
 \begin{itemize}
-    \item \textbf{Komerční software} je software, jehož distribuce a používání je podmíněno zakoupením licence. Jeho \textbf{zdrojový kód je uzavřený (proprietární)}, což znamená, že uživatelé nemají kód k dispozici, nemohou jej prohlížet, modifikovat, ani provádět zpětné inženýrství. Důsledkem je \textbf{nemožnost modifikovat} chování systému a potenciální \textbf{závislost na dodavateli} v otázkách úprav a oprav. Komerční řešení bývají vyvíjena a distribuována za účelem zisku. Výhodou bývá profesionální podpora, garantovaná kvalita a ucelený ekosystém nástrojů.
+    \item \textbf{Komerční software} je software, jehož distribuce a používání je podmíněno zakoupením licence. Jeho \textbf{zdrojový kód je uzavřený (proprietární)}, což znamená, že uživatelé nemají kód k dispozici, nemohou jej prohlížet, modifikovat, ani provádět zpětné inženýrství. Důsledkem je \textbf{nemožnost modifikovat} chování systému a potenciální \textbf{závislost na dodavateli} (tzv. \textit{vendor lock-in}) v otázkách úprav a oprav. Komerční řešení bývají vyvíjena a distribuována za účelem zisku. Výhodou bývá profesionální podpora, garantovaná kvalita a ucelený ekosystém nástrojů.
 
-    \item \textbf{Open-source software} poskytuje uživatelům přístup k veřejně dostupnému zdrojovému kódu a uděluje jim práva k jeho používání, studování, modifikaci a šíření. Klíčovým prvkem je zde \textbf{open-source licence}, která přesně definuje, jakým způsobem lze s dílem a jeho modifikacemi nakládat. \textbf{Detailní pochopení licenčních podmínek je pro praktické nasazení zásadní} (pro přehled a podmínky licencí je nutné nahlédnout do oficiální dokumentace konkrétní licence).
+    \item \textbf{Open-source software} \cite{osi_web} poskytuje uživatelům přístup k veřejně dostupnému zdrojovému kódu a uděluje jim práva k jeho používání, studování, modifikaci a šíření. Klíčovým prvkem je zde \textbf{open-source licence}, která přesně definuje, jakým způsobem lze s dílem a jeho modifikacemi nakládat. \textbf{Detailní pochopení licenčních podmínek je pro praktické nasazení zásadní} (pro přehled a podmínky licencí je nutné nahlédnout do oficiální dokumentace konkrétní licence).
     \begin{itemize}
-        \item \textit{Permisivní licence} (např. \textbf{MIT}, \textbf{Apache 2.0}) jsou maximálně benevolentní, kladou minimální omezení a obvykle umožňují upravený kód uzavřít a následně komerčně prodávat jako proprietární produkt.
-        \item \textit{Copyleftové licence} (např. \textbf{GPL}) jsou přísnější a vyžadují, aby jakékoliv odvozené dílo nebo úprava byly šířeny pod stejnou svobodnou licencí. Tím je zajištěno, že zdrojový kód zůstane trvale veřejně přístupný i v budoucích verzích.
+        \item \textit{Permisivní licence}\footnote{Vysvětlení permisivních licencí: \url{https://opensource.org/licenses}} (např. \textbf{MIT}, \textbf{Apache 2.0}) jsou maximálně benevolentní, kladou minimální omezení a obvykle umožňují upravený kód uzavřít a následně komerčně prodávat jako proprietární produkt.
+        \item \textit{Copyleftové licence}\footnote{Vysvětlení copyleftových licencí: \url{https://www.gnu.org/licenses/copyleft.en.html}} (např. \textbf{GPL}) jsou přísnější a vyžadují, aby jakékoliv odvozené dílo nebo úprava byly šířeny pod stejnou svobodnou licencí. Tím je zajištěno, že zdrojový kód zůstane trvale veřejně přístupný i v budoucích verzích.
     \end{itemize}
     Mezi obecné výhody open-source softwaru patří nezávislost na dodavateli, nižší počáteční náklady a možnost bezpečnostního auditu komunitou. Nevýhodou mohou být vyšší nároky na technické znalosti při implementaci a nutnost řešit podporu buď komunitně, nebo placenou službou třetí strany.
 
-    \item \textbf{On-premise řešení} je provozováno na vlastní infrastruktuře organizace (vlastních serverech). To poskytuje plnou kontrolu nad daty a systémem, ale zároveň vyžaduje vyšší počáteční investice do hardwaru a personálu pro jeho správu.
+    \item \textbf{On-premise řešení} je provozováno na vlastní infrastruktuře organizace (vlastních serverech). To poskytuje plnou kontrolu nad daty a systémem, ale zároveň vyžaduje vyšší počáteční investice do hardwaru a personálu pro jeho správu \cite{ibm_onprem_cloud}.
 
-    \item \textbf{Cloudové řešení} je poskytováno jako služba (SaaS, PaaS, IaaS) třetí stranou (např. Microsoft Azure, AWS, Google Cloud). Výhodou je škálovatelnost, platba za skutečné využití (pay-as-you-go) a menší nároky na vlastní IT oddělení. Nevýhodou může být menší kontrola nad infrastrukturou a potenciální závislost na poskytovateli.
+    \item \textbf{Cloudové řešení} je poskytováno jako služba třetí stranou. Podle úrovně správy, kterou přebírá poskytovatel, rozlišujeme tři základní modely:
+    \begin{itemize}
+        \item \textbf{IaaS:} Poskytovatel zajišťuje hardware, virtualizaci a sítě. Uživatel spravuje operační systém a aplikace (např. Amazon EC2).
+        \item \textbf{PaaS:} Poskytovatel spravuje i operační systém a runtime prostředí. Uživatel se stará pouze o aplikace a data (např. Google App Engine).
+        \item \textbf{SaaS:} Kompletní softwarové řešení spravované poskytovatelem. Uživatel pouze využívá službu (např. Google Workspace, Microsoft 365).
+    \end{itemize}
+    Výhodou je škálovatelnost, platba za skutečné využití (pay-as-you-go) a menší nároky na vlastní IT oddělení. Nevýhodou může být menší kontrola nad infrastrukturou a potenciální závislost na poskytovateli.
 \end{itemize}
 
 Tato klasifikace je zásadní pro pozdější srovnání celkových nákladů na vlastnictví (TCO), kde se projeví rozdíly v licenčních poplatcích, nákladech na infrastrukturu a správu.
 \subsection{Microsoft Data Platform (komerční, on-premise/cloud)}
 
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
+      \caption{Architektura moderního datového skladu v prostředí Microsoft Azure. Zdroj: learn.microsoft.com \protect\cite{azure_data_warehousing}}
+      \label{fig:MSplatform}
+    \end{figure}
+
 Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v možnosti nasazení jak v tradičním on-premise prostředí, tak v cloudu, případně v hybridním režimu. Komponenty platformy lze rozdělit následovně:
 
 \begin{itemize}
     \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \cite{mssql2024overview}.
-    
     \item \textbf{Cloudová platforma (Microsoft Azure):} S nástupem cloudu se architektura posouvá do prostředí Azure (viz Obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a celková orchestrace se sjednocuje v rámci platformy \emph{Microsoft Fabric}.
-    
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
-      \caption{Architektura moderního datového skladu v prostředí Microsoft Azure - převzato z \protect\cite{azure_data_warehousing}}
-      \label{fig:MSplatform}
-    \end{figure}
-    
     \item \textbf{Vizuální a sémantická vrstva:} Sjednocující vrstvou pro on-premise i cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a dashboardů a díky své sémantické vrstvě dokáže zastoupit i některé funkce SSAS \cite{powerbi2024docs}.
-    
     \item \textbf{Výhody a nevýhody:} Hlavní výhodou je hluboká integrace všech komponent. Nevýhodou, zejména u cloudových služeb, může být silný „vendor lock-in“ a závislost na licenční politice poskytovatele.
 \end{itemize}
 
 \subsection{Google Cloud Data Analytics (komerční, cloud)}
 
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/google-cloud.png}
+      \caption{Architektura analytické platformy Google Cloud. Zdroj: medium.com \protect\cite{google_data_products}}
+      \label{fig:Googleplatform}
+    \end{figure}
+
 Společnost Google přistupuje k analytice jako k plně cloudové službě, navržené od počátku pro distribuované výpočty. Klíčové komponenty ekosystému jsou:
 
 \begin{itemize}
     \item \textbf{Datový sklad:} Jádrem platformy je \emph{Google BigQuery}, serverless datový sklad s kolumnárním uložením, kde se platí pouze za uložená data a zpracované dotazy \cite{bigquery2024docs}.
-    
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=\textwidth]{img/google-cloud.png}
-      \caption{Architektura analytické platformy Google Cloud - převzato z \protect\cite{google_data_products}}
-      \label{fig:Googleplatform}
-    \end{figure}
-    
     \item \textbf{Integrace a příprava dat:} Pro tyto účely slouží služby jako \emph{Dataflow} (založené na Apache Beam) nebo \emph{Dataprep}.
-    
     \item \textbf{Prezentační vrstva:} Zastupuje ji \emph{Looker Studio} pro rychlou vizualizaci, případně platforma \emph{Looker}, která nabízí pokročilou sémantickou vrstvu a governance dat.
-    
     \item \textbf{Výhody a omezení:} Hlavní výhodou je nulová starost o hardware, vysoká škálovatelnost a integrace s AI nástroji (\emph{Vertex AI}). Zásadním omezením je absence on-premise řešení, což znemožňuje využití organizacím, které vyžadují uložení dat na vlastním hardwaru.
 \end{itemize}
 
 \subsection{Amazon Web Services (komerční, cloud)}
-
-Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nabízí rozsáhlý a modulární ekosystém pro datové inženýrství a analytiku.
 
 \begin{itemize}
     \item \textbf{Datový sklad:} Klíčovou roli zde zastává \emph{Amazon Redshift} – cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.
@@ -373,18 +412,24 @@ Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nab�
     \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/AWSarchitecture.png}
-      \caption{Cloudové řešení Amazon Web Services - převzato z \protect\cite{aws_redshift_arch}}
+      \caption{Cloudové řešení Amazon Web Services. Zdroj: docs.aws.amazon.com \protect\cite{aws_redshift_arch}}
       \label{fig:AWSplatform}
     \end{figure}
-    
+
+Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nabízí rozsáhlý a modulární ekosystém pro datové inženýrství a analytiku.
     \item \textbf{Zpracování a vizualizace:} Služba \emph{AWS Glue} umožňuje automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting.
-    
     \item \textbf{Integrace s open-source:} AWS podporuje integraci s open-source systémy, například \emph{Apache Spark} (prostřednictvím služby \emph{EMR}) nebo \emph{Presto}.
-    
     \item \textbf{Výhody a slabiny:} Výhodou AWS je modularita, která umožňuje komponenty kombinovat podle potřeb. Podobně jako u Google se jedná o výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady.
 \end{itemize}
 
 \subsection{Ekosystém Apache Software Foundation}
+
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/hadoop.png}
+      \caption{Cloudové řešení Apache Software Foundation. Zdroj: blogs.perficient.com \protect\cite{hadoop_ecosystem_perficient}}
+      \label{fig:Apacheplatform}
+    \end{figure}
 
 Nejvýznamnějším hráčem v oblasti otevřených datových technologií je nadace \emph{Apache Software Foundation} (ASF). Její ekosystém de facto definoval standardy pro zpracování velkých dat (Big Data). Produkty pod hlavičkou Apache lze skládat do výkonné platformy pokrývající celý datový cyklus:
 
@@ -400,6 +445,13 @@ Výhodou tohoto ekosystému je jeho modularita a fakt, že tvoří technologick�
 
 \subsection{Platforma MariaDB (Community / Enterprise)}
 
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/mariadb_architecture.jpg}
+      \caption{Architektura řešení MariaDB. Zdroj: smartdatainstitute.com \protect\cite{mariadb_smartdatainstitute}}
+      \label{fig:mariadbplatform}
+    \end{figure}
+
 Příkladem open-source ekosystému, který se transformoval do podoby robustní podnikové platformy, je \emph{MariaDB}. Ačkoliv původně vznikla jako fork databáze MySQL, ve své edici \emph{MariaDB Enterprise Platform} dnes nabízí sadu integrovaných komponent pro transakční, analytické i hybridní zpracování dat a nově i pro umělou inteligenci.
 
 Základem platformy je \emph{MariaDB Enterprise Server}, který podporuje práci s relačními daty i formátem JSON. Síla ekosystému však spočívá v jeho specializovaných modulech a službách:
@@ -407,10 +459,7 @@ Základem platformy je \emph{MariaDB Enterprise Server}, který podporuje práci
 \begin{itemize}
     \item \textbf{Analytika a Big Data:} Pro analytické úlohy slouží \emph{MariaDB ColumnStore}, což je sloupcové úložiště umožňující rychlé agregace bez nutnosti vytvářet složité indexy. Novinkou je komponenta \emph{MariaDB Exa}, in-memory MPP (Massively Parallel Processing) databáze navržená pro extrémně rychlé SQL dotazy nad velkými objemy dat. Propojení transakčního a analytického světa zajišťuje funkce \emph{Query Accelerator}, která automaticky deleguje náročné dotazy do ColumnStore enginu.
     \item \textbf{Vysoká dostupnost a správa:} Klíčovým prvkem infrastruktury je \emph{MariaDB MaxScale}. Jde o inteligentní proxy server, který zajišťuje load balancing, zabezpečení a automatické failover procesy. Pro orchestraci a monitorování celé flotily databází slouží \emph{MariaDB Enterprise Manager}.
-    \item \textbf{Integrace AI:} Platforma reaguje na nástup generativní umělé inteligence modulem \emph{MariaDB AI RAG}, který umožňuje propojit firemní data s jazykovými modely (Retrieval-Augmented Generation). Rozhraní mezi AI asistenty a datovým ekosystémem pak zprostředkovává \emph{MariaDB MCP Server}.
 \end{itemize}
-
-
 
 Tato architektura umožňuje organizacím začít s open-source řešením (Community verze) a v případě potřeby škálovat na plnohodnotnou enterprise platformu s podporou pro AI a real-time analytiku, aniž by musely migrovat na proprietární databázové systémy typu Oracle či MS SQL.
 \subsection{Moderní modulární a hybridní architektury}
@@ -423,7 +472,7 @@ V současné praxi se stále častěji ustupuje od využívání jednoho monolit
     \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/Modularita.png}
-      \caption{Příklad možné plně open-source sestavy}
+      \caption{Příklad možné plně open-source sestavy - Zdroj: vlastní zpracování}
       \label{fig:modularita}
     \end{figure}
     
@@ -437,7 +486,7 @@ Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, t
     \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/hybrid2.png}
-      \caption{Příklad možného hybridního systému}
+      \caption{Příklad možného hybridního systému. Zdroj: vlastní zpracování}
       \label{fig:hybrid}
     \end{figure}
 \end{itemize}
@@ -474,6 +523,13 @@ Níže popsaná architektura vychází z návrhu, který autor implementoval v p
 
 Typický proces zpracování dotazu lze rozdělit do následujících kroků:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/NLQ.png}
+  \caption{Návrh NLQ architektury. Zdroj: vlastní zpracování}
+  \label{fig:gemini_cli_architecture}
+\end{figure}
+
 \begin{enumerate}
     \item \textbf{Zpracování hlasového vstupu:} 
     Proces začíná položením dotazu uživatelem, například: „Zjisti, kolik tun papíru bylo vyrobeno papírenským strojem 10 za poslední týden.“ Tento zvukový vstup je zachycen mikrofonem a technicky zpracován pomocí audio knihovny, například \textbf{PyAudio}.
@@ -499,13 +555,6 @@ Typický proces zpracování dotazu lze rozdělit do následujících kroků:
 
 Celý tento proces elegantně skrývá technickou složitost a poskytuje uživateli iluzi plynulé konverzace s datovým systémem. 
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/NLQ.png}
-  \caption{Návrh NLQ architektury}
-  \label{fig:gemini_cli_architecture}
-\end{figure}
-
 \subsubsection{Role MCP serverů a Gemini CLI}
 
 Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a externími systémy (databáze, soubory, API) jsou tzv. \textbf{MCP (Model Context Protokol) servery}~\cite{mcp_protocol}. Tyto servery fungují jako řízená brána neboli „toolbox“ pro umělou inteligenci. Místo toho, aby měl LLM přímý a nekontrolovaný přístup k datovým zdrojům, MCP server mu poskytuje sadu jasně definovaných \textbf{nástrojů} (tools). Každý nástroj reprezentuje konkrétní operaci, například „spusť SQL dotaz v~databázi ClickHouse“ nebo „přečti soubor z Google Drive“.
@@ -513,7 +562,7 @@ Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a ext
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/mcp-simple-diagram.png}
-  \caption{Model context protocol - převzato z}
+  \caption{Model context protocol. Zdroj: modelcontextprotocol.io \cite{mcp_protocol}}
   \label{fig:gemini_cli_architecture}
 \end{figure}
 
@@ -633,7 +682,7 @@ Základními modely používanými pro návrh datového skladu v rámci dimenzio
   \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/snowflake.png}
-  \caption{Ilustrační schéma snéhové vločky faktové tabulky a dimenzí převzato z \cite{wikipedia_snowflake_schema}.}
+  \caption{Ilustrační schéma snéhové vločky faktové tabulky a dimenzí. Zdroj: en.wikipedia.org \cite{wikipedia_snowflake_schema}}
   \label{fig:snowflake_schema}
 \end{figure}
 
@@ -1033,7 +1082,7 @@ Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a 
     \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{img/ERD.png}
- \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamerového systému firmy CAMEA Technology, a. s. na datové platformě Portabo}
 \end{figure}
 
 \section{OLAP a vizualizace}
@@ -1596,6 +1645,8 @@ Z Wikipedie rozhodně necitujte články věnované běžně známým technologi
 Závěr je klíčovou kapitolou, která může nejvíce ovlivnit vaši obhajobu. Základní částí závěru je přehledné shrnutí výstupů práce tj. co jste udělali pro dasažení cílů práce. Je nutné se vyhnout hodnocení, zda tím byli splněny cíle práce, či nikoliv (to je úkol posudků a především komise).
 
 \sloppy
+\glsaddall
+\printglossary[title=Seznam použitých zkratek a pojmů]
 \printbibliography[title=Seznam použitých zdrojů]
 
 \appendix

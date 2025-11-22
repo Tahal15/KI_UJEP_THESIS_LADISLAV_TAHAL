@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  21 NOV 2025 11:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  22 NOV 2025 13:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1109,7 +1109,131 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip128
+) (c:/texlive/2025/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+Package: glossaries 2025/08/11 v4.8 (NLCT)
+ (c:/texlive/2025/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
+Package: mfirstuc 2025/04/03 v2.09 (NLCT)
+\@glsmfirst=\toks56
+\@glsmrest=\toks57
+) (c:/texlive/2025/texmf-dist/tex/latex/xfor/xfor.sty
+Package: xfor 2009/02/05 v1.05 (NLCT)
+) (c:/texlive/2025/texmf-dist/tex/latex/tracklang/tracklang.sty
+Package: tracklang 2025/03/11 v1.6.6 (NLCT) Track Languages
+ (c:/texlive/2025/texmf-dist/tex/generic/tracklang/tracklang.tex)
+Package tracklang Info: Tracking dialect `czech' (language `czech') on input line 53.
+) (c:/texlive/2025/texmf-dist/tex/latex/translator/translator.sty
+Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
 )
+
+Package glossaries Warning: No language module detected for `czech'.
+(glossaries)                Language modules need to be installed separately.
+(glossaries)                Please check on CTAN for a bundle called
+(glossaries)                `glossaries-czech' or similar.
+
+(c:/texlive/2025/texmf-dist/tex/latex/datatool/datatool-base.sty
+Package: datatool-base 2025/04/25 v3.4.1 (NLCT)
+ (c:/texlive/2025/texmf-dist/tex/latex/datatool/datatool-l3fp.def
+File: datatool-l3fp.def 2025/04/25 v3.4.1 (NLCT)
+)
+\@dtl@toks=\toks58
+\@dtl@tmpcount=\count503
+\dtl@tmplength=\skip129
+\l__datatool_measure_box=\box92
+\dtl@sortresult=\count504
+ (c:/texlive/2025/texmf-dist/tex/latex/datatool/datatool-utf8.ldf
+File: datatool-utf8.ldf 2025/04/25 v3.4.1 (NLCT)
+)
+\@dtl@datatype=\count505
+\l__datatool_tmpa_int=\count506
+\l__datatool_tmpb_int=\count507
+\l__datatool_tmpc_int=\count508
+\l__datatool_tmpd_int=\count509
+\l__datatool_count_int=\count510
+\l__datatool_tmp_datatype_int=\count511
+\l__datatool_tmpa_dim=\dimen316
+\l__datatool_tmpb_dim=\dimen317
+\c_datatool_unknown_int=\count512
+\l__datatool_year_int=\count513
+\l__datatool_month_int=\count514
+\l__datatool_day_int=\count515
+\l__datatool_hour_int=\count516
+\l__datatool_minute_int=\count517
+\l__datatool_second_int=\count518
+\l__datatool_tzhour_int=\count519
+\l__datatool_tzminute_int=\count520
+\l__datatool_julian_int=\count521
+\l__datatool_local_julian_int=\count522
+\l__datatool_prefix_int=\count523
+\l__datatool_suffix_int=\count524
+\@dtl@foreach@level=\count525
+
+
+Package tracklang Warning: No `datatool' support for dialect `czech'  on input line 9908.
+
+\dtl@codeA=\count526
+\dtl@codeB=\count527
+)
+\gls@level=\count528
+\@gls@tmpb=\toks59
+\gls@tmplen=\skip130
+\l__glossaries_tmpa_dim=\dimen318
+\l__glossaries_tmpb_dim=\dimen319
+\glskeylisttok=\toks60
+\glslabeltok=\toks61
+\glsshorttok=\toks62
+\glslongtok=\toks63
+ (c:/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.sty
+Package: glossary-hypernav 2025/08/11 v4.8 (NLCT)
+) (c:/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-list.sty
+Package: glossary-list 2025/08/11 v4.8 (NLCT)
+\glslistdottedwidth=\skip131
+) (c:/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-long.sty
+Package: glossary-long 2025/08/11 v4.8 (NLCT)
+\glsdescwidth=\skip132
+\glspagelistwidth=\skip133
+) (c:/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
+Package: glossary-super 2025/08/11 v4.8 (NLCT)
+ (c:/texlive/2025/texmf-dist/tex/latex/supertabular/supertabular.sty
+Package: supertabular 2024/07/20 v4.2c the supertabular environment
+\c@tracingst=\count529
+\ST@wd=\dimen320
+\ST@rightskip=\skip134
+\ST@leftskip=\skip135
+\ST@parfillskip=\skip136
+\ST@pageleft=\dimen321
+\ST@headht=\dimen322
+\ST@tailht=\dimen323
+\ST@pagesofar=\dimen324
+\ST@pboxht=\dimen325
+\ST@rowht=\dimen326
+\ST@prevht=\dimen327
+\ST@toadd=\dimen328
+\ST@dimen=\dimen329
+\ST@pbox=\box93
+)) (c:/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty
+Package: glossary-tree 2025/08/11 v4.8 (NLCT)
+\l__glossaries_tree_max_known_level_int=\count530
+\l__glossaries_tree_offset_dim=\dimen330
+\l__glossaries_tree_namewidth_dim=\dimen331
+\l__glossaries_tree_symbolwidth_dim=\dimen332
+\l__glossaries_tree_prenamesym_width_dim=\dimen333
+\l__glossaries_tree_presubnamesym_width_dim=\dimen334
+\l__glossaries_tree_namewidth_padding_dim=\dimen335
+\l__glossaries_tree_symbolwidth_padding_dim=\dimen336
+\l__glossaries_tree_namesymbolwidth_dim=\dimen337
+\l__glossaries_tree_namesymbolwidth_padding_dim=\dimen338
+\l__glossaries_tree_level_int=\count531
+\glstreeindent=\skip137
+))
+\glswrite=\write5
+\glo@main@file=\write6
+\openout6 = `ki-thesis.glo'.
+
+Package glossaries Info: Writing glossary file ki-thesis.glo on input line 130.
+\glo@acronym@file=\write7
+\openout7 = `ki-thesis.acn'.
+
+Package glossaries Info: Writing glossary file ki-thesis.acn on input line 130.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1121,19 +1245,19 @@ Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           `bookmarkpackage=false' before \begin{document} and
 (scrbook)           you can avoid this message adding:
 (scrbook)             \usepackage{bookmark}
-(scrbook)           before \begin{document} on input line 139.
+(scrbook)           before \begin{document} on input line 180.
  (c:/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
  (c:/texlive/2025/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
-\BKM@id=\count503
+\BKM@id=\count532
 ))
-LaTeX Font Info:    Trying to load font information for T1+LibertinusSerif-TLF on input line 139.
+LaTeX Font Info:    Trying to load font information for T1+LibertinusSerif-TLF on input line 180.
  (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/T1LibertinusSerif-TLF.fd
 File: T1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for T1/LibertinusSerif-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 139.
+(Font)              scaled to size 12.0pt on input line 180.
 
 
 LaTeX Warning: Unused global option(s):
@@ -1141,7 +1265,7 @@ LaTeX Warning: Unused global option(s):
 
 (./ki-thesis.aux
 Package babel Info: 'czech' activates 'czech' shorthands.
-(babel)             Reported on input line 12.
+(babel)             Reported on input line 19.
 
 
 LaTeX Warning: Label `fig:gemini_cli_architecture' multiply defined.
@@ -1155,24 +1279,24 @@ LaTeX Warning: Label `fig:srovnani5' multiply defined.
 )
 \openout1 = `ki-thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 139.
-LaTeX Font Info:    ... okay on input line 139.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 180.
+LaTeX Font Info:    ... okay on input line 180.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1210,28 +1334,28 @@ LaTeX Font Info:    ... okay on input line 139.
 
 (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count504
-\scratchdimen=\dimen316
-\scratchbox=\box92
-\nofMPsegments=\count505
-\nofMParguments=\count506
-\everyMPshowfont=\toks56
-\MPscratchCnt=\count507
-\MPscratchDim=\dimen317
-\MPnumerator=\count508
-\makeMPintoPDFobject=\count509
-\everyMPtoPDFconversion=\toks57
+\scratchcounter=\count533
+\scratchdimen=\dimen339
+\scratchbox=\box94
+\nofMPsegments=\count534
+\nofMParguments=\count535
+\everyMPshowfont=\toks64
+\MPscratchCnt=\count536
+\MPscratchDim=\dimen340
+\MPnumerator=\count537
+\makeMPintoPDFobject=\count538
+\everyMPtoPDFconversion=\toks65
 )
-LaTeX Info: Redefining \microtypecontext on input line 139.
+LaTeX Info: Redefining \microtypecontext on input line 180.
 
 
-Package microtype Warning: Unable to apply patch `item' on input line 139.
+Package microtype Warning: Unable to apply patch `item' on input line 180.
 
-Package microtype Info: Applying patch `toc' on input line 139.
-Package microtype Info: Applying patch `eqnum' on input line 139.
-Package microtype Info: Applying patch `footnote' on input line 139.
-Package microtype Info: Applying patch `verbatim' on input line 139.
-LaTeX Info: Redefining \microtypesetup on input line 139.
+Package microtype Info: Applying patch `toc' on input line 180.
+Package microtype Info: Applying patch `eqnum' on input line 180.
+Package microtype Info: Applying patch `footnote' on input line 180.
+Package microtype Info: Applying patch `verbatim' on input line 180.
+LaTeX Info: Redefining \microtypesetup on input line 180.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1246,8 +1370,8 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSerif-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-\c@mv@tabular=\count510
-\c@mv@boldtabular=\count511
+\c@mv@tabular=\count539
+\c@mv@boldtabular=\count540
 Package biblatex Info: Trying to load language 'czech' -> 'czech-iso'...
 Package biblatex Info: ... file 'czech-iso.lbx' found.
 (c:/texlive/2025/texmf-dist/tex/latex/biblatex-iso690/czech-iso.lbx
@@ -1265,702 +1389,28 @@ File: czech.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `ki-thesis.bcf'.
 
-Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'ki-thesis.bbl' found.
- (./ki-thesis.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                apachekylin2024
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
-Package biblatex Info: Reference section=0 on input line 139.
-Package biblatex Info: Reference segment=0 on input line 139.
-
-Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
-
-\c@lstlisting=\count512
-Package tocbasic Info: setting babel extension for `lol' on input line 139.
-\scr@dte@lstlisting@maxnumwidth=\skip129
-Package hyperref Info: Link coloring OFF on input line 139.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 143.
-<LOGO_PRF_CZ_RGB_standard.jpg, id=7, 166.4619pt x 63.5976pt>
-File: LOGO_PRF_CZ_RGB_standard.jpg Graphic file (type jpg)
-<use LOGO_PRF_CZ_RGB_standard.jpg>
-Package pdftex.def Info: LOGO_PRF_CZ_RGB_standard.jpg  used on input line 152.
-(pdftex.def)             Requested size: 166.46147pt x 63.59743pt.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 156.
-LaTeX Font Info:    Trying to load font information for T1+LibertinusSans-TLF on input line 156.
-(c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/T1LibertinusSans-TLF.fd
-File: T1LibertinusSans-TLF.fd 2024/09/22 (autoinst) Font definitions for T1/LibertinusSans-TLF.
-)
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 156.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `LibertinusSans-TLF' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 159.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/sc' will be
-(Font)              scaled to size 17.28pt on input line 159.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 165.
- (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 166.
- (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 166.
- (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 167.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 176.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
-(Font)              scaled to size 17.28pt on input line 176.
-
-
-[1
-
-{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_mfadfl.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_cb34qf.enc}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sfissr.enc} <./LOGO_PRF_CZ_RGB_standard.jpg>]
-
-[2
-
-
-]
-LaTeX Font Info:    Trying to load font information for T1+pxtt on input line 189.
- (c:/texlive/2025/texmf-dist/tex/latex/pxfonts/t1pxtt.fd
-File: t1pxtt.fd 2000/12/14 v1.0
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `pxtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-
-[3]
-
-[4
-
-]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 198.
-
-
-[5
-
-]
-
-[6
-
-
-]
-
-[7]
-
-[8
-
-
-]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
-(Font)              scaled to size 12.0pt on input line 236.
-
-
-[9]
-
-[10
-
-
-]
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 256.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 256.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 24.88pt on input line 256.
-Package tocbasic Info: character protrusion at toc deactivated on input line 256.
- (./ki-thesis.toc)
-\tf@toc=\write5
-\openout5 = `ki-thesis.toc'.
-
-
-
-[11]
-
-[12
-
-
-]
-chapter without number
-
-
-[13]
-
-[14
-
-
-]
-chapter 1.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 270.
-LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 274.
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 280.
-
-
-[15{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}]
-
-Package babel Info: 'czech' activates 'czech' shorthands.
-(babel)             Reported on input line 305.
-[16
-
-]
-LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 309.
- (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/TS1LibertinusSerif-TLF.fd
-File: TS1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for TS1/LibertinusSerif-TLF.
-)
-LaTeX Font Info:    Font shape `TS1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 309.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `LibertinusSerif-TLF' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-
-[17{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
-<img/architecture-data-warehousing.png, id=160, 971.63pt x 530.98375pt>
-File: img/architecture-data-warehousing.png Graphic file (type png)
-<use img/architecture-data-warehousing.png>
-Package pdftex.def Info: img/architecture-data-warehousing.png  used on input line 335.
-(pdftex.def)             Requested size: 469.47049pt x 256.55453pt.
-
-
-[18 <./img/architecture-data-warehousing.png>]
-<img/google-cloud.png, id=178, 2419.0375pt x 1268.74pt>
-File: img/google-cloud.png Graphic file (type png)
-<use img/google-cloud.png>
-Package pdftex.def Info: img/google-cloud.png  used on input line 354.
-(pdftex.def)             Requested size: 469.47049pt x 246.21269pt.
-<img/AWSarchitecture.png, id=182, 900.36375pt x 413.545pt>
-File: img/AWSarchitecture.png Graphic file (type png)
-<use img/AWSarchitecture.png>
-Package pdftex.def Info: img/AWSarchitecture.png  used on input line 375.
-(pdftex.def)             Requested size: 469.47049pt x 215.63147pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[19 <./img/google-cloud.png>]
-
-LaTeX Warning: Citation 'apachekylin2024' on page 20 undefined on input line 393.
-
-
-
-[20 <./img/AWSarchitecture.png>]
-<img/Modularita.png, id=212, 1283.997pt x 290.88675pt>
-File: img/Modularita.png Graphic file (type png)
-<use img/Modularita.png>
-Package pdftex.def Info: img/Modularita.png  used on input line 425.
-(pdftex.def)             Requested size: 469.47049pt x 106.35698pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[21]
-<img/hybrid2.png, id=224, 2330.7075pt x 572.1375pt>
-File: img/hybrid2.png Graphic file (type png)
-<use img/hybrid2.png>
-Package pdftex.def Info: img/hybrid2.png  used on input line 439.
-(pdftex.def)             Requested size: 469.47049pt x 115.23737pt.
-
-Overfull \hbox (26.20973pt too wide) in paragraph at lines 453--456
-\T1/LibertinusSerif-TLF/m/n/12 (-20) Jedním z hlav-ních trend· po-sled-ních let je p°e-chod od tra-di£-ního p°í-stupu \T1/LibertinusSerif-TLF/m/it/12 (-20) ETL \T1/LibertinusSerif-TLF/m/n/12 (-20) (Ex-tract^^UTransform^^ULoad)
- []
-
-
-
-[22 <./img/Modularita.png> <./img/hybrid2.png>]
-
-[23]
-<img/NLQ.png, id=250, 2069.93324pt x 733.5405pt>
-File: img/NLQ.png Graphic file (type png)
-<use img/NLQ.png>
-Package pdftex.def Info: img/NLQ.png  used on input line 504.
-(pdftex.def)             Requested size: 469.47049pt x 166.37144pt.
-
-
-[24 <./img/NLQ.png>]
-<img/mcp-simple-diagram.png, id=264, 3854.4pt x 1505.625pt>
-File: img/mcp-simple-diagram.png Graphic file (type png)
-<use img/mcp-simple-diagram.png>
-Package pdftex.def Info: img/mcp-simple-diagram.png  used on input line 515.
-(pdftex.def)             Requested size: 469.47049pt x 183.37813pt.
-
-
-[25 <./img/mcp-simple-diagram.png>]
-
-[26
-
-
-]
-chapter 2.
-<img/reporting_structure.png, id=279, 1096.69725pt x 616.10175pt>
-File: img/reporting_structure.png Graphic file (type png)
-<use img/reporting_structure.png>
-Package pdftex.def Info: img/reporting_structure.png  used on input line 543.
-(pdftex.def)             Requested size: 469.47049pt x 263.73407pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[27]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/it' will be
-(Font)              scaled to size 12.0pt on input line 570.
-
-
-[28{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc} <./img/reporting_structure.png>]
-
-[29]
-Overfull \hbox (2.92505pt too wide) in paragraph at lines 611--612
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (61.47594pt too wide) in paragraph at lines 612--613
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Fakta (\T1/LibertinusSerif-TLF/b/it/12 (-20) Facts\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají m¥-°i-telné hod-noty a cizí klí£e k di-men-zím (nap°. \T1/pxtt/m/n/12 FactCameraDetection\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-<img/Star-schema.png, id=307, 480.8364pt x 301.6068pt>
-File: img/Star-schema.png Graphic file (type png)
-<use img/Star-schema.png>
-Package pdftex.def Info: img/Star-schema.png  used on input line 627.
-(pdftex.def)             Requested size: 328.6279pt x 206.13919pt.
-
-
-[30
-
- <./img/Star-schema.png>]
-<img/snowflake.png, id=315, 702.9462pt x 424.4658pt>
-File: img/snowflake.png Graphic file (type png)
-<use img/snowflake.png>
-Package pdftex.def Info: img/snowflake.png  used on input line 635.
-(pdftex.def)             Requested size: 469.47049pt x 283.48384pt.
-
-
-[31
-
- <./img/snowflake.png>]
-
-[32]
-
-[33]
-
-[34] [35]
-
-[36
-
-]
-
-[37
-
-]
-
-[38
-
-
-]
-chapter 3.
-
-
-[39]
-Overfull \hbox (45.64264pt too wide) in paragraph at lines 858--859
-\T1/LibertinusSerif-TLF/m/n/12 (-20) ra£ní sou-bor de-fi-no-val p°ímé p°i-po-jení ke zdro-jové Ma-ri-aDB da-ta-bázi (\T1/pxtt/m/n/12 host.docker.internal:3306\T1/LibertinusSerif-TLF/m/n/12 (-20) )
- []
-
-<img/sqldump_v2.png, id=381, 2583.6525pt x 2279.51625pt>
-File: img/sqldump_v2.png Graphic file (type png)
-<use img/sqldump_v2.png>
-Package pdftex.def Info: img/sqldump_v2.png  used on input line 868.
-(pdftex.def)             Requested size: 469.47049pt x 414.19087pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[40]
-
-[41 <./img/sqldump_v2.png>]
-Overfull \hbox (31.48177pt too wide) in paragraph at lines 898--901
-[]\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-<img/mqttentries_structure.png, id=393, 1420.1055pt x 177.66376pt>
-File: img/mqttentries_structure.png Graphic file (type png)
-<use img/mqttentries_structure.png>
-Package pdftex.def Info: img/mqttentries_structure.png  used on input line 904.
-(pdftex.def)             Requested size: 469.47049pt x 58.73222pt.
-
-
-[42
-
- <./img/mqttentries_structure.png>]
-<img/topic50.png, id=405, 1069.596pt x 145.7445pt>
-File: img/topic50.png Graphic file (type png)
-<use img/topic50.png>
-Package pdftex.def Info: img/topic50.png  used on input line 924.
-(pdftex.def)             Requested size: 469.47049pt x 63.97209pt.
-<img/topic50_2.png, id=407, 1070.19826pt x 43.362pt>
-File: img/topic50_2.png Graphic file (type png)
-<use img/topic50_2.png>
-Package pdftex.def Info: img/topic50_2.png  used on input line 933.
-(pdftex.def)             Requested size: 469.47049pt x 19.02176pt.
-
-
-[43 <./img/topic50.png> <./img/topic50_2.png>]
-Overfull \hbox (21.24648pt too wide) in paragraph at lines 944--945
-\T1/LibertinusSerif-TLF/m/n/12 (-20) skriptu za-£íná na-£te-ním po-sled-ního zpra-co-va-ného iden-ti-fi-ká-toru z ta-bulky \T1/pxtt/m/n/12 ETL_IncrementalControl
- []
-
-
-Overfull \hbox (3.3615pt too wide) in paragraph at lines 946--947
-[]\T1/LibertinusSerif-TLF/m/n/12 (-20) Data jsou zpra-co-vá-vána v dáv-kách (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) batchích\T1/LibertinusSerif-TLF/m/n/12 (-20) ), je-jichº ve-li-kost je °í-zena pa-ra-me-t-rem \T1/pxtt/m/n/12 BATCH_SIZE\T1/LibertinusSerif-TLF/m/n/12 (-20) .
- []
-
-LaTeX Font Info:    Font shape `T1/pxtt/b/n' in size <12> not available
-(Font)              Font shape `T1/pxtt/bx/n' tried instead on input line 960.
-
-Overfull \hbox (3.32286pt too wide) in paragraph at lines 960--962
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 mssql_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
- []
-
-
-Overfull \hbox (25.08615pt too wide) in paragraph at lines 960--962
-\T1/LibertinusSerif-TLF/m/n/12 (-20) Tento skript vy-u-ºívá kni-hovnu \T1/pxtt/m/n/12 pyodbc\T1/LibertinusSerif-TLF/m/n/12 (-20) . In-kre-men-táln¥ na-£ítá su-rová data z ta-bulky \T1/pxtt/m/n/12 mqttentries\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (63.60466pt too wide) in paragraph at lines 960--962
-\T1/LibertinusSerif-TLF/m/n/12 (-20) par-suje JSON \T1/pxtt/m/n/12 payload \T1/LibertinusSerif-TLF/m/n/12 (-20) a o£i²-t¥né zá-znamy vkládá po dáv-kách do sta-ging ta-bulky \T1/pxtt/m/n/12 [Stg].[CameraCamea]\T1/LibertinusSerif-TLF/m/n/12 (-20) .
- []
-
-
-
-[44
-
-]
-Overfull \hbox (3.32286pt too wide) in paragraph at lines 970--972
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 maria_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
- []
-
-
-Overfull \hbox (8.79506pt too wide) in paragraph at lines 973--975
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 2: Ze sta-gingu do di-menzí a fakt· (\T1/pxtt/bx/n/12 maria_bilina_kamery_staging_to_fact.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
- []
-
-
-Overfull \hbox (66.77452pt too wide) in paragraph at lines 981--983
-\T1/LibertinusSerif-TLF/m/n/12 (-20) Tento skript au-to-ma-ticky ana-ly-zuje JSON \T1/pxtt/m/n/12 payload\T1/LibertinusSerif-TLF/m/n/12 (-20) . Po-mocí funkcí \T1/pxtt/m/n/12 flatten_json() \T1/LibertinusSerif-TLF/m/n/12 (-20) a \T1/pxtt/m/n/12 infer_pg_type()
- []
-
-
-
-[45]
-Overfull \hbox (41.12279pt too wide) in paragraph at lines 991--993
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 1: Z da-to-vého je-zera do sta-gingu (\T1/pxtt/bx/n/12 maria_click_bilina_kamery_lake_to_staging.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
- []
-
-
-Overfull \hbox (2.49507pt too wide) in paragraph at lines 993--995
-[]\T1/LibertinusSerif-TLF/b/n/12 (-20) Krok 2: Ze sta-gingu do di-menzí a fakt· (\T1/pxtt/bx/n/12 maria_click_kamery_staging_to_fact.py\T1/LibertinusSerif-TLF/b/n/12 (-20) ) 
- []
-
-<img/lake_to_staging.png, id=441, 3360.555pt x 2511.3825pt>
-File: img/lake_to_staging.png Graphic file (type png)
-<use img/lake_to_staging.png>
-Package pdftex.def Info: img/lake_to_staging.png  used on input line 999.
-(pdftex.def)             Requested size: 469.47049pt x 350.82475pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/staging_to_fact.png, id=442, 4017.0075pt x 3459.92625pt>
-File: img/staging_to_fact.png Graphic file (type png)
-<use img/staging_to_fact.png>
-Package pdftex.def Info: img/staging_to_fact.png  used on input line 1006.
-(pdftex.def)             Requested size: 469.47049pt x 404.35043pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/MariaDW_staging.png, id=443, 1447.20676pt x 119.2455pt>
-File: img/MariaDW_staging.png Graphic file (type png)
-<use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 1013.
-(pdftex.def)             Requested size: 469.47049pt x 38.68335pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[46]
-
-[47 <./img/lake_to_staging.png>]
-
-[48 <./img/staging_to_fact.png> <./img/MariaDW_staging.png>]
-<img/ERD.png, id=464, 3393.67876pt x 2960.05875pt>
-File: img/ERD.png Graphic file (type png)
-<use img/ERD.png>
-Package pdftex.def Info: img/ERD.png  used on input line 1035.
-(pdftex.def)             Requested size: 328.6279pt x 286.62852pt.
-
-
-[49
-
- <./img/ERD.png>]
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 1059.
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 1059.
-<img/PBIreport.png, id=472, 1765.59625pt x 995.72pt>
-File: img/PBIreport.png Graphic file (type png)
-<use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 1067.
-(pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[50{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<img/Supersetreport.png, id=482, 1370.721pt x 726.91576pt>
-File: img/Supersetreport.png Graphic file (type png)
-<use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 1097.
-(pdftex.def)             Requested size: 469.47049pt x 248.96713pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[51 <./img/PBIreport.png>]
-<img/agregace1.png, id=491, 645.00975pt x 400.49625pt>
-File: img/agregace1.png Graphic file (type png)
-<use img/agregace1.png>
-Package pdftex.def Info: img/agregace1.png  used on input line 1128.
-(pdftex.def)             Requested size: 469.47049pt x 291.50427pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[52 <./img/Supersetreport.png>]
-<img/agregace2.png, id=504, 645.612pt x 393.26926pt>
-File: img/agregace2.png Graphic file (type png)
-<use img/agregace2.png>
-Package pdftex.def Info: img/agregace2.png  used on input line 1137.
-(pdftex.def)             Requested size: 469.47049pt x 285.98003pt.
-<img/agregace3.png, id=505, 644.4075pt x 390.86024pt>
-File: img/agregace3.png Graphic file (type png)
-<use img/agregace3.png>
-Package pdftex.def Info: img/agregace3.png  used on input line 1146.
-(pdftex.def)             Requested size: 469.47049pt x 284.76498pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<img/agregace4.png, id=506, 642.60075pt x 389.0535pt>
-File: img/agregace4.png Graphic file (type png)
-<use img/agregace4.png>
-Package pdftex.def Info: img/agregace4.png  used on input line 1155.
-(pdftex.def)             Requested size: 469.47049pt x 284.23227pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<img/agregace5.png, id=507, 643.203pt x 501.67426pt>
-File: img/agregace5.png Graphic file (type png)
-<use img/agregace5.png>
-Package pdftex.def Info: img/agregace5.png  used on input line 1164.
-(pdftex.def)             Requested size: 469.47049pt x 366.17322pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[53 <./img/agregace1.png> <./img/agregace2.png>]
-
-[54 <./img/agregace3.png> <./img/agregace4.png>]
-<img/agregace-maria.png, id=525, 1683.891pt x 605.8635pt>
-File: img/agregace-maria.png Graphic file (type png)
-<use img/agregace-maria.png>
-Package pdftex.def Info: img/agregace-maria.png  used on input line 1180.
-(pdftex.def)             Requested size: 469.47049pt x 168.91028pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[55 <./img/agregace5.png>]
-
-[56 <./img/agregace-maria.png>]
-
-[57]
-<img/PowerBI - analyzer.png, id=555, 314.3745pt x 272.81924pt>
-File: img/PowerBI - analyzer.png Graphic file (type png)
-<use img/PowerBI - analyzer.png>
-Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1237.
-(pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
-
-
-[58
-
- <./img/PowerBI - analyzer.png>]
-
-[59]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 1318.
-
-
-[60]
-<img/Gemini-cli-architecture.png, id=581, 2634.84375pt x 1011.78pt>
-File: img/Gemini-cli-architecture.png Graphic file (type png)
-<use img/Gemini-cli-architecture.png>
-Package pdftex.def Info: img/Gemini-cli-architecture.png  used on input line 1328.
-(pdftex.def)             Requested size: 469.47049pt x 180.27536pt.
-
-
-[61 <./img/Gemini-cli-architecture.png>]
-
-[62
-
-
-]
-chapter 4.
-
-
-[63]
-
-[64
-
-
-]
-chapter 5.
-
-
-[65]
-
-[66]
-
-[67]
-
-[68]
-
-[69]
-
-[70]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1533--1534
-\T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
- []
-
-
-
-[71]
-
-[72]
-
-[73]
-
-[74
-
-
-]
-chapter 6.
-
-
-[75]
-
-[76
-
-
-]
-chapter 7.
-
-
-[77]
-
-[78
-
-
-]
-
-[79]
-
-[80]
-chapter A.
-
-
-[81
-
-
-]
-
-[82
-
-
-]
-chapter B.
-
-
-[83] (./ki-thesis.aux)
- ***********
-LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-09-02>
- ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
-\openout1 = `ki-thesis.run.xml'.
-
- ) 
+e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex:180: I can't write on file `ki-thesis.bcf'.
+<to be read again> 
+                   \relax 
+l.180 \begin{document}
+                      
+(Press Enter to retry, or Control-Z to exit; default file extension is `.tex')
+Please type another output file name
+e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex:180: Emergency stop.
+<to be read again> 
+                   \relax 
+l.180 \begin{document}
+                      
+*** (job aborted, file error in nonstop mode)
+
+ 
 Here is how much of TeX's memory you used:
- 53439 strings out of 467748
- 1209054 string characters out of 5431137
- 2290841 words of memory out of 5000000
- 80570 multiletter control sequences out of 15000+600000
- 781251 words of font info for 409 fonts, out of 8000000 for 9000
+ 59071 strings out of 467748
+ 1336624 string characters out of 5431137
+ 2482324 words of memory out of 5000000
+ 87013 multiletter control sequences out of 15000+600000
+ 633886 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11341b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (83 pages, 4554665 bytes).
-PDF statistics:
- 961 PDF objects out of 1000 (max. 8388607)
- 784 compressed objects within 8 object streams
- 303 named destinations out of 1000 (max. 500000)
- 85350 words of extra memory for PDF output out of 89155 (max. 10000000)
-
+ 122i,1n,121p,11341b,904s stack positions out of 10000i,1000n,20000p,200000b,200000s
+e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex:180:  ==> Fatal error occurred, no output PDF file produced!
