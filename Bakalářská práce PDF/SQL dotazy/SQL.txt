@@ -1,0 +1,112 @@
+**1. Jednoduchá agregace (1 JOIN)**
+
+```sql
+SELECT 
+    vc.VehicleClass, 
+    AVG(f.Velocity) AS AverageVelocity
+FROM 
+    FactCameraDetection f
+JOIN 
+    DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+GROUP BY 
+    vc.VehicleClass;
+```
+
+**2. Agregace přes čas (Time Series)**
+
+```sql
+SELECT 
+    t.FullDate, 
+    COUNT(*) AS NumberOfDetections
+FROM 
+    FactCameraDetection f
+JOIN 
+    DimTime t ON f.TimeKey = t.TimeKey
+GROUP BY 
+    t.FullDate
+ORDER BY 
+    t.FullDate;
+```
+
+**3. Filtrovaná agregace (Města - Top 10)**
+
+```sql
+SELECT TOP 10 
+    c.CityName, 
+    AVG(f.Velocity) AS AverageVelocity
+FROM 
+    FactCameraDetection f
+JOIN 
+    DimCity c ON f.CityKey = c.CityKey
+JOIN 
+    DimCountry co ON f.CountryKey = co.CountryKey
+JOIN 
+    DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+WHERE 
+    co.CountryCode = 'CZ' AND vc.VehicleClass = '2'
+GROUP BY 
+    c.CityName
+ORDER BY 
+    AverageVelocity DESC;
+```
+
+**4. Agregace přes 2 dimenze (Detection Type & Vehicle Class)**
+
+```sql
+SELECT 
+    dt.DetectionType, 
+    vc.VehicleClass, 
+    AVG(f.Velocity) AS AverageVelocity
+FROM 
+    FactCameraDetection f
+JOIN 
+    DimDetectionType dt ON f.DetectionTypeKey = dt.DetectionTypeKey
+JOIN 
+    DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+GROUP BY 
+    dt.DetectionType, 
+    vc.VehicleClass
+ORDER BY 
+    dt.DetectionType, 
+    vc.VehicleClass;
+```
+
+**5. Komplexní dotaz (CTE, Window Functions, Víkendy)**
+
+```sql
+WITH WeekendDetections AS (
+    SELECT 
+        f.CityKey, 
+        f.CountryKey, 
+        f.VehicleClassKey, 
+        f.Velocity
+    FROM 
+        FactCameraDetection f
+    JOIN 
+        DimTime t ON f.TimeKey = t.TimeKey
+    WHERE 
+        -- 6 = Sobota, 7 = Neděle (nastavení se může lišit dle @@DATEFIRST)
+        DATEPART(weekday, t.FullDate) IN (6, 7) 
+)
+SELECT 
+    co.CountryCode, 
+    c.CityName, 
+    vc.VehicleClass, 
+    AVG(wd.Velocity) AS AverageVelocity,
+    DENSE_RANK() OVER(PARTITION BY co.CountryCode ORDER BY COUNT(*) DESC) AS CityRankByDetections
+FROM 
+    WeekendDetections wd
+JOIN 
+    DimCity c ON wd.CityKey = c.CityKey
+JOIN 
+    DimCountry co ON wd.CountryKey = co.CountryKey
+JOIN 
+    DimVehicleClass vc ON wd.VehicleClassKey = vc.VehicleClassKey
+GROUP BY 
+    co.CountryCode, 
+    c.CityName, 
+    vc.VehicleClass
+ORDER BY 
+    co.CountryCode, 
+    CityRankByDetections;
+```

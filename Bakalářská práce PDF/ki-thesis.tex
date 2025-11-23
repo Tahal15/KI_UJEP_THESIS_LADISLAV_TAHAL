@@ -19,6 +19,7 @@
 \usepackage{enumitem}
 \usepackage{amsmath,amssymb}
 \usepackage{graphics}
+\usepackage{float}
 \usepackage{afterpage}
 \usepackage[table]{xcolor}
 \usepackage{array}
@@ -1194,52 +1195,73 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 \subsection{Srovnání výkonu na úrovni databáze}
 
-V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v řádech několika magnitud.
+V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v řádech několika magnitud.
+
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště.
+
+Detailní znění všech použitých SQL dotazů je k dispozici v příloze na githubu. Odkaz na github najdete v kapitole Příloha.
+
+\begin{enumerate}
+    \item \textbf{Dotaz 1: Jednoduchá agregace s jedním spojením} 
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace1.png}
+      \caption{Výkon jednoduché agregace s jedním spojením (Dotaz 1). Méně je lépe}
+      \label{fig:srovnani1}
+    \end{figure}
+
+    Obrázek \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
+
+    \clearpage
+    \item \textbf{Dotaz 2: Agregace nad časovou dimenzí}
+       \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace2.png}
+      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
+      \label{fig:srovnani2}
+    \end{figure}
+    Druhý dotaz (počet detekcí v čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku. To je způsobeno efektivním využitím B-stromového indexu na sloupci `TimeKey`, díky kterému engine nemusel provádět sken celé tabulky.
+
+  
+    \item \textbf{Dotaz 3: Vícenásobné spojení a filtrování}
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace3.png}
+      \caption{Výkon dotazu s vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe}
+      \label{fig:srovnani3}
+    \end{figure}
+
+    Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL a ClickHouse, které efektivně aplikují filtry (predicate pushdown) ještě před samotným spojením tabulek.
+
+    \item \textbf{Dotaz 4: Agregace nad dvěma dimenzemi}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace4.png}
+      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe}
+      \label{fig:srovnani4}
+    \end{figure}
+    
+    U čtvrtého dotazu s vyšší kardinalitou seskupování je opět patrný fatální propad řádkové MariaDB ve srovnání se sloupcovými variantami, které poskytují odezvu v řádu sekund.
+
+    \item \textbf{Dotaz 5: Komplexní dotaz s CTE a okenní funkcí}
+      \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace5.png}
+      \caption{Výkon komplexního dotazu s CTE a okenní funkcí (Dotaz 5). Méně je lépe}
+      \label{fig:srovnani5}
+    \end{figure}
+\end{enumerate}
+
+Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a MS SQL si s komplexitou poradí, řádková MariaDB v základním nastavení naráží na své limity.
+
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{img/agregace1.png}
-  \caption{Výkon jednoduché agregace s jedním spojením (Dotaz 1). Méně je lépe}
-  \label{fig:srovnani1}
+  \includegraphics[width=\textwidth]{img/porovnani_vykonu_databazi_high_res.png}
+  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe}
+  \label{fig:srovnani6}
 \end{figure}
-
-Obrázek \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/agregace2.png}
-  \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
-  \label{fig:srovnani2}
-\end{figure}
-
-%Druhý dotaz (počet detekcí v čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku. To je způsobeno efektivním využitím B-stromového indexu na sloupci `TimeKey`, díky kterému engine nemusel provádět sken celé tabulky.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/agregace3.png}
-  \caption{Výkon dotazu s vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe}
-  \label{fig:srovnani3}
-\end{figure}
-
-%Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL a ClickHouse, které efektivně aplikují filtry (predicate pushdown) ještě před samotným spojením tabulek.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/agregace4.png}
-  \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe}
-  \label{fig:srovnani4}
-\end{figure}
-
-%U čtvrtého dotazu s vyšší kardinalitou seskupování je opět patrný fatální propad řádkové MariaDB ve srovnání se sloupcovými variantami, které poskytují odezvu v řádu sekund.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/agregace5.png}
-  \caption{Výkon komplexního dotazu s CTE a okenní funkcí (Dotaz 5). Méně je lépe}
-  \label{fig:srovnani5}
-\end{figure}
-
-%Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a MS SQL si s komplexitou poradí, řádková MariaDB v základním nastavení naráží na své limity.
 
 \subsubsection{Vliv strategie indexace na výkon MariaDB (InnoDB)}
 
@@ -1247,27 +1269,18 @@ Vzhledem k výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti o
 
 Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy (např. díky pokročilejší paralelizaci dotazů), MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z indexové struktury a zcela eliminuje nákladné čtení z datových souborů na disku.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/agregace-maria.png} 
-  \caption{Dopad nasazení pokrývajících indexů na výkon MariaDB (InnoDB)}
-  \label{fig:mariadb_opt}
-\end{figure}
 
-Jak ukazuje obrázek \ref{fig:mariadb_opt} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
-\begin{itemize}
-    \item U komplexní analýzy víkendů (Dotaz 5) klesl čas z \textbf{2 minut 22 sekund} na pouhé \textbf{3 sekundy}.
-    \item U agregace dle typu detekce (Dotaz 4) došlo ke zrychlení z \textbf{1 minuty 45 sekund} na \textbf{7 sekund}.
-\end{itemize}
-Tento experiment potvrzuje, že MariaDB je schopna sloužit i pro analytické dotazy, vyžaduje však – na rozdíl od sloupcových databází nebo PostgreSQL – striktní a manuální optimalizaci indexů na míru konkrétním dotazům.
+Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
+Tento experiment potvrzuje, že MariaDB je schopna sloužit i pro analytické dotazy, vyžaduje však – na rozdíl od jiných databází – striktní a manuální optimalizaci indexů na míru konkrétním dotazům.
 
 \subsubsection{Interpretace výsledků databázové vrstvy}
 Souhrnná analýza demonstruje několik klíčových zjištění:
 \begin{itemize}
-    \item \textbf{Dominance sloupcového úložiště:} Pro OLAP zátěž je sloupcový přístup (ClickHouse, MariaDB ColumnStore) bezkonkurenční, poskytující vysoký výkon bez nutnosti složitého ladění každého dotazu.
+    \item \textbf{Efektivita optimalizátorů dotazů:} Ačkoliv jsou sloupcové databáze (ClickHouse, MariaDB ColumnStore) pro OLAP zátěž přirozeně vhodnější, testy ukázaly, že robustní optimalizátor dotazů (MS SQL Server) dokáže i v řádkovém režimu dosáhnout srovnatelných výsledků.
     \item \textbf{Specifika MariaDB:} Jak bylo prokázáno v doplňkovém testu, řádková MariaDB může být výkonná, ale vyžaduje pokročilou správu indexů (covering indexes), což zvyšuje nároky na údržbu oproti systémům, které jsou výkonné „out-of-the-box“.
-    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse} dosahoval ve většině testů nejlepších výsledků s časy pod jednu sekundu.
-    \item \textbf{Komerční řešení:} \textbf{MS SQL Server} s Columnstore indexem se výkonnostně velmi blížil ClickHouse a v některých případech jej překonal.
+    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse} potvrdil svou dominanci v oblasti analytického zpracování a ve většině testů dosahoval nejlepších výsledků s časy pod jednu sekundu.
+    \item \textbf{Univerzálnost MS SQL Serveru:} Komerční řešení od Microsoftu prokázalo vysokou stabilitu a výkon. A to jak při použití Columnstore indexů, kde se blížilo výkonu ClickHouse, tak i v klasickém řádkovém režimu, kde díky pokročilé optimalizaci výrazně překonalo ostatní řádkové databáze.
+    \item \textbf{Specifika TimescaleDB:} Výkon TimescaleDB byl v tomto srovnání podobný jako u PostgreSQL. Důvodem je, že TimescaleDB není architektonicky cílena na hvězdicové schéma (Star Schema). Nejvyšší efektivity dosahuje při použití denormalizovaných tabulek, kde jsou data uložena v rámci jedné velké struktury (hypertable). Tento přístup umožňuje lépe využít její optimalizační mechanismy, jako je komprese a automatický partitioning.
 \end{itemize}
 
 \subsection{Srovnání výkonu a architektury BI nástrojů}
@@ -1294,15 +1307,13 @@ Druhá fáze testování se zaměřila na rychlost odezvy z pohledu koncového u
 
 Během testování open-source varianty se ukázalo jako klíčové nasazení \textbf{pre-agregací} v Cube.js.
 
-Bez nich byla odezva závislá čistě na výkonu databáze (u ClickHouse cca \textbf{5 sekund}). Implementace pre-agregací – tedy malých, předpočítaných sumarizačních tabulek – umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
+Bez nich byla odezva závislá čistě na výkonu databáze (u ClickHouse cca \textbf{5 sekund} pro načtení ilustračního dashboardu). Implementace pre-agregací – tedy malých, předpočítaných sumarizačních tabulek – umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
 
 \subsection{Závěrečné shrnutí výsledků}
 
 Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury rozhodující.
 
 Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu „out-of-the-box“. Měření ukázala prakticky okamžité reakce: vykreslení nejnáročnějšího grafu trvalo přibližně \textbf{1 sekundu}, zatímco ostatní vizualizace se načítaly v řádu \textbf{100 ms}.
-
-\clearpage
 
 \begin{figure}[h!]
   \centering
@@ -1315,6 +1326,8 @@ Open-source stack (Superset + Cube.js) se tomuto výkonu dokázal přiblížit, 
 
 Ačkoliv je tento výsledek pro open-source řešení úspěchem, k extrémnímu výkonu SSAS (100 ms) se nepřiblížilo. Tento rozdíl není chybou konfigurace, ale důsledkem fyzikálních limitů architektur. Zatímco SSAS čte předpočítaná data přímo z operační paměti (MOLAP), open-source řešení – i přes veškeré optimalizace – naráží na limity ROLAP přístupu, který vyžaduje překlad na SQL a komunikaci s databází či pre-agregační vrstvou.
 
+Jako teoretický směr pro další optimalizaci open-source řešení se nabízí využití RAM disku, tedy umístění datových souborů databáze přímo do operační paměti serveru. Tento krok by eliminoval úzké hrdlo v podobě diskových operací a mohl by výkonově přiblížit ROLAP architekturu in-memory systémům. Praktická implementace a testování tohoto scénáře však již přesahuje rozsah i kompetence této práce. Je navíc nutné zohlednit i významná rizika, především volatilitu dat. Uložení v RAM je ze své podstaty dočasné a při restartu či výpadku serveru by došlo k okamžité ztrátě dat, což by vyžadovalo implementaci složitých mechanismů pro synchronizaci na trvalé úložiště, čímž by se neúměrně zvýšila komplexita správy celého řešení.
+
 Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
 \subsection{Analýza celkových nákladů na vlastnictví (TCO)}
 
@@ -1323,12 +1336,28 @@ Vzhledem k tomu, že praktická část této práce ověřovala široké spektru
 TCO v tomto případě dělíme na tři hlavní složky: \textbf{Licenční náklady}, \textbf{Infrastrukturní náklady} a \textbf{Náklady na lidský kapitál}.
 
 \subsubsection{Náklady na implementaci a lidský kapitál}
-Tradiční předpoklad, že open-source řešení vyžadují výrazně vyšší úsilí při integraci se v kontextu této práce \textbf{nepotvrdil}.
 
 \begin{itemize}
     \item \textbf{Srovnatelná pracnost implementace:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
     \item \textbf{Rozdíl v expertíze:} Hlavní rozdíl tedy nespočívá v objemu práce, ale v typu požadované znalosti. Zatímco správa MSSQL je na trhu běžnou komoditou, efektivní konfigurace \textbf{MariaDB Columnstore} technologie nebo ladění \textbf{Cube.js} schémat vyžaduje specifičtější, a často dražší, know-how.
 \end{itemize}
+
+Pro kvantifikaci těchto nákladů byly využity průměrné mzdy v IT sektoru dle dat Českého statistického úřadu (ČSÚ) a Informačního systému o průměrném výdělku (ISPV).
+
+\begin{table}[h!]
+\centering
+\caption{Odhad měsíčních nákladů na lidský kapitál dle rolí}
+\label{tab:personnel_costs}
+\begin{tabular}{|l|l|c|}
+\hline
+\textbf{Technologie} & \textbf{Role} & \textbf{Odhad mzdy (CZK)} \\ \hline
+MariaDB ColumnStore & Senior Database Specialist & 90 000 \\ \hline
+Superset (Vizualizace) & Junior Data Analyst & 45 000 \\ \hline
+MS SQL + SSAS & BI Developer / DWH Specialist & 70 000 \\ \hline
+\end{tabular}
+\end{table}
+
+Z tabulky vyplývá, že ačkoliv open-source řešení šetří na licencích, může vyžadovat dražší specialisty na backend (Senior DB Specialist pro správu ColumnStore clusteru), zatímco pro frontend (Superset) postačí juniorní role. Komerční ekosystém MS SQL obvykle pokrývá jedna role BI Developera se střední úrovní ohodnocení.
 
 \subsubsection{Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}
 \begin{itemize}
@@ -1356,6 +1385,15 @@ U varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantn
         \item \textbf{Power BI Pro:} Cca \textbf{13 USD / uživatel / měsíc}.
         \item \textbf{Power BI Premium:} Cca \textbf{23 USD / uživatel / měsíc}.
     \end{itemize}
+    
+\end{itemize}
+
+\subsubsection{Hardwarové nároky (MOLAP vs. ROLAP)}
+Významný rozdíl v TCO tvoří také hardwarové požadavky, které vycházejí z odlišných architektur:
+
+\begin{itemize}
+    \item \textbf{MOLAP (MS SSAS):} Vyžaduje, aby se celý datový model (nebo jeho podstatná část) vešel do operační paměti (RAM). RAM je nejdražší komponentou serveru. S růstem dat rostou náklady na RAM lineárně až exponenciálně.
+    \item \textbf{ROLAP (ClickHouse/MariaDB):} Spoléhá na rychlé diskové operace. Data jsou uložena na discích (SSD/NVMe), které jsou řádově levnější než RAM. Díky efektivní kompresi (zmíněná 10x úspora u ClickHouse) jsou nároky na kapacitu úložiště minimální.
 \end{itemize}
 
 \subsubsection{Závěrečné porovnání}
@@ -1377,6 +1415,22 @@ Na základě provedené analýzy budou jednotlivé technologie porovnány z hled
   \item \textbf{Ekonomických aspektů} – licenční podmínky, náklady na provoz a škálování.
 \end{itemize}
 Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytne doporučení vhodné platformy pro využití v rámci Portabo.
+
+\begin{table}[h!]
+\centering
+\caption{Souhrnné porovnání TCO a parametrů řešení}
+\label{tab:tco_summary}
+\begin{tabular}{|l|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{Parametr} & \textbf{MS SQL + SSAS (Komerční)} & \textbf{ClickHouse + Cube.js (Open-source)} & \textbf{MariaDB (Tradiční)} \\ \hline
+\textbf{Licence} & Vysoká (per core / user) & Zdarma (Apache 2.0 / MIT) & Zdarma (GPL) \\ \hline
+\textbf{Hardware} & Vysoké nároky na RAM (MOLAP) & Nízké nároky na RAM, vyšší I/O (ROLAP) & Střední \\ \hline
+\textbf{Storage} & Standardní komprese & Extrémní komprese (10x menší) & Bez komprese (Row) \\ \hline
+\textbf{Lidské zdroje} & BI Developer (Střední mzda) & Senior DB Spec. (Vysoká) + Junior (Nízká) & DB Admin (Střední) \\ \hline
+\textbf{Výkon} & Okamžitý (In-Memory) & Velmi vysoký (Columnar) & Nízký (pro OLAP) \\ \hline
+\textbf{Škálovatelnost} & Omezená licencí a RAM & Neomezená (Horizontální) & Omezená \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Využití AI pro validaci a revizi textu}
 
@@ -1704,6 +1758,11 @@ LOGO\_PRF\_EM\_RGB\_standard.jpg  & logo fakulty s anglickým textem  \\
 \end{longtable}
 
 Všechny tyto soubory jsou potřeba pro překlad dokumentu (logo stačí jedno v příslušné jazykové verzi).
+
+\chapter{SQL Dotazy k srovnávací analýze}
+\label{app:sql_queries}
+
+Tato příloha obsahuje plné znění SQL dotazů použitých pro srovnávací analýzu výkonu databázových systémů.
 
 \chapter{Další přílohy}
 

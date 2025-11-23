@@ -101,6 +101,8 @@ INPUT c:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/tools/afterpage.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/tools/afterpage.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
@@ -789,11 +791,11 @@ INPUT ./img/agregace5.png
 INPUT ./img/agregace5.png
 INPUT ./img/agregace5.png
 INPUT ./img/agregace5.png
-INPUT ./img/agregace-maria.png
-INPUT ./img/agregace-maria.png
-INPUT ./img/agregace-maria.png
-INPUT ./img/agregace-maria.png
-INPUT ./img/agregace-maria.png
+INPUT ./img/porovnani_vykonu_databazi_high_res.png
+INPUT ./img/porovnani_vykonu_databazi_high_res.png
+INPUT ./img/porovnani_vykonu_databazi_high_res.png
+INPUT ./img/porovnani_vykonu_databazi_high_res.png
+INPUT ./img/porovnani_vykonu_databazi_high_res.png
 INPUT ./img/PowerBI - analyzer.png
 INPUT ./img/PowerBI - analyzer.png
 INPUT ./img/PowerBI - analyzer.png

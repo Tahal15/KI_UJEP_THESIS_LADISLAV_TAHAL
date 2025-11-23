@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grafy pro LaTeX - Separátní export</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .download-btn {
+            margin: 10px 0 40px 0;
+            padding: 12px 24px;
+            background-color: #36A2EB;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn:hover {
+            background-color: #258fd6;
+        }
+
+        .chart-wrapper {
+            margin-bottom: 30px;
+            padding: 10px;
+            border-bottom: 1px dashed #eee;
+            /* Jen pro vizuální oddělení na webu */
+        }
+
+        /* Popisek pro orientaci na webu (ve stahování nebude) */
+        .browser-label {
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .canvas-container {
+            position: relative;
+            height: 450px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="download-btn" onclick="downloadAllSeparately()">Stáhnout 5 samostatných obrázků (PNG)</button>
+    <p style="font-size: 12px; color: #777; margin-top: -30px; margin-bottom: 30px;">(Povolte prohlížeči stahování více
+        souborů, pokud se zeptá)</p>
+
+    <div id="charts-container"></div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Segoe UI', sans-serif";
+        Chart.defaults.color = '#333';
+
+        const databases = [
+            { name: 'ClickHouse', displayLabel: 'ClickHouse', color: '#4BC0C0', borderColor: '#4BC0C0' },
+            { name: 'MSSQL (Řádkový)', displayLabel: ['MSSQL', '(Řádkový)'], color: '#C9CBCF', borderColor: '#C9CBCF' },
+            { name: 'MSSQL (Sloupcový)', displayLabel: ['MSSQL', '(Sloupcový)'], color: '#A0A2A8', borderColor: '#606266' },
+            { name: 'MariaDB (Řádkový)', displayLabel: ['MariaDB', '(Řádkový)'], color: '#FFB3CC', borderColor: '#FFB3CC' },
+            { name: 'MariaDB (Sloupcový)', displayLabel: ['MariaDB', '(Sloupcový)'], color: '#FF6384', borderColor: '#D43F60' },
+            { name: 'MariaDB (Covering IDX)', displayLabel: ['MariaDB', '(Covering IDX)'], color: '#36A2EB', borderColor: '#0056b3' },
+            { name: 'PostgreSQL', displayLabel: 'PostgreSQL', color: '#FF9F40', borderColor: '#FF9F40' },
+            { name: 'TimescaleDB', displayLabel: 'TimescaleDB', color: '#FFCD56', borderColor: '#FFCD56' }
+        ];
+
+        // Definice názvů souborů pro stahování
+        const scenarios = [
+            { title: '1. Agregace s 1 JOIN', filename: 'graf_01_agregace_join' },
+            { title: '2. Agregace přes čas', filename: 'graf_02_time_series' },
+            { title: '3. Více JOIN s filtrem', filename: 'graf_03_vice_join' },
+            { title: '4. Agregace přes 2 dimenze', filename: 'graf_04_2_dimenze' },
+            { title: '5. Komplexní dotaz (CTE)', filename: 'graf_05_cte' }
+        ];
+
+        const rawData = {
+            'ClickHouse': [0.27, 0.33, 0.57, 0.65, 0.33],
+            'MSSQL (Řádkový)': [0.52, 1.50, 0.25, 0.75, 0.55],
+            'MSSQL (Sloupcový)': [0.42, 1.33, 0.04, 0.51, 0.65],
+            'MariaDB (Řádkový)': [122.31, 0.32, 18.32, 105.52, 141.73],
+            'MariaDB (Sloupcový)': [2.49, 3.07, 1.59, 5.63, 2.83],
+            'MariaDB (Covering IDX)': [15.17, 3.70, 1.90, 6.87, 3.28],
+            'PostgreSQL': [7.39, 8.71, 6.10, 8.69, 4.86],
+            'TimescaleDB': [6.71, 9.02, 5.63, 9.54, 12.13]
+        };
+
+        const container = document.getElementById('charts-container');
+
+        function createChart(scenarioIndex, scenarioInfo) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'chart-wrapper';
+
+            // Popisek na webu
+            const guideLabel = document.createElement('div');
+            guideLabel.className = 'browser-label';
+            guideLabel.innerText = scenarioInfo.title;
+            wrapper.appendChild(guideLabel);
+
+            const canvasDiv = document.createElement('div');
+            canvasDiv.className = 'canvas-container';
+            const canvas = document.createElement('canvas');
+            canvas.id = 'chart-' + scenarioIndex;
+            // Uložíme si filename do data atributu pro pozdější stahování
+            canvas.setAttribute('data-filename', scenarioInfo.filename);
+            canvasDiv.appendChild(canvas);
+            wrapper.appendChild(canvasDiv);
+            container.appendChild(wrapper);
+
+            const scenarioData = databases.map(db => rawData[db.name][scenarioIndex]);
+            const bgColors = databases.map(db => db.color);
+            const borderColors = databases.map(db => db.borderColor);
+            const labels = databases.map(db => db.displayLabel);
+
+            new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: scenarioData,
+                        backgroundColor: bgColors,
+                        borderColor: borderColors,
+                        borderWidth: context => context.dataIndex === 5 ? 2 : 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    devicePixelRatio: 2.5, // Vysoké rozlišení
+                    layout: {
+                        padding: {
+                            top: 35,
+                            bottom: 5,
+                            left: 10 // Trochu místa pro osu Y
+                        }
+                    },
+
+                    // --- KOMPAKTNOST ---
+                    categoryPercentage: 0.9,
+                    barPercentage: 0.9,
+                    // -------------------
+
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'end',
+                            offset: -4,
+                            color: '#222',
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (val) => val > 0.01 ? val : ''
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                font: { size: 13, weight: '600' },
+                                color: '#444'
+                            },
+                            grid: { display: false }
+                        },
+                        y: {
+                            type: 'logarithmic',
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Čas v sekundách (Logaritmická škála)', // --- VRÁCENO ---
+                                font: { size: 13, weight: 'bold' },
+                                color: '#333'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    if ([100, 10, 1, 0.1, 0.01].includes(value)) return value;
+                                },
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generování grafů
+        scenarios.forEach((info, index) => {
+            createChart(index, info);
+        });
+
+        // --- FUNKCE PRO SÉRIOVÉ STAHOVÁNÍ ---
+        async function downloadAllSeparately() {
+            const btn = document.querySelector('.download-btn');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = "Stahuji 1/5...";
+
+            const canvases = document.querySelectorAll('canvas');
+
+            for (let i = 0; i < canvases.length; i++) {
+                const canvas = canvases[i];
+                const filename = canvas.getAttribute('data-filename') + '.png';
+
+                btn.innerText = `Stahuji ${i + 1}/${canvases.length}...`;
+
+                // Vytvoření odkazu
+                const link = document.createElement('a');
+                // Vytvoříme bílé pozadí (protože canvas je průhledný)
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                const ctx = tempCanvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                ctx.drawImage(canvas, 0, 0);
+
+                link.href = tempCanvas.toDataURL('image/png', 1.0);
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Pauza mezi stahováním, aby to prohlížeč nezablokoval jako spam
+                await new Promise(r => setTimeout(r, 600));
+            }
+
+            btn.innerText = "Hotovo! (Zkontrolujte stažené soubory)";
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }, 3000);
+        }
+    </script>
+
+</body>
+
+</html>
