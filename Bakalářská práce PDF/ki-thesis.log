@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  24 NOV 2025 14:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  24 NOV 2025 22:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex"
-(c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex
+**"e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex"
+(e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/BakalÃ¡Å™skÃ¡ prÃ¡ce PDF/ki-thesis.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (./kitheses.cls
@@ -1532,16 +1532,14 @@ Package tocbasic Info: character protrusion at toc deactivated on input line 300
 
 [11]
 
-Package babel Info: 'czech' activates 'czech' shorthands.
-(babel)             Reported on input line 302.
-[12]
-chapter without number
-
-
-[13
+[12
 
 
 ]
+chapter without number
+
+
+[13]
 
 [14
 
@@ -1558,6 +1556,8 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
 
 [15{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}]
 
+Package babel Info: 'czech' activates 'czech' shorthands.
+(babel)             Reported on input line 350.
 [16
 
 ]
@@ -1580,7 +1580,7 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
 
 
 [17{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
-<img/architecture-data-warehousing.png, id=173, 971.63pt x 530.98375pt>
+<img/architecture-data-warehousing.png, id=167, 971.63pt x 530.98375pt>
 File: img/architecture-data-warehousing.png Graphic file (type png)
 <use img/architecture-data-warehousing.png>
 Package pdftex.def Info: img/architecture-data-warehousing.png  used on input line 378.
@@ -1588,7 +1588,7 @@ Package pdftex.def Info: img/architecture-data-warehousing.png  used on input li
 
 
 [18 <./img/architecture-data-warehousing.png>]
-<img/google-cloud.png, id=190, 2419.0375pt x 1268.74pt>
+<img/google-cloud.png, id=184, 2419.0375pt x 1268.74pt>
 File: img/google-cloud.png Graphic file (type png)
 <use img/google-cloud.png>
 Package pdftex.def Info: img/google-cloud.png  used on input line 396.
@@ -1596,12 +1596,12 @@ Package pdftex.def Info: img/google-cloud.png  used on input line 396.
 
 
 [19 <./img/google-cloud.png>]
-<img/AWSarchitecture.png, id=205, 900.36375pt x 413.545pt>
+<img/AWSarchitecture.png, id=199, 900.36375pt x 413.545pt>
 File: img/AWSarchitecture.png Graphic file (type png)
 <use img/AWSarchitecture.png>
 Package pdftex.def Info: img/AWSarchitecture.png  used on input line 414.
 (pdftex.def)             Requested size: 469.47049pt x 215.63147pt.
-<img/oracle_architecture.png, id=209, 1400.23125pt x 686.565pt>
+<img/oracle_architecture.png, id=203, 1400.23125pt x 686.565pt>
 File: img/oracle_architecture.png Graphic file (type png)
 <use img/oracle_architecture.png>
 Package pdftex.def Info: img/oracle_architecture.png  used on input line 431.
@@ -1613,7 +1613,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 [20 <./img/AWSarchitecture.png>]
-<img/hadoop.png, id=224, 803.0pt x 498.86375pt>
+<img/hadoop.png, id=218, 803.0pt x 498.86375pt>
 File: img/hadoop.png Graphic file (type png)
 <use img/hadoop.png>
 Package pdftex.def Info: img/hadoop.png  used on input line 449.
@@ -1628,7 +1628,7 @@ LaTeX Warning: Citation 'apachekylin2024' on page 21 undefined on input line 458
 
 
 [21 <./img/oracle_architecture.png>]
-<img/mariadb_architecture.jpg, id=235, 4801.94pt x 2063.71pt>
+<img/mariadb_architecture.jpg, id=229, 4801.94pt x 2063.71pt>
 File: img/mariadb_architecture.jpg Graphic file (type jpg)
 <use img/mariadb_architecture.jpg>
 Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 470.
@@ -1636,7 +1636,7 @@ Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 470.
 
 
 [22 <./img/hadoop.png> <./img/mariadb_architecture.jpg>]
-<img/Modularita.png, id=254, 1283.997pt x 290.88675pt>
+<img/Modularita.png, id=248, 1283.997pt x 290.88675pt>
 File: img/Modularita.png Graphic file (type png)
 <use img/Modularita.png>
 Package pdftex.def Info: img/Modularita.png  used on input line 494.
@@ -1644,7 +1644,7 @@ Package pdftex.def Info: img/Modularita.png  used on input line 494.
 
 
 [23 <./img/Modularita.png>]
-<img/hybrid2.png, id=266, 2589.675pt x 584.1825pt>
+<img/hybrid2.png, id=260, 2589.675pt x 584.1825pt>
 File: img/hybrid2.png Graphic file (type png)
 <use img/hybrid2.png>
 Package pdftex.def Info: img/hybrid2.png  used on input line 508.
@@ -1657,7 +1657,7 @@ Overfull \hbox (26.20973pt too wide) in paragraph at lines 522--525
 
 
 [24 <./img/hybrid2.png>]
-<img/NLQ.png, id=279, 1922.98425pt x 738.3585pt>
+<img/NLQ.png, id=273, 1922.98425pt x 738.3585pt>
 File: img/NLQ.png Graphic file (type png)
 <use img/NLQ.png>
 Package pdftex.def Info: img/NLQ.png  used on input line 548.
@@ -1669,7 +1669,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 [25]
-<img/mcp-simple-diagram.png, id=295, 3854.4pt x 1505.625pt>
+<img/mcp-simple-diagram.png, id=289, 3854.4pt x 1505.625pt>
 File: img/mcp-simple-diagram.png Graphic file (type png)
 <use img/mcp-simple-diagram.png>
 Package pdftex.def Info: img/mcp-simple-diagram.png  used on input line 584.
@@ -1689,7 +1689,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ]
 chapter 2.
-<img/reporting_structure.png, id=322, 1096.69725pt x 616.10175pt>
+<img/reporting_structure.png, id=315, 1096.69725pt x 616.10175pt>
 File: img/reporting_structure.png Graphic file (type png)
 <use img/reporting_structure.png>
 Package pdftex.def Info: img/reporting_structure.png  used on input line 613.
@@ -1711,7 +1711,7 @@ Overfull \hbox (2.92505pt too wide) in paragraph at lines 681--682
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
-<img/Star-schema.png, id=350, 480.8364pt x 301.6068pt>
+<img/Star-schema.png, id=344, 480.8364pt x 301.6068pt>
 File: img/Star-schema.png Graphic file (type png)
 <use img/Star-schema.png>
 Package pdftex.def Info: img/Star-schema.png  used on input line 697.
@@ -1719,7 +1719,7 @@ Package pdftex.def Info: img/Star-schema.png  used on input line 697.
 
 
 [32 <./img/Star-schema.png>]
-<img/snowflake.png, id=361, 702.9462pt x 424.4658pt>
+<img/snowflake.png, id=355, 702.9462pt x 424.4658pt>
 File: img/snowflake.png Graphic file (type png)
 <use img/snowflake.png>
 Package pdftex.def Info: img/snowflake.png  used on input line 705.
@@ -1754,7 +1754,7 @@ Overfull \hbox (45.64264pt too wide) in paragraph at lines 932--933
 \T1/LibertinusSerif-TLF/m/n/12 (-20) ra£ní sou-bor de-fi-no-val p°ímé p°i-po-jení ke zdro-jové Ma-ri-aDB da-ta-bázi (\T1/pxtt/m/n/12 host.docker.internal:3306\T1/LibertinusSerif-TLF/m/n/12 (-20) )
  []
 
-<img/sqldump_v2.png, id=426, 2583.6525pt x 2279.51625pt>
+<img/sqldump_v2.png, id=420, 2583.6525pt x 2279.51625pt>
 File: img/sqldump_v2.png Graphic file (type png)
 <use img/sqldump_v2.png>
 Package pdftex.def Info: img/sqldump_v2.png  used on input line 942.
@@ -1771,7 +1771,7 @@ Overfull \hbox (31.48177pt too wide) in paragraph at lines 972--975
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
-<img/mqttentries_structure.png, id=439, 1420.1055pt x 177.66376pt>
+<img/mqttentries_structure.png, id=433, 1420.1055pt x 177.66376pt>
 File: img/mqttentries_structure.png Graphic file (type png)
 <use img/mqttentries_structure.png>
 Package pdftex.def Info: img/mqttentries_structure.png  used on input line 978.
@@ -1781,12 +1781,12 @@ Package pdftex.def Info: img/mqttentries_structure.png  used on input line 978.
 [44
 
  <./img/mqttentries_structure.png>]
-<img/topic50.png, id=452, 1069.596pt x 145.7445pt>
+<img/topic50.png, id=446, 1069.596pt x 145.7445pt>
 File: img/topic50.png Graphic file (type png)
 <use img/topic50.png>
 Package pdftex.def Info: img/topic50.png  used on input line 998.
 (pdftex.def)             Requested size: 469.47049pt x 63.97209pt.
-<img/topic50_2.png, id=454, 1070.19826pt x 43.362pt>
+<img/topic50_2.png, id=448, 1070.19826pt x 43.362pt>
 File: img/topic50_2.png Graphic file (type png)
 <use img/topic50_2.png>
 Package pdftex.def Info: img/topic50_2.png  used on input line 1007.
@@ -1810,7 +1810,7 @@ Overfull \hbox (3.3615pt too wide) in paragraph at lines 1020--1021
 ]
 
 [47]
-<img/lake_to_staging.png, id=485, 3360.555pt x 2511.3825pt>
+<img/lake_to_staging.png, id=479, 3360.555pt x 2511.3825pt>
 File: img/lake_to_staging.png Graphic file (type png)
 <use img/lake_to_staging.png>
 Package pdftex.def Info: img/lake_to_staging.png  used on input line 1072.
@@ -1819,7 +1819,7 @@ Package pdftex.def Info: img/lake_to_staging.png  used on input line 1072.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/staging_to_fact.png, id=486, 4017.0075pt x 3459.92625pt>
+<img/staging_to_fact.png, id=480, 4017.0075pt x 3459.92625pt>
 File: img/staging_to_fact.png Graphic file (type png)
 <use img/staging_to_fact.png>
 Package pdftex.def Info: img/staging_to_fact.png  used on input line 1079.
@@ -1827,7 +1827,7 @@ Package pdftex.def Info: img/staging_to_fact.png  used on input line 1079.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/MariaDW_staging.png, id=487, 1447.20676pt x 119.2455pt>
+<img/MariaDW_staging.png, id=481, 1447.20676pt x 119.2455pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
 Package pdftex.def Info: img/MariaDW_staging.png  used on input line 1086.
@@ -1842,7 +1842,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [49 <./img/lake_to_staging.png>]
 
 [50 <./img/staging_to_fact.png> <./img/MariaDW_staging.png>]
-<img/ERD.png, id=509, 3393.67876pt x 2960.05875pt>
+<img/ERD.png, id=503, 3393.67876pt x 2960.05875pt>
 File: img/ERD.png Graphic file (type png)
 <use img/ERD.png>
 Package pdftex.def Info: img/ERD.png  used on input line 1108.
@@ -1852,7 +1852,7 @@ Package pdftex.def Info: img/ERD.png  used on input line 1108.
 [51
 
  <./img/ERD.png>]
-<img/PBIreport.png, id=516, 1765.59625pt x 995.72pt>
+<img/PBIreport.png, id=510, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
 Package pdftex.def Info: img/PBIreport.png  used on input line 1134.
@@ -1866,7 +1866,7 @@ LaTeX Info: Symbol \textrightarrow not provided by
 
 
 [52{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./img/PBIreport.png>]
-<img/Supersetreport.png, id=526, 1370.721pt x 726.91576pt>
+<img/Supersetreport.png, id=520, 1370.721pt x 726.91576pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
 Package pdftex.def Info: img/Supersetreport.png  used on input line 1165.
@@ -1876,7 +1876,7 @@ Package pdftex.def Info: img/Supersetreport.png  used on input line 1165.
 [53 <./img/Supersetreport.png>]
 
 [54]
-<img/agregace1.png, id=545, 2459.1875pt x 1129.21875pt>
+<img/agregace1.png, id=539, 2459.1875pt x 1129.21875pt>
 File: img/agregace1.png Graphic file (type png)
 <use img/agregace1.png>
 Package pdftex.def Info: img/agregace1.png  used on input line 1210.
@@ -1884,17 +1884,17 @@ Package pdftex.def Info: img/agregace1.png  used on input line 1210.
 
 
 [55 <./img/agregace1.png>]
-<img/agregace2.png, id=555, 2459.1875pt x 1129.21875pt>
+<img/agregace2.png, id=549, 2459.1875pt x 1129.21875pt>
 File: img/agregace2.png Graphic file (type png)
 <use img/agregace2.png>
 Package pdftex.def Info: img/agregace2.png  used on input line 1221.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/agregace3.png, id=556, 2459.1875pt x 1129.21875pt>
+<img/agregace3.png, id=550, 2459.1875pt x 1129.21875pt>
 File: img/agregace3.png Graphic file (type png)
 <use img/agregace3.png>
 Package pdftex.def Info: img/agregace3.png  used on input line 1232.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/agregace4.png, id=557, 2459.1875pt x 1129.21875pt>
+<img/agregace4.png, id=551, 2459.1875pt x 1129.21875pt>
 File: img/agregace4.png Graphic file (type png)
 <use img/agregace4.png>
 Package pdftex.def Info: img/agregace4.png  used on input line 1242.
@@ -1904,12 +1904,12 @@ Package pdftex.def Info: img/agregace4.png  used on input line 1242.
 [56
 
  <./img/agregace2.png> <./img/agregace3.png>]
-<img/agregace5.png, id=568, 2459.1875pt x 1129.21875pt>
+<img/agregace5.png, id=562, 2459.1875pt x 1129.21875pt>
 File: img/agregace5.png Graphic file (type png)
 <use img/agregace5.png>
 Package pdftex.def Info: img/agregace5.png  used on input line 1252.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/porovnani_vykonu_databazi_high_res.png, id=569, 2710.125pt x 1593.955pt>
+<img/porovnani_vykonu_databazi_high_res.png, id=563, 2710.125pt x 1593.955pt>
 File: img/porovnani_vykonu_databazi_high_res.png Graphic file (type png)
 <use img/porovnani_vykonu_databazi_high_res.png>
 Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on input line 1263.
@@ -1925,7 +1925,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [58 <./img/porovnani_vykonu_databazi_high_res.png>]
 
 [59]
-<img/PowerBI - analyzer.png, id=601, 314.3745pt x 272.81924pt>
+<img/PowerBI - analyzer.png, id=595, 314.3745pt x 272.81924pt>
 File: img/PowerBI - analyzer.png Graphic file (type png)
 <use img/PowerBI - analyzer.png>
 Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1322.
@@ -1937,64 +1937,61 @@ Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1322.
 [61]
 
 [62]
-Underfull \hbox (badness 10000) in paragraph at lines 1427--1427
+
+[63]
+Underfull \hbox (badness 10000) in paragraph at lines 1469--1469
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) MariaDB (Tra-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1430--1430
+Underfull \hbox (badness 10000) in paragraph at lines 1472--1472
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Extrémní kom-prese
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1430--1430
+Underfull \hbox (badness 10000) in paragraph at lines 1472--1472
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Bez kom-prese
  []
 
 
-Underfull \hbox (badness 1715) in paragraph at lines 1431--1431
+Underfull \hbox (badness 1715) in paragraph at lines 1473--1473
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Senior DB Spec. (Vy-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1431--1431
+Underfull \hbox (badness 10000) in paragraph at lines 1473--1473
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) DB Ad-min
  []
 
 
-Underfull \hbox (badness 5696) in paragraph at lines 1433--1433
+Underfull \hbox (badness 5696) in paragraph at lines 1475--1475
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Neomezená (Ho-ri-zon-
  []
 
 
-
-[63]
-<img/Gemini-cli-architecture.png, id=639, 2634.84375pt x 1011.78pt>
-File: img/Gemini-cli-architecture.png Graphic file (type png)
-<use img/Gemini-cli-architecture.png>
-Package pdftex.def Info: img/Gemini-cli-architecture.png  used on input line 1456.
-(pdftex.def)             Requested size: 469.47049pt x 180.27536pt.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-[64 <./img/Gemini-cli-architecture.png>]
-chapter 4.
 
+[64]
 
-[65
-
-
-]
+[65]
 
 [66
 
 
 ]
-chapter 5.
+chapter 4.
 
 
 [67]
 
-[68]
+[68
+
+
+]
+chapter 5.
+
 
 [69]
 
@@ -2003,58 +2000,53 @@ chapter 5.
 [71]
 
 [72]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1661--1662
+
+[73]
+
+[74]
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1678--1679
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupné z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
 
 
-[73]
+[75]
 
-[74]
+[76]
 chapter 6.
 
 
-[75
+[77
 
 
 ]
 
-[76
+[78
 
 
 ]
 chapter 7.
 
 
-[77] (./ki-thesis.gls
-
-[78]
-
-[79
-
-
-
-
-])
+[79] (./ki-thesis.gls
 
 [80]
 
 [81
 
 
-]
+
+
+])
 
 [82]
 
-[83]
-
-[84
+[83
 
 
 ]
-chapter A.
 
+[84]
 
 [85]
 
@@ -2062,19 +2054,10 @@ chapter A.
 
 
 ]
-chapter B.
+chapter A.
 
 
-[87]
-
-[88
-
-
-]
-chapter C.
-
-
-[89] (./ki-thesis.aux)
+[87] (./ki-thesis.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -2088,18 +2071,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61398 strings out of 467748
- 1391795 string characters out of 5431137
- 2504426 words of memory out of 5000000
- 88371 multiletter control sequences out of 15000+600000
- 794936 words of font info for 432 fonts, out of 8000000 for 9000
+ 61390 strings out of 467748
+ 1391558 string characters out of 5431137
+ 2504270 words of memory out of 5000000
+ 88360 multiletter control sequences out of 15000+600000
+ 795204 words of font info for 434 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11358b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 122i,12n,121p,11341b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (89 pages, 5450976 bytes).
+Output written on ki-thesis.pdf (87 pages, 5338364 bytes).
 PDF statistics:
- 1125 PDF objects out of 1200 (max. 8388607)
- 933 compressed objects within 10 object streams
+ 1105 PDF objects out of 1200 (max. 8388607)
+ 917 compressed objects within 10 object streams
  367 named destinations out of 1000 (max. 500000)
- 94085 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 94056 words of extra memory for PDF output out of 106986 (max. 10000000)
 

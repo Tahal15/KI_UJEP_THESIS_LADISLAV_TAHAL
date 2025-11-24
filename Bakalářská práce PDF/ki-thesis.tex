@@ -772,8 +772,8 @@ Nástroje BI lze z~hlediska jejich zaměření rozdělit do několika funkčníc
     Umožňuje například předpověď trendů, klasifikaci nebo detekci anomálií.  
     Tyto funkce bývají častější u~komerčních řešení, která využívají propojení s~cloudovými službami nebo integrované modelovací prostředí (např. Microsoft Azure Machine Learning).  
 
-    \item \textbf{Sdílení a spolupráce} -- moderní BI nástroje podporují publikaci reportů a dashboardů napříč organizací, správu oprávnění, exporty a integraci s~komunikačními nástroji (např. Microsoft Teams, Slack či SharePoint).  
-    Tato funkce je zásadní pro efektivní distribuci informací mezi jednotlivé úrovně řízení.
+    \item \textbf{Sdílení a spolupráce} -- moderní BI nástroje podporují publikaci reportů a dashboardů napříč organizací, správu oprávnění, exporty a integraci s~komunikačními nástroji (např. Microsoft Teams, Slack, Power BI report server, Apache Superset web).  
+    
 \end{itemize}
 
 \subsection{Přehled dostupných BI nástrojů}
@@ -807,7 +807,6 @@ Při rozhodování je vhodné zohlednit následující kritéria:
 
 V~praxi organizace často kombinují více nástrojů -- například open-source řešení pro interní analýzy a komerční systém pro prezentaci výsledků managementu.  
 Tento přístup umožňuje optimalizovat náklady a zároveň využít silných stránek jednotlivých platforem.  
-V~případě datové platformy Portabo by mohl být takový přístup vhodný při implementaci vizualizační vrstvy nad datovým skladem.
 
 \section{Přehled a charakteristika využitých technologií}
 \label{sec:prehled_technologii}
@@ -815,7 +814,7 @@ V~případě datové platformy Portabo by mohl být takový přístup vhodný p�
 Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativní soubor technologií, které pokrývají jak komerční, tak open-source přístupy k~budování datové platformy. Následující tabulka poskytuje jejich přehled, charakteristiku a popisuje jejich specifickou roli v~navržené architektuře.
 
 % Nastavení odsazení a řádkování
-\setlength{\tabcolsep}{8pt}
+\setlength{\tabcolsep}{6pt}
 \renewcommand{\arraystretch}{1.3}
 
 \begin{longtable}{ 
@@ -828,9 +827,9 @@ Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativ
 % ==========================================
 \toprule
 \rowcolor{gray!20}
-\multicolumn{2}{c}{\textbf{Vrstva: Datový sklad}} \\ 
+\multicolumn{2}{c}{\textbf{Vrstva: Datový sklad}} \\* 
 \midrule
-\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\* 
 \midrule
 
 % --- OBSAH DWH ---
@@ -850,8 +849,9 @@ MariaDB je open-source relační databázový systém, který vznikl jako fork M
 Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V~této práci je MSSQL využit jako jeden z~pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
 \vspace{1em} \par
 
-\textbf{Oracle Database a Autonomous Data Warehouse} \par
-Oracle Database je robustní komerční databázový systém, který v~rámci své cloudové platformy nabízí službu \textit{Autonomous Data Warehouse (ADW)}. Ta využívá strojové učení pro automatickou správu, zabezpečení a optimalizaci výkonu. Systém podporuje hybridní nasazení a je navržen pro zpracování smíšených zátěží (OLTP i OLAP) s~vysokou dostupností a bezpečností.
+%\textbf{Oracle Database a Autonomous Data Warehouse} \par
+%Oracle Database je robustní komerční databázový systém, který v~rámci své cloudové platformy nabízí službu \textit{Autonomous Data Warehouse (ADW)}. Ta využívá strojové učení pro automatickou správu, zabezpečení a optimalizaci výkonu. Systém podporuje hybridní nasazení a je navržen pro zpracování smíšených zátěží (OLTP i OLAP) s~vysokou dostupností a bezpečností.
+% Toto jsem zakomentoval, protože v osnově je zmíněno využitích technologií a oracle jsem nevyužil.
 \\ 
 \bottomrule
 
@@ -863,9 +863,9 @@ Oracle Database je robustní komerční databázový systém, který v~rámci sv
 \\ [0.2em] % Mezera mezi tabulkami
 \toprule
 \rowcolor{gray!20}
-\multicolumn{2}{c}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\ 
+\multicolumn{2}{c}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\* 
 \midrule
-\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\* 
 \midrule
 
 % --- OBSAH OLAP ---
@@ -1331,6 +1331,48 @@ Ačkoliv je tento výsledek pro open-source řešení úspěchem, k~extrémnímu
 Jako teoretický směr pro další optimalizaci open-source řešení se nabízí využití RAM disku, tedy umístění datových souborů databáze přímo do operační paměti serveru. Tento krok by eliminoval úzké hrdlo v~podobě diskových operací a mohl by výkonově přiblížit ROLAP architekturu in-memory systémům. Praktická implementace a testování tohoto scénáře však již přesahuje rozsah i kompetence této práce. Je navíc nutné zohlednit i významná rizika, především volatilitu dat. Uložení v~RAM je ze své podstaty dočasné a při restartu či výpadku serveru by došlo k~okamžité ztrátě dat, což by vyžadovalo implementaci složitých mechanismů pro synchronizaci na trvalé úložiště, čímž by se neúměrně zvýšila komplexita správy celého řešení.
 
 Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
+\subsection{Testování souběžné zátěže (Concurrency)}
+
+Kromě měření rychlosti odezvy pro jednoho uživatele bylo provedeno i teoretické zhodnocení chování systémů při souběžném přístupu více uživatelů (concurrency). Tento aspekt je kritický pro reálné nasazení, kde s~dashboardy pracuje více analytiků současně.
+
+\begin{itemize}
+    \item \textbf{MS SQL Server + SSAS (MOLAP):} Díky in-memory architektuře zvládá SSAS vysokou míru souběžnosti velmi efektivně. Data jsou načtena v~paměti a dotazy jsou obsluhovány přímo z~ní, což eliminuje zámky na disku. Limitujícím faktorem je zde pouze propustnost CPU a paměti. Pro běžný provoz (desítky uživatelů) je výkon prakticky neovlivněn.
+    \item \textbf{ClickHouse + Cube.js (ROLAP):} ClickHouse je navržen pro extrémně rychlé čtení, ale jeho architektura (LSM stromy) není primárně optimalizována pro tisíce malých souběžných dotazů (high QPS). Při vysoké zátěži může docházet k~frontám požadavků. Zde hraje klíčovou roli \textbf{Cube.js}, která funguje jako cache a load balancer. Díky pre-agregacím a cachování výsledků v~Redis vrstvě se většina opakujících se dotazů vůbec nedostane k~databázi, čímž se systém stává vysoce odolným i proti náhlým špičkám v~návštěvnosti.
+\end{itemize}
+
+\subsection{Práce s~mapovými daty}
+
+Součástí zadání byla i analýza práce s~geoprostorovými daty, která jsou v~kontextu Smart City (kamery, senzory) klíčová. Oba testované nástroje nabízejí možnosti vizualizace na mapě, avšak s~rozdílným přístupem.
+
+\begin{itemize}
+    \item \textbf{Power BI (Azure Maps / Bing Maps):}
+    Nabízí hlubokou integraci s~mapovými podklady Microsoftu. Umožňuje snadné vykreslení bodů (kamery) i oblastí (městské části). Výhodou je intuitivní ovládání a automatické geokódování. Nevýhodou může být limit na počet vykreslených bodů v~základní verzi a nutnost placené licence pro pokročilé GIS funkce.
+    
+    \item \textbf{Apache Superset (Deck.gl):}
+    Využívá knihovnu \textit{Deck.gl} od Uberu, která je standardem pro vizualizaci velkých objemů geodat. Superset dokáže plynule vykreslit tisíce bodů (např. trajektorie vozidel) nebo heatmapy hustoty dopravy. Oproti Power BI nabízí větší flexibilitu v~nastavení vrstev (layers) a typů vizualizací (Arc, Polygon, Scatterplot), vyžaduje však, aby data v~databázi obsahovala správné souřadnice (latitude/longitude) a jejich napojení je technicky náročnější.
+\end{itemize}
+
+\subsection{Srovnání vizualizačních možností}
+
+Zatímco výkon je objektivně měřitelná veličina, kvalita a šíře vizualizačních možností ovlivňuje především uživatelskou přívětivost a schopnost efektivně předat informaci.
+
+\begin{itemize}
+    \item \textbf{Microsoft Power BI:}
+    Představuje špičku v~oblasti "self-service BI". Nabízí obrovské množství nativních vizuálů a ještě širší knihovnu komunitních doplňků (AppSource).
+    \begin{itemize}
+        \item \textbf{Interaktivita:} Vyniká v~tzv. \textit{cross-filtering}, kdy kliknutí do jednoho grafu automaticky filtruje ostatní. Funkce \textit{Drill-through} umožňuje snadný přechod z~agregovaného pohledu na detailní data.
+        \item \textbf{Design:} Umožňuje pixel-perfect design reportů, pokročilé formátování a tvorbu mobilních layoutů.
+    \end{itemize}
+
+    \item \textbf{Apache Superset:}
+    Zaměřuje se spíše na rychlou exploraci dat než na dokonalý design reportů.
+    \begin{itemize}
+        \item \textbf{Vizualizace:} Nabízí bohatou sadu grafů (ECharts), včetně specializovaných (Sankey diagramy, Sunburst, Word Cloud).
+        \item \textbf{SQL Lab:} Unikátní funkcí je integrované SQL IDE, které umožňuje analytikům psát přímé dotazy a okamžitě vizualizovat výsledky, což v~Power BI chybí (tam je nutné jít přes Power Query nebo DAX).
+        \item \textbf{Limitace:} Možnosti formátování (barvy, fonty, rozložení) jsou oproti Power BI omezené. Interaktivita mezi grafy (cross-filtering) je podporována, ale její nastavení není tak intuitivní.
+    \end{itemize}
+\end{itemize}
+
 \subsection{Analýza celkových nákladů na vlastnictví (TCO)}
 
 Vzhledem k~tomu, že praktická část této práce ověřovala široké spektrum technologií -- od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) -- je nutné náklady hodnotit v~širším kontextu.
@@ -1340,7 +1382,7 @@ TCO v~tomto případě dělíme na tři hlavní složky: \textbf{Licenční nák
 \subsubsection{Náklady na implementaci a lidský kapitál}
 
 \begin{itemize}
-    \item \textbf{Srovnatelná pracnost implementace:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s~využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v~podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
+    \item \textbf{Srovnatelná pracnost implementace ETL:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s~využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v~podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
     \item \textbf{Rozdíl v~expertíze:} Hlavní rozdíl tedy nespočívá v~objemu práce, ale v~typu požadované znalosti. Zatímco správa MSSQL je na trhu běžnou komoditou, efektivní konfigurace \textbf{MariaDB Columnstore} technologie nebo ladění \textbf{Cube.js} schémat vyžaduje specifičtější, a často dražší, know-how.
 \end{itemize}
 
@@ -1433,31 +1475,6 @@ Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytn
 \textbf{Škálovatelnost} & Omezená licencí a RAM & Neomezená (Horizontální) & Omezená \\ \hline
 \end{tabular}
 \end{table}
-
-\section{Využití AI pro validaci a revizi textu}
-
-Nad rámec samotné implementace a srovnání datových platforem byly při tvorbě této práce aplikovány moderní nástroje umělé inteligence, konkrétně \textbf{Gemini CLI}, s~cílem zajistit maximální kvalitu a konzistenci výstupů. Tato sekce popisuje metodiku využití velkého jazykového modelu (LLM) pro automatizovanou revizi a demonstruje, jak lze prostřednictvím dodání relevantního kontextu ověřovat soulad mezi teoretickým textem práce a praktickými artefakty (zdrojové kódy, databázová schémata).
-
-Standardní jazykové modely bez přístupu k~externím informacím nedokáží validovat specifické detaily konkrétního projektu, jelikož jim chybí znalost privátních dat. Pro efektivní analýzu je nezbytné modelu poskytnout tzv. \textbf{kontext} (uzemnění). Pro účely této práce bylo zvoleno řešení postavené na \textbf{Gemini CLI}, které umožnilo propojení modelu s~následujícími zdroji:
-
-\begin{itemize}
-    \item \textbf{Repozitář zdrojových kódů:} Kompletní projektová dokumentace a skripty uložené na službách \textbf{Google Drive} a \textbf{GitHub}.
-    \item \textbf{Živá databázová spojení:} Přímé napojení na testovací instance databází (ClickHouse, MS SQL, PostgreSQL, MariaDB), což umožnilo modelu analyzovat aktuální strukturu (DDL) a metadata.
-    \item \textbf{Text práce:} Zdrojový \LaTeX{} soubor, který sloužil jako referenční bod pro kontrolu obsahu.
-\end{itemize}
-
-Díky zpřístupnění tohoto kontextu bylo možné formulovat komplexní validační dotazy, například: \emph{„Je v~celém textu konzistentně dodržováno pojmenování ETL skriptů oproti repozitáři?“} nebo \emph{„Odpovídá popis architektury v~kapitole 3 reálné konfiguraci v~Docker souborech?“}.
-
-Ačkoliv model Gemini disponuje rozsáhlým kontextovým oknem (přesahujícím 1 milion tokenů), pro efektivní analýzu je nutná optimalizace dotazů. Namísto načítání kompletního obsahu databáze (což by bylo výpočetně neefektivní) je vhodnější modelu zpřístupnit pouze schémata tabulek, indexy a systémové pohledy. Tímto způsobem lze nechat umělou inteligenci autonomně ověřit soulad mezi technickou implementací a jejím popisem v~textové části práce.
-
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/Gemini-cli-architecture.png}
-  \caption{Architektura propojení LLM s~lokálními zdroji (Component Diagram)}
-  \label{fig:gemini_cli_uml}
-\end{figure}
-
 
 \chapter{Sazba ukázek kódu}
 
@@ -1777,14 +1794,6 @@ LOGO\_PRF\_EM\_RGB\_standard.jpg  & logo fakulty s~anglickým textem  \\
 
 Všechny tyto soubory jsou potřeba pro překlad dokumentu (logo stačí jedno v~příslušné jazykové verzi).
 
-\chapter{SQL Dotazy k~srovnávací analýze}
-\label{app:sql_queries}
-
-Tato příloha obsahuje plné znění SQL dotazů použitých pro srovnávací analýzu výkonu databázových systémů.
-
-\chapter{Další přílohy}
-
-Výjimečně může práce obsahovat i další tištěné přílohy. Obecně však dávejte přednost elektronickým přílohám umístěným na GitHubu (tato kapitola tak bude úplně chybět). 
 
 \end{document}
 
