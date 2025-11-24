@@ -2409,9 +2409,9 @@
     <bcf:citekey order="10" intorder="1">google_data_products</bcf:citekey>
     <bcf:citekey order="11" intorder="1">google_data_products</bcf:citekey>
     <bcf:citekey order="12" intorder="1">bigquery2024docs</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">redshift2024overview</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">aws_redshift_arch</bcf:citekey>
     <bcf:citekey order="14" intorder="1">aws_redshift_arch</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">aws_redshift_arch</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">redshift2024overview</bcf:citekey>
     <bcf:citekey order="16" intorder="1">oracle_data_platform</bcf:citekey>
     <bcf:citekey order="17" intorder="1">oracle_data_platform</bcf:citekey>
     <bcf:citekey order="18" intorder="1">hadoop_ecosystem_perficient</bcf:citekey>
@@ -2429,13 +2429,15 @@
     <bcf:citekey order="26" intorder="1">mcp_protocol</bcf:citekey>
     <bcf:citekey order="27" intorder="1">mcp_protocol</bcf:citekey>
     <bcf:citekey order="28" intorder="1">mcp_protocol</bcf:citekey>
-    <bcf:citekey order="29" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
-    <bcf:citekey order="31" intorder="1">cube2024semantic</bcf:citekey>
-    <bcf:citekey order="31" intorder="2">dbt2024semanticlayer</bcf:citekey>
-    <bcf:citekey order="31" intorder="3">looker2024semanticmodel</bcf:citekey>
-    <bcf:citekey order="32" intorder="1">rfc8259</bcf:citekey>
-    <bcf:citekey order="33" intorder="1">mining_massive_datasets</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">wikipedia_star_schema</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">wikipedia_star_schema</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">wikipedia_snowflake_schema</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">cube2024semantic</bcf:citekey>
+    <bcf:citekey order="33" intorder="2">dbt2024semanticlayer</bcf:citekey>
+    <bcf:citekey order="33" intorder="3">looker2024semanticmodel</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">rfc8259</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">mining_massive_datasets</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

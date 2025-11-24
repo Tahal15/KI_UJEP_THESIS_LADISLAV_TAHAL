@@ -405,7 +405,7 @@
       \verb https://cloud.google.com/bigquery/docs/
       \endverb
     \endentry
-    \entry{redshift2024overview}{online}{}{}
+    \entry{aws_redshift_arch}{online}{}{}
       \name{author}{1}{}{%
         {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
            family={{Amazon Web Services}},
@@ -424,17 +424,20 @@
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Amazon Redshift Overview}
-      \field{year}{2024}
+      \field{note}{Obrázek: Amazon Redshift Architecture}
+      \field{title}{Data warehouse system architecture}
+      \field{urlday}{14}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://aws.amazon.com/redshift/
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
       \endverb
       \verb{url}
-      \verb https://aws.amazon.com/redshift/
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
       \endverb
     \endentry
-    \entry{aws_redshift_arch}{online}{}{}
+    \entry{redshift2024overview}{online}{}{}
       \name{author}{1}{}{%
         {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
            family={{Amazon Web Services}},
@@ -453,17 +456,14 @@
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Obrázek: Amazon Redshift Architecture}
-      \field{title}{Data warehouse system architecture}
-      \field{urlday}{14}
-      \field{urlmonth}{11}
-      \field{urlyear}{2025}
-      \field{urldateera}{ce}
+      \field{note}{Accessed 2025-10-23}
+      \field{title}{Amazon Redshift Overview}
+      \field{year}{2024}
       \verb{urlraw}
-      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
+      \verb https://aws.amazon.com/redshift/
       \endverb
       \verb{url}
-      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
+      \verb https://aws.amazon.com/redshift/
       \endverb
     \endentry
     \entry{oracle_data_platform}{online}{}{}
@@ -744,6 +744,38 @@
       \verb https://modelcontextprotocol.io/
       \endverb
     \endentry
+    \entry{wikipedia_star_schema}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=28b6ba9f3638a296385fabdb51df1580}{%
+           family={{Wikimedia Foundation}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{fullhash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{fullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{bibnamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorbibnamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authornamehash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorfullhash}{28b6ba9f3638a296385fabdb51df1580}
+      \strng{authorfullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Použito pro ilustraci schématu hvězda.}
+      \field{title}{Star schema}
+      \field{urlday}{24}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/wiki/Star_schema
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Star_schema
+      \endverb
+    \endentry
     \entry{wikipedia_snowflake_schema}{online}{}{}
       \name{author}{1}{}{%
         {{hash=28b6ba9f3638a296385fabdb51df1580}{%
@@ -758,8 +790,9 @@
       \strng{authornamehash}{28b6ba9f3638a296385fabdb51df1580}
       \strng{authorfullhash}{28b6ba9f3638a296385fabdb51df1580}
       \strng{authorfullhashraw}{28b6ba9f3638a296385fabdb51df1580}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Použito pro ilustraci vločkového schématu. Obrázek: \url{https://en.wikipedia.org/wiki/Snowflake_schema\#/media/File:Snowflake-schema.png}}

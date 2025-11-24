@@ -1,8 +1,8 @@
-PWD e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF
+PWD c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
+INPUT c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex
 OUTPUT ki-thesis.log
 INPUT ./kitheses.cls
 INPUT kitheses.cls

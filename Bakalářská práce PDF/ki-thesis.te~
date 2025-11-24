@@ -1,0 +1,1788 @@
+ %volby: 
+% male × female
+% czech × english (zatím funguje jen czech)
+% a studijní program / obor 
+% is_bc (nejvíc odladěno)
+% api_bc
+% api_ing
+% edu_bc
+% edu_ing
+
+\documentclass[male,czech,api_bc]{kitheses}
+\usepackage{booktabs}   % Pro hezčí vodorovné čáry
+\usepackage{ragged2e}   % Pro inteligentní zarovnání vlevo (neláme ošklivě slova)
+\usepackage{array}      % Pro lepší definici sloupců
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{afterpage}
+\usepackage{microtype}  % přesnější typografie
+\usepackage[utf8]{inputenc}       % UTF-8 kódování
+\usepackage[T1]{fontenc}          % české znaky
+\usepackage{graphicx}             % práce s obrázky
+\usepackage[space]{grffile}       % umožní mezery a diakritiku v cestě
+\usepackage{epstopdf}             % pro případ EPS → PDF
+
+% workaround for imcompatibility of czech babel and biblatex
+\makeatletter
+\newcommand{\fail}{} % opraví volání \fail při patchování jazyků
+\makeatother
+
+
+\iftutex
+\else
+\usepackage{etoolbox}
+\makeatletter
+\newcommand\my@hsyphen{-}
+\newcommand\my@apostroph{'}
+\patchcmd\select@language{-}{\my@hyphen }{}{\fail}
+\patchcmd\select@language{'}{\my@apostroph }{}{\fail}
+\makeatother
+\fi
+
+% fonty lze měnit (detaily viz sekce fonty)
+\iftutex
+	\usepackage{fontspec}  % nastavení fontů pro LuaLaTeX a XeLaTeX
+	\setmainfont{Libertinus Serif}
+	\setsansfont{Libertinus Sans}
+	\setmonofont[Scale=MatchLowercase]{Source Code Pro}
+	\usepackage{unicode-math}
+	\setmathfont{Libertinus Math}
+\else
+	\usepackage[utf8]{inputenc} % nastavení pro PDF LaTeX
+	\usepackage[T1]{fontenc}
+	\usepackage{libertinus}
+	\renewcommand{\ttdefault}{pxtt}
+\fi
+
+\usepackage[style=iso-numeric,shortnumeration=true]{biblatex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\addbibresource{thesis.bib}
+
+
+
+
+\usepackage{csquotes} % uvozovky
+
+% sazba ukázek kódu 
+
+\usepackage{listings}
+
+% ukázka pro nastavení balíku listings pro sazbu ukázek zdrojových kódů
+\lstset{ %
+  language=Python,                % the language of the code
+  basicstyle=\small\ttfamily,    
+  backgroundcolor=\color{white},   % choose the background color. You must add \usepackage{color}
+  showspaces=false,                % show spaces adding particular underscores
+  showstringspaces=true,           % underline spaces within strings
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  frame=single,                    % adds a frame around the code
+  tabsize=3,                       % sets default tabsize to 2 spaces
+  breaklines=true,                 % sets automatic line breaking
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  keywordstyle=\bfseries,          % keyword style
+  commentstyle=\rmfamily,       % comment style
+  stringstyle=\itshape\color,   % string literal style
+}
+
+% barevné zvýraznění textů, které je nutno nahradit
+%\newcommand{\ZT}[1]{\colorbox{yellow}{\color{red}{#1}}}
+
+
+% TOTO JE POTŘEBA ZMĚNIT !!!!!!
+\newcommand{\nazevcz}{\ZT{Využití open-source a komerčních nástrojů pro vizualizaci a analýzu dat na datové platformě Portabo}}        % zde VYPLŇTE český název práce (přesně podle zadání!)
+\newcommand{\nazeven}{\ZT{Utilization of Open-Source and Commercial Tools for Data Visualization and Analysis on the Portabo Data Platform}}     % zde VYPLŇTE anglický název práce (přesně podle zadání!)
+\newcommand{\autor}{\ZT{Ladislav Tahal}}           % zde VYPLŇTE své jméno a příjmení
+\newcommand{\rok}{\the\year}                
+\newcommand{\vedouci}{\ZT{Ing. Roman Vaibar, Ph.D., MBA}}         
+% zde VYPLŇTE jméno a příjmení vedoucího práce, včetně titulů
+\newcommand{\vedouciDAT}{\ZT{Ing. Romanu Vaibarovi, Ph.D., MBA}}   
+% zde VYPLŇTE jméno a příjmení vedoucího práce, včetně titulů ve třetím pádě
+                                                           
+
+% zvětšuje o 23% vertikální okraje v tabulkách
+\renewcommand{\arraystretch}{1.23}
+
+% nastavení pro záhlaví (co nelze udělat v cls souboru)
+
+\renewcommand{\chaptermark}[1]{\markboth{\arabic{chapter}. #1}{}}
+\pagestyle{fancy}
+
+% nastavení odkazů
+\usepackage{url} % formátování URL, příkaz \url
+\usepackage{varioref} % lepší interní odkazy na obrázky, apod. příkaz \vref
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]{hyperref} % hypertextové odkazy v PDF
+
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\makeglossaries
+
+% Definice skupin
+\newglossaryentry{licence}{name={Licence},description={Právní nástroj upravující práva a povinnosti při užití díla}}
+
+% Definice pojmů
+\newglossaryentry{mit}{name={MIT},description={Permisivní softwarová licence vytvořená Massachusetts Institute of Technology, umožňující volné užití kódu s minimálními omezeními},parent=licence}
+\newglossaryentry{gpl}{name={GPL},description={General Public License, copyleftová licence vyžadující, aby odvozená díla byla šířena pod stejnou licencí},parent=licence}
+\newglossaryentry{apache}{name={Apache 2.0},description={Permisivní licence od Apache Software Foundation, umožňující komerční využití a modifikaci},parent=licence}
+
+\newglossaryentry{ssas}{name={SSAS},description={SQL Server Analysis Services. Technologie společnosti Microsoft pro online analytické zpracování (OLAP) a dolování dat}}
+\newglossaryentry{ssis}{name={SSIS},description={SQL Server Integration Services. Platforma pro integraci dat a transformace (ETL) od společnosti Microsoft}}
+\newglossaryentry{olap}{name={OLAP},description={Online Analytical Processing. Technologie pro rychlé provádění složitých analytických dotazů nad vícerozměrnými daty}}
+\newglossaryentry{etl}{name={ETL},description={Extract, Transform, Load. Proces extrakce dat ze zdrojů, jejich transformace a následné nahrání do cílového systému}}
+\newglossaryentry{elt}{name={ELT},description={Extract, Load, Transform. Moderní přístup k integraci dat, kdy transformace probíhá až v cílovém datovém skladu}}
+\newglossaryentry{bi}{name={BI},description={Business Intelligence. Sada procesů, architektur a technologií pro převod surových dat na smysluplné informace pro podporu rozhodování}}
+\newglossaryentry{sql}{name={SQL},description={Structured Query Language. Standardizovaný dotazovací jazyk pro práci s relačními databázemi}}
+\newglossaryentry{saas}{name={SaaS},description={Software as a Service. Model poskytování softwaru jako služby přes internet}}
+\newglossaryentry{paas}{name={PaaS},description={Platform as a Service. Cloudový model poskytující vývojářům platformu pro tvorbu aplikací}}
+\newglossaryentry{iaas}{name={IaaS},description={Infrastructure as a Service. Cloudový model poskytující virtualizované výpočetní zdroje přes internet}}
+\newglossaryentry{dwh}{name={DWH},description={Data Warehouse (Datový sklad). Centrální úložiště dat integrovaných z různých zdrojů, optimalizované pro analýzu}}
+\newglossaryentry{dbms}{name={DBMS},description={Database Management System (SŘBD). Software pro správu databází}}
+\newglossaryentry{rdbms}{name={RDBMS},description={Relational Database Management System. Systém řízení báze dat založený na relačním modelu}}
+\newglossaryentry{csv}{name={CSV},description={Comma-Separated Values. Jednoduchý textový formát pro výměnu tabulkových dat}}
+\newglossaryentry{json}{name={JSON},description={JavaScript Object Notation. Odlehčený formát pro výměnu dat, snadno čitelný pro lidi i stroje}}
+\newglossaryentry{xml}{name={XML},description={Extensible Markup Language. Značkovací jazyk pro ukládání a přenos dat}}
+\newglossaryentry{api}{name={API},description={Application Programming Interface. Rozhraní pro programování aplikací, umožňující komunikaci mezi softwarovými komponentami}}
+\newglossaryentry{rest}{name={REST},description={Representational State Transfer. Architektonický styl pro návrh síťových aplikací}}
+\newglossaryentry{llm}{name={LLM},description={Large Language Model. Typ modelu umělé inteligence trénovaný na obrovském množství textu}}
+\newglossaryentry{nlq}{name={NLQ},description={Natural Language Querying. Dotazování se na data pomocí přirozeného jazyka}}
+\newglossaryentry{mcp}{name={MCP},description={Model Context Protocol. Standard pro propojení AI modelů s externími daty a nástroji}}
+\newglossaryentry{gdpr}{name={GDPR},description={General Data Protection Regulation. Nařízení EU o ochraně osobních údajů}}
+\newglossaryentry{iso}{name={ISO},description={International Organization for Standardization. Mezinárodní organizace pro normalizaci}}
+\newglossaryentry{tco}{name={TCO},description={Total Cost of Ownership. Celkové náklady na vlastnictví, zahrnující pořizovací i provozní náklady}}
+\newglossaryentry{dax}{name={DAX},description={Data Analysis Expressions. Jazyk vzorců a dotazů používaný v Power BI a SSAS}}
+\newglossaryentry{iot}{name={IoT},description={Internet of Things. Síť fyzických zařízení vybavených senzory a softwarem pro výměnu dat}}
+\newglossaryentry{mpp}{name={MPP},description={Massively Parallel Processing. Architektura pro paralelní zpracování dat na mnoha uzlech}}
+\newglossaryentry{rag}{name={RAG},description={Retrieval-Augmented Generation. Technika pro zlepšení přesnosti generativních AI modelů pomocí externích dat}}
+\newglossaryentry{ide}{name={IDE},description={Integrated Development Environment. Integrované vývojové prostředí}}
+
+\newcommand{\UV}[1]{\quotedblbase#1\textquotedblleft}
+ 
+% odstraňte pokud vám vadí absence zarovnání dole 
+\raggedbottom
+\newcommand{\ZT}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% vlastní začátek dokumentu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+{
+\LARGE
+\univerzita\\[16pt]
+\fakulta
+}
+
+\vspace{2cm}
+\resizebox{8.42cm}{!}{%
+\ifthenelse{\boolean{czech}}
+{\includegraphics{LOGO_PRF_CZ_RGB_standard.jpg}}
+{\includegraphics{LOGO_PRF_EN_RGB_standard.jpg}}}
+
+\vspace{2cm}
+{
+\Huge\sffamily
+\nazevcz\par
+\vspace{0.6cm}
+\Large\scshape \ifthenelse{\boolean{bc}}{bakalářská}{diplomová} práce
+}
+\end{center} 
+ 
+\vfill
+{
+\large
+\begin{tabular}{>{\bfseries}rl}
+    Vypracoval: 	& \autor\\
+    Vedoucí práce: 	& \vedouci\\
+&\\
+Studijní program:       & \program\\
+\ifthenelse{\boolean{api}}{Studijní obor:          & \obor\\}{}
+\end{tabular} 
+}
+\vspace{1.5cm}
+\begin{center}
+  \Large\scshape   Ústí nad Labem \rok
+\end{center}
+
+\cleardoublepage
+\thispagestyle{empty}
+\pagecolor{yellow}
+{\Large Namísto žlutých stránek vložte digitálně podepsané zadání kvalifikační práce poskytnuté vedoucím katedry.\\\
+Zadání musí zaujímat právě dvě strany.
+}
+
+Zadání je nutno vložit jako PDF pomocí některého nástroje, který umožňuje editaci dokumentů (se zachováním
+elektronického podpisu).
+
+V Linuxe lze například použít příkaz \texttt{pdftk}.
+
+\clearpage
+\thispagestyle{empty}
+\afterpage{\nopagecolor}
+~
+\clearpage
+
+\thispagestyle{empty} 
+{\bfseries Prohlášení}
+
+\vspace{0.5cm}
+Prohlašuji, že jsem tuto \ifthenelse{\boolean{bc}}{bakalářskou}{diplomovou} práci vypracoval\ifthenelse{\boolean{feminum}}{a}{}
+samostatně a použil\ifthenelse{\boolean{feminum}}{a}{}
+jen pramenů, které cituji a uvádím v přiloženém seznamu literatury.
+
+\vspace{0.5em}
+
+Byl\ifthenelse{\boolean{feminum}}{a}{} jsem seznámen\ifthenelse{\boolean{feminum}}{a}{} 
+s tím, že se na moji práci vztahují práva a povinnosti vyplývající ze
+zákona č. 121/2000 Sb., ve znění zákona č. 81/2005 Sb., autorský zákon, zejména se
+skutečností, že Univerzita Jana Evangelisty Purkyně v Ústí nad Labem má právo na uzavření
+licenční smlouvy o užití této práce jako školního díla podle § 60 odst. 1 autorského zákona, a
+s tím, že pokud dojde k užití této práce mnou nebo bude poskytnuta licence o užití jinému
+subjektu, je Univerzita Jana Evangelisty Purkyně v Ústí nad Labem oprávněna ode mne
+požadovat přiměřený příspěvek na úhradu nákladu, které na vytvoření díla vynaložila, a to
+podle okolností až do jejich skutečné výše.
+
+\vspace{2em}
+
+V Ústí nad Labem dne \today   \hfill Podpis: \makebox[4cm][s]{\dotfill}
+
+\cleardoublepage
+\thispagestyle{empty}
+~
+\vfill
+
+\begin{flushright}
+  Děkuji vedoucímu bakalářské práce \ZT{\vedouciDAT}\\
+za jeho odborné vedení a praktické podněty, které výrazně přispěly k analýze dat, \\
+hledání efektivních řešení a k celkovému úspěšnému dokončení bakalářské práce.
+
+
+\end{flushright}
+
+\cleardoublepage
+
+\textsc{\nazevcz}
+
+\textbf{Abstrakt:}
+
+Bakalářská práce se zabývá srovnáním open-source a komerčních nástrojů pro vizualizaci a~analýzu dat, datové sklady a OLAP technologie s cílem zhodnotit jejich vhodnost pro využití v datové platformě Portabo. V praktické části byla realizována implementace několika variant datových řešení, zahrnujících kombinace databázových systémů MSSQL, MariaDB, ClickHouse a PostgreSQL s nástroji Power BI, Superset a Cube.js. Bylo provedeno testování výkonu, analýza technických požadavků, nároků na uživatelské dovednosti a srovnání ekonomických aspektů provozu. Výsledkem práce je komplexní přehled výhod a nevýhod jednotlivých přístupů, měření jejich efektivity při zpracování velkých objemů dat a doporučení optimálního řešení pro organizace usilující o~efektivní datovou analytiku bez nutnosti vysoké IT expertizy.
+
+\textbf{Klíčová slova:} Business Intelligence, datové sklady, olap, vizualizace dat, Portabo
+
+
+\bigskip
+
+
+\textsc{\nazeven}
+
+\textbf{Abstract:}
+
+This bachelor’s thesis focuses on the comparison of open-source and commercial tools for data visualization and analysis, data warehouses, and OLAP technologies, with the aim of evaluating their applicability within the Portabo data platform. In the practical part, several data architecture variants were implemented, combining database systems such as MSSQL, MariaDB, ClickHouse, and PostgreSQL with visualization tools including Power BI, Superset, and Cube.js. The analysis covers performance testing, technical requirements, user skill demands, and economic aspects of operation. The outcome of the thesis is a comprehensive overview of the advantages and limitations of both open-source and commercial solutions, performance evaluation on large data volumes, and recommendations for organizations seeking efficient data analytics without requiring extensive IT expertise.
+
+\textbf{Keywords:} Business Intelligence, data warehouses, OLAP, data visualization, Portabo
+
+\tableofcontents
+
+\addchap{Úvod}
+
+V současné době organizace generují a shromažďují obrovské množství dat, která se stávají klíčovým zdrojem pro strategické i operativní rozhodování. Společnosti napříč odvětvími se proto zaměřují na to, jak tato data efektivně zpracovávat, ukládat, analyzovat a vizualizovat tak, aby přinášela skutečnou informační hodnotu i uživatelům bez hlubokého technického zázemí. S~rozvojem datových technologií vzniká široké spektrum nástrojů, které umožňují tvorbu reportů, analytických modelů a vizualizací nad velkými objemy dat. Tyto nástroje mohou být jak komerční, nabízející komplexní podporu a integrované služby, tak open-source, které poskytují flexibilitu, otevřenost a nižší náklady na implementaci.
+
+Zároveň však s tímto rozvojem vyvstává otázka, jaké řešení je pro konkrétní organizaci nejvhodnější – z pohledu technického, uživatelského i ekonomického. Volba správného nástroje či architektury datové platformy zásadně ovlivňuje nejen efektivitu zpracování dat, ale také dostupnost a interpretaci výsledků pro koncové uživatele.
+
+Tato bakalářská práce se zabývá využitím open-source a komerčních nástrojů pro vizualizaci a~analýzu dat na datové platformě Portabo. Cílem práce je provést srovnávací analýzu vybraných řešení z hlediska technických parametrů, uživatelských požadavků a ekonomických aspektů jejich provozu. Praktická část je zaměřena na implementaci několika variant datové architektury — zahrnujících kombinace databázových systémů MSSQL, MariaDB, ClickHouse a PostgreSQL s~nástroji Power BI, Superset a Cube.js. Součástí analýzy je také měření výkonu při práci s rozsáhlým datovým souborem, testování zátěže a vyhodnocení celkových nákladů na provoz (TCO).
+
+První kapitola práce shrnuje současný stav problematiky a základní pojmy z oblasti datových skladů, OLAP a vizualizačních nástrojů. Následující teoretická část rozebírá principy a architekturu zvolených technologií. Praktická část popisuje návrh metodiky, implementaci jednotlivých řešení a provedení testování. Závěrečná kapitola obsahuje shrnutí zjištěných výsledků, jejich interpretaci a doporučení vhodného řešení.
+
+\chapter{Přehled současného stavu problematiky}
+
+\section{Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}
+
+Tato kapitola přináší přehled současného stavu v oblasti zpracování, ukládání a vizualizace dat. Cílem je zmapovat, jak jsou dnes řešeny datové platformy určené pro analytické účely, jaké nástroje se používají v praxi a jaké trendy určují směr vývoje v oblasti datové analytiky.
+
+\subsection{Datové sklady a vývoj analytických databází}
+
+Datové sklady a technologie OLAP patří k dlouhodobě stabilním základům datové analytiky. Již několik desetiletí tvoří klíčovou infrastrukturu pro zpracování a konsolidaci dat z různých zdrojů, přičemž jejich architektura se neustále vyvíjí s ohledem na rostoucí objem dat a potřebu vyšší výpočetní efektivity.
+
+Původně byly analytické systémy budovány nad relačními databázemi. Tyto systémy dominovaly zejména podnikovému prostředí a poskytovaly základní podporu pro tvorbu datových skladů. Postupně se však začala prosazovat specializovaná řešení určená přímo pro analytické zpracování velkých objemů dat.
+
+Moderní analytické databáze, jako jsou \emph{ClickHouse}, \emph{Snowflake}, \emph{Amazon Redshift} či \emph{Google BigQuery}, využívají kolumnární uložení dat, paralelní zpracování a škálovatelnou cloudovou architekturu \cite{clickhouse2023unbundling,priebe2022datawarehouse}. Výhodou těchto systémů je možnost provádět rozsáhlé analytické dotazy v reálném čase a~minimalizovat potřebu předběžných agregací. Vedle komerčních řešení se rozvíjí i open-source alternativy, které kombinují vysoký výkon s nízkými náklady na provoz – například \emph{ClickHouse} či \emph{Apache Druid}.
+
+\clearpage 
+
+\subsection{OLAP technologie a analytické přístupy}
+
+OLAP technologie zůstávají jedním z hlavních způsobů, jak efektivně analyzovat a agregovat data pro potřeby rozhodování. Tradiční přístupy založené na předpočítaných datových kostkách jsou dnes doplňovány flexibilnějšími modely, které umožňují ad-hoc analýzy nad velkými datovými sadami.
+
+V současnosti lze pozorovat trend integrace OLAP funkcionality přímo do datových skladů. Například platformy jako \emph{Snowflake}, \emph{ClickHouse} nebo \emph{PostgreSQL} s rozšířením \emph{TimescaleDB} umožňují analytické dotazování bez nutnosti samostatné OLAP vrstvy \cite{clickhouse2023unbundling}. Výsledkem je zjednodušená architektura a nižší náklady na údržbu.
+
+OLAP se zároveň posouvá směrem k real-time zpracování, kde je možné kombinovat streamovaná a historická data. Tento přístup umožňuje okamžitou reakci na události, což je zásadní například v~oblasti IoT, průmyslového monitoringu nebo dopravní analýzy.
+
+\subsection{Nástroje pro vizualizaci a business intelligence}
+
+Vizualizační a BI nástroje představují prezentační vrstvu datové analytiky. Umožňují nejen tvorbu reportů a dashboardů, ale i interaktivní exploraci dat bez nutnosti pokročilých programátorských znalostí. Nároky na uživatele se liší v závislosti na architektuře řešení. V případě přímého napojení na databázi může být vyžadována znalost jazyka SQL. Pokud je však využita sémantická vrstva, uživatel pracuje již s předpřipravenými datovými objekty, které pouze vizualizuje. Pro pokročilejší úpravy či specifické kalkulace lze následně využít specializované jazyky daného nástroje, jako jsou například DAX pro výpočty nebo Power Query pro transformaci dat v prostředí Power BI
+Na trhu existuje široké spektrum nástrojů, od komerčních platforem po open-source řešení. Mezi nejpoužívanější komerční systémy patří \emph{Microsoft Power BI}, \emph{Tableau} a \emph{Qlik Sense}. Tyto produkty nabízejí komplexní ekosystém pro tvorbu vizualizací, datových modelů a propojení s různými datovými zdroji.
+
+Z open-source nástrojů se výrazně prosadily \emph{Apache Superset}, \emph{Grafana} a \emph{Metabase}, které poskytují flexibilní možnosti přizpůsobení, automatizace a integrace.Zajímavým směrem vývoje je i koncept tzv. \emph{sémantické vrstvy} (\emph{semantic layer}). Ta slouží jako překladový můstek mezi technickou strukturou databáze a byznysovým pohledem uživatele. Reprezentantem tohoto přístupu je například framework \emph{Cube.js}, který umožňuje firmám zpřístupnit datový sklad i uživatelům bez hluboké znalosti SQL. \cite{cube2024semantic,heyayush2023cubeintro,datasemlayer2023medium}.
+
+\section{Přehled současných open-source a komerčních řešení}
+\label{sec:prehled_reseni}
+
+V současné době existuje řada komplexních ekosystémů určených pro správu, zpracování a analýzu dat. Tyto ekosystémy zpravidla zahrnují nástroje pro integraci dat (ETL/ELT), datové sklady, OLAP vrstvy a vizualizační rozhraní. Cílem této části je poskytnout rešeršní přehled nejrozšířenějších řešení, která se využívají při budování datových platforem.
+
+Před samotným přehledem je důležité vymezit klíčové pojmy, které budou v práci dále používány. Jedná se především o dělení na \textbf{komerční} a \textbf{open-source} software a dále na \textbf{on-premise} a~\textbf{cloudová} řešení.
+
+\subsection{Klasifikace řešení}
+
+\begin{itemize}
+    \item \textbf{Komerční software} je software, jehož distribuce a používání je podmíněno zakoupením licence. Jeho \textbf{zdrojový kód je uzavřený (proprietární)}, což znamená, že uživatelé nemají kód k dispozici, nemohou jej prohlížet, modifikovat, ani provádět zpětné inženýrství. Důsledkem je \textbf{nemožnost modifikovat} chování systému a potenciální \textbf{závislost na dodavateli} (tzv. \textit{vendor lock-in}) v otázkách úprav a oprav. Komerční řešení bývají vyvíjena a distribuována za účelem zisku. Výhodou bývá profesionální podpora, garantovaná kvalita a ucelený ekosystém nástrojů.
+
+    \item \textbf{Open-source software} \cite{osi_web} poskytuje uživatelům přístup k veřejně dostupnému zdrojovému kódu a uděluje jim práva k jeho používání, studování, modifikaci a šíření. Klíčovým prvkem je zde \textbf{open-source licence}, která přesně definuje, jakým způsobem lze s dílem a jeho modifikacemi nakládat. \textbf{Detailní pochopení licenčních podmínek je pro praktické nasazení zásadní} (pro přehled a podmínky licencí je nutné nahlédnout do oficiální dokumentace konkrétní licence).
+    \begin{itemize}
+        \item \textit{Permisivní licence}\footnote{Vysvětlení permisivních licencí: \url{https://opensource.org/licenses}} (např. \textbf{MIT}, \textbf{Apache 2.0}) jsou maximálně benevolentní, kladou minimální omezení a obvykle umožňují upravený kód uzavřít a následně komerčně prodávat jako proprietární produkt.
+        \item \textit{Copyleftové licence}\footnote{Vysvětlení copyleftových licencí: \url{https://www.gnu.org/licenses/copyleft.en.html}} (např. \textbf{GPL}) jsou přísnější a vyžadují, aby jakékoliv odvozené dílo nebo úprava byly šířeny pod stejnou svobodnou licencí. Tím je zajištěno, že zdrojový kód zůstane trvale veřejně přístupný i v budoucích verzích.
+    \end{itemize}
+    Mezi obecné výhody open-source softwaru patří nezávislost na dodavateli, nižší počáteční náklady a možnost bezpečnostního auditu komunitou. Nevýhodou mohou být vyšší nároky na technické znalosti při implementaci a nutnost řešit podporu buď komunitně, nebo placenou službou třetí strany.
+
+    \item \textbf{On-premise řešení} je provozováno na vlastní infrastruktuře organizace (vlastních serverech). To poskytuje plnou kontrolu nad daty a systémem, ale zároveň vyžaduje vyšší počáteční investice do hardwaru a personálu pro jeho správu \cite{ibm_onprem_cloud}.
+
+    \item \textbf{Cloudové řešení} je poskytováno jako služba třetí stranou. Podle úrovně správy, kterou přebírá poskytovatel, rozlišujeme tři základní modely:
+    \begin{itemize}
+        \item \textbf{IaaS:} Poskytovatel zajišťuje hardware, virtualizaci a sítě. Uživatel spravuje operační systém a aplikace (např. Amazon EC2).
+        \item \textbf{PaaS:} Poskytovatel spravuje i operační systém a runtime prostředí. Uživatel se stará pouze o aplikace a data (např. Google App Engine).
+        \item \textbf{SaaS:} Kompletní softwarové řešení spravované poskytovatelem. Uživatel pouze využívá službu (např. Google Workspace, Microsoft 365).
+    \end{itemize}
+    Výhodou je škálovatelnost, platba za skutečné využití (pay-as-you-go) a menší nároky na vlastní IT oddělení. Nevýhodou může být menší kontrola nad infrastrukturou a potenciální závislost na poskytovateli.
+\end{itemize}
+
+Tato klasifikace je zásadní pro pozdější srovnání celkových nákladů na vlastnictví (TCO), kde se projeví rozdíly v licenčních poplatcích, nákladech na infrastrukturu a správu.
+\subsection{Microsoft Data Platform (komerční, on-premise/cloud)}
+
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
+      \caption{Architektura moderního datového skladu v prostředí Microsoft Azure. Zdroj: learn.microsoft.com \protect\cite{azure_data_warehousing}}
+      \label{fig:MSplatform}
+    \end{figure}
+
+Ekosystém společnosti Microsoft představuje jedno z nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v možnosti nasazení jak v tradičním on-premise prostředí, tak v cloudu, případně v hybridním režimu. Komponenty platformy lze rozdělit následovně:
+
+\begin{itemize}
+    \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \cite{mssql2024overview}.
+    \item \textbf{Cloudová platforma (Microsoft Azure):} S nástupem cloudu se architektura posouvá do prostředí Azure (viz Obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a celková orchestrace se sjednocuje v rámci platformy \emph{Microsoft Fabric}.
+    \item \textbf{Vizuální a sémantická vrstva:} Sjednocující vrstvou pro on-premise i cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a dashboardů a díky své sémantické vrstvě dokáže zastoupit i některé funkce SSAS \cite{powerbi2024docs}.
+    \item \textbf{Výhody a nevýhody:} Hlavní výhodou je hluboká integrace všech komponent. Nevýhodou, zejména u cloudových služeb, může být silný „vendor lock-in“ a závislost na licenční politice poskytovatele.
+\end{itemize}
+
+\subsection{Google Cloud Data Analytics (komerční, cloud)}
+
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/google-cloud.png}
+      \caption{Architektura analytické platformy Google Cloud. Zdroj: medium.com \protect\cite{google_data_products}}
+      \label{fig:Googleplatform}
+    \end{figure}
+
+Společnost Google přistupuje k analytice jako k plně cloudové službě, navržené od počátku pro distribuované výpočty. Klíčové komponenty ekosystému jsou:
+
+\begin{itemize}
+    \item \textbf{Datový sklad:} Jádrem platformy je \emph{Google BigQuery}, serverless datový sklad s kolumnárním uložením, kde se platí pouze za uložená data a zpracované dotazy \cite{bigquery2024docs}.
+    \item \textbf{Integrace a příprava dat:} Pro tyto účely slouží služby jako \emph{Dataflow} (založené na Apache Beam) nebo \emph{Dataprep}.
+    \item \textbf{Prezentační vrstva:} Zastupuje ji \emph{Looker Studio} pro rychlou vizualizaci, případně platforma \emph{Looker}, která nabízí pokročilou sémantickou vrstvu a governance dat.
+    \item \textbf{Výhody a omezení:} Hlavní výhodou je nulová starost o hardware, vysoká škálovatelnost a integrace s AI nástroji (\emph{Vertex AI}). Zásadním omezením je absence on-premise řešení, což znemožňuje využití organizacím, které vyžadují uložení dat na vlastním hardwaru.
+\end{itemize}
+
+\subsection{Amazon Web Services (komerční, cloud)}
+
+\begin{itemize}
+    \item \textbf{Datový sklad:} Klíčovou roli zde zastává \emph{Amazon Redshift} – cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.
+    
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/AWSarchitecture.png}
+      \caption{Cloudové řešení Amazon Web Services. Zdroj: docs.aws.amazon.com \protect\cite{aws_redshift_arch}}
+      \label{fig:AWSplatform}
+    \end{figure}
+
+Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nabízí rozsáhlý a modulární ekosystém pro datové inženýrství a analytiku.
+    \item \textbf{Zpracování a vizualizace:} Služba \emph{AWS Glue} umožňuje automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting.
+    \item \textbf{Integrace s open-source:} AWS podporuje integraci s open-source systémy, například \emph{Apache Spark} (prostřednictvím služby \emph{EMR}) nebo \emph{Presto}.
+    \item \textbf{Výhody a slabiny:} Výhodou AWS je modularita, která umožňuje komponenty kombinovat podle potřeb. Podobně jako u Google se jedná o výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady.
+\end{itemize}
+
+\subsection{Oracle Data Platform (komerční, cloud/on-premise)}
+
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/oracle_architecture.png}
+      \caption{Architektura Oracle Data Platform. Zdroj: medium.com \protect\cite{oracle_data_platform}}
+      \label{fig:OraclePlatform}
+    \end{figure}
+
+Společnost Oracle nabízí komplexní datovou platformu, která kombinuje tradiční silné stránky v oblasti relačních databází s moderními cloudovými technologiemi. Její ekosystém je navržen tak, aby pokrýval celý životní cyklus dat, od jejich pořízení až po pokročilou analytiku a využití umělé inteligence.
+
+\begin{itemize}
+    \item \textbf{Datový sklad a databáze:} Vlajkovou lodí je \emph{Oracle Autonomous Data Warehouse} (ADW), který využívá strojové učení k automatizaci správy, ladění výkonu a zabezpečení. Pro transakční a smíšené zátěže je k dispozici \emph{Oracle Database}, kterou lze provozovat jak v cloudu (OCI), tak na on-premise hardwaru \emph{Exadata}.
+    \item \textbf{Integrace a správa dat:} Služba \emph{Oracle Cloud Infrastructure (OCI) Data Integration} zajišťuje bezkódové ETL/ELT procesy. Pro správu metadat a governance slouží \emph{OCI Data Catalog}.
+    \item \textbf{Analytika a vizualizace:} \emph{Oracle Analytics Cloud} (OAC) poskytuje nástroje pro samoobslužnou vizualizaci, reporting a rozšířenou analytiku s podporou AI.
+    \item \textbf{Výhody a nevýhody:} Hlavní předností je vysoký výkon, bezpečnost a možnost hybridního nasazení (Cloud@Customer), což oceňují zejména velké korporace a státní správa. Nevýhodou mohou být vyšší licenční náklady a komplexita celého ekosystému.
+\end{itemize}
+
+\subsection{Ekosystém Apache Software Foundation}
+
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/hadoop.png}
+      \caption{Cloudové řešení Apache Software Foundation. Zdroj: blogs.perficient.com \protect\cite{hadoop_ecosystem_perficient}}
+      \label{fig:Apacheplatform}
+    \end{figure}
+
+Nejvýznamnějším hráčem v oblasti otevřených datových technologií je nadace \emph{Apache Software Foundation} (ASF). Její ekosystém de facto definoval standardy pro zpracování velkých dat (Big Data). Produkty pod hlavičkou Apache lze skládat do výkonné platformy pokrývající celý datový cyklus:
+
+\begin{itemize}
+    \item \textbf{Ukládání a zpracování:} Historicky založeno na ekosystému \emph{Hadoop}, dnes dominuje \emph{Apache Spark} pro distribuované výpočty a \emph{Apache Kafka} pro streamování dat.
+    \item \textbf{OLAP a analytika:} Pro rychlé analytické dotazy slouží nástroje jako \emph{Apache Druid} nebo \emph{Apache Kylin}, který přináší schopnost multidimenzionální analýzy (OLAP kostky) na velká data, podobně jako SSAS v ekosystému Microsoft \cite{apachekylin2024}.
+    \item \textbf{Vizualizace:} Prezentační vrstvu zajišťuje \emph{Apache Superset}, moderní BI nástroj umožňující tvorbu dashboardů a granulární řízení přístupových práv.
+\end{itemize}
+
+
+
+Výhodou tohoto ekosystému je jeho modularita a fakt, že tvoří technologický základ i pro mnoho komerčních cloudových služeb (např. AWS EMR).
+
+\subsection{Platforma MariaDB (Community / Enterprise)}
+
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/mariadb_architecture.jpg}
+      \caption{Architektura řešení MariaDB. Zdroj: smartdatainstitute.com \protect\cite{mariadb_smartdatainstitute}}
+      \label{fig:mariadbplatform}
+    \end{figure}
+
+Příkladem open-source ekosystému, který se transformoval do podoby robustní podnikové platformy, je \emph{MariaDB}. Ačkoliv původně vznikla jako fork databáze MySQL, ve své edici \emph{MariaDB Enterprise Platform} dnes nabízí sadu integrovaných komponent pro transakční, analytické i hybridní zpracování dat a nově i pro umělou inteligenci.
+
+Základem platformy je \emph{MariaDB Enterprise Server}, který podporuje práci s relačními daty i formátem JSON. Síla ekosystému však spočívá v jeho specializovaných modulech a službách:
+
+\begin{itemize}
+    \item \textbf{Analytika a Big Data:} Pro analytické úlohy slouží \emph{MariaDB ColumnStore}, což je sloupcové úložiště umožňující rychlé agregace bez nutnosti vytvářet složité indexy. Novinkou je komponenta \emph{MariaDB Exa}, in-memory MPP (Massively Parallel Processing) databáze navržená pro extrémně rychlé SQL dotazy nad velkými objemy dat. Propojení transakčního a analytického světa zajišťuje funkce \emph{Query Accelerator}, která automaticky deleguje náročné dotazy do ColumnStore enginu.
+    \item \textbf{Vysoká dostupnost a správa:} Klíčovým prvkem infrastruktury je \emph{MariaDB MaxScale}. Jde o inteligentní proxy server, který zajišťuje load balancing, zabezpečení a automatické failover procesy. Pro orchestraci a monitorování celé flotily databází slouží \emph{MariaDB Enterprise Manager}.
+\end{itemize}
+
+Tato architektura umožňuje organizacím začít s open-source řešením (Community verze) a v případě potřeby škálovat na plnohodnotnou enterprise platformu s podporou pro AI a real-time analytiku, aniž by musely migrovat na proprietární databázové systémy typu Oracle či MS SQL.
+\subsection{Moderní modulární a hybridní architektury}
+
+V současné praxi se stále častěji ustupuje od využívání jednoho monolitického „megabalíku“ (jako je kompletní Apache stack) směrem k flexibilním, modulárním architekturám. Tento trend umožňuje skládat platformu z několika specializovaných nástrojů od různých tvůrců, a to přesně podle potřeb daného projektu \cite{priebe2022datawarehouse}. Tento přístup lze realizovat dvěma hlavními způsoby:
+
+\begin{itemize}
+    \item \textbf{Čistě open-source stack:} Tento model kombinuje výhradně open-source komponenty. Typickým příkladem je použití relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) jako datového skladu, nad kterým je postavena sémantická vrstva v podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky a business logiku, kterou následně konzumuje vizualizační nástroj jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana} \cite{cube2024semantic,dbt2024semanticlayer,superset2024docs,metabase2024overview}.
+     
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/Modularita.png}
+      \caption{Příklad možné plně open-source sestavy - Zdroj: vlastní zpracování}
+      \label{fig:modularita}
+    \end{figure}
+    
+    
+    \item \textbf{Hybridní stack:} V praxi je velmi běžné kombinovat open-source a komerční technologie, aby se využily výhody obou světů. Častým scénářem je provozování výkonné a nákladově efektivní open-source databáze (např. \emph{MariaDB}, \emph{PostgreSQL}) jako datového skladu, nad nímž je nasazen uživatelsky přívětivý komerční vizualizační nástroj jako \emph{Power BI} nebo \emph{Tableau}. Tento přístup umožňuje optimalizovat náklady na back-end a zároveň poskytnout koncovým uživatelům komfort a pokročilé funkce komerčních platforem.
+
+    
+Hlavní výhodou modulárních přístupů je vysoká míra škálovatelnosti, transparentnost a nezávislost na jednom dodavateli, což umožňuje reagovat na technologické změny a optimalizovat náklady. Společnou slabinou je však vyšší technická složitost. Integrace komponent z odlišných prostředí vyžaduje nejen znalost různých technologií, ale i pochopení jejich licenčních modelů a zajištění vzájemné kompatibility. Pro úspěšnou implementaci je proto klíčová standardizace rozhraní a pečlivé řízení verzí jednotlivých nástrojů.
+
+   
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{img/hybrid2.png}
+      \caption{Příklad možného hybridního systému. Zdroj: vlastní zpracování}
+      \label{fig:hybrid}
+    \end{figure}
+\end{itemize}
+
+
+\section{Analýza trendů v implementaci}
+
+V posledních letech dochází v oblasti implementace datových platforem a systémů pro analýzu dat k významným změnám. Tyto změny jsou důsledkem rostoucích požadavků na rychlost zpracování, automatizaci a dostupnost analytických nástrojů i mimo oblast IT.  
+Současný vývoj ukazuje posun od uzavřených, monolitických řešení směrem k otevřeným, modulárním a škálovatelným architekturám, které umožňují flexibilnější integraci technologií a snadnější rozšiřování podle potřeb organizace \cite{amazon2019datawarehouse,databricks2024modernstack}.
+
+\subsection{Automatizace a ELT přístup}
+
+Jedním z hlavních trendů posledních let je přechod od tradičního přístupu \emph{ETL} (Extract–Transform–Load) k modernějšímu konceptu \emph{ELT} (Extract–Load–Transform).  
+Transformace dat se tak přesouvá z~úrovně samostatných procesů do samotného datového skladu, který disponuje dostatečným výkonem pro jejich zpracování. Tento přístup zjednodušuje datové toky, zvyšuje jejich transparentnost a umožňuje verzování datových modelů.  
+Rozšířené je využití nástrojů jako \emph{dbt}, \emph{Apache Airflow} nebo \emph{Fivetran}, které podporují automatizované a reprodukovatelné datové pipeline.  
+
+\subsection{Datová governance a kvalita dat}
+
+S rostoucím objemem dat získává na významu jejich správa, kvalita a dohledatelnost. Moderní přístupy kladou důraz na principy \emph{data governance}, které zahrnují řízení přístupových práv, dokumentaci datových toků (\emph{data lineage}) a sledování kvality dat.  
+K rozšířeným nástrojům patří například \emph{Apache Atlas}, \emph{Amundsen} či \emph{DataHub}, které umožňují centralizovanou správu metadat.  
+V komerční sféře pak obdobné funkce zajišťují systémy jako \emph{Microsoft Purview} nebo \emph{Collibra}.  
+Implementace těchto principů je klíčová nejen z hlediska efektivity, ale i souladu s legislativními požadavky, například GDPR nebo ISO 27001.
+
+\subsection{Dotazování přirozeným jazykem a role LLM}
+
+V tomto roce lze pozorovat výrazný rozvoj velkých jazykových modelů (LLM, \emph{Large Language Models}) a jejich integraci do analytických platforem. Tento trend, často označovaný jako \emph{Natural Language Querying} (NLQ), slibuje revoluci ve způsobu, jakým uživatelé interagují s daty. Místo psaní složitých SQL dotazů nebo manuálního proklikávání dashboardů mohou uživatelé pokládat otázky v přirozeném jazyce, a to jak v psané formě (zadáním textu), tak i hlasem.
+
+
+\subsubsection{Architektura řešení}
+
+Systém pro dotazování přirozeným jazykem (NLQ) představuje komplexní architekturu složenou z několika komponent, které spolupracují na transformaci lidské řeči či psaného textu na strojově čitelný dotaz a následně zpět na srozumitelnou odpověď.
+
+Níže popsaná architektura vychází z návrhu, který autor implementoval v praxi v rámci firemního prostředí. Toto řešení vzniklo jako reakce na limity standardních dashboardů v nástroji Power BI, konkrétně na časovou náročnost (latenci) při získávání specifických ad-hoc informací. Navržený koncept kombinuje hlasové i textové rozhraní s analytickým backendem a koresponduje s aktuálními trendy v oblasti moderní Business Intelligence.
+
+Typický proces zpracování dotazu lze rozdělit do následujících kroků:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/NLQ.png}
+  \caption{Návrh NLQ architektury. Zdroj: vlastní zpracování}
+  \label{fig:gemini_cli_architecture}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Zpracování hlasového vstupu:} 
+    Proces začíná položením dotazu uživatelem, například: „Zjisti, kolik tun papíru bylo vyrobeno papírenským strojem 10 za poslední týden.“ Tento zvukový vstup je zachycen mikrofonem a technicky zpracován pomocí audio knihovny, například \textbf{PyAudio}.
+
+    \item \textbf{Převod řeči na text (Speech-to-Text) / Příjem textového vstupu:} 
+    Pokud byl vstup hlasový, zvukový záznam je odeslán do služby pro rozpoznávání řeči, která zajistí jeho transkripci do textové podoby. Pokud byl vstup textový, dojde k jeho přímému předání k dalšímu zpracování.
+
+    \item \textbf{Sémantická analýza a interpretace (LLM):} 
+    Získaný text je předán velkému jazykovému modelu (např. prostřednictvím \textbf{Gemini API}). Model provede sémantickou analýzu, identifikuje záměr uživatele (intent) a extrahuje klíčové entity, jako jsou měřené metriky („tuny papíru“), časové filtry („poslední týden“) a dimenze („papírenský stroj 10“).
+
+    \item \textbf{Generování dotazu a orchestrace:} 
+    Na základě interpretace LLM vygeneruje odpovídající databázový dotaz. V tomto kroku model nepracuje s daty přímo, ale funguje jako orchestrátor, který připraví syntaxi pro externí nástroj.
+
+    \item \textbf{Exekuce dotazu:} 
+    Vygenerovaný požadavek (typicky v jazyce DAX nebo SQL) je vykonán nad cílovým datovým skladem nebo OLAP kostkou. Pro komunikaci s technologiemi jako MS SSAS lze využít specializované knihovny, např. \textbf{Pyadomd}.
+
+    \item \textbf{Zpracování výsledku a formulace odpovědi:} 
+    Číselný výsledek dotazu (např. hodnota 420) je vrácen jazykovému modelu. Ten jej zasadí do kontextu a zformuluje přirozenou větu: „Za poslední týden bylo vyrobeno 420 tun papíru papírenským strojem 10.“
+
+    \item \textbf{Výstupní kanál (Text / Text-to-Speech):} 
+    Textová odpověď je primárně zobrazena uživateli na rozhraní. Pokud byl původní vstup hlasový, je textová odpověď následně převedena do zvukové podoby pomocí služby \textbf{Text-to-Speech} a přehrána uživateli, čímž se uzavírá konverzační smyčka.
+\end{enumerate}
+
+Celý tento proces elegantně skrývá technickou složitost a poskytuje uživateli iluzi plynulé konverzace s datovým systémem. 
+
+\subsubsection{Role MCP serverů a Gemini CLI}
+
+Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a externími systémy (databáze, soubory, API) jsou tzv. \textbf{MCP (Model Context Protokol) servery}~\cite{mcp_protocol}. Tyto servery fungují jako řízená brána neboli „toolbox“ pro umělou inteligenci. Místo toho, aby měl LLM přímý a nekontrolovaný přístup k datovým zdrojům, MCP server mu poskytuje sadu jasně definovaných \textbf{nástrojů} (tools). Každý nástroj reprezentuje konkrétní operaci, například „spusť SQL dotaz v~databázi ClickHouse“ nebo „přečti soubor z Google Drive“.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/mcp-simple-diagram.png}
+  \caption{Model context protocol. Zdroj: modelcontextprotocol.io \cite{mcp_protocol}}
+  \label{fig:gemini_cli_architecture}
+\end{figure}
+
+Pro interakci s~těmito servery a definici dostupného kontextu slouží různé \textbf{klientské aplikace} (\emph{MCP Clients/Hosts}). Může se jednat o~nástroje příkazové řádky (např. \textbf{Gemini CLI}), desktopové aplikace (např. \textbf{Claude Desktop App}), vývojová prostředí (IDE jako VS Code, Cursor) nebo webová rozhraní. Tyto aplikace umožňují vývojáři či uživateli „uzemnit“ model tím, že mu zprostředkují připojení ke~konkrétním MCP serverům. LLM se následně nedotazuje přímo cílové databáze, ale volá nástroje zpřístupněné skrze klienta a MCP server, který se stará o~samotnou exekuci, autentizaci a bezpečnostní logování.
+
+
+\chapter{Teoretická část}
+
+Tato kapitola se zaměřuje na teoretické vymezení klíčových pojmů a principů, které tvoří základ pro praktickou část práce.  
+Cílem je popsat architekturu moderních datových platforem, jejich vrstvy a související technologie využívané pro ukládání, zpracování a analýzu dat.  
+Pozornost je věnována především konceptům \textit{datového jezera}, \textit{datového skladu} a technologiím \textit{OLAP}, které tvoří jádro současných analytických systémů.  
+Součástí kapitoly je také přehled nástrojů Business Intelligence a teoretické vymezení \textit{sémantické vrstvy}, jež propojuje datový sklad s prezentační částí platformy a umožňuje jednotnou interpretaci dat napříč organizací.
+
+\section{Úvod do problematiky datových skladů a OLAP}
+
+Návrh systému, který byl v této práci vytvořen, nepředstavuje univerzální ani definitivní řešení.  
+Každý datový architekt by měl vždy zohlednit konkrétní potřeby a podmínky dané organizace.  
+Například některé společnosti nemusí vyžadovat implementaci OLAP systému – mohou disponovat vlastním týmem databázových specialistů, kteří vytvářejí databázové pohledy, a datových analytiků, kteří z těchto pohledů následně generují reporty.  
+Jiné organizace naopak tento systém nemohou použít vůbec, například v případě požadavku na zpracování dat v reálném čase, pro které jsou vhodnější jiné technologie a architektury.  
+
+Navržený systém proto představuje jedno z možných řešení, přizpůsobené konkrétní situaci a~prostředí, ve kterém byl vyvíjen.
+
+Celý systém je rozdělen do pěti vrstev, jak je znázorněno na obrázku \ref{fig:architecture}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/reporting_structure.png}
+  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \textit{Zdroj: vlastní zpracování autora, dle architektury Mondi Štětí a.s.}}
+  \label{fig:architecture}
+\end{figure}
+
+\subsection{Datové zdroje}
+Základní vstupní vrstvu systému tvoří datové zdroje, které obvykle pocházejí z různých podnikových systémů, jako jsou například MES systémy, CRM nebo ERP.  
+Datový zdroj je zpravidla reprezentován databází, avšak v praxi se často setkáváme také s textovými soubory (například ve formátu CSV).  
+Ačkoliv formát CSV nemusí na první pohled působit jako spolehlivý datový zdroj, v praxi se používá poměrně často.  
+Důvodem bývá například licenční politika – přímý přístup do databáze může být zpoplatněn, zatímco export dat do CSV souboru bývá dostupný zdarma nebo bez omezení.
+
+
+\subsection{Datové jezero}
+
+\textbf{Datové jezero} (\textit{Data Lake}) představuje logický koncept centralizovaného úložiště určeného pro uchovávání obrovského množství \textit{surových dat} (\textit{raw data}) v jejich nativním formátu (např. JSON, XML, binární soubory).
+
+Ačkoliv je Datové jezero často asociováno s cloudovými službami (např. AWS S3, Azure Data Lake Storage), tento koncept lze efektivně implementovat i v lokálním (on-premise) prostředí.
+
+V rámci řešeného projektu je Datové jezero implementováno na relační databázi (viz konfigurační soubor „docker-compose3.yml“). 
+Přestože relační databáze vyžaduje definici schématu tabulky, je princip \textit{schema-on-read} zachován. 
+To je realizováno tak, že veškerá variabilní data jsou uložena v jediném sloupci (např. \texttt{payload}), 
+který je definován jako řetězcový (textový) typ (\texttt{TEXT} nebo \texttt{VARCHAR}). 
+Tím se fyzicky vytvoří pevné schéma pro tabulku, avšak \textbf{logický datový typ jednotlivých vnitřních prvků} dat (např. JSON) 
+se určuje staticky / dynamicky \textbf{až v rámci transformačního (ETL) procesu} při jejich parsování a vkládání do Datového skladu. Tato volba zachovává maximální flexibilitu, ačkoliv pokročilejší implementace by mohla využít nativní datové typy pro nestrukturovaná data, jako je \texttt{JSONB} v PostgreSQL.
+
+Klíčové role a cíle Datového jezera:
+\begin{enumerate}
+    \item \textbf{Konsolidace a Vstupní Zóna (\textit{Landing Zone}):} Primární funkcí je konsolidovat data z~mnoha heterogenních zdrojů na jedinou platformu, sloužící jako \textbf{vstupní zóna} pro surová data před jejich dalším zpracováním.
+    \item \textbf{Oddělení Integrační Logiky:} Umožňuje \textbf{oddělit logiku připojení a sběru dat} od vlastního Datového skladu. Tím se zajišťuje, že náročné transformační procesy (ETL/ELT) v~Datovém skladu nejsou bezprostředně zatíženy problémy s konektivitou, dostupností zdrojů nebo dynamickou strukturou dat.
+    \item \textbf{Audit a Rodokmen Dat (\textit{Data Lineage}):} Uchovávání dat v jejich \textbf{původním (surovém) formátu} umožňuje kdykoliv ověřit, z jakých zdrojových dat byla odvozena data v Datovém skladu. To je nezbytné pro \textbf{auditní účely} a pro \textbf{reprodukci analytických výsledků} při změnách transformačních pravidel.
+\end{enumerate}
+\subsection{Datový sklad}
+\label{subsec:datovy_sklad}
+
+\textbf{Datový sklad} (\textit{Data Warehouse}, DWH) je centrální, časově závislé úložiště historických i aktuálních dat. Jeho primárním účelem je podpora rozhodovacích procesů. Na rozdíl od provozních databází (OLTP) je struktura DWH optimalizována pro rychlé čtení, agregace a dotazování na velkých objemech dat.
+
+\textbf{Datové tržiště} (\textit{Data Mart}) je v korporátním prostředí definováno jako \textbf{podsložka datového skladu} zaměřená na data a metriky potřebné pro specifickou obchodní oblast (např. výroba, kvalita, prodej). Jedná se o menší, tématicky specializovanou entitu, která usnadňuje reportování a analýzu pro konkrétní skupinu uživatelů.
+
+Konceptuální návrh DWH se opírá o dvě hlavní, avšak protichůdné, metodiky:
+
+\begin{enumerate}
+    \item \textbf{Metodika Billa Inmona (\textit{Top-Down Approach}):}
+    Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW).
+    \begin{itemize}
+        \item \textbf{Schema:} EDW je modelováno ve vysoce \textbf{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci a maximální integritu.
+        \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do detailního, normalizovaného EDW (centrální zdroj pravdy). \textbf{Datová tržiště} se vytváří \textbf{až sekundárně} z~dat v EDW a jsou denormalizovaná, aby sloužila pro rychlé reportování.
+    \end{itemize}
+
+    \item \textbf{Metodika Ralpha Kimballa (\textit{Bottom-Up Approach}):}
+    Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy.
+    \begin{itemize}
+        \item \textbf{Schema:} Využívá \textbf{dimenzionální modelování} (schéma \textit{Hvězda} nebo \textit{Sněhová vločka}), které je záměrně \textbf{denormalizované}. To zjednodušuje dotazování a maximalizuje výkon pro OLAP úlohy.
+        \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána \textbf{přímo} do dimenzionálních modelů, které \textbf{představují Datová tržiště}. Podnikový datový sklad je pak \textbf{logickou unií} (sjednocením) těchto jednotlivých tržišť.
+    \end{itemize}
+\end{enumerate}
+
+V praxi se však často objevují hybridní systémy kombinující prvky obou přístupů. Takovýto hybridní přístup jsem zvolil i já.
+\clearpage
+
+Data warehouse z pravidla obsahuje:
+
+\begin{itemize}
+    \item \textbf{Staging Area:}
+    Slouží jako dočasné úložiště, kam jsou data přenesena pomocí ETL (Extract, tansform and load). V této vrstvě se provádí \textbf{harmonizace a validace dat} před aplikací dimenzionálního modelu. Příkladem je tabulka \texttt{Stg.CameraCamea} v naší implementaci (viz \texttt{bilina\_kamery\_lake\_to\_staging.py}).
+
+    \item \textbf{Dimenze a Fakta:}
+    Hlavní vrstva organizovaná dle Kimballova modelu (tedy Datový Mart pro tuto analytickou doménu). Skládá se z:
+    \begin{enumerate}
+        \item \textbf{Dimenze (\textit{Dimensions}):} Uchovávají kontext, atributy a popisné detaily (např. \texttt{DimCity}, \texttt{DimSensor}).
+        \item \textbf{Fakta (\textit{Facts}):} Uchovávají měřitelné hodnoty a cizí klíče k dimenzím (např. \texttt{FactCameraDetection}, viz \texttt{bilina\_kamery\_staging\_to\_fact.py}).
+    \end{enumerate}
+
+ \end{itemize}
+
+
+Základními modely používanými pro návrh datového skladu v rámci dimenzionálního modelování (Kimball) jsou:
+
+
+\begin{itemize}
+    \item \textbf{Schéma Hvězda (\textit{Star Schema}):}
+    Jedná se o nejjednodušší a nejčastěji používaný dimenzionální model. Skládá se z centrální tabulky \textbf{Faktů} (\textit{Fact Table}), která je obklopena několika tabulkami \textbf{Dimenzí} (\textit{Dimension Tables}). Všechny dimenze jsou přímo napojeny na tabulku faktů, čímž vzniká struktura připomínající hvězdu. Vysoká redundance je vyvážena extrémní rychlostí dotazování.
+
+    \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/Star-schema.png}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamer v Bílině.}
+\end{figure}
+\clearpage
+    \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
+    Jedná se o rozšíření schématu Hvězda, kde některé dimenze jsou \textbf{normalizovány} do několika souvisejících tabulek. Tím se snižuje redundance dat, ale na úkor zvýšení složitosti dotazování (je potřeba více \texttt{JOIN} operací), což může mírně zhoršit výkon.
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/snowflake.png}
+  \caption{Ilustrační schéma snéhové vločky faktové tabulky a dimenzí. Zdroj: en.wikipedia.org \cite{wikipedia_snowflake_schema}}
+  \label{fig:snowflake_schema}
+\end{figure}
+
+  \end{itemize}
+
+
+\subsection{OLAP technologie}
+
+OLAP (\emph{Online Analytical Processing}) představuje přístup ke zpracování dat, který umožňuje provádět rychlé analytické dotazy nad velkými objemy informací.  
+Základní myšlenkou OLAP je možnost pohledu na data z více dimenzí – typicky podle času, lokality, zařízení, typu senzoru nebo jiných analytických kritérií.  
+Tento princip umožňuje uživatelům provádět tzv. \emph{slice and dice} operace, tj. analyzovat data z různých perspektiv, agregovat je nebo filtrovat v reálném čase.
+
+Rozlišují se tři tradiční typy OLAP řešení:
+\begin{itemize}
+    \item \textbf{MOLAP (Multidimensional OLAP)} – pracuje s vlastní vícerozměrnou strukturou dat uloženou mimo relační databázi. Tento přístup poskytuje velmi rychlé odezvy při výpočtech a~agregacích díky předpočítaným datovým strukturám (tzv. \emph{cubes}), avšak vyžaduje rozsáhlejší přípravu a větší prostorové nároky.
+    \item \textbf{ROLAP (Relational OLAP)} – využívá klasickou relační databázi, nad kterou jsou definovány pohledy a agregační dotazy. Tento přístup je flexibilnější, lépe škálovatelný a umožňuje přímou práci s aktuálními daty bez nutnosti jejich předpočítávání.  
+    Moderní nástroje, jako například \textbf{Microsoft SSAS Tabular} nebo \textbf{Apache Druid}, reprezentují evoluční formu ROLAP – tzv. \textit{in-memory tabulární modely}, které kombinují relační přístup se sloupcovým uložením dat a jazykem \texttt{DAX} pro definici metrik.
+    \item \textbf{HOLAP (Hybrid OLAP)} – kombinuje výhody obou předchozích přístupů, tedy rychlé předpočítané agregace z MOLAP a flexibilitu dotazování nad detailními daty z ROLAP. Tento přístup je často využíván v moderních BI řešeních, kde se pro nejčastěji používané metriky udržují souhrnné cache.
+\end{itemize}
+
+Mezi nejpoužívanější nástroje pro implementaci OLAP vrstev patří například \textbf{Microsoft SQL Server Analysis Services (SSAS Tabular)} jako zástupce komerčního řešení, a z open-source prostředí pak zejména \textbf{Apache Kylin}, \textbf{Mondrian} (součást Pentaho) nebo \textbf{Cube.js}, který poskytuje moderní API pro analytické dotazy.  
+Některé databázové systémy, jako například \textbf{ClickHouse}, navíc integrují funkce OLAP přímo do svého jádra, což umožňuje provádět agregace v reálném čase bez nutnosti vytvářet samostatnou analytickou vrstvu.
+
+V současnosti je trendem přechod od klasických multidimenzionálních modelů k tabulárním řešením, která nabízejí vyšší flexibilitu, lepší integraci s nástroji pro vizualizaci dat a nižší nároky na údržbu datového modelu.
+
+\subsection{Sémantická vrstva}
+
+\textbf{Sémantická vrstva} (\textit{Semantic Layer}) představuje logickou nadstavbu nad datovým skladem, jejímž hlavním cílem je sjednotit přístup k datům napříč celou organizací.  
+Slouží jako prostředník mezi technickou strukturou databáze a uživatelskými nástroji Business Intelligence.  
+Namísto přímé práce s databázovými tabulkami umožňuje uživatelům přistupovat k datům prostřednictvím předdefinovaných metrik, dimenzí a vztahů, které odpovídají obchodní logice organizace.  
+
+Tímto způsobem sémantická vrstva abstrahuje technické detaily a umožňuje vytváření analytických dotazů bez nutnosti znalosti SQL či fyzického modelu dat.  
+V praxi tento koncept implementují moderní frameworky jako \emph{Cube.js}, \emph{dbt Semantic Layer} nebo \emph{Looker Semantic Model}, které poskytují rozhraní pro standardizovaný přístup k datům prostřednictvím API nebo SQL proxy \cite{cube2024semantic,dbt2024semanticlayer,looker2024semanticmodel}.  
+
+K hlavním přínosům sémantické vrstvy patří:
+\begin{itemize}
+    \item \textbf{Konzistence metrik a výpočtů:} Veškeré reporty a dashboardy využívají jednotně definované ukazatele, čímž se eliminuje riziko rozdílné interpretace dat.
+    \item \textbf{Zjednodušení analytické práce:} Uživatelé mohou tvořit vizualizace nebo reporty bez nutnosti znalosti komplexní struktury datového skladu.
+    \item \textbf{Zvýšení výkonu a bezpečnosti:} Sémantická vrstva často zajišťuje cachování a řízení přístupů na úrovni obchodních objektů, což zlepšuje odezvu systému a kontrolu nad daty.
+\end{itemize}
+
+Z pohledu architektury datových platforem tak sémantická vrstva představuje klíčový prvek mezi datovým skladem a vizualizační vrstvou, který propojuje technologickou přesnost s obchodní srozumitelností.
+
+
+\section{Nástroje Business Intelligence}
+
+Nástroje Business Intelligence (BI) představují softwarové řešení určené k transformaci surových dat na informace, které podporují rozhodovací procesy na všech úrovních řízení.  
+Cílem BI systémů je zajistit uživatelům přístup k aktuálním, konzistentním a relevantním datům, a to formou interaktivních vizualizací, reportů či analytických přehledů.  
+V rámci moderních datových platforem, jako je Portabo, tvoří BI nadstavbu nad datovým skladem a OLAP vrstvou.  
+Zprostředkovává uživatelům přístup k datům v srozumitelné a vizuálně přitažlivé podobě a umožňuje jejich interpretaci bez nutnosti znalosti technických detailů implementace.  
+
+BI nástroje dnes představují klíčový prvek datově řízeného rozhodování a zahrnují široké spektrum funkcí – od základních přehledů a dashboardů až po pokročilé analytické a prediktivní modely využívající strojové učení.
+
+\subsection{Funkční oblasti nástrojů Business Intelligence}
+
+Nástroje BI lze z hlediska jejich zaměření rozdělit do několika funkčních oblastí, které společně pokrývají celý proces přeměny dat na znalosti:
+
+\begin{itemize}
+    \item \textbf{Reportování a vizualizace dat} – umožňuje prezentaci dat formou tabulek, grafů a interaktivních dashboardů.  
+    Uživatelé tak mohou rychle identifikovat klíčové ukazatele výkonnosti (KPI), sledovat trendy a vyhodnocovat vývoj v čase.  
+
+    \item \textbf{Ad-hoc analýza a průzkum dat} – nabízí uživatelům možnost vytvářet vlastní pohledy na data, provádět filtrování, seskupování nebo detailní analýzy (tzv. \textit{drill-down} a \textit{drill-up}).  
+    Tato oblast je důležitá pro datové analytiky a business specialisty, kteří potřebují flexibilně reagovat na nové otázky bez zásahu IT oddělení.  
+
+    \item \textbf{Pokročilá analytika a prediktivní modelování} – integruje BI s nástroji pro datovou vědu a strojové učení.  
+    Umožňuje například předpověď trendů, klasifikaci nebo detekci anomálií.  
+    Tyto funkce bývají častější u komerčních řešení, která využívají propojení s cloudovými službami nebo integrované modelovací prostředí (např. Microsoft Azure Machine Learning).  
+
+    \item \textbf{Sdílení a spolupráce} – moderní BI nástroje podporují publikaci reportů a dashboardů napříč organizací, správu oprávnění, exporty a integraci s komunikačními nástroji (např. Microsoft Teams, Slack či SharePoint).  
+    Tato funkce je zásadní pro efektivní distribuci informací mezi jednotlivé úrovně řízení.
+\end{itemize}
+
+\subsection{Přehled dostupných BI nástrojů}
+
+Z pohledu dostupných řešení lze nástroje Business Intelligence rozdělit do dvou hlavních kategorií – open-source a komerčních platforem.  
+Obě skupiny mají své výhody a nevýhody, které je nutné zohlednit při rozhodování o jejich implementaci v konkrétním prostředí.
+
+\begin{itemize}
+  \item \textbf{Open-source řešení} – nástroje jako \textit{Grafana}, \textit{Apache Superset}, \textit{Metabase} nebo \textit{Redash} poskytují široké možnosti integrace s relačními i nestrukturovanými datovými zdroji.  
+  Jsou vhodné zejména pro organizace, které preferují flexibilitu, nižší licenční náklady a možnost přizpůsobit systém vlastním potřebám.  
+  Nevýhodou bývá nutnost technické správy, složitější počáteční konfigurace a omezená úroveň uživatelské podpory.
+
+  \item \textbf{Komerční řešení} – mezi nejrozšířenější komerční platformy patří \textit{Microsoft Power BI}, \textit{Tableau} a \textit{Qlik Sense}.  
+  Tyto nástroje se vyznačují vysokou mírou integrace s podnikovými systémy, širokými možnostmi automatizace a pokročilými funkcemi pro datové modelování, sdílení a prediktivní analýzy.  
+  Výhodou bývá profesionální podpora výrobce, pravidelné aktualizace a integrace s cloudovými službami.  
+  Na druhé straně představují komerční nástroje vyšší finanční náklady a častou závislost na dodavateli (tzv. \textit{vendor lock-in}).
+\end{itemize}
+
+\subsection{Kritéria výběru BI nástroje}
+
+Volba vhodného BI nástroje závisí na potřebách organizace, technické infrastruktuře a rozpočtu.  
+Při rozhodování je vhodné zohlednit následující kritéria:
+
+\begin{enumerate}
+    \item \textbf{Uživatelská přívětivost a intuitivní rozhraní} – nástroj by měl umožnit tvorbu reportů i~netechnickým uživatelům bez nutnosti psaní SQL dotazů.
+    \item \textbf{Konektivita k datovým zdrojům} – podpora přímého připojení k datovému skladu, OLAP vrstvám či externím API.
+    \item \textbf{Automatizace a aktualizace dat} – schopnost plánovat obnovu dat, vytvářet datové toky (pipelines) a spravovat přístupová oprávnění.
+    \item \textbf{Možnosti spolupráce a sdílení} – integrace s podnikovými systémy (např. Microsoft Teams, Slack, SharePoint) a možnost publikování interaktivních dashboardů.
+    \item \textbf{Licenční model a celkové náklady na provoz (TCO)} – kromě pořizovací ceny je třeba zohlednit náklady na údržbu, školení uživatelů a případnou infrastrukturu.
+\end{enumerate}
+
+V praxi organizace často kombinují více nástrojů – například open-source řešení pro interní analýzy a komerční systém pro prezentaci výsledků managementu.  
+Tento přístup umožňuje optimalizovat náklady a zároveň využít silných stránek jednotlivých platforem.  
+V případě datové platformy Portabo by mohl být takový přístup vhodný při implementaci vizualizační vrstvy nad datovým skladem.
+
+\section{Přehled a charakteristika využitých technologií}
+\label{sec:prehled_technologii}
+
+Pro účely praktické části a srovnávací analýzy byl vybrán reprezentativní soubor technologií, které pokrývají jak komerční, tak open-source přístupy k budování datové platformy. Následující tabulka poskytuje jejich přehled, charakteristiku a popisuje jejich specifickou roli v navržené architektuře.
+
+% Nastavení odsazení a řádkování
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{longtable}{ 
+    >{\RaggedRight\arraybackslash}p{\dimexpr0.5\textwidth-2\tabcolsep} 
+    >{\RaggedRight\arraybackslash}p{\dimexpr0.5\textwidth-2\tabcolsep} 
+}
+
+% ==========================================
+% 1. VRSTVA: DATOVÝ SKLAD
+% ==========================================
+\toprule
+\rowcolor{gray!20}
+\multicolumn{2}{c}{\textbf{Vrstva: Datový sklad}} \\ 
+\midrule
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\midrule
+
+% --- OBSAH DWH ---
+\textbf{PostgreSQL a TimescaleDB} \par
+PostgreSQL je open-source relační databázový systém s podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a kamer, díky optimalizacím pro časově orientované dotazy a efektivní kompresi dat.
+\vspace{1em} \par
+
+\textbf{ClickHouse} \par
+ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v reálném čase bez nutnosti rozsáhlých předagregací.
+\vspace{1em} \par
+
+\textbf{MariaDB} \par
+MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a zachovává si s ním vysokou kompatibilitu. Pro potřeby této práce je klíčové jeho rozšíření \textbf{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP).
+& 
+% --- KOMERČNÍ DWH ---
+\textbf{Microsoft SQL Server} \par
+Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a analytických služeb (SSAS). V této práci je MSSQL využit jako jeden z pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a zároveň jako platforma pro SSAS Tabular model.
+\vspace{1em} \par
+
+\textbf{Oracle Database a Autonomous Data Warehouse} \par
+Oracle Database je robustní komerční databázový systém, který v rámci své cloudové platformy nabízí službu \textbf{Autonomous Data Warehouse (ADW)}. Ta využívá strojové učení pro automatickou správu, zabezpečení a optimalizaci výkonu. Systém podporuje hybridní nasazení a je navržen pro zpracování smíšených zátěží (OLTP i OLAP) s vysokou dostupností a bezpečností.
+\\ 
+\bottomrule
+
+\clearpage
+
+% ==========================================
+% 2. VRSTVA: OLAP
+% ==========================================
+\\ [0.2em] % Mezera mezi tabulkami
+\toprule
+\rowcolor{gray!20}
+\multicolumn{2}{c}{\textbf{Vrstva: Sémantická vrstva / OLAP}} \\ 
+\midrule
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\ 
+\midrule
+
+% --- OBSAH OLAP ---
+\textbf{Cube.js} \par
+Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním úkolem je abstrahovat technickou komplexitu datového skladu a poskytovat konzistentní business logiku. Definuje datové modely, metriky (measures) a dimenze pomocí JavaScriptu. Klíčovou vlastností je poskytování standardizovaného rozhraní (API), včetně emulace \textbf{PostgreSQL SQL API}. To umožňuje, aby se vizualizační nástroje (jako Apache Superset) připojovaly ke Cube.js stejným způsobem, jako by se připojovaly k běžné databázi, čímž se výrazně zjednodušuje integrace a zvyšuje výkon díky pokročilému cachování a předagregacím.
+& 
+% --- KOMERČNÍ OLAP ---
+\textbf{Microsoft SQL Server Analysis Services} \par
+SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a Business Intelligence. V této práci je využíván jeho \textbf{Tabulární model (Tabular Model)}, který funguje jako \textit{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k Cube.js, poskytující podobnou sémantickou vrstvu s pokročilými možnostmi bezpečnosti, správy a hlubokou integrací s nástroji Microsoft ekosystému.
+\\ 
+\bottomrule
+
+% ==========================================
+% 3. VRSTVA: BI
+% ==========================================
+\\ [1em] 
+\toprule
+\rowcolor{gray!20}
+% ZDE JE ZMĚNA: přidal jsem * za \\ (zakazuje zlom stránky pod tímto řádkem)
+\multicolumn{2}{c}{\textbf{Vrstva: Vizualizace / BI}} \\* \midrule
+% ZDE TAKÉ ZMĚNA: * za \\ (aby se neodtrhly podnadisy od textu)
+\textbf{Open-source řešení} & \textbf{Komerční řešení} \\* \midrule
+
+% --- OBSAH BI ---
+\textbf{Apache Superset} \par
+Apache Superset je moderní open-source platforma pro vizualizaci dat a business intelligence. Umožňuje snadné připojení k široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a intuitivní tvorbu interaktivních dashboardů a reportů. V této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a customizaci.
+& 
+% --- KOMERČNÍ BI ---
+\textbf{Microsoft Power BI} \par
+Power BI je komerční analytický nástroj od společnosti Microsoft, který představuje průmyslový standard pro vizualizaci dat a business intelligence. Vyniká těsnou integrací s celým ekosystémem Microsoftu, zejména s SSAS Tabular, což umožňuje efektivní analýzu, sdílení reportů a spolupráci v rámci organizace. V kontextu této práce slouží jako reprezentant komerční vizualizační platformy s pokročilými funkcemi pro datovou transformaci, modelování a distribuci obsahu.
+\\ 
+\bottomrule
+
+\end{longtable}
+
+% --- MANUÁLNÍ VLOŽENÍ VAKÁTU (PRÁZDNÉ STRÁNKY) ---
+\clearpage              % 1. Ukončí stránku s tabulkou
+\thispagestyle{empty}   % 2. Zruší záhlaví a číslování na té prázdné stránce
+\hbox{}                 % 3. Vloží "neviditelný" box (aby LaTeX stránku nevyhodil jako prázdnou)
+\newpage                % 4. Vynutí přechod na další
+% -------------------------------------------------
+
+\chapter{Praktická část}
+
+Praktická část této práce se zaměřuje na návrh, implementaci a ověření metodiky pro srovnání open-source a komerčních nástrojů využitelných pro analýzu a vizualizaci dat na datové platformě Portabo. Cílem bylo vytvořit plně funkční datový sklad s podporou OLAP analýz, který umožňuje zpracovávat reálná data poskytovaná datovým centrem Ústeckého kraje a připravit prostředí pro následné výkonové a funkční porovnání vizualizačních nástrojů.
+
+V rámci řešení byly navrženy a implementovány datové toky, které respektují jednotnou architekturu systému složeného z vrstev \textit{datového jezera}, \textit{datového skladu} (staging vrstva, dimenze, fakta), \textit{OLAP vrstvy} a \textit{reportingu}. Tato struktura byla zachována napříč všemi testovanými technologiemi, přičemž pro jednotlivé implementace byl použit stejný princip ETL zpracování, stejný způsob transformace a obdobné rozvržení datového modelu založeného na dimenzionálním schématu.
+
+Data využitá pro testování pocházejí převážně z datového toku města Bílina, konkrétně z MQTT témat obsahujících telemetrické údaje o kamerových detekcích vozidel. V případě implementace nad PostgreSQL/TimescaleDB byla navíc použita širší množina dat zahrnující také Wi-Fi senzory, elektrické měřiče a další zdroje. Tyto zprávy byly zpracovány pomocí implementovaných ETL procesů a uloženy do datového skladu vytvořeného nad několika databázovými technologiemi (PostgreSQL/TimescaleDB, MariaDB, Microsoft SQL Server a ClickHouse). Každá z těchto technologií představuje odlišný přístup -- od komerčního řešení po výkonné open-source systémy určené pro analytické zpracování dat.
+
+\subsection{Příprava a migrace datové základny}
+
+Výchozím bodem pro naplnění datového jezera (Data Lake), které sloužilo jako zdroj pro všechny následné ETL procesy, byl poskytnutý SQL dump určený pro databázi \textbf{MariaDB}. Jelikož metodika srovnání zahrnovala i jiné databázové systémy, bylo nutné provést migraci těchto dat do jednotlivých cílových prostředí. Pro každou technologii byl zvolen specifický přístup:
+
+\begin{description}[style=unboxed, leftmargin=0pt]
+    \item[\textbf{Microsoft SQL Server:}] Pro migraci do MSSQL byl zvolen dvoukrokový přístup, neboť původní pokusy o vytvoření vlastního konverzního skriptu se ukázaly jako nespolehlivé.
+    \begin{enumerate}[leftmargin=2em, label=\arabic*.]
+        \item \textbf{Export z MariaDB:} Data byla nejprve naimportována do dočasné instance MariaDB. Následně byla z této databáze exportována do univerzálního formátu CSV pomocí SQL dotazu \texttt{SELECT ... INTO OUTFILE}. Tento export vyžadoval specifické ošetření uvozovek v JSON datech, aby byl výsledný soubor validní.
+        \item \textbf{Import do MSSQL:} Výsledný CSV soubor byl naimportován do MSSQL pomocí příkazu \texttt{BULK INSERT}. Během tohoto procesu bylo také nutné manuálně omezit maximální přidělenou operační paměť (RAM) pro instanci MSSQL serveru, aby nedošlo k zahlcení systémových prostředků.
+    \end{enumerate}
+
+    \item[\textbf{PostgreSQL:}] Pro migraci do PostgreSQL byl využit nástroj \texttt{pgloader}, který umožňuje přímou migraci mezi různými databázovými systémy.
+    \begin{itemize}[leftmargin=2em, label=\textbullet]
+        \item \textbf{Konfigurace a spuštění:} Nástroj byl spuštěn v rámci vlastního Docker kontejneru. Konfigurační soubor definoval přímé připojení ke zdrojové MariaDB databázi (\texttt{host.docker.internal:3306}) a cílové PostgreSQL databázi (\texttt{host.docker.internal:5433}).
+        \item \textbf{Optimalizace výkonu:} Konfigurace \texttt{pgloader} byla optimalizována pro co nejvyšší rychlost přenosu. Bylo využito paralelní zpracování (\texttt{workers = 4}, \texttt{concurrency = 4}), dávkování dat po 50\,000 řádcích (\texttt{batch rows = 50000}) a navýšení operační paměti pro proces migrace (\texttt{maintenance\_work\_mem to '512MB'}).
+        \item \textbf{Přetypování dat:} Součástí konfiguračního souboru byla také explicitní pravidla pro přetypování datových typů mezi oběma systémy, zejména pro správnou interpretaci časových údajů (\texttt{CAST type datetime to timestamptz...}).
+    \end{itemize}
+\end{description}
+
+Těmito postupy bylo zajištěno, že identická datová základna (datové jezero) byla k dispozici ve všech testovaných databázových systémech.
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/sqldump_v2.png}
+  \caption{Aktivity diagram nahrání MariaSQL dumpu do odlišných databází.}
+  \label{fig:sqldump}
+\end{figure}
+
+\clearpage
+
+
+\section{Návrh metodiky porovnání}
+
+Cílem metodiky porovnání je zajistit objektivní a opakovatelné vyhodnocení open-source a~komerčních technologií využitelných pro analýzu a vizualizaci dat v prostředí platformy Portabo.
+Porovnání je založeno na principech jednotného datového toku, jednotného datového modelu a~shodného způsobu zpracování dat.
+Tím je zaručeno, že rozdíly ve výsledcích budou dány samotnými vlastnostmi testovaných technologií, nikoli odlišnostmi v implementaci.
+
+Každá z porovnávaných variant bude hodnocena z následujících hledisek:
+\begin{itemize}
+  \item \textbf{Výkonové parametry} – rychlost načítání a zpracování dat, doba odezvy analytických dotazů, efektivita indexace a agregací;
+  \item \textbf{Funkční vlastnosti} – podpora OLAP analýz, kompatibilita s vizualizační vrstvou a možnosti rozšiřitelnosti;
+  \item \textbf{Uživatelská přívětivost} – náročnost správy, dostupnost nástrojů a srozumitelnost konfigurace;
+  \item \textbf{Ekonomické aspekty} – licenční politika, náklady na provoz, údržbu a škálování.
+\end{itemize}
+
+Metodika tedy určuje rámec, v němž budou jednotlivé technologie nasazeny, naplněny shodnými daty a následně testovány.
+
+\section{Příprava dat a návrh datového skladu}
+
+\subsection{Analýza a příprava zdrojových dat}
+V úvodní fázi implementace byla vybrána konkrétní datová doména, nad kterou bude systém postaven. V tomto případě se jedná o kamerový systém města Bílina.
+Cílem bylo ověřit, zda je možné tato data zpracovávat a následně připravit půdu pro jejich dynamické zpracování.
+
+Poskytnutý \texttt{MariaDB} SQL dump obsahoval následující sloupce:
+\texttt{id (bigint(11))}, \texttt{time (timestamp)}, \texttt{topic (tinytext)} a \texttt{payload (text)}.
+Tyto údaje představovaly surová telemetrická data, původně pocházející z MQTT komunikace, která byla exportována do databázového dumpu. Tento dump sloužil jako vstupní datová sada pro analýzu a testování datového toku.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/mqttentries_structure.png}
+  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data. Zdroj: Dbeaver}
+  \label{fig:mqttentries}
+\end{figure}
+
+Z obrázku je patrná struktura vstupních dat. Ze sloupce \texttt{topic} lze částečně odvodit, o jaký typ senzoru se jedná.
+Podrobnější analýza však ukázala, že názvy témat nejsou konzistentní. Například kamera z Bíliny může mít téma \texttt{/Bilina/kamery/camea/BI-TP-O2}, zatímco vodoměr je označen jednoduše \texttt{/vodomery/decin}.
+V databázi se rovněž vyskytují senzory, které vykonávají stejnou funkci, avšak používají odlišné pojmenování.
+
+Z těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamicky parsoval JSON struktury na základě názvů témat, není vzhledem k nekonzistenci dat reálně možné. Bylo nutné zvolit robustnější přístup založený na analýze obsahu samotných zpráv.
+
+\subsubsection{Automatizovaná analýza JSON struktur}
+
+Pro systematickou analýzu JSON~\cite{rfc8259} struktur byl vytvořen vlastní skript v~jazyce Python, \texttt{analyze\_json.py}. Tento skript seskupuje MQTT témata do logických celků na základě strukturální podobnosti jejich JSON schémat ve sloupci \texttt{payload}.
+
+K~porovnání struktury dvou JSON objektů byla využita \textbf{Jaccardova podobnost}~\cite{mining_massive_datasets}, která měří poměr velikosti průniku a sjednocení množin jejich klíčů. Analýza s~prahovou hodnotou 100\,\% shody odhalila větší množství identických struktur, avšak některé senzory se lišily pouze v~několika atributech – pravděpodobně kvůli odlišným verzím firmwaru. Proto byla hodnota podobnosti postupně snižována až na 50\,\%, čímž se podařilo identifikovat širší spektrum vzájemně příbuzných JSON struktur.
+
+Výstupem této první fáze analýzy jsou skupiny témat, které sdílejí podobnou datovou strukturu, jak je znázorněno na obrázku \ref{fig:topic_groups_initial}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/topic50.png}
+  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat. Zdroj: Excel}
+  \label{fig:topic_groups_initial}
+\end{figure}
+
+V dalším kroku bylo nutné tyto automaticky vygenerované skupiny ručně zrevidovat. Ukázalo se, že některé skupiny, ačkoliv měly mírně odlišnou JSON strukturu, patřily ke stejnému typu zařízení, které pouze měřilo jinou veličinu (např. jeden senzor měřící napětí a druhý proud). Tyto logicky související skupiny byly následně sloučeny do finálních celků určených pro ETL zpracování. Tento proces je znázorněn na obrázku \ref{fig:topic_groups_merged}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/topic50_2.png}
+  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napříč skupiny. Zdroj: Excel}
+  \label{fig:topic_groups_merged}
+\end{figure}
+
+\clearpage
+
+\subsection{Návrh a principy ETL procesů}
+
+Na základě analýzy dat byly navrženy a implementovány samostatné ETL skripty pro jednotlivé databázové technologie. Každý z těchto skriptů zajišťuje přenos dat z \textit{datového jezera} (surová MQTT data) do \textit{staging vrstvy datového skladu}, kde jsou data očištěna a standardizována. Následně jsou zpracovaná data přesunuta do faktové tabulky \texttt{FactCameraDetection}, která tvoří jádro analytické vrstvy systému.
+
+Všechny implementace sdílejí jednotný princip inkrementálního načítání dat. Každý běh ETL skriptu začíná načtením posledního zpracovaného identifikátoru z tabulky \texttt{ETL\_IncrementalControl} (sloupec \texttt{LastLoadedID}). Tímto způsobem se při každém dalším běhu zpracovávají pouze nově přijaté zprávy. Průběh každého běhu je zapisován do tabulky \texttt{ETL\_RunLog}, kde jsou evidovány údaje jako název úlohy, čas spuštění a stav (\texttt{RUNNING}, \texttt{SUCCESS} či \texttt{FAILED}).
+
+Data jsou zpracovávána v dávkách (tzv. \textit{batchích}), jejichž velikost je řízena parametrem \texttt{BATCH\_SIZE}. Každý skript používá databázové kurzory a příkazy \texttt{fetchmany()}, aby se minimalizovalo zatížení paměti. Klíčovým polem v těchto datech je \texttt{payload}, obsahující JSON strukturu s detaily detekce. Pro jeho zpracování byly v rámci práce implementovány dva odlišné přístupy:
+
+\begin{itemize}
+    \item \textbf{Statické ETL (SQL Server, MariaDB, MariaDB+ClickHouse):} Tento přístup byl implementován pro data z~kamerového systému města Bílina (\texttt{/Bilina/kamery/camea/\%}). Vytvořené skripty využívají předem definovanou znalost struktury JSON dat a atributy z~\texttt{payload} jsou mapovány na pevně dané sloupce ve staging tabulce.
+    \item \textbf{Dynamické ETL (PostgreSQL s TimescaleDB):} Naopak pro implementaci nad databází PostgreSQL byl zvolen univerzální přístup. Skript (\texttt{pg\_timescale\_lake\_to\_staging.py}) byl navržen tak, aby se dokázal automaticky adaptovat na různorodé JSON struktury. Během zpracování dynamicky analyzuje obsah \texttt{payload}, odvozuje datové typy a v případě potřeby sám upravuje cílovou staging tabulku příkazem \texttt{ALTER TABLE}.
+\end{itemize}
+
+Při zpracování dat jsou prováděny převody datových formátů, ošetřovány chybějící hodnoty a~celý proces je obalen v transakcích a blocích \texttt{try/except} pro zajištění konzistence a logování chyb.
+
+\subsection{Implementace ETL pro jednotlivé technologie}
+
+\subsubsection{SQL Server ETL}
+ETL proces pro SQL Server je dvoukrokový a obsluhují jej dva samostatné skripty.
+\begin{itemize}
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+     \texttt{mssql\_bilina\_kamery\_lake\_to\_staging.py} skript využívá knihovnu \texttt{pyodbc}. Inkrementálně načítá surová data z tabulky \texttt{mqttentries}, parsuje JSON \texttt{payload} a očištěné záznamy vkládá po dávkách do staging tabulky \texttt{[Stg].[CameraCamea]}. Každý běh je logován v tabulce \texttt{ETL\_RunLog}, přičemž pro získání ID běhu využívá T-SQL klauzuli \texttt{OUTPUT inserted.RunID}.
+
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+    \texttt{mssql\_bilina\_kamery\_staging\_to\_fact.py} skript zpracovává data připravená ve stagingu. Pro nalezení nových dimenzních hodnot nejprve vloží unikátní záznamy z dávky do dočasné tabulky \texttt{\#\#TempDimensions}. Následně pomocí T-SQL klauzule \texttt{EXCEPT} porovná obsah dočasné tabulky s existujícími dimenzemi a vloží pouze chybějící záznamy. Poté konstruuje záznamy pro faktovou tabulku \texttt{FactCameraDetection} pomocí \texttt{LEFT JOIN} na dimenze.
+\end{itemize}
+
+\subsubsection{MariaDB + MariaDB ColumnStore ETL}
+Implementace pro MariaDB se řídí stejnou dvoukrokovou logikou, avšak krok 2 je přizpůsoben pro specifika enginu ColumnStore.
+\begin{itemize}
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+    \texttt{maria\_bilina\_kamery\_lake\_to\_staging.py} skript používá knihovnu \texttt{pymysql}. Načítá data z datového jezera, zpracovává JSON a ukládá je do staging tabulky \texttt{Stg\_CameraCamea}. Pro aktualizaci kontrolní tabulky využívá MySQL klauzuli \texttt{ON DUPLICATE KEY UPDATE}.
+
+ \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+ \texttt{maria\_bilina\_kamery\_staging\_to\_fact.py} skript používá pro plnění dimenzí příkaz \texttt{INSERT IGNORE}, který přeskočí již existující záznamy. Při plnění faktové tabulky skript nejprve v~Pythonu načte všechny dimenzní klíče do paměti, následně projde staging data, nahradí původní hodnoty číselnými klíči a celý výsledek zapíše do dočasného CSV souboru. Nakonec je tento soubor nahrán do faktové tabulky pomocí příkazu \texttt{LOAD DATA LOCAL INFILE}.
+
+V~kontextu enginu ColumnStore, který nativně nepodporuje auto-inkrementaci, existují dvě hlavní strategie pro generování primárních klíčů. V~této práci byla zvolena cesta \textbf{generování klíčů přímo v~ETL procesu}. Alternativní možností je využití řádkového enginu \textbf{InnoDB} (který auto-inkrementaci podporuje) pro prvotní nahrání dat, následné odstranění indexů a finální přepnutí tabulky na sloupcový formát (\texttt{ALTER TABLE ... ENGINE=ColumnStore}). Nicméně tato strategie nebyla pro můj případ vyhovující.\end{itemize}
+
+\subsubsection{PostgreSQL + PostgreSQL TimescaleDB ETL}
+ETL proces pro PostgreSQL je unikátní svým dynamickým přístupem v prvním kroku a hromadným vkládáním ve druhém.
+\begin{itemize}
+    \item \textbf{Krok 1: Dynamické ETL z jezera do stagingu} \\
+    \texttt{pg\_timescale\_lake\_to\_staging.py} skript automaticky analyzuje JSON \texttt{payload}. Pomocí funkcí \texttt{flatten\_json()} a~\texttt{infer\_pg\_type()} dynamicky odvozuje schéma a datové typy. Pokud narazí na nový atribut, sám upraví cílovou staging tabulku příkazem \texttt{ALTER TABLE}.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů} \\
+    \texttt{pg\_timescale\_staging\_to\_fact.py} skript využívá pro plnění dimenzí specifickou vlastnost PostgreSQL – příkaz \texttt{INSERT ... ON CONFLICT DO NOTHING}. Tento příkaz je spouštěn pomocí optimalizační funkce \texttt{execute\_values} z knihovny \texttt{psycopg2}, která sestaví jediný rozsáhlý \texttt{INSERT} příkaz obsahující všechny hodnoty najednou. Toto umožňuje databázi zpracovat celou dávku v jediné operaci. Následně jsou data ze stagingu pomocí standardního \texttt{INSERT INTO ... SELECT} s \texttt{LEFT JOIN}y transformována do faktové tabulky.
+\end{itemize}
+
+\subsubsection{MariaDB + ClickHouse ETL}
+Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými technologiemi a specifickým způsobem přenosu dat.
+\begin{itemize}
+    \item \textbf{Krok 1: Z datového jezera do stagingu} \\
+    \texttt{maria\_click\_bilina\_kamery\_lake\_to\_staging.py} skript zajišťuje přenos dat z MariaDB do ClickHouse. Pro zápis do ClickHouse je využit nativní binární protokol (port 9000), přičemž data jsou v Pythonu agregována do dávky záznamů (tuples) a odeslána v jedné operaci. Data z MariaDB jsou čtena proudově (streaming) po menších dávkách, čímž se zamezuje načtení celého objemu dat do paměti najednou. Veškeré řídicí a logovací tabulky (\texttt{ETL\_IncrementalControl}, \texttt{ETL\_RunLog}) jsou spravovány přímo v ClickHouse.
+    \item \textbf{Krok 2: Ze stagingu do dimenzí a faktů } \\
+    \texttt{maria\_click\_bilina\_kamery\_staging\_to\_fact.py} skript spouští sérii SQL dotazů. Pro naplnění dimenzí se používá konstrukce \texttt{INSERT INTO ... SELECT ... WHERE NOT IN}, která vybere a vloží pouze nové hodnoty. Následně jsou data transformována do faktové tabulky jediným příkazem \texttt{INSERT INTO ... SELECT} obsahujícím všechny potřebné \texttt{LEFT JOIN}y na dimenzní tabulky.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/lake_to_staging.png}
+  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \label{fig:laketostaging}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/staging_to_fact.png}
+  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \label{fig:stagingtofact}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/MariaDW_staging.png}
+  \caption{Staging tabulka v datovém skladu. Zdroj: DBeaver}
+  \label{fig:mariadwstaging}
+\end{figure}
+
+\clearpage
+
+\section{Struktura a vrstvy datového skladu}
+
+Zdrojová data byla získávána ze systému Portabo, kde jsou ukládána jako MQTT zprávy v JSON formátu. Data mi byli poskytnuty zašifrované, abychom je mohli v rámci bakalářské práce využít.
+Tyto zprávy obsahují informace o detekcích vozidel – například registrační značku, typ detekce, rychlost, město, čas a senzor. Data z vodoměrů, elektroměrů a dalších senzorů. 
+V rámci ETL procesu byla provedena tato fáze:
+
+\begin{itemize}
+  \item \textbf{Data lake:} surová data načtená přímo z MariaDB SQLDump,
+  \item \textbf{DW Staging:} očištěná, formátovaná a rozparsovaná data,
+  \item \textbf{DW Faktová tabulka:} data transformovaná do hvězdicového modelu s vazbami na dimenze.
+\end{itemize}
+
+Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a kontrolu posledního zpracovaného záznamu (\texttt{LastLoadedID}), aby bylo možné ETL proces spouštět opakovaně a inkrementálně.
+    \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/ERD.png}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z kamerového systému firmy CAMEA Technology, a. s. na datové platformě Portabo}
+\end{figure}
+
+\section{OLAP a vizualizace}
+
+V rámci praktické části byly nad vytvořenými datovými sklady vystavěny dvě samostatné analytické vrstvy – každá odpovídající jedné z testovaných technologií.  
+Cílem bylo vytvořit funkční OLAP modely umožňující tvorbu interaktivních vizualizací, a současně porovnat rozdíly mezi komerčním řešením na platformě Microsoft SQL Server a open-source přístupem postaveným na nástroji Cube.js.
+
+\subsection{Komerční varianta – SSAS Tabular a Power BI}
+
+V komerční větvi datové platformy byl vytvořen datový model v prostředí \textbf{SQL Server Analysis Services (SSAS) Tabular}.  
+Model byl vystavěn nad tabulkami \texttt{FactCameraDetection} a~dimenzemi \texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}.  
+Propojení tabulek bylo definováno prostřednictvím relačních vazeb podle cizích klíčů, přičemž datový model respektuje hvězdicovou topologii (\emph{star schema}).
+
+Po načtení dat z datového skladu byla v prostředí SSAS vytvořena sada vypočítaných metrik v jazyce \texttt{DAX}.  
+Jednalo se například o:
+\begin{itemize}
+  \item \texttt{Detection Count} – celkový počet detekcí,
+  \item \texttt{Average Velocity} – průměrná rychlost vozidel (vylučující nulové hodnoty),
+  \item \texttt{Unique Plates} – počet unikátních registračních značek,
+  \item \texttt{Detections Over Time} – časová agregace počtu detekcí podle dne a hodiny.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/PBIreport.png}
+  \caption{Ukázka výsledného PBI reportu}
+  \label{fig:pbi}
+\end{figure}
+
+Součástí modelu byla také implementace základních hierarchií (například \textit{Rok → Měsíc → Den}) a vybraných filtračních atributů pro přehlednější práci v Power BI.  
+Po ověření funkčnosti byl model nasazen na instanci \texttt{SSAS Tabular} a zpřístupněn uživatelům prostřednictvím \textbf{Microsoft Power BI} a \textbf{Excel PivotTables}.  
+V Power BI byly vytvořen interaktivní report zobrazující přehled detekcí podle města, typu vozidla, senzoru a času.  
+Některé metriky byly navíc doplněny o logiku pro kontrolu konzistence dat a filtrování extrémních hodnot.  
+Výhodou tohoto přístupu byla plná integrace s ekosystémem Microsoft, vysoký výkon in-memory výpočtů a možnost implementace bezpečnostních pravidel na úrovni datového modelu.
+
+
+
+
+\subsection{Open-source varianta – Cube.js a Apache Superset}
+
+V open-source větvi datové platformy byla analytická vrstva implementována pomocí nástroje \textbf{Cube.js}, který byl nasazen nad databázemi \textbf{ClickHouse}, \textbf{MariaDB} a \textbf{PostgreSQL (TimescaleDB)}.  
+Cube.js v tomto řešení plnil roli mezivrstvy typu OLAP, která sjednocovala přístup k datům z různých databázových systémů a poskytovala standardizované rozhraní pro vizualizaci.
+
+Definice datového modelu byla realizována formou JavaScriptových souborů, přičemž hlavní model byl popsán v souboru \texttt{factcameradetection.js}.  
+V tomto souboru byla definována analytická kostka \texttt{FactCameraDetection}, která obsahovala popis faktové tabulky a vazby na příslušné dimenze (\texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}).  
+Součástí definice byly také klíčové metriky odpovídající komerční variantě:  
+celkový počet detekcí, průměrná rychlost, minimální a maximální rychlost, počet unikátních SPZ a počet detekcí s~nenulovou rychlostí.  
+Model využíval vazby typu \texttt{JOIN} na cizí klíče a odpovídal hvězdicovému schématu použitému v datovém skladu.
+
+Po sestavení modelu byl \textbf{Cube.js} spuštěn jako samostatná \texttt{Node.js} služba, která poskytovala rozhraní typu \textbf{PostgreSQL API}.  
+Toto rozhraní umožňuje klientským aplikacím komunikovat s~Cube.js stejným způsobem, jako by šlo o běžnou SQL databázi – tedy pomocí SQL dotazů.  
+Díky tomu bylo možné na Cube.js napojit nástroj \textbf{Apache Superset}, který byl použit jako hlavní vizualizační platforma open-source řešení.  
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/Supersetreport.png}
+  \caption{Ukázka výsledného Superset reportu}
+  \label{fig:topic50}
+\end{figure}
+
+V rámci Superset byly vytvořen interaktivní dashboard zobrazující klíčové metriky:  
+počty detekcí v čase, rozložení typů vozidel, přehled rychlostí.  
+Data byla načítána prostřednictvím SQL dotazů směrovaných na PostgreSQL endpoint poskytovaný Cube.js, čímž byla zajištěna kompatibilita bez nutnosti dalších úprav.  
+Pro zvýšení výkonu byly v Cube.js aktivovány funkce \textit{pre-aggregations} a~\textit{query caching}, které umožňovaly ukládat výsledky často opakovaných dotazů.  
+
+
+
+
+
+\subsection{Porovnání přístupů}
+
+Oba přístupy poskytují plnohodnotnou OLAP analytiku, avšak liší se způsobem implementace i správy.  
+\textbf{SSAS Tabular} umožňuje centrální řízení, pokročilé DAX výpočty a přímou integraci s Power BI, což zjednodušuje nasazení ve firemním prostředí.  
+Naopak \textbf{Cube.js} nabízí flexibilitu, otevřenost a možnost úprav datového modelu přímo v kódu, což je výhodné zejména v agilním vývoji nebo při potřebě integrovat analytiku do webové aplikace.  
+
+Obě řešení tak umožnila plnohodnotnou vizualizaci a analýzu dat z detekčních systémů, přičemž volba konkrétní technologie závisí především na prostředí, infrastruktuře a požadavcích na rozšiřitelnost systému.
+
+
+\section{Provedení srovnávací analýzy}
+
+Cílem této kapitoly je objektivní srovnání výkonu a funkčních vlastností implementovaných datových architektur. Analýza byla primárně koncipována jako \textbf{„out-of-the-box“ srovnání}, což znamená, že hodnotí výkon systémů v jejich výchozí konfiguraci s běžně používanými indexy. Tento přístup reflektuje realitu organizací, které často nedisponují hlubokou expertizou pro pokročilé ladění databázového jádra.
+
+Srovnání probíhalo ve dvou hlavních rovinách:
+\begin{enumerate}
+    \item \textbf{Výkon na úrovni databáze:} Přímé měření doby odezvy SQL dotazů na různých databázových systémech a úložných enginech.
+    \item \textbf{Výkon na úrovni BI nástroje:} Hodnocení uživatelského prožitku, konkrétně rychlosti načtení dashboardů.
+\end{enumerate}
+
+\subsection{Srovnání výkonu na úrovni databáze}
+
+V první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v řádech několika magnitud.
+
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště.
+
+Detailní znění všech použitých SQL dotazů je k dispozici v příloze na githubu. Odkaz na github najdete v kapitole Příloha.
+
+\begin{enumerate}
+    \item \textbf{Dotaz 1: Jednoduchá agregace s jedním spojením} 
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace1.png}
+      \caption{Výkon jednoduché agregace s jedním spojením (Dotaz 1). Méně je lépe}
+      \label{fig:srovnani1}
+    \end{figure}
+
+    Obrázek \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k masivnímu I/O a pomalé odezvě.
+
+    \clearpage
+    \item \textbf{Dotaz 2: Agregace nad časovou dimenzí}
+       \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace2.png}
+      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
+      \label{fig:srovnani2}
+    \end{figure}
+    Druhý dotaz (počet detekcí v čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku. To je způsobeno efektivním využitím B-stromového indexu na sloupci `TimeKey`, díky kterému engine nemusel provádět sken celé tabulky.
+
+  
+    \item \textbf{Dotaz 3: Vícenásobné spojení a filtrování}
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace3.png}
+      \caption{Výkon dotazu s vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe}
+      \label{fig:srovnani3}
+    \end{figure}
+
+    Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL a ClickHouse, které efektivně aplikují filtry (predicate pushdown) ještě před samotným spojením tabulek.
+
+    \item \textbf{Dotaz 4: Agregace nad dvěma dimenzemi}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace4.png}
+      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe}
+      \label{fig:srovnani4}
+    \end{figure}
+    
+    U čtvrtého dotazu s vyšší kardinalitou seskupování je opět patrný fatální propad řádkové MariaDB ve srovnání se sloupcovými variantami, které poskytují odezvu v řádu sekund.
+
+    \item \textbf{Dotaz 5: Komplexní dotaz s CTE a okenní funkcí}
+      \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{img/agregace5.png}
+      \caption{Výkon komplexního dotazu s CTE a okenní funkcí (Dotaz 5). Méně je lépe}
+      \label{fig:srovnani5}
+    \end{figure}
+\end{enumerate}
+
+Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a MS SQL si s komplexitou poradí, řádková MariaDB v základním nastavení naráží na své limity.
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/porovnani_vykonu_databazi_high_res.png}
+  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe}
+  \label{fig:srovnani6}
+\end{figure}
+
+\subsubsection{Vliv strategie indexace na výkon MariaDB (InnoDB)}
+
+Vzhledem k výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti ostatním systémům (PostgreSQL, MS SQL), které i v řádkovém režimu dosahovaly lepších časů, byla provedena dodatečná analýza indexace.
+
+Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy (např. díky pokročilejší paralelizaci dotazů), MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z indexové struktury a zcela eliminuje nákladné čtení z datových souborů na disku.
+
+
+Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k řádovému zrychlení:
+Tento experiment potvrzuje, že MariaDB je schopna sloužit i pro analytické dotazy, vyžaduje však – na rozdíl od jiných databází – striktní a manuální optimalizaci indexů na míru konkrétním dotazům.
+
+\subsubsection{Interpretace výsledků databázové vrstvy}
+Souhrnná analýza demonstruje několik klíčových zjištění:
+\begin{itemize}
+    \item \textbf{Efektivita optimalizátorů dotazů:} Ačkoliv jsou sloupcové databáze (ClickHouse, MariaDB ColumnStore) pro OLAP zátěž přirozeně vhodnější, testy ukázaly, že robustní optimalizátor dotazů (MS SQL Server) dokáže i v řádkovém režimu dosáhnout srovnatelných výsledků.
+    \item \textbf{Specifika MariaDB:} Jak bylo prokázáno v doplňkovém testu, řádková MariaDB může být výkonná, ale vyžaduje pokročilou správu indexů (covering indexes), což zvyšuje nároky na údržbu oproti systémům, které jsou výkonné „out-of-the-box“.
+    \item \textbf{Výkon nativních OLAP databází:} \textbf{ClickHouse} potvrdil svou dominanci v oblasti analytického zpracování a ve většině testů dosahoval nejlepších výsledků s časy pod jednu sekundu.
+    \item \textbf{Univerzálnost MS SQL Serveru:} Komerční řešení od Microsoftu prokázalo vysokou stabilitu a výkon. A to jak při použití Columnstore indexů, kde se blížilo výkonu ClickHouse, tak i v klasickém řádkovém režimu, kde díky pokročilé optimalizaci výrazně překonalo ostatní řádkové databáze.
+    \item \textbf{Specifika TimescaleDB:} Výkon TimescaleDB byl v tomto srovnání podobný jako u PostgreSQL. Důvodem je, že TimescaleDB není architektonicky cílena na hvězdicové schéma (Star Schema). Nejvyšší efektivity dosahuje při použití denormalizovaných tabulek, kde jsou data uložena v rámci jedné velké struktury (hypertable). Tento přístup umožňuje lépe využít její optimalizační mechanismy, jako je komprese a automatický partitioning.
+\end{itemize}
+
+\subsection{Srovnání výkonu a architektury BI nástrojů}
+
+Druhá fáze testování se zaměřila na rychlost odezvy z pohledu koncového uživatele. Zde se ukázaly zásadní rozdíly plynoucí z odlišných architektur obou řešení.
+
+\begin{itemize}
+    \item \textbf{Komerční varianta (Power BI + MS SSAS) -- MOLAP In-Memory}
+    \begin{itemize}
+        \item \textbf{Princip:} Data jsou z datového skladu předem zpracována a kompletně načtena do tabulárního modelu v operační paměti (RAM).
+        \item \textbf{Výhody:} Extrémní rychlost odezvy ($<1$ s u náročných vizuálů, $\sim 100$ ms u běžných). Dotazy nečekají na I/O operace disku, což poskytuje maximální uživatelský komfort. Výkon je dostupný „out-of-the-box“.
+        \item \textbf{Nevýhody:} Omezení velikostí operační paměti serveru a fakt, že data nejsou živá (nutnost periodického refreshe modelu).
+    \end{itemize}
+
+    \item \textbf{Open-source varianta (Superset + Cube.js) -- ROLAP}
+    \begin{itemize}
+        \item \textbf{Princip:} Pracuje nad daty v databázi. Každý vizuální prvek generuje SQL dotaz v reálném čase.
+        \item \textbf{Výhody:} Obrovská škálovatelnost (terabajty dat) a flexibilita architektury (možnost výměny DB enginu, např. ClickHouse). Nulové licenční náklady.
+        \item \textbf{Nevýhody:} Nižší hrubý výkon oproti in-memory řešení. Vysoká náročnost na optimalizaci (indexy, partitioning) a správu pre-agregací.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Klíčová role pre-agregací v open-source stacku}
+
+Během testování open-source varianty se ukázalo jako klíčové nasazení \textbf{pre-agregací} v Cube.js.
+
+Bez nich byla odezva závislá čistě na výkonu databáze (u ClickHouse cca \textbf{5 sekund} pro načtení ilustračního dashboardu). Implementace pre-agregací – tedy malých, předpočítaných sumarizačních tabulek – umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
+
+\subsection{Závěrečné shrnutí výsledků}
+
+Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v interaktivní analytice je volba správné databázové technologie a architektury rozhodující.
+
+Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu „out-of-the-box“. Měření ukázala prakticky okamžité reakce: vykreslení nejnáročnějšího grafu trvalo přibližně \textbf{1 sekundu}, zatímco ostatní vizualizace se načítaly v řádu \textbf{100 ms}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/PowerBI - analyzer.png}
+  \caption{Power BI Performance Analyzer - analýza vykreslování}
+  \label{fig:srovnani5}
+\end{figure}
+
+Open-source stack (Superset + Cube.js) se tomuto výkonu dokázal přiblížit, ale pouze za cenu výrazného ladění. Kombinace databáze MariaDB ColumnStore s pre-agregacemi dosáhla času \textbf{2 sekundy}. 
+
+Ačkoliv je tento výsledek pro open-source řešení úspěchem, k extrémnímu výkonu SSAS (100 ms) se nepřiblížilo. Tento rozdíl není chybou konfigurace, ale důsledkem fyzikálních limitů architektur. Zatímco SSAS čte předpočítaná data přímo z operační paměti (MOLAP), open-source řešení – i přes veškeré optimalizace – naráží na limity ROLAP přístupu, který vyžaduje překlad na SQL a komunikaci s databází či pre-agregační vrstvou.
+
+Jako teoretický směr pro další optimalizaci open-source řešení se nabízí využití RAM disku, tedy umístění datových souborů databáze přímo do operační paměti serveru. Tento krok by eliminoval úzké hrdlo v podobě diskových operací a mohl by výkonově přiblížit ROLAP architekturu in-memory systémům. Praktická implementace a testování tohoto scénáře však již přesahuje rozsah i kompetence této práce. Je navíc nutné zohlednit i významná rizika, především volatilitu dat. Uložení v RAM je ze své podstaty dočasné a při restartu či výpadku serveru by došlo k okamžité ztrátě dat, což by vyžadovalo implementaci složitých mechanismů pro synchronizaci na trvalé úložiště, čímž by se neúměrně zvýšila komplexita správy celého řešení.
+
+Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
+\subsection{Analýza celkových nákladů na vlastnictví (TCO)}
+
+Vzhledem k tomu, že praktická část této práce ověřovala široké spektrum technologií – od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) – je nutné náklady hodnotit v širším kontextu.
+
+TCO v tomto případě dělíme na tři hlavní složky: \textbf{Licenční náklady}, \textbf{Infrastrukturní náklady} a \textbf{Náklady na lidský kapitál}.
+
+\subsubsection{Náklady na implementaci a lidský kapitál}
+
+\begin{itemize}
+    \item \textbf{Srovnatelná pracnost implementace:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
+    \item \textbf{Rozdíl v expertíze:} Hlavní rozdíl tedy nespočívá v objemu práce, ale v typu požadované znalosti. Zatímco správa MSSQL je na trhu běžnou komoditou, efektivní konfigurace \textbf{MariaDB Columnstore} technologie nebo ladění \textbf{Cube.js} schémat vyžaduje specifičtější, a často dražší, know-how.
+\end{itemize}
+
+Pro kvantifikaci těchto nákladů byly využity průměrné mzdy v IT sektoru dle dat Českého statistického úřadu (ČSÚ) a Informačního systému o průměrném výdělku (ISPV).
+
+\begin{table}[h!]
+\centering
+\caption{Odhad měsíčních nákladů na lidský kapitál dle rolí}
+\label{tab:personnel_costs}
+\begin{tabular}{|l|l|c|}
+\hline
+\textbf{Technologie} & \textbf{Role} & \textbf{Odhad mzdy (CZK)} \\ \hline
+MariaDB ColumnStore & Senior Database Specialist & 90 000 \\ \hline
+Superset (Vizualizace) & Junior Data Analyst & 45 000 \\ \hline
+MS SQL + SSAS & BI Developer / DWH Specialist & 70 000 \\ \hline
+\end{tabular}
+\end{table}
+
+Z tabulky vyplývá, že ačkoliv open-source řešení šetří na licencích, může vyžadovat dražší specialisty na backend (Senior DB Specialist pro správu ColumnStore clusteru), zatímco pro frontend (Superset) postačí juniorní role. Komerční ekosystém MS SQL obvykle pokrývá jedna role BI Developera se střední úrovní ohodnocení.
+
+\subsubsection{Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}
+\begin{itemize}
+    \item \textbf{Licence:} Nulové přímé náklady (Apache 2.0, MIT, GPL). Umožňuje neomezené horizontální škálování bez růstu administrativních nákladů.
+    \item \textbf{Hardware:} Vysoká efektivita. Sloupcové databáze jako ClickHouse streamují data z disku a nevyžadují, aby se celý datový model vešel do operační paměti. To umožňuje dosahovat vysokého výkonu i na levnějším hardwaru.
+\end{itemize}
+
+\subsubsection{Ekonomika komerčního řešení (Microsoft Stack)}
+U varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantní složku TCO. 
+
+\begin{itemize}
+    \item \textbf{SQL Server – Licenční model:}
+    Pro backend (DB + SSAS) se nabízí dva modely, přičemž pro veřejnou analytickou platformu je obvykle nutný model \textbf{Per Core}:
+    \begin{itemize}
+        \item \textbf{SQL Server Standard:} Cena se pohybuje okolo \textbf{3 500 -- 4 000 USD} za balík 2 jader. Tato edice je však limitována maximálně \textbf{128 GB RAM} pro databázový engine a \textbf{64 GB RAM} pro SSAS (Tabular).
+        \item \textbf{SQL Server Enterprise:} Pro využití větší paměti (nutné pro velké in-memory modely) je nutná Enterprise edice, kde cena strmě stoupá (cca \textbf{15 000 USD} za 2 jádra).
+    \end{itemize}
+
+    \item \textbf{Infrastrukturní dopad (In-Memory daň):}
+    Jelikož SSAS Tabular drží data v paměti, naráží u velkých objemů dat (Big Data) na hardwarové a licenční limity. Pokud datový model přesáhne 64 GB (limit Standard edice), organizace je nucena přejít na násobně dražší Enterprise edici, což skokově zvyšuje TCO.
+
+    \item \textbf{Power BI (Vizualizace):}
+    Zatímco Superset je zdarma pro libovolný počet uživatelů, Power BI účtuje poplatky za sdílení reportů:
+    \begin{itemize}
+        \item \textbf{Power BI Pro:} Cca \textbf{13 USD / uživatel / měsíc}.
+        \item \textbf{Power BI Premium:} Cca \textbf{23 USD / uživatel / měsíc}.
+    \end{itemize}
+    
+\end{itemize}
+
+\subsubsection{Hardwarové nároky (MOLAP vs. ROLAP)}
+Významný rozdíl v TCO tvoří také hardwarové požadavky, které vycházejí z odlišných architektur:
+
+\begin{itemize}
+    \item \textbf{MOLAP (MS SSAS):} Vyžaduje, aby se celý datový model (nebo jeho podstatná část) vešel do operační paměti (RAM). RAM je nejdražší komponentou serveru. S růstem dat rostou náklady na RAM lineárně až exponenciálně.
+    \item \textbf{ROLAP (ClickHouse/MariaDB):} Spoléhá na rychlé diskové operace. Data jsou uložena na discích (SSD/NVMe), které jsou řádově levnější než RAM. Díky efektivní kompresi (zmíněná 10x úspora u ClickHouse) jsou nároky na kapacitu úložiště minimální.
+\end{itemize}
+
+\subsubsection{Závěrečné porovnání}
+
+Analýza ukázala, že zatímco pracnost implementace (ETL v Pythonu) je u obou řešení srovnatelná, ekonomické nůžky se rozevírají při škálování:
+
+\begin{itemize}
+    \item \textbf{Komerční řešení} je ekonomicky výhodné pro menší datové modely (do limitu RAM edice Standard) a uzavřené skupiny uživatelů. Poskytuje komfort integrovaného prostředí.
+    \item \textbf{Open-source řešení} (ClickHouse + Cube.js) má zpočátku vyšší nároky na specifickou expertízu, ale s růstem objemu dat se stává výrazně levnějším. Neexistuje zde "skokový" náklad při přechodu na vyšší edici a neplatí se za pasivní konzumenty reportů.
+\end{itemize}
+
+DOPSAT!!
+
+
+Na základě provedené analýzy budou jednotlivé technologie porovnány z hlediska:
+\begin{itemize}
+  \item \textbf{Technických parametrů} – výkon při dotazech, rychlost načítání dat, náročnost správy,
+  \item \textbf{Uživatelské přívětivosti} – jednoduchost integrace s nástrojem Cube.js a možnost tvorby OLAP analýz,
+  \item \textbf{Ekonomických aspektů} – licenční podmínky, náklady na provoz a škálování.
+\end{itemize}
+Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytne doporučení vhodné platformy pro využití v rámci Portabo.
+
+\begin{table}[h!]
+\centering
+\caption{Souhrnné porovnání TCO a parametrů řešení}
+\label{tab:tco_summary}
+\begin{tabular}{|l|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{Parametr} & \textbf{MS SQL + SSAS (Komerční)} & \textbf{ClickHouse + Cube.js (Open-source)} & \textbf{MariaDB (Tradiční)} \\ \hline
+\textbf{Licence} & Vysoká (per core / user) & Zdarma (Apache 2.0 / MIT) & Zdarma (GPL) \\ \hline
+\textbf{Hardware} & Vysoké nároky na RAM (MOLAP) & Nízké nároky na RAM, vyšší I/O (ROLAP) & Střední \\ \hline
+\textbf{Storage} & Standardní komprese & Extrémní komprese (10x menší) & Bez komprese (Row) \\ \hline
+\textbf{Lidské zdroje} & BI Developer (Střední mzda) & Senior DB Spec. (Vysoká) + Junior (Nízká) & DB Admin (Střední) \\ \hline
+\textbf{Výkon} & Okamžitý (In-Memory) & Velmi vysoký (Columnar) & Nízký (pro OLAP) \\ \hline
+\textbf{Škálovatelnost} & Omezená licencí a RAM & Neomezená (Horizontální) & Omezená \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Využití AI pro validaci a revizi textu}
+
+Nad rámec samotné implementace a srovnání datových platforem byly při tvorbě této práce aplikovány moderní nástroje umělé inteligence, konkrétně \textbf{Gemini CLI}, s~cílem zajistit maximální kvalitu a konzistenci výstupů. Tato sekce popisuje metodiku využití velkého jazykového modelu (LLM) pro automatizovanou revizi a demonstruje, jak lze prostřednictvím dodání relevantního kontextu ověřovat soulad mezi teoretickým textem práce a praktickými artefakty (zdrojové kódy, databázová schémata).
+
+Standardní jazykové modely bez přístupu k~externím informacím nedokáží validovat specifické detaily konkrétního projektu, jelikož jim chybí znalost privátních dat. Pro efektivní analýzu je nezbytné modelu poskytnout tzv. \textbf{kontext} (uzemnění). Pro účely této práce bylo zvoleno řešení postavené na \textbf{Gemini CLI}, které umožnilo propojení modelu s~následujícími zdroji:
+
+\begin{itemize}
+    \item \textbf{Repozitář zdrojových kódů:} Kompletní projektová dokumentace a skripty uložené na službách \textbf{Google Drive} a \textbf{GitHub}.
+    \item \textbf{Živá databázová spojení:} Přímé napojení na testovací instance databází (ClickHouse, MS SQL, PostgreSQL, MariaDB), což umožnilo modelu analyzovat aktuální strukturu (DDL) a metadata.
+    \item \textbf{Text práce:} Zdrojový \LaTeX{} soubor, který sloužil jako referenční bod pro kontrolu obsahu.
+\end{itemize}
+
+Díky zpřístupnění tohoto kontextu bylo možné formulovat komplexní validační dotazy, například: \emph{„Je v~celém textu konzistentně dodržováno pojmenování ETL skriptů oproti repozitáři?“} nebo \emph{„Odpovídá popis architektury v~kapitole 3 reálné konfiguraci v~Docker souborech?“}.
+
+Ačkoliv model Gemini disponuje rozsáhlým kontextovým oknem (přesahujícím 1 milion tokenů), pro efektivní analýzu je nutná optimalizace dotazů. Namísto načítání kompletního obsahu databáze (což by bylo výpočetně neefektivní) je vhodnější modelu zpřístupnit pouze schémata tabulek, indexy a systémové pohledy. Tímto způsobem lze nechat umělou inteligenci autonomně ověřit soulad mezi technickou implementací a jejím popisem v~textové části práce.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/Gemini-cli-architecture.png}
+  \caption{Architektura propojení LLM s lokálními zdroji (Component Diagram)}
+  \label{fig:gemini_cli_uml}
+\end{figure}
+
+
+\chapter{Sazba ukázek kódu}
+
+Sazba ukázek kódu je klíčová pro bakalářské práce věnované implementaci nějaké aplikace či knihovny.
+
+Základní zásady pro sazbu ukázek kódu:
+
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\chapter{Citace}
+
+Citace tvoří jeden ze základních pilířů závěrečné práce. Platí zde základní pravidlo: pokud použijete 
+jakoukoliv zdroj informací, pak je nutné tento zdroj citovat, tj. uvést příslušný zdroj.
+
+Zdrojem je ve většině případů text, ale může to být i obrázek, audiovizuální materiál či ve speciálních případech i ústní sdělení. V případě informatických prací je častým zdrojem u zdrojový kód.
+
+Informaci ze zdroje můžete použít dvěma různými způsoby:
+
+\begin{itemize}
+\item přímo převzít (u textů je to známé Ctrl-C, Ctrl-V)
+\item použít jako základ vlastního intelektuálního výtvoru (textu, grafiky, programu, apod.), tj. použijete jen informaci, ale její formu změníte.
+\end{itemize}
+
+Prví druh tzv. přímé citace by měli mít v informatických závěrečných prací jen velmi omezený rozsah (méně než stránka), neboť jejich přínos pro hodnocení práce je diskutabilní. Přesto jsou však případy, kdy jsou vhodné:
+
+\begin{enumerate}
+\item matematické definice a tvrzení (věty, axiomy)
+\item definice termínů z neinformatických oborů (např. společenských věd)
+\item citace norem resp. standardů
+\end{enumerate} 
+
+Citace mají tři základní cíle:
+\begin{enumerate}
+\item určují, co je váš vlastní intelektuální přínos a co jste pouze převzali
+\item pomáhají určovat primárního autora (resp. autory)
+\item definují kontext vaší práce resp. mohou usnadňovat nalezení dalších souvisejících informací
+\end{enumerate}
+
+Jakákoliv vědecká práce nevzniká na zelené louce a tak jsou citace její nezbytnou součástí. V rámci práce běžně navazujeme na existující výzkumy, projekty, technologie apod. Stejně tak se můžeme odkazovat na autority či s nimi polemizovat.
+
+První dva cíle také úzce souvisejí s plagiátorstvím. Pokud v práci použijete myšlenku či údaj bez citování je vaše práce plagiátem. I když se to v obecném mínění vztahuje jen na přímé kopírování, není tomu tak. Přímé kopírování se jen snadněji vyhledává a prokazuje. Je také obtížnější jej kvantifikovat.
+
+V případě přímého kopírování, jež není označeno jako přímá citace, postačuje i relativně malý rozsah (například věta, jeden obrázek, jedna procedura), aby byla práce označena jako plagiát. Plagiát není možno obhájit a v případě většího rozsahu hrozí i vyloučení ze studia. Za přímé kopírování se považují i případy, kde je změna jen formální (změna slovosledu, náhrada synonym, zkrácení, vložení textové výplně, změna barvy či afinní transformace obrázku).
+
+V případě převzetí myšlenky jde o zjevné plagiování, pokud je tato myšlenka důležitou částí práce (podílí se na splnění cílů). 
+
+To, že není plagiátorství odhaleno před obhajobou práce, není důkazem, že se nejedná o plagiát. Pokud je plagiátorství zjištěno později, může vám být odebrán titul i zpětně (a jak jste si jistě všimli, plagiátorství je běžně využíváno v politickém boji).
+
+V každém případě si uvědomte, že plagiátorství je druh krádeže a že ani vy nechcete, aby někdo vaše myšlenky nebo dokonce váš text vydával za vlastní.
+
+\section{Označování citací}
+
+Označování citace má dvě části. Za prvé je nutno označit, jaká část práce je citací (rozsah) a jaký je původní zdroj. 
+
+Zdroj je vždy určen odkazem na bibliografický záznam, které jsou v případě bakalářské práce uvedeny v kapitole \textit{Použité zdroje} na konci práce. Odkaz může mít různý tvar, ale preferovaný styl je uvedení čísla záznamu v hranatých závorkách. V případě použití našeho latexovského stylu stačí použít příkaz \verb!\cite{id-zaznamu}!. V případě potřeby lze zdroj zpřesnit uvedením např. stránky či kapitoly, jež se uvádí za číslem záznamu (po čárce a ještě před uzavírající hranatou závorkou). V \LaTeX u lze využít nepovinný parametr příkazu \verb!cite!.
+
+Označení rozsahu se poněkud liší u přímých a nepřímých citací.
+
+U přímých citací je označení rozsahu kritické. V případě citací, které jsou kratší než odstavec je nutné text vyznačit kurzívou a zahrnout do uvozovek. Odkaz musí následovat hned za označným textem.
+
+U citací v rozsahu odstavce či více odstavců se využívá zvětšení okrajů na levé i pravé straně odstavců (viditelné na první pohled). V \LaTeX u lze použít prostředí \verb!quote! nebo \verb!quotation!. Text by měl být navíc v uvozovkách. Kurzíva je možná, ale u rozsáhlejších citací není příliš vhodná. Odkaz se umisťuje na konec posledního převzatého odstavce.
+
+Speciální případ je možný v případě matematických definic a vět. Pokud jsou v rámci kapitoly převzaty jen z jediného zdroje, lze na počátku kapitoly uvést hromadný odkaz například v podobě věty: Všechny definice a věty uvedené v této kapitole jsou převzaty z [X].
+
+V případě převzatých obrázků se odkaz umisťuje na konec popisku. Aby však bylo zřejmé, že se jedná o přímé převzetí (kurzívu ani uvozovky nelze použít) je nutné explicitně vyjádřit, že obrázek byl převzat ze zdroje bez podstatných změn například: (převzato z [X]) nebo (překresleno z [X]).
+
+U nepřímých citací je vyznačování rozsahu volnější. Nejjednodušší je uvádění holé citace na konci vět (před tečkou) nebo konci odstavce (za poslední tečkou). V mnoha případech je ale možné citace
+uvádět explicitněji a stylistiky je provázet s okolním textem.
+
+příklady:
+
+\begin{itemize}
+\item zajímavá alternativa je popsána v [x]
+\item údaj je je převzat z [x]
+\item použití návrhového vzoru poprvé popsal N.N v [x]
+\item volně přeloženo z [x]
+\item řešení bylo navrženo uživatelem N v [x] (vhodné např. pro stackoverflow a podobné zdroje)
+\end{itemize}
+
+Explicitnější vyjádření je nutno použít i v případě, že rozsah citace přesahuje odstavec.
+
+\begin{itemize}
+\item následující příklad je převzat z [x]
+\item výčet vychází z [x] je však doplněn o ...
+\end{itemize}
+
+Teoreticky lze podobné řešení využít i u celých sekcí či kapitol (kapitola je zpracována na základě [x]). V tomto případě je však nutné předpokládat, že v dané kapitole není žádná autorská myšlenka, a že autor se nesnažil najít alternativní pohledy či zdroje (a hodnotit tak, lze pouze autorovu schopnost výběru informací či stylistiky).
+
+Výjimečně lze uvádět i několik citací se shodným či překrývajícím se rozsahem např. \textit{následující specifikace je převzata z [x] a [y]}. To je však tolerovatelné jen v případě, v kdy by oddělení oddělení zdrojů bylo obtížné nebo nepřehledné a spojení nepřináší problémy s intelektuálním vlastnictvím (mají stejného autora či copyright). Zcela nepoužitelné jsou v případě většího rozsahu citace (např. na úrovni sekcí či kapitol)!
+
+
+V případě obrázků je vhodné uvést explicitnější specifikaci, jak byl originální obrázek pozměněn resp, rozšířen.
+
+Příklad:
+
+\begin{itemize}
+\item (převzato z [x] a doplněno)
+\item (převzato z [x], přeloženo)
+\item (upraveno z [x] pro novou verzi technologie ...)
+\item (inspirováno diagramem [x])
+\item (viz také [x] pro data X)
+\end{itemize}
+
+
+\section{Bibliografický záznam}
+
+Biblografický záznam je datová struktura, jenž má dvě základní funkce:
+
+\begin{enumerate}
+\item jednoznačné identifikování zdroje
+\item určení primární odpovědnosti (typicky je to autor resp. autoři, u webových zdrojů to však často bývá korporace).
+\end{enumerate}
+
+Pro každý typ zdrojového dokumentu (zdroje) existuje množina klíčových atributů, které by měly být specifikovány (ne zcela vhodně označované jako povinné) a další, které hrají jen pomocnou roli.
+
+V praxi však může nastat situace, kdy není zřejmé, jaký typ dokumentu pro daný zdroj zvolit resp.  nelze zjistit hodnoty klíčových atributů. V tomto případě je nutné improvizovat a snažit se, aby záznam plnil v maximální míře obě funkce.
+
+Struktura bibliografického záznamu je v zásadě dána těmito dimenzemi:
+
+\begin{description}
+\item[médium] -- základní dělení je na tištěné dokumenty a online dokumenty (dokumenty na elektronických nosičích tvoří jakási přechod mezi oběma typy dokumentů)
+\item[samostatnost] -- zdroj může být samostatný nebo součást rozsáhlejšího zdroje
+\item[periodičnost] -- periodický dokument vychází po jednotlivých částech, přičemž počet částí není předem znám (např. časopis).  
+\end{description}
+
+\subsection{Tištěné samostatné dokumenty neperiodické}
+
+Typickým příkladem samostatného tištěného dokumentu je kniha či monografie.
+
+Základním zdrojem informací pro bibliografický záznam u knih je tzv. tiráž, tj. soupis vydavatelských údajů uvedený na konci knihy či na stránce za titulem. Využít lze i další zdroje (např. katalogy knihoven či knižní e-shopy, bibliografické záznamy v jiných dokumentech), ale v tomto případě je nutné provádět kontrolu, neboť tyto sekundární zdroje často obsahují chyby.
+
+\textbf{klíčové atributy:}
+
+\begin{description}
+\item[ISBN]: ISBN je celosvětový jedinečný identifikátor neperiodických tištěných dokumentů. Pokud ho kniha má, pak je dokument jednoznačně identifikován (a další identifikace už hraje jen sekundární roli). Pomlčky v ISBN nejsou součástí identifikátoru a lze je vynechávat (i když občas se jedno ISBN přiděluje více svazkům). Navíc existují ve dvou podobách ISBN-10 s deseti číslicemi a ISBN-13 s třinácti. Pokud jsou k dispozici oba je vhodnější uvídět ISBN-13 (i když ISBN-10 lze snadno mapovat na ISBN-13).
+\item[název]: název knihy je povinný údaj a měl by být vždy vyplněn. Použit by měl být vždy originální název bez úprav. Jedinou přípustnou úpravou je změna velkých písmen (verzálek) na malá, které by mělo odpovídat pravidlům příslušného jazyka.
+\item[podnázev]: některé knihy mají i podnázev Někdy je těžké rozeznat, co je název a podnázev. Zde platí pravidlo, že název by neměl obsahovat dvojtečku, tečku, středník apod. Od podnázvu je potřeba odlišit název edice. Podnázev je nepovinný (doporučuji uvádět pokud obsahuje klíčové informace).
+\item[autoři]: v bibliografickém záznamu by měli být uvedeni všichni primární autoři (tj. není potřeba uvádět překladatele, ilustrátory, apod.)
+\item[vydání]: označení konkrétního vydání. Je důležité především tehdy, když není známo ISBN a existuje více odlišných vydání (s různým obsahem)
+\item[nakladatel]: uvádí se jméno nakladatelství, a to především z důvodů odpovědnosti
+\item[místo vydání]: uvádí se jméno města, popřípadě stát, především tehdy pokud není jednoznačné (např. Cambridge) a to ve stručné podobě (např. stačí \textit{United Kingdom}).  Podobně stručný by měl být název nakladatelství (tj. bez označení typy společnosti, apod., rodičovské společnosti, apod.)
+V dnešní době globalizace je tento údaj v mnoha případech nevýznamný (tj. ho lze vynechat, především tehdy pokud je nakladatelství neznámé).
+\item[rok vydání]: rok vydání přesněji identifikuje dokument. Pokud ho nelze zjistit, lze jej nahradit rokem copyrightu (v tomto případě je uvozen znakem \verb!c! např. \verb!c2022!)
+\item[edice]: kniha může být vydána v rámci edice. Edici doporučuji neuvádět, výjimkou jsou edice, které jsou všeobecně známé.
+\item[URL]: uvádí se pouze v případě, že je kniha dostupná onlině a to oficiálně a bez poplatků. Uvedení URL v tomto případě usnadňuje její získání (v tomto případě je ale často lepší citovat ji jako elektronickou knihu).
+\end{description}
+
+\textbf{příklad:}
+
+Následující biblografický záznam byl získán z katalogu systému knihovny UJEP (volba Citace Pro v dolní části výpis záznamu).
+
+RASCHKA, Sebastian a Vahid MIRJALILI. \textit{Python machine learning: machine learning and deep learning with Python, scikit-learn, and TensorFlow.} Second edition. Birmingham: Packt, 2017. Expert insight. ISBN 978-1-78712-593-3.
+
+Tento záznam splňuje základní požadavky, neboť obsahuje údaje týkající se odpovědnosti i jednoznačnou identifikaci dokumentu (a to jak ISBN tak přesným určením vydání).  Zahrnutí podnázvu
+je vhodné, neboť obsahuje dodatečné informace (jména frameworků).
+Nakladatelství je uvedeno ve stručné podobě (tj. \textit{Packt}) je uvedeno ve stručné podobě. Nadbytečné je jen uvedení edice (\textit{Expert insight}).
+
+\subsection{Online samostatné dokumenty neperiodické}
+
+Typickým příkladem je online PDF dokument (včetně elektronické knihy). Dalším příkladem je webové sídlo (\textit{web site}) tj. typicky hierarchický systém více stránek (nikoliv tedy jedna konkrétní web stran).
+
+\begin{description}
+\item[medium]: u online zdrojů se jako médium uvádí slovo \texttt{online}.
+\item[URL]: klíčový údaj pro online zdroje. Některé systémy (např. Wikipedia) poskytují tj. fixní URL, které odkazují na konkrétní verzi dokumentu, resp. stránek. I když jsou tato URL obecně delší, je nutné jim dát přednost, neboť zaručují jedinečnost.
+\item[název]: název nelze vynechat i když ne vždy je jasné, co je hlavním názvem. V tomto případě je možné využít obsahu elementu title v hlavičce HTML (pokud je zdroj v HTML) nebo jiná metadata (například jak je zdroj pojmenován v odkazu).
+\item[autoři]: autor nebývá u mnoha online dokumentů dohledatelný (a v tomto případě je nutné ho vynechat). Rozhodně však věnujte čas zjištění autorství (může být uvedeno i mimo dokument). 
+\item[odpovědná korporace]: typicky je to držitel intelektuálních práv (copyrightu). Důležitý je přdevším v případě, že není znám autor, ale uvádějte ho ve všech případech, kdy je dohledatelný. Většina bibliografických stylů tento atribut nepodporuje resp. ho běžně nezobrazuje. Proto je vhodné pro tento účel využívat atribut \textit{nakladatel} (i když to není totéž).
+\item[verze/čas poslední aktualizace]: nahrazuje rok vydání. V případě, že není použit fixní odkaz, je klíčovým zdrojem informací, jaká z verzí dokumentu byla použita jako zdroj. Online dokumenty se mění často, a tak je vhodné uvádět, co nejpřesnější specifikaci (číslo verze, čas poslední aktualizace). Jen v případě, že dokument není verzován a nelze zjistit přesnější čas poslední modifikace, lze využít vročení (stejně jako u knih může být odhadnuto z copyrightu).
+\item[datum použití]: je to povinný údaj i když důležitý je jen v případě, kdy nelze určit přesnější verzi. Měl by být v ISO formátu tj. ve tvaru RRRR-MM-DD. Toto datum běžně generuje editor bibliografických citací podle data vytvoření záznamu. V každém případě by mělo ležet v časovém intervalu od poslední modifikace zdroje (je-li uvedeno) do data odevzdání závěrečné práce. 
+\end{description}
+
+\textbf{příklad:}
+
+\subsection{Dílčí tištěné dokumenty}
+
+U dílčích tištěných dokumentů je typické, že kromě identifikace dílčí části obsahují i identifikaci dokumentu jako celku.
+
+Klasickým příkladem jsou články ve sborníku nebo vědeckém časopise. Kapitoly v knize (monografii) se citují, jen případě, že každou z nich vytvořil jiný autor (či kolektiv autorů)
+
+V zásadě platí tato pravidla:
+
+\begin{itemize}
+\item uvádí se jen autoři dílčí časti, nikoliv například editoři sborníku nebo časopisu
+\item uvádí se pozice části v celém dokumentu nejlépe pomocí rozsahu stránek
+\item pokud má dílčí část vlastní jednoznačný identifikátor (například DOI), není potřeba uvádět identifikátor knihy nebo periodika.
+\end{itemize}
+
+
+\subsection{Dílčí online dokumenty}
+
+Tento typ citací se používá pro webové stránky, jež jsou součástí webového sídla například pro
+konkrétní stránky s dokumentací nebo dokumenty uložené na GitHubu. Pro jiné elektronické dokumenty, pokud nejsou výslovně součástí webového sídla (např. elektronického sborníku) je vhodnější použít 
+záznam samostatného dokumentu (viz výše).
+
+Název stránky je doplněn jménem webového sídla (to je typicky uvedeno v záhlaví každé stránky resp. na hlavní stránce webového sídla. Autoři se vztahují ke stránce zatímco korporátní odpovědnost je typicky vztažena k celému sídlu (pokud jsou známy autoři i korporátní odpovědnost je vhodné uvést oba údaje, vždy však musí být uveden alespoň jeden z těchto údajů). Všechy ostatní atributy se vztahují 
+
+\textbf{příklady:}
+
+What’s New In Python 3.9: Summary – Release highlights. \textit{Python 3.9.0 documentation [online]}. Python Software Foundation, October 14, 2020 [cit. 2020-10-15]. Dostupné z: https://docs.python.org/3/whatsnew/3.9.html
+
+Záznam obsahuje název dílčí části a také název celého webového sídla (v kurzívě). Odpovědná organizace je uvedena na místě nakladatele (autor není uveden a tak je tato informace klíčová). Verze je určena datem poslední modifikace (je uvedeno přímo ve tvaru použitém na stránce). Datum citování je povinné, ale v tomto případě nenese žádnou přidanou informaci (jen to, že citace byla vytvořena jen den po poslední modifikaci. Poslední součástí je URL.
+
+
+Python nonlocal statement. \textit{Stack Overflow} [online]. Stack Exchange, 2022-03 [cit. 2022-07-27]. Dostupné z: https://stackoverflow.com/questions/1261875/python-nonlocal-statement
+
+Struktura záznamu je stejná. Čas poslední modifikace byl určen z informace, že poslední modifikace proběhla před čtyřmi měsíci (je uvedena v ISO formátu, ale odpovídající by byl i údaj například ve tvaru \textit{březen 2022} nebo \textit{March 2022}).
+
+
+\section{Často kladené otázky}
+
+\subsection{Co není potřeba citovat?}
+
+Obecně platí, že citovat není potřeba znalosti, které jste získali v průběhu studia a to jak při výuce tak i z učebních materiálů (opor, skript). Citovat není potřeba ani zdroj formálních údajů (např. významu zkratek), pokud je lze snadno získat (například na Wikipedii).
+
+To jest není nutné uvádět citaci při uvedení zkratky HTTP (zkratka je všeobecně známá a běžně využívána v mnoha kurzech). Podobně není nutné odkazovat pojmy jako Internet, počítačová síť, programovací jazyk, procesor, apod.
+
+Běžně se také necitují (původní) myšlenky vedoucího práce, pokud si vedoucí práce nevyžádá jinak. Pokud vám zprostředkuje nepůvodní myšlenku, měl by vám pomoci najít originální zdroj (který uvedete v citaci).
+
+Citování není možné v případě, kdy není znám původní zdroj, resp. je v podobě, kterou není možné citovat (lidová řčení, apod.) Pravděpodobnost výskytu takových textů v informatické bakalářské práci je však velmi nízká.
+
+\subsection{Jak citovat informace z (podnikových) školení}
+
+Pokud se jedná o evidentní výtvor školitele, můžete odkazovat příslušný
+výukový materiál (i když je neveřejný). Pokud je informace nepůvodní, pak je vhodné citovat primární resp. alespoň dostatečně autoritativní zdroj.
+
+\subsection{Jak citovat ústní sdělení?}
+
+Ústní sdělení je potřeba citovat jen tehdy, když je od autoritativní osoby v oblasti její odbornosti. Pokud například píšete práci o nasazení databáze, pak je autoritativní osobou například
+správce databázového systému (který vám sdělí například zkušenosti s nasazením).
+
+Jak je uvedeno výše, ve většině případů se necitují ústní sdělení učitelů, školitelů, vedoucího práce a dalších sekundárních zdrojů.
+
+Pokud citujete ústní sdělení je vhodné s tím danou osobu seznámit či získat alespoň neformální souhlas, neboť sdělené informace nemusí být veřejné.
+
+Navzdory důležitosti ústních sdělení v některých typech prakticky zaměřených prací, není citace ústních sdělení standardizována. Jednoduchý návod nabízí například blog na citace.com [XXX].
+
+Ústí sdělení je však neověřitelné a nelze ho jednoznačně identifikovat. Proto je lepší pokud se sdělení děje například e-mailem. Citace e-mailové komunikace i dalších netradičních zdrojů shrnuje
+dokument [XXX].
+
+\subsection{Je možno citovat Wikipedii?}
+
+Citování Wikipedie se obecně nedoporučuje, neboť se jedná o terciární zdroj (encyklopedia vytvořená na základě druhotných informací) a její kvalita je značně kolísavá.
+
+Na druhou stranu Wikipedia (především v anglické verzi) často obsahuje i hodnotný a jinak jen obtížně dostupný materiál, a tak nelze citování z Wikipedie striktně zakázat.
+
+Základní doporučení pro citování z Wikipedie:
+
+\begin{itemize}
+\item citujte jen tehdy, pokud nemáte k dispozici primární zdroje (ty jsou často odkazovány přímo
+z Wikipedie)
+\item  citujte jen kvalitní články (které nejsou označeny jako problematické), které se v oblasti
+informatiky a matematiky objevují spíše na anglické Wkipedii
+\item citace z Wikipedie by měli tvořit jen malou část zdrojů (typicky méně než 10%)
+\end{itemize}
+
+Z Wikipedie rozhodně necitujte články věnované běžně známým technologiím a poznatkům, které jsou běžnou součástí kurzů. 
+
+\chapter{Zhodnocení} 
+
+\chapter{Závěr}
+
+Tato bakalářská práce se zabývala problematikou využití open-source a komerčních nástrojů pro vizualizaci a analýzu dat v kontextu datové platformy Portabo. Hlavním cílem bylo provést srovnávací analýzu vybraných technologií z hlediska jejich výkonu, funkčních vlastností, uživatelské přívětivosti a ekonomické efektivity.
+
+V teoretické části byly vymezeny základní pojmy z oblasti datových skladů, OLAP technologií a Business Intelligence. Byla provedena rešerše dostupných řešení, která posloužila jako základ pro výběr testovaných technologií.
+
+V praktické části byla navržena a implementována modulární datová architektura, která umožnila přímé srovnání několika přístupů. Byla vytvořena řešení postavená na databázových systémech Microsoft SQL Server, MariaDB (včetně ColumnStore enginu), PostgreSQL s rozšířením TimescaleDB a ClickHouse. Nad těmito datovými sklady byly implementovány analytické vrstvy využívající jak komerční platformu Microsoft SSAS a Power BI, tak open-source stack tvořený nástroji Cube.js a Apache Superset.
+
+Provedená srovnávací analýza přinesla následující klíčová zjištění:
+
+\begin{itemize}
+    \item \textbf{Výkon:} Komerční řešení postavené na in-memory technologii (MS SSAS) prokázalo bezkonkurenční rychlost odezvy ("out-of-the-box"), avšak za cenu vysokých nároků na operační paměť. Open-source varianta využívající ClickHouse a Cube.js se tomuto výkonu dokázala přiblížit díky využití sloupcového ukládání a pre-agregací, přičemž nabídla výrazně lepší škálovatelnost při práci s velkými objemy dat.
+    \item \textbf{Ekonomické aspekty:} Analýza TCO ukázala, že zatímco komerční řešení je výhodné pro menší projekty díky nižší pracnosti implementace a integrovanému prostředí, s růstem objemu dat a počtu uživatelů se stává ekonomicky neudržitelným kvůli licenčním poplatkům. Open-source řešení naopak vyžaduje vyšší počáteční investici do lidského kapitálu (know-how), ale jeho provozní náklady jsou při škálování výrazně nižší.
+    \item \textbf{Flexibilita:} Open-source stack prokázal vysokou míru flexibility a modularity, což umožňuje snadnou výměnu komponent a přizpůsobení specifickým potřebám platformy Portabo.
+\end{itemize}
+
+Na základě dosažených výsledků lze pro datovou platformu Portabo doporučit hybridní přístup. Pro kritické reporty vyžadující maximální rychlost a integraci s kancelářskými aplikacemi je vhodné využít komerční nástroje Microsoft. Pro zpracování velkých objemů telemetrických dat a veřejné dashboardy se však jako optimální jeví využití výkonných open-source technologií v čele s databází ClickHouse a sémantickou vrstvou Cube.js, které nabízejí nejlepší poměr cena/výkon a neomezenou škálovatelnost.
+
+Práce tak splnila své cíle a poskytla ucelený pohled na možnosti moderních datových platforem, který může sloužit jako vodítko pro budoucí rozvoj datové infrastruktury v regionu.
+
+\sloppy
+\glsaddall
+\printglossary[title=Seznam použitých zkratek a pojmů]
+\printbibliography[title=Seznam použitých zdrojů]
+
+\appendix
+
+\chapter{Externí přílohy\label{sec:ep}}
+
+Externí přílohy této bakalářské práce jsou umístěny na adrese:\\ \url{https://github.com/Jiri-Fiser/thesis_ki_ujep}.
+
+Na úložiští GitHub mohou byt uloženy tyto externí přílohy:
+
+\begin{itemize}
+\item \textbf{zdrojové kódy}
+\item \textbf{doplňkové texty} (například jak instalovat aplikaci, manuály aplikace)
+\item \textbf{schémata} (především, pokud se nevejdou na stranu A4 a jejich vytištění je tak problematické)
+\item \textbf{screenshoty} (v textu práce lze použít jen omezený počet snímků obrazovky, které navíc nemusí být při černobílém tisku příliš přehledné)
+\item \textbf{videa} (například ovládání aplikace)
+\end{itemize}
+
+V každém případě by to však měli být pouze materiály, které jste vytvořili sami. Materiály jiných autorů uvádějte v seznamu použité literatury (včetně případných odkazů na jejich originální umístění).
+
+V této kapitole stačí uvést pouze základní strukturu úložiště (co se kde nalézá a jakou má funkci) například v podobě tabulky. 
+
+\begin{longtable}{ll}
+\hline
+ki-thesis.pdf & text práce v PDF \\
+ki-thesis.tex & zdrojový kód práce v \LaTeX{}u \\
+kitheses.cls & definice třídy dokumentů (rozšířená třída \texttt{scrbook} \\
+thesis.bib & bibliografická databáze (exportována z citace.com) \\
+LOGO\_PRF\_CZ\_RGB\_standard.jpg  & logo fakulty s českým textem \\
+LOGO\_PRF\_EM\_RGB\_standard.jpg  & logo fakulty s anglickým textem  \\
+\hline
+\end{longtable}
+
+Všechny tyto soubory jsou potřeba pro překlad dokumentu (logo stačí jedno v příslušné jazykové verzi).
+
+\chapter{SQL Dotazy k srovnávací analýze}
+\label{app:sql_queries}
+
+Tato příloha obsahuje plné znění SQL dotazů použitých pro srovnávací analýzu výkonu databázových systémů.
+
+\chapter{Další přílohy}
+
+Výjimečně může práce obsahovat i další tištěné přílohy. Obecně však dávejte přednost elektronickým přílohám umístěným na GitHubu (tato kapitola tak bude úplně chybět). 
+
+\end{document}
+

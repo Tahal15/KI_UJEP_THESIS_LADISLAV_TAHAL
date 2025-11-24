@@ -1,7 +1,7 @@
 \babel@toc {czech}{}\relax 
 \contentsline {chapter}{\nonumberline Úvod}{13}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Přehled současného stavu problematiky}{15}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Rešerše v oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
+\contentsline {section}{\numberline {1.1}Rešerše v~oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
 \contentsline {subsection}{\nonumberline Datové sklady a vývoj analytických databází}{15}{subsection*.4}%
 \contentsline {subsection}{\nonumberline OLAP technologie a analytické přístupy}{16}{subsection*.6}%
 \contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a business intelligence}{16}{subsection*.8}%
@@ -14,7 +14,7 @@
 \contentsline {subsection}{\nonumberline Ekosystém Apache Software Foundation}{21}{subsection*.20}%
 \contentsline {subsection}{\nonumberline Platforma MariaDB (Community / Enterprise)}{22}{subsection*.22}%
 \contentsline {subsection}{\nonumberline Moderní modulární a hybridní architektury}{23}{subsection*.24}%
-\contentsline {section}{\numberline {1.3}Analýza trendů v implementaci}{24}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Analýza trendů v~implementaci}{24}{section.1.3}%
 \contentsline {subsection}{\nonumberline Automatizace a ELT přístup}{24}{subsection*.26}%
 \contentsline {subsection}{\nonumberline Datová governance a kvalita dat}{25}{subsection*.28}%
 \contentsline {subsection}{\nonumberline Dotazování přirozeným jazykem a role LLM}{25}{subsection*.30}%
@@ -29,9 +29,9 @@
 \contentsline {subsection}{\nonumberline Sémantická vrstva}{34}{subsection*.44}%
 \contentsline {section}{\numberline {2.2}Nástroje Business Intelligence}{35}{section.2.2}%
 \contentsline {subsection}{\nonumberline Funkční oblasti nástrojů Business Intelligence}{35}{subsection*.46}%
-\contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{35}{subsection*.48}%
+\contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{36}{subsection*.48}%
 \contentsline {subsection}{\nonumberline Kritéria výběru BI nástroje}{36}{subsection*.50}%
-\contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{36}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{37}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Praktická část}{41}{chapter.3}%
 \contentsline {subsection}{\nonumberline Příprava a migrace datové základny}{41}{subsection*.52}%
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{44}{section.3.1}%
@@ -46,15 +46,15 @@
 \contentsline {subsubsection}{\nonumberline MariaDB + ClickHouse ETL}{48}{subsubsection*.68}%
 \contentsline {section}{\numberline {3.3}Struktura a vrstvy datového skladu}{51}{section.3.3}%
 \contentsline {section}{\numberline {3.4}OLAP a vizualizace}{51}{section.3.4}%
-\contentsline {subsection}{\nonumberline Komerční varianta – SSAS Tabular a Power BI}{52}{subsection*.70}%
-\contentsline {subsection}{\nonumberline Open-source varianta – Cube.js a Apache Superset}{53}{subsection*.72}%
+\contentsline {subsection}{\nonumberline Komerční varianta -- SSAS Tabular a Power BI}{52}{subsection*.70}%
+\contentsline {subsection}{\nonumberline Open-source varianta -- Cube.js a Apache Superset}{53}{subsection*.72}%
 \contentsline {subsection}{\nonumberline Porovnání přístupů}{54}{subsection*.74}%
 \contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{54}{section.3.5}%
 \contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni databáze}{54}{subsection*.76}%
 \contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{58}{subsubsection*.78}%
 \contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{58}{subsubsection*.80}%
 \contentsline {subsection}{\nonumberline Srovnání výkonu a architektury BI nástrojů}{59}{subsection*.82}%
-\contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v open-source stacku}{60}{subsubsection*.84}%
+\contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v~open-source stacku}{60}{subsubsection*.84}%
 \contentsline {subsection}{\nonumberline Závěrečné shrnutí výsledků}{60}{subsection*.86}%
 \contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{61}{subsection*.88}%
 \contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{61}{subsubsection*.90}%
@@ -70,15 +70,21 @@
 \contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{70}{subsection*.100}%
 \contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{71}{subsection*.102}%
 \contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{72}{subsection*.104}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{73}{subsection*.106}%
+\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{72}{subsection*.106}%
 \contentsline {section}{\numberline {5.3}Často kladené otázky}{73}{section.5.3}%
 \contentsline {subsection}{\nonumberline Co není potřeba citovat?}{73}{subsection*.108}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z (podnikových) školení}{74}{subsection*.110}%
+\contentsline {subsection}{\nonumberline Jak citovat informace z~(podnikových) školení}{74}{subsection*.110}%
 \contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{74}{subsection*.112}%
 \contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{74}{subsection*.114}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{77}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{79}{chapter.7}%
-\contentsline {chapter}{Seznam použitých zkratek a pojmů}{81}{section*.115}%
+\contentsline {chapter}{\numberline {6}Zhodnocení}{75}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Závěr}{77}{chapter.7}%
+\contentsline {chapter}{Seznam použitých zkratek a pojmů}{79}{section*.115}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -170,7 +176,7 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{87}{appendix.A}%
-\contentsline {chapter}{\numberline {B}SQL Dotazy k srovnávací analýze}{89}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Další přílohy}{91}{appendix.C}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{85}{appendix.A}%
+\contentsline {chapter}{\numberline {B}SQL Dotazy k~srovnávací analýze}{87}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Další přílohy}{89}{appendix.C}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
