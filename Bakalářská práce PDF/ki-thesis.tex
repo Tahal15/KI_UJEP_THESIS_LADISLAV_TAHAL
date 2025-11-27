@@ -955,10 +955,10 @@ Tím je zaručeno, že rozdíly ve výsledcích budou dány samotnými vlastnost
 
 Každá z~porovnávaných variant bude hodnocena z~následujících hledisek:
 \begin{itemize}
-  \item \textbf{Výkonové parametry} -- rychlost načítání a zpracování dat, doba odezvy analytických dotazů, efektivita indexace a agregací;
-  \item \textbf{Funkční vlastnosti} -- podpora OLAP analýz, kompatibilita s~vizualizační vrstvou a možnosti rozšiřitelnosti;
-  \item \textbf{Uživatelská přívětivost} -- náročnost správy, dostupnost nástrojů a srozumitelnost konfigurace;
-  \item \textbf{Ekonomické aspekty} -- licenční politika, náklady na provoz, údržbu a škálování.
+  \item \textbf{Výkonové parametry} -- rychlost odezvy analytických dotazů, vliv indexace a pre-agregací na výkon, srovnání architektur MOLAP a ROLAP;
+  \item \textbf{Funkční vlastnosti} -- možnosti vizualizace včetně práce s~geoprostorovými daty, architektura reportingu a interaktivita;
+  \item \textbf{Uživatelská přívětivost} -- cílová skupina uživatelů, náročnost implementace a flexibilita nástrojů;
+  \item \textbf{Ekonomické aspekty} -- celkové náklady na vlastnictví (TCO) zahrnující licence, infrastrukturu a lidský kapitál.
 \end{itemize}
 
 Metodika tedy určuje rámec, v~němž budou jednotlivé technologie nasazeny, naplněny shodnými daty a následně testovány.
@@ -986,7 +986,7 @@ V~databázi se rovněž vyskytují senzory, které vykonávají stejnou funkci, 
 
 Z~těchto důvodů bylo vyhodnoceno, že vytvoření skriptu, který by dynamicky parsoval JSON struktury na základě názvů témat, není vzhledem k~nekonzistenci dat reálně možné. Bylo nutné zvolit robustnější přístup založený na analýze obsahu samotných zpráv.
 
-\subsubsection{Automatizovaná analýza JSON struktur}
+\subsection{Automatizovaná analýza JSON struktur}
 
 Pro systematickou analýzu JSON~\cite{rfc8259} struktur byl vytvořen vlastní skript v~jazyce Python, \texttt{analyze\_json.py}. Tento skript seskupuje MQTT témata do logických celků na základě strukturální podobnosti jejich JSON schémat ve sloupci \texttt{payload}.
 
@@ -1090,7 +1090,7 @@ Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými techn
 
 \clearpage
 
-\section{Struktura a vrstvy datového skladu}
+\subsection{Struktura a vrstvy datového skladu}
 
 Zdrojová data byla získávána ze systému Portabo, kde jsou ukládána jako MQTT zprávy v~JSON formátu. Data mi byli poskytnuty zašifrované, abychom je mohli v~rámci bakalářské práce využít.
 Tyto zprávy obsahují informace o~detekcích vozidel -- například registrační značku, typ detekce, rychlost, město, čas a senzor. Data z~vodoměrů, elektroměrů a dalších senzorů. 
@@ -1109,12 +1109,12 @@ Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a 
  \caption{Schéma hvězda faktové tabulky a dimenzí pro data z~kamerového systému firmy CAMEA Technology, a. s. na datové platformě Portabo}
 \end{figure}
 
-\section{OLAP a vizualizace}
+\subsection{OLAP a vizualizace}
 
 V~rámci praktické části byly nad vytvořenými datovými sklady vystavěny dvě samostatné analytické vrstvy -- každá odpovídající jedné z~testovaných technologií.  
 Cílem bylo vytvořit funkční OLAP modely umožňující tvorbu interaktivních vizualizací, a současně porovnat rozdíly mezi komerčním řešením na platformě Microsoft SQL Server a open-source přístupem postaveným na nástroji Cube.js.
 
-\subsection{Komerční varianta -- SSAS Tabular a Power BI}
+\subsubsection{Komerční varianta -- SSAS Tabular a Power BI}
 
 V~komerční větvi datové platformy byl vytvořen datový model v~prostředí \textbf{SQL Server Analysis Services (SSAS) Tabular}.  
 Model byl vystavěn nad tabulkami \texttt{FactCameraDetection} a~dimenzemi \texttt{DimCity}, \texttt{DimSensor}, \texttt{DimVehicleClass}, \texttt{DimDetectionType}, \texttt{DimLP} a \texttt{DimTime}.  
@@ -1145,7 +1145,7 @@ Výhodou tohoto přístupu byla plná integrace s~ekosystémem Microsoft, vysok�
 
 
 
-\subsection{Open-source varianta -- Cube.js a Apache Superset}
+\subsubsection{Open-source varianta -- Cube.js a Apache Superset}
 
 V~open-source větvi datové platformy byla analytická vrstva implementována pomocí nástroje \textbf{Cube.js}, který byl nasazen nad databázemi \textbf{ClickHouse}, \textbf{MariaDB} a \textbf{PostgreSQL (TimescaleDB)}.  
 Cube.js v~tomto řešení plnil roli mezivrstvy typu OLAP, která sjednocovala přístup k~datům z~různých databázových systémů a poskytovala standardizované rozhraní pro vizualizaci.
@@ -1176,7 +1176,7 @@ Pro zvýšení výkonu byly v~Cube.js aktivovány funkce \textit{pre-aggregation
 
 
 
-\subsection{Porovnání přístupů}
+\subsubsection{Porovnání přístupů}
 
 Oba přístupy poskytují plnohodnotnou OLAP analytiku, avšak liší se způsobem implementace i správy.  
 \textbf{SSAS Tabular} umožňuje centrální řízení, pokročilé DAX výpočty a přímou integraci s~Power BI, což zjednodušuje nasazení ve firemním prostředí.  
@@ -1195,7 +1195,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
     \item \textbf{Výkon na úrovni BI nástroje:} Hodnocení uživatelského prožitku, konkrétně rychlosti načtení dashboardů.
 \end{enumerate}
 
-\subsection{Srovnání výkonu na úrovni databáze}
+\subsection{Výkonové parametry}
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~řádech několika magnitud.
 
@@ -1222,7 +1222,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
       \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
       \label{fig:srovnani2}
     \end{figure}
-    Druhý dotaz (počet detekcí v~čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku. To je způsobeno efektivním využitím B-stromového indexu na sloupci `TimeKey`, díky kterému engine nemusel provádět sken celé tabulky.
+    Druhý dotaz (počet detekcí v~čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku.
 
   
     \item \textbf{Dotaz 3: Vícenásobné spojení a filtrování}
@@ -1234,7 +1234,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
       \label{fig:srovnani3}
     \end{figure}
 
-    Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL a ClickHouse, které efektivně aplikují filtry (predicate pushdown) ještě před samotným spojením tabulek.
+    Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL.
 
     \item \textbf{Dotaz 4: Agregace nad dvěma dimenzemi}
     \begin{figure}[H]
@@ -1269,7 +1269,7 @@ Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory Cl
 
 Vzhledem k~výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti ostatním systémům (PostgreSQL, MS SQL), které i v~řádkovém režimu dosahovaly lepších časů, byla provedena dodatečná analýza indexace.
 
-Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy (např. díky pokročilejší paralelizaci dotazů), MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z~indexové struktury a zcela eliminuje nákladné čtení z~datových souborů na disku.
+Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy, MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z~indexové struktury a zcela eliminuje nákladné čtení z~datových souborů na disku.
 
 
 Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k~řádovému zrychlení:
@@ -1285,7 +1285,7 @@ Souhrnná analýza demonstruje několik klíčových zjištění:
     \item \textbf{Specifika TimescaleDB:} Výkon TimescaleDB byl v~tomto srovnání podobný jako u~PostgreSQL. Důvodem je, že TimescaleDB není architektonicky cílena na hvězdicové schéma (Star Schema). Nejvyšší efektivity dosahuje při použití denormalizovaných tabulek, kde jsou data uložena v~rámci jedné velké struktury (hypertable). Tento přístup umožňuje lépe využít její optimalizační mechanismy, jako je komprese a automatický partitioning.
 \end{itemize}
 
-\subsection{Srovnání výkonu a architektury BI nástrojů}
+\subsubsection{Srovnání výkonu a architektury BI nástrojů}
 
 Druhá fáze testování se zaměřila na rychlost odezvy z~pohledu koncového uživatele. Zde se ukázaly zásadní rozdíly plynoucí z~odlišných architektur obou řešení.
 
@@ -1311,7 +1311,7 @@ Během testování open-source varianty se ukázalo jako klíčové nasazení \t
 
 Bez nich byla odezva závislá čistě na výkonu databáze (u~ClickHouse cca \textbf{5 sekund} pro načtení ilustračního dashboardu). Implementace pre-agregací -- tedy malých, předpočítaných sumarizačních tabulek -- umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
 
-\subsection{Závěrečné shrnutí výsledků}
+\subsubsection{Shrnutí výkonnostních testů}
 
 Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v~interaktivní analytice je volba správné databázové technologie a architektury rozhodující.
 
@@ -1321,7 +1321,7 @@ Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu �
   \centering
   \includegraphics[width=0.5\textwidth]{img/PowerBI - analyzer.png}
   \caption{Power BI Performance Analyzer - analýza vykreslování}
-  \label{fig:srovnani5}
+  \label{fig:powerbi_analyzer}
 \end{figure}
 
 Open-source stack (Superset + Cube.js) se tomuto výkonu dokázal přiblížit, ale pouze za cenu výrazného ladění. Kombinace databáze MariaDB ColumnStore s~pre-agregacemi dosáhla času \textbf{2 sekundy}. 
@@ -1330,13 +1330,13 @@ Ačkoliv je tento výsledek pro open-source řešení úspěchem, k~extrémnímu
 
 Jako teoretický směr pro další optimalizaci open-source řešení se nabízí využití RAM disku, tedy umístění datových souborů databáze přímo do operační paměti serveru. Tento krok by eliminoval úzké hrdlo v~podobě diskových operací a mohl by výkonově přiblížit ROLAP architekturu in-memory systémům. Praktická implementace a testování tohoto scénáře však již přesahuje rozsah i kompetence této práce. Je navíc nutné zohlednit i významná rizika, především volatilitu dat. Uložení v~RAM je ze své podstaty dočasné a při restartu či výpadku serveru by došlo k~okamžité ztrátě dat, což by vyžadovalo implementaci složitých mechanismů pro synchronizaci na trvalé úložiště, čímž by se neúměrně zvýšila komplexita správy celého řešení.
 
-Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
-\subsection{Testování souběžné zátěže (Concurrency)}
+\subsubsection{Testování souběžné zátěže (Concurrency)}
 
 Doplnit!!
 
+\subsection{Funkční vlastnosti}
 
-\subsection{Práce s~mapovými daty}
+\subsubsection{Práce s~mapovými daty}
 
 Součástí zadání byla i analýza práce s~geoprostorovými daty. Oba testované nástroje nabízejí možnosti vizualizace na mapě, avšak s~rozdílným přístupem.
 
@@ -1348,7 +1348,7 @@ Součástí zadání byla i analýza práce s~geoprostorovými daty. Oba testova
     Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\cite{superset_deckgl}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\cite{superset_country_map}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
 \end{itemize}
 
-\subsection{Srovnání vizualizačních možností a architektury reportingu}
+\subsubsection{Srovnání vizualizačních možností a architektury reportingu}
 
 Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, ale především na technickou architekturu vykreslování, způsob generování dotazů a flexibilitu vývojového cyklu.
 
@@ -1404,7 +1404,17 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
 \end{itemize}
 
 
-\subsection{Analýza celkových nákladů na vlastnictví (TCO)}
+
+
+\subsection{Uživatelská přívětivost}
+
+Z~hlediska uživatelské přívětivosti lze konstatovat, že oba testované systémy dosahují srovnatelné úrovně, ačkoliv každý cílí na mírně odlišný typ uživatele.
+Komerční řešení (Power BI) vyniká intuitivním ovládáním typu \textit{drag-and-drop} a hlubokou integrací s~kancelářskými nástroji, což ocení zejména běžní uživatelé a management.
+Open-source varianta (Apache Superset) naopak nabízí větší volnost a flexibilitu, kterou preferují technicky zdatnější uživatelé a datoví analytici vyžadující maximální kontrolu.
+
+Obecně lze říci, že oba nástroje představují vyzrálá a profesionální řešení, která lze doporučit pro nasazení v~podnikovém prostředí. Finální volba by tak neměla být otázkou kvality uživatelského rozhraní, která je u~obou variant vysoká, ale spíše otázkou specifických preferencí, technického zázemí a licenční strategie dané organizace.
+
+\subsection{Ekonomické aspekty}
 
 Vzhledem k~tomu, že praktická část této práce ověřovala široké spektrum technologií -- od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) -- je nutné náklady hodnotit v~širším kontextu.
 
@@ -1472,8 +1482,6 @@ Významný rozdíl v~TCO tvoří také hardwarové požadavky, které vycházej�
     \item \textbf{ROLAP (ClickHouse/MariaDB):} Spoléhá na rychlé diskové operace. Data jsou uložena na discích (SSD/NVMe), které jsou řádově levnější než RAM. Díky efektivní kompresi (zmíněná 10x úspora u~ClickHouse) jsou nároky na kapacitu úložiště minimální.
 \end{itemize}
 
-\subsubsection{Závěrečné porovnání}
-
 Analýza ukázala, že zatímco pracnost implementace (ETL v~Pythonu) je u~obou řešení srovnatelná, ekonomické nůžky se rozevírají při škálování:
 
 \begin{itemize}
@@ -1481,292 +1489,45 @@ Analýza ukázala, že zatímco pracnost implementace (ETL v~Pythonu) je u~obou 
     \item \textbf{Open-source řešení} (ClickHouse + Cube.js) má zpočátku vyšší nároky na specifickou expertízu, ale s~růstem objemu dat se stává výrazně levnějším. Neexistuje zde "skokový" náklad při přechodu na vyšší edici a neplatí se za pasivní konzumenty reportů.
 \end{itemize}
 
-DOPSAT!!
+\section{Zhodnocení výsledků a doporučení}
 
+Cílem této práce bylo porovnat vhodnost komerčních a open-source technologií pro analytickou platformu Portabo. Na základě provedených zátěžových testů, analýzy funkcionality a ekonomické rozvahy lze konstatovat, že oba přístupy představují validní řešení, avšak každý je vhodný pro odlišný kontext nasazení.
 
-Na základě provedené analýzy budou jednotlivé technologie porovnány z~hlediska:
-\begin{itemize}
-  \item \textbf{Technických parametrů} -- výkon při dotazech, rychlost načítání dat, náročnost správy,
-  \item \textbf{Uživatelské přívětivosti} -- jednoduchost integrace s~nástrojem Cube.js a možnost tvorby OLAP analýz,
-  \item \textbf{Ekonomických aspektů} -- licenční podmínky, náklady na provoz a škálování.
-\end{itemize}
-Závěrečná část shrne výhody a nevýhody jednotlivých řešení a poskytne doporučení vhodné platformy pro využití v~rámci Portabo.
+Zatímco komerční řešení (MS SQL + Power BI) vyniká okamžitou použitelností a výkonem „out-of-the-box“ díky in-memory technologii, open-source varianta (ClickHouse + Cube.js) vítězí v~efektivitě ukládání dat a dlouhodobé udržitelnosti nákladů při škálování.
+
+Pro přehlednost jsou klíčové rozdíly mezi dvěma finálními kandidáty shrnuty v~následující tabulce. Databáze MariaDB a PostgreSQL byly z~finálního srovnání vyloučeny, neboť její výkonnostní limity pro účely OLAP analýzy nad velkými daty diskvalifikují.
 
 \begin{table}[h!]
 \centering
-\caption{Souhrnné porovnání TCO a parametrů řešení}
-\label{tab:tco_summary}
-\begin{tabular}{|l|p{4cm}|p{4cm}|p{3cm}|}
+\caption{Finální srovnání architektury pro platformu Portabo}
+\label{tab:final_comparison}
+\begin{tabular}{|l|p{6cm}|p{6cm}|}
 \hline
-\textbf{Parametr} & \textbf{MS SQL + SSAS (Komerční)} & \textbf{ClickHouse + Cube.js (Open-source)} & \textbf{MariaDB (Tradiční)} \\ \hline
-\textbf{Licence} & Vysoká (per core / user) & Zdarma (Apache 2.0 / MIT) & Zdarma (GPL) \\ \hline
-\textbf{Hardware} & Vysoké nároky na RAM (MOLAP) & Nízké nároky na RAM, vyšší I/O (ROLAP) & Střední \\ \hline
-\textbf{Storage} & Standardní komprese & Extrémní komprese (10x menší) & Bez komprese (Row) \\ \hline
-\textbf{Lidské zdroje} & BI Developer (Střední mzda) & Senior DB Spec. (Vysoká) + Junior (Nízká) & DB Admin (Střední) \\ \hline
-\textbf{Výkon} & Okamžitý (In-Memory) & Velmi vysoký (Columnar) & Nízký (pro OLAP) \\ \hline
-\textbf{Škálovatelnost} & Omezená licencí a RAM & Neomezená (Horizontální) & Omezená \\ \hline
+\textbf{Parametr} & \textbf{MS SQL + SSAS (Komerční)} & \textbf{ClickHouse + Cube.js (Open-source)} \\ \hline
+\textbf{Určení} & Enterprise reporting, Management & Big Data, IoT telemetrie, Embedded Analytics \\ \hline
+\textbf{Výkon} & Extrémní (In-Memory MOLAP), ale limitovaný velikostí RAM. & Vysoký (Columnar ROLAP), lineárně škálovatelný s~hardwarem. \\ \hline
+\textbf{Efektivita uložení} & Standardní komprese. & \textbf{Extrémní komprese} (až 10x úspora místa oproti PostgreSQL). \\ \hline
+\textbf{Náklady (TCO)} & Vysoké OPEX (licence per-core/user). Skokový růst nákladů při přechodu na Enterprise. & Vysoké CAPEX (know-how, vývoj), ale minimální OPEX (zdarma licence, levný HW). \\ \hline
+\textbf{Flexibilita} & Vendor lock-in (uzavřený ekosystém). & Vysoká modularita, API-first přístup, možnost vlastních úprav. \\ \hline
+\textbf{Lidské zdroje} & Dostupnější na trhu (BI Developer). & Náročnější na expertízu (Senior DB/Backend Engineer). \\ \hline
 \end{tabular}
 \end{table}
 
-\chapter{Sazba ukázek kódu}
+\subsection{Závěrečné doporučení pro Portabo}
 
-Sazba ukázek kódu je klíčová pro bakalářské práce věnované implementaci nějaké aplikace či knihovny.
+Pro prostředí platformy Portabo, která pracuje s~objemnými telemetrickými daty z~IoT senzorů a kamerových či jiných systémů, se jako \textbf{vhodnější jeví open-source varianta postavená na kombinaci ClickHouse a Cube.js}.
 
-Základní zásady pro sazbu ukázek kódu:
+Toto doporučení vychází z~následujících klíčových zjištění praktické části:
 
 \begin{enumerate}
-\item 
+    \item \textbf{Efektivita práce s~daty:} ClickHouse prokázal v~testech schopnost ukládat data s~přibližně desetinásobnou úsporou diskového prostoru oproti tradičním systémům. Pro telemetrická data, která neustále narůstají, je tato vlastnost kritická.
+    \item \textbf{Ekonomika škálování:} Licenční model Microsoftu (per-core) by se při nárůstu objemu dat a potřebě výpočetního výkonu stal pro tento typ projektu finančně neudržitelným. Open-source řešení umožňuje horizontální škálování na komoditním hardwaru bez licenčních poplatků.
+    \item \textbf{Snadnost nasazení:} Praktická implementace ukázala významný rozdíl v~náročnosti instalace mezi open-source systémy. Zatímco ClickHouse fungoval v~režimu „out-of-the-box“ okamžitě po instalaci, zprovoznění MariaDB ColumnStore vyžadovalo komplexní konfiguraci. Tato provozní jednoduchost ClickHouse snižuje bariéru vstupu a nároky na správu.
+    \item \textbf{Flexibilita integrace:} Nasazení Cube.js jako sémantické vrstvy umožňuje oddělit datovou logiku od vizualizace. To dává platformě Portabo svobodu v~budoucnu změnit vizualizační nástroj (např. nahradit Superset vlastní React aplikací) bez nutnosti přepisovat datové modely.
 \end{enumerate}
 
-\chapter{Citace}
+Ačkoliv implementace open-source řešení vyžaduje vyšší počáteční investici do technického know-how a~lidského kapitálu, z~dlouhodobého hlediska nabízí robustnější, levnější a flexibilnější architekturu pro zpracování IoT dat.
 
-Citace tvoří jeden ze základních pilířů závěrečné práce. Platí zde základní pravidlo: pokud použijete 
-jakoukoliv zdroj informací, pak je nutné tento zdroj citovat, tj. uvést příslušný zdroj.
-
-Zdrojem je ve většině případů text, ale může to být i obrázek, audiovizuální materiál či ve speciálních případech i ústní sdělení. V~případě informatických prací je častým zdrojem u~zdrojový kód.
-
-Informaci ze zdroje můžete použít dvěma různými způsoby:
-
-\begin{itemize}
-\item přímo převzít (u~textů je to známé Ctrl-C, Ctrl-V)
-\item použít jako základ vlastního intelektuálního výtvoru (textu, grafiky, programu, apod.), tj. použijete jen informaci, ale její formu změníte.
-\end{itemize}
-
-Prví druh tzv. přímé citace by měli mít v~informatických závěrečných prací jen velmi omezený rozsah (méně než stránka), neboť jejich přínos pro hodnocení práce je diskutabilní. Přesto jsou však případy, kdy jsou vhodné:
-
-\begin{enumerate}
-\item matematické definice a tvrzení (věty, axiomy)
-\item definice termínů z~neinformatických oborů (např. společenských věd)
-\item citace norem resp. standardů
-\end{enumerate} 
-
-Citace mají tři základní cíle:
-\begin{enumerate}
-\item určují, co je váš vlastní intelektuální přínos a co jste pouze převzali
-\item pomáhají určovat primárního autora (resp. autory)
-\item definují kontext vaší práce resp. mohou usnadňovat nalezení dalších souvisejících informací
-\end{enumerate}
-
-Jakákoliv vědecká práce nevzniká na zelené louce a tak jsou citace její nezbytnou součástí. V~rámci práce běžně navazujeme na existující výzkumy, projekty, technologie apod. Stejně tak se můžeme odkazovat na autority či s~nimi polemizovat.
-
-První dva cíle také úzce souvisejí s~plagiátorstvím. Pokud v~práci použijete myšlenku či údaj bez citování je vaše práce plagiátem. I~když se to v~obecném mínění vztahuje jen na přímé kopírování, není tomu tak. Přímé kopírování se jen snadněji vyhledává a prokazuje. Je také obtížnější jej kvantifikovat.
-
-V~případě přímého kopírování, jež není označeno jako přímá citace, postačuje i relativně malý rozsah (například věta, jeden obrázek, jedna procedura), aby byla práce označena jako plagiát. Plagiát není možno obhájit a v~případě většího rozsahu hrozí i vyloučení ze studia. Za přímé kopírování se považují i případy, kde je změna jen formální (změna slovosledu, náhrada synonym, zkrácení, vložení textové výplně, změna barvy či afinní transformace obrázku).
-
-V~případě převzetí myšlenky jde o~zjevné plagiování, pokud je tato myšlenka důležitou částí práce (podílí se na splnění cílů). 
-
-To, že není plagiátorství odhaleno před obhajobou práce, není důkazem, že se nejedná o~plagiát. Pokud je plagiátorství zjištěno později, může vám být odebrán titul i zpětně (a jak jste si jistě všimli, plagiátorství je běžně využíváno v~politickém boji).
-
-V~každém případě si uvědomte, že plagiátorství je druh krádeže a že ani vy nechcete, aby někdo vaše myšlenky nebo dokonce váš text vydával za vlastní.
-
-\section{Označování citací}
-
-Označování citace má dvě části. Za prvé je nutno označit, jaká část práce je citací (rozsah) a jaký je původní zdroj. 
-
-Zdroj je vždy určen odkazem na bibliografický záznam, které jsou v~případě bakalářské práce uvedeny v~kapitole \textit{Použité zdroje} na konci práce. Odkaz může mít různý tvar, ale preferovaný styl je uvedení čísla záznamu v~hranatých závorkách. V~případě použití našeho latexovského stylu stačí použít příkaz \verb!\cite{id-zaznamu}!. V~případě potřeby lze zdroj zpřesnit uvedením např. stránky či kapitoly, jež se uvádí za číslem záznamu (po čárce a ještě před uzavírající hranatou závorkou). V~\LaTeX u lze využít nepovinný parametr příkazu \verb!cite!.
-
-Označení rozsahu se poněkud liší u~přímých a nepřímých citací.
-
-U~přímých citací je označení rozsahu kritické. V~případě citací, které jsou kratší než odstavec je nutné text vyznačit kurzívou a zahrnout do uvozovek. Odkaz musí následovat hned za označným textem.
-
-U~citací v~rozsahu odstavce či více odstavců se využívá zvětšení okrajů na levé i pravé straně odstavců (viditelné na první pohled). V~\LaTeX u lze použít prostředí \verb!quote! nebo \verb!quotation!. Text by měl být navíc v~uvozovkách. Kurzíva je možná, ale u~rozsáhlejších citací není příliš vhodná. Odkaz se umisťuje na konec posledního převzatého odstavce.
-
-Speciální případ je možný v~případě matematických definic a vět. Pokud jsou v~rámci kapitoly převzaty jen z~jediného zdroje, lze na počátku kapitoly uvést hromadný odkaz například v~podobě věty: Všechny definice a věty uvedené v~této kapitole jsou převzaty z~[X].
-
-V~případě převzatých obrázků se odkaz umisťuje na konec popisku. Aby však bylo zřejmé, že se jedná o~přímé převzetí (kurzívu ani uvozovky nelze použít) je nutné explicitně vyjádřit, že obrázek byl převzat ze zdroje bez podstatných změn například: (převzato z~[X]) nebo (překresleno z~[X]).
-
-U~nepřímých citací je vyznačování rozsahu volnější. Nejjednodušší je uvádění holé citace na konci vět (před tečkou) nebo konci odstavce (za poslední tečkou). V~mnoha případech je ale možné citace
-uvádět explicitněji a stylistiky je provázet s~okolním textem.
-
-příklady:
-
-\begin{itemize}
-\item zajímavá alternativa je popsána v~[x]
-\item údaj je je převzat z~[x]
-\item použití návrhového vzoru poprvé popsal N.N v~[x]
-\item volně přeloženo z~[x]
-\item řešení bylo navrženo uživatelem N v~[x] (vhodné např. pro stackoverflow a podobné zdroje)
-\end{itemize}
-
-Explicitnější vyjádření je nutno použít i v~případě, že rozsah citace přesahuje odstavec.
-
-\begin{itemize}
-\item následující příklad je převzat z~[x]
-\item výčet vychází z~[x] je však doplněn o~...
-\end{itemize}
-
-Teoreticky lze podobné řešení využít i u~celých sekcí či kapitol (kapitola je zpracována na základě [x]). V~tomto případě je však nutné předpokládat, že v~dané kapitole není žádná autorská myšlenka, a že autor se nesnažil najít alternativní pohledy či zdroje (a hodnotit tak, lze pouze autorovu schopnost výběru informací či stylistiky).
-
-Výjimečně lze uvádět i několik citací se shodným či překrývajícím se rozsahem např. \textit{následující specifikace je převzata z~[x] a [y]}. To je však tolerovatelné jen v~případě, v~kdy by oddělení oddělení zdrojů bylo obtížné nebo nepřehledné a spojení nepřináší problémy s~intelektuálním vlastnictvím (mají stejného autora či copyright). Zcela nepoužitelné jsou v~případě většího rozsahu citace (např. na úrovni sekcí či kapitol)!
-
-
-V~případě obrázků je vhodné uvést explicitnější specifikaci, jak byl originální obrázek pozměněn resp, rozšířen.
-
-Příklad:
-
-\begin{itemize}
-\item (převzato z~[x] a doplněno)
-\item (převzato z~[x], přeloženo)
-\item (upraveno z~[x] pro novou verzi technologie ...)
-\item (inspirováno diagramem [x])
-\item (viz také [x] pro data X)
-\end{itemize}
-
-
-\section{Bibliografický záznam}
-
-Biblografický záznam je datová struktura, jenž má dvě základní funkce:
-
-\begin{enumerate}
-\item jednoznačné identifikování zdroje
-\item určení primární odpovědnosti (typicky je to autor resp. autoři, u~webových zdrojů to však často bývá korporace).
-\end{enumerate}
-
-Pro každý typ zdrojového dokumentu (zdroje) existuje množina klíčových atributů, které by měly být specifikovány (ne zcela vhodně označované jako povinné) a další, které hrají jen pomocnou roli.
-
-V~praxi však může nastat situace, kdy není zřejmé, jaký typ dokumentu pro daný zdroj zvolit resp.  nelze zjistit hodnoty klíčových atributů. V~tomto případě je nutné improvizovat a snažit se, aby záznam plnil v~maximální míře obě funkce.
-
-Struktura bibliografického záznamu je v~zásadě dána těmito dimenzemi:
-
-\begin{description}
-\item[médium] -- základní dělení je na tištěné dokumenty a online dokumenty (dokumenty na elektronických nosičích tvoří jakási přechod mezi oběma typy dokumentů)
-\item[samostatnost] -- zdroj může být samostatný nebo součást rozsáhlejšího zdroje
-\item[periodičnost] -- periodický dokument vychází po jednotlivých částech, přičemž počet částí není předem znám (např. časopis).  
-\end{description}
-
-\subsection{Tištěné samostatné dokumenty neperiodické}
-
-Typickým příkladem samostatného tištěného dokumentu je kniha či monografie.
-
-Základním zdrojem informací pro bibliografický záznam u~knih je tzv. tiráž, tj. soupis vydavatelských údajů uvedený na konci knihy či na stránce za titulem. Využít lze i další zdroje (např. katalogy knihoven či knižní e-shopy, bibliografické záznamy v~jiných dokumentech), ale v~tomto případě je nutné provádět kontrolu, neboť tyto sekundární zdroje často obsahují chyby.
-
-\textbf{klíčové atributy:}
-
-\begin{description}
-\item[ISBN]: ISBN je celosvětový jedinečný identifikátor neperiodických tištěných dokumentů. Pokud ho kniha má, pak je dokument jednoznačně identifikován (a další identifikace už hraje jen sekundární roli). Pomlčky v~ISBN nejsou součástí identifikátoru a lze je vynechávat (i když občas se jedno ISBN přiděluje více svazkům). Navíc existují ve dvou podobách ISBN-10 s~deseti číslicemi a ISBN-13 s~třinácti. Pokud jsou k~dispozici oba je vhodnější uvídět ISBN-13 (i když ISBN-10 lze snadno mapovat na ISBN-13).
-\item[název]: název knihy je povinný údaj a měl by být vždy vyplněn. Použit by měl být vždy originální název bez úprav. Jedinou přípustnou úpravou je změna velkých písmen (verzálek) na malá, které by mělo odpovídat pravidlům příslušného jazyka.
-\item[podnázev]: některé knihy mají i podnázev Někdy je těžké rozeznat, co je název a podnázev. Zde platí pravidlo, že název by neměl obsahovat dvojtečku, tečku, středník apod. Od podnázvu je potřeba odlišit název edice. Podnázev je nepovinný (doporučuji uvádět pokud obsahuje klíčové informace).
-\item[autoři]: v~bibliografickém záznamu by měli být uvedeni všichni primární autoři (tj. není potřeba uvádět překladatele, ilustrátory, apod.)
-\item[vydání]: označení konkrétního vydání. Je důležité především tehdy, když není známo ISBN a existuje více odlišných vydání (s~různým obsahem)
-\item[nakladatel]: uvádí se jméno nakladatelství, a to především z~důvodů odpovědnosti
-\item[místo vydání]: uvádí se jméno města, popřípadě stát, především tehdy pokud není jednoznačné (např. Cambridge) a to ve stručné podobě (např. stačí \textit{United Kingdom}).  Podobně stručný by měl být název nakladatelství (tj. bez označení typy společnosti, apod., rodičovské společnosti, apod.)
-V~dnešní době globalizace je tento údaj v~mnoha případech nevýznamný (tj. ho lze vynechat, především tehdy pokud je nakladatelství neznámé).
-\item[rok vydání]: rok vydání přesněji identifikuje dokument. Pokud ho nelze zjistit, lze jej nahradit rokem copyrightu (v~tomto případě je uvozen znakem \verb!c! např. \verb!c2022!)
-\item[edice]: kniha může být vydána v~rámci edice. Edici doporučuji neuvádět, výjimkou jsou edice, které jsou všeobecně známé.
-\item[URL]: uvádí se pouze v~případě, že je kniha dostupná onlině a to oficiálně a bez poplatků. Uvedení URL v~tomto případě usnadňuje její získání (v~tomto případě je ale často lepší citovat ji jako elektronickou knihu).
-\end{description}
-
-\textbf{příklad:}
-
-Následující biblografický záznam byl získán z~katalogu systému knihovny UJEP (volba Citace Pro v~dolní části výpis záznamu).
-
-RASCHKA, Sebastian a Vahid MIRJALILI. \textit{Python machine learning: machine learning and deep learning with Python, scikit-learn, and TensorFlow.} Second edition. Birmingham: Packt, 2017. Expert insight. ISBN 978-1-78712-593-3.
-
-Tento záznam splňuje základní požadavky, neboť obsahuje údaje týkající se odpovědnosti i jednoznačnou identifikaci dokumentu (a to jak ISBN tak přesným určením vydání).  Zahrnutí podnázvu
-je vhodné, neboť obsahuje dodatečné informace (jména frameworků).
-Nakladatelství je uvedeno ve stručné podobě (tj. \textit{Packt}) je uvedeno ve stručné podobě. Nadbytečné je jen uvedení edice (\textit{Expert insight}).
-
-\subsection{Online samostatné dokumenty neperiodické}
-
-Typickým příkladem je online PDF dokument (včetně elektronické knihy). Dalším příkladem je webové sídlo (\textit{web site}) tj. typicky hierarchický systém více stránek (nikoliv tedy jedna konkrétní web stran).
-
-\begin{description}
-\item[medium]: u~online zdrojů se jako médium uvádí slovo \texttt{online}.
-\item[URL]: klíčový údaj pro online zdroje. Některé systémy (např. Wikipedia) poskytují tj. fixní URL, které odkazují na konkrétní verzi dokumentu, resp. stránek. I~když jsou tato URL obecně delší, je nutné jim dát přednost, neboť zaručují jedinečnost.
-\item[název]: název nelze vynechat i když ne vždy je jasné, co je hlavním názvem. V~tomto případě je možné využít obsahu elementu title v~hlavičce HTML (pokud je zdroj v~HTML) nebo jiná metadata (například jak je zdroj pojmenován v~odkazu).
-\item[autoři]: autor nebývá u~mnoha online dokumentů dohledatelný (a v~tomto případě je nutné ho vynechat). Rozhodně však věnujte čas zjištění autorství (může být uvedeno i mimo dokument). 
-\item[odpovědná korporace]: typicky je to držitel intelektuálních práv (copyrightu). Důležitý je přdevším v~případě, že není znám autor, ale uvádějte ho ve všech případech, kdy je dohledatelný. Většina bibliografických stylů tento atribut nepodporuje resp. ho běžně nezobrazuje. Proto je vhodné pro tento účel využívat atribut \textit{nakladatel} (i když to není totéž).
-\item[verze/čas poslední aktualizace]: nahrazuje rok vydání. V~případě, že není použit fixní odkaz, je klíčovým zdrojem informací, jaká z~verzí dokumentu byla použita jako zdroj. Online dokumenty se mění často, a tak je vhodné uvádět, co nejpřesnější specifikaci (číslo verze, čas poslední aktualizace). Jen v~případě, že dokument není verzován a nelze zjistit přesnější čas poslední modifikace, lze využít vročení (stejně jako u~knih může být odhadnuto z~copyrightu).
-\item[datum použití]: je to povinný údaj i když důležitý je jen v~případě, kdy nelze určit přesnější verzi. Měl by být v~ISO formátu tj. ve tvaru RRRR-MM-DD. Toto datum běžně generuje editor bibliografických citací podle data vytvoření záznamu. V~každém případě by mělo ležet v~časovém intervalu od poslední modifikace zdroje (je-li uvedeno) do data odevzdání závěrečné práce. 
-\end{description}
-
-\textbf{příklad:}
-
-\subsection{Dílčí tištěné dokumenty}
-
-U~dílčích tištěných dokumentů je typické, že kromě identifikace dílčí části obsahují i identifikaci dokumentu jako celku.
-
-Klasickým příkladem jsou články ve sborníku nebo vědeckém časopise. Kapitoly v~knize (monografii) se citují, jen případě, že každou z~nich vytvořil jiný autor (či kolektiv autorů)
-
-V~zásadě platí tato pravidla:
-
-\begin{itemize}
-\item uvádí se jen autoři dílčí časti, nikoliv například editoři sborníku nebo časopisu
-\item uvádí se pozice části v~celém dokumentu nejlépe pomocí rozsahu stránek
-\item pokud má dílčí část vlastní jednoznačný identifikátor (například DOI), není potřeba uvádět identifikátor knihy nebo periodika.
-\end{itemize}
-
-
-\subsection{Dílčí online dokumenty}
-
-Tento typ citací se používá pro webové stránky, jež jsou součástí webového sídla například pro
-konkrétní stránky s~dokumentací nebo dokumenty uložené na GitHubu. Pro jiné elektronické dokumenty, pokud nejsou výslovně součástí webového sídla (např. elektronického sborníku) je vhodnější použít 
-záznam samostatného dokumentu (viz výše).
-
-Název stránky je doplněn jménem webového sídla (to je typicky uvedeno v~záhlaví každé stránky resp. na hlavní stránce webového sídla. Autoři se vztahují ke stránce zatímco korporátní odpovědnost je typicky vztažena k~celému sídlu (pokud jsou známy autoři i korporátní odpovědnost je vhodné uvést oba údaje, vždy však musí být uveden alespoň jeden z~těchto údajů). Všechy ostatní atributy se vztahují 
-
-\textbf{příklady:}
-
-What’s New In Python 3.9: Summary -- Release highlights. \textit{Python 3.9.0 documentation [online]}. Python Software Foundation, October 14, 2020 [cit. 2020-10-15]. Dostupné z: https://docs.python.org/3/whatsnew/3.9.html
-
-Záznam obsahuje název dílčí části a také název celého webového sídla (v~kurzívě). Odpovědná organizace je uvedena na místě nakladatele (autor není uveden a tak je tato informace klíčová). Verze je určena datem poslední modifikace (je uvedeno přímo ve tvaru použitém na stránce). Datum citování je povinné, ale v~tomto případě nenese žádnou přidanou informaci (jen to, že citace byla vytvořena jen den po poslední modifikaci. Poslední součástí je URL.
-
-
-Python nonlocal statement. \textit{Stack Overflow} [online]. Stack Exchange, 2022-03 [cit. 2022-07-27]. Dostupné z: https://stackoverflow.com/questions/1261875/python-nonlocal-statement
-
-Struktura záznamu je stejná. Čas poslední modifikace byl určen z~informace, že poslední modifikace proběhla před čtyřmi měsíci (je uvedena v~ISO formátu, ale odpovídající by byl i údaj například ve tvaru \textit{březen 2022} nebo \textit{March 2022}).
-
-
-\section{Často kladené otázky}
-
-\subsection{Co není potřeba citovat?}
-
-Obecně platí, že citovat není potřeba znalosti, které jste získali v~průběhu studia a to jak při výuce tak i z~učebních materiálů (opor, skript). Citovat není potřeba ani zdroj formálních údajů (např. významu zkratek), pokud je lze snadno získat (například na Wikipedii).
-
-To jest není nutné uvádět citaci při uvedení zkratky HTTP (zkratka je všeobecně známá a běžně využívána v~mnoha kurzech). Podobně není nutné odkazovat pojmy jako Internet, počítačová síť, programovací jazyk, procesor, apod.
-
-Běžně se také necitují (původní) myšlenky vedoucího práce, pokud si vedoucí práce nevyžádá jinak. Pokud vám zprostředkuje nepůvodní myšlenku, měl by vám pomoci najít originální zdroj (který uvedete v~citaci).
-
-Citování není možné v~případě, kdy není znám původní zdroj, resp. je v~podobě, kterou není možné citovat (lidová řčení, apod.) Pravděpodobnost výskytu takových textů v~informatické bakalářské práci je však velmi nízká.
-
-\subsection{Jak citovat informace z~(podnikových) školení}
-
-Pokud se jedná o~evidentní výtvor školitele, můžete odkazovat příslušný
-výukový materiál (i když je neveřejný). Pokud je informace nepůvodní, pak je vhodné citovat primární resp. alespoň dostatečně autoritativní zdroj.
-
-\subsection{Jak citovat ústní sdělení?}
-
-Ústní sdělení je potřeba citovat jen tehdy, když je od autoritativní osoby v~oblasti její odbornosti. Pokud například píšete práci o~nasazení databáze, pak je autoritativní osobou například
-správce databázového systému (který vám sdělí například zkušenosti s~nasazením).
-
-Jak je uvedeno výše, ve většině případů se necitují ústní sdělení učitelů, školitelů, vedoucího práce a dalších sekundárních zdrojů.
-
-Pokud citujete ústní sdělení je vhodné s~tím danou osobu seznámit či získat alespoň neformální souhlas, neboť sdělené informace nemusí být veřejné.
-
-Navzdory důležitosti ústních sdělení v~některých typech prakticky zaměřených prací, není citace ústních sdělení standardizována. Jednoduchý návod nabízí například blog na citace.com [XXX].
-
-Ústí sdělení je však neověřitelné a nelze ho jednoznačně identifikovat. Proto je lepší pokud se sdělení děje například e-mailem. Citace e-mailové komunikace i dalších netradičních zdrojů shrnuje
-dokument [XXX].
-
-\subsection{Je možno citovat Wikipedii?}
-
-Citování Wikipedie se obecně nedoporučuje, neboť se jedná o~terciární zdroj (encyklopedia vytvořená na základě druhotných informací) a její kvalita je značně kolísavá.
-
-Na druhou stranu Wikipedia (především v~anglické verzi) často obsahuje i hodnotný a jinak jen obtížně dostupný materiál, a tak nelze citování z~Wikipedie striktně zakázat.
-
-Základní doporučení pro citování z~Wikipedie:
-
-\begin{itemize}
-\item citujte jen tehdy, pokud nemáte k~dispozici primární zdroje (ty jsou často odkazovány přímo
-z~Wikipedie)
-\item  citujte jen kvalitní články (které nejsou označeny jako problematické), které se v~oblasti
-informatiky a matematiky objevují spíše na anglické Wkipedii
-\item citace z~Wikipedie by měli tvořit jen malou část zdrojů (typicky méně než 10%)
-\end{itemize}
-
-Z~Wikipedie rozhodně necitujte články věnované běžně známým technologiím a poznatkům, které jsou běžnou součástí kurzů. 
-
-\chapter{Zhodnocení} 
 
 \chapter{Závěr}
 
@@ -1797,32 +1558,45 @@ Práce tak splnila své cíle a poskytla ucelený pohled na možnosti moderních
 
 \chapter{Externí přílohy\label{sec:ep}}
 
-Externí přílohy této bakalářské práce jsou umístěny na adrese:\\ \url{https://github.com/Jiri-Fiser/thesis_ki_ujep}.
+Externí přílohy této bakalářské práce, včetně kompletních zdrojových kódů, skriptů a dokumentace, jsou dostupné ve veřejném repozitáři na službě GitHub:
 
-Na úložiští GitHub mohou byt uloženy tyto externí přílohy:
+\begin{center}
+    \url{https://github.com/ladislav-tahal/KI_UJEP_THESIS_LADISLAV_TAHAL}
+\end{center}
 
-\begin{itemize}
-\item \textbf{zdrojové kódy}
-\item \textbf{doplňkové texty} (například jak instalovat aplikaci, manuály aplikace)
-\item \textbf{schémata} (především, pokud se nevejdou na stranu A4 a jejich vytištění je tak problematické)
-\item \textbf{screenshoty} (v~textu práce lze použít jen omezený počet snímků obrazovky, které navíc nemusí být při černobílém tisku příliš přehledné)
-\item \textbf{videa} (například ovládání aplikace)
-\end{itemize}
+Struktura přiloženého elektronického nosiče (a repozitáře) je následující:
 
-V~každém případě by to však měli být pouze materiály, které jste vytvořili sami. Materiály jiných autorů uvádějte v~seznamu použité literatury (včetně případných odkazů na jejich originální umístění).
-
-V~této kapitole stačí uvést pouze základní strukturu úložiště (co se kde nalézá a jakou má funkci) například v~podobě tabulky. 
-
-\begin{longtable}{ll}
-\hline
-ki-thesis.pdf & text práce v~PDF \\
-ki-thesis.tex & zdrojový kód práce v~\LaTeX{}u \\
-kitheses.cls & definice třídy dokumentů (rozšířená třída \texttt{scrbook} \\
-thesis.bib & bibliografická databáze (exportována z~citace.com) \\
-LOGO\_PRF\_CZ\_RGB\_standard.jpg  & logo fakulty s~českým textem \\
-LOGO\_PRF\_EM\_RGB\_standard.jpg  & logo fakulty s~anglickým textem  \\
-\hline
-\end{longtable}
+\begin{verbatim}
+/
+|-- Analýza topiků/ ........................ Analýza MQTT témat a zpráv
+|   |-- Topik100.xlsx ...................... Témata se 100% shodou payloadu
+|   `-- Topik50.xlsx ....................... Témata s částečnou shodou
+|-- Architektura/ .......................... Grafické návrhy řešení
+|   `-- reporting_structure.png ............ Schéma architektury reportingu
+|-- Bakalářská práce PDF/ .................. Text práce v systému LaTeX
+|   `-- (zdrojové kódy LaTeX)
+|-- MSSQL_MSSQL_SSAS_PowerBI/ .............. Komerční větev (MS SQL Server)
+|   |-- OlapTabular/ ....................... Projekt SSAS Tabular modelu
+|   `-- Portabo - kamery Bílina.pbix ....... Power BI report
+|-- MariaDB_Clickhouse_CubeJS_Superset/ .... Open-source větev (ClickHouse)
+|   |-- cubejs/ ............................ Datové modely pro Cube.js
+|   |-- superset/ .......................... Konfigurace Apache Superset
+|   |-- docker-compose.yml ................. Orkestrace kontejnerů
+|   `-- clickhouse_data.tar.gz ............. Export datového schématu a dat
+|-- MariaDB_MariaDB_CubeJS_Superset/ ....... Varianta s MariaDB ColumnStore
+|   |-- cubejs/ ............................ Datové modely
+|   |-- sample_data.sql .................... Generování testovacích dat
+|   |-- Dockerfile ......................... Konfigurace prostředí
+|   `-- docker-compose.yml ................. Orkestrace kontejnerů
+|-- PostgreSQL_PostgreSQL_CubeJS_Superset/ . Varianta s PostgreSQL
+|   |-- cubejs/ ............................ Datové modely
+|   `-- docker-compose.yml ................. Orkestrace kontejnerů
+|-- Scripty/ ............................... Pomocné nástroje a skripty
+|   |-- Python/ ............................ ETL skripty a generátory dat
+|   |-- SQL/ ............................... SQL skripty pro inicializaci
+|   `-- Start sluzeb/ ...................... Skripty pro spouštění služeb
+`-- Zdroje/ ................................ Seznam použitých zdrojů
+\end{verbatim}
 
 Všechny tyto soubory jsou potřeba pro překlad dokumentu (logo stačí jedno v~příslušné jazykové verzi).
 

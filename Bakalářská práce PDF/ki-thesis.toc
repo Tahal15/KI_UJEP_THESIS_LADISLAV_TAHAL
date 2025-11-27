@@ -37,50 +37,39 @@
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{44}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{44}{section.3.2}%
 \contentsline {subsection}{\nonumberline Analýza a příprava zdrojových dat}{44}{subsection*.54}%
-\contentsline {subsubsection}{\nonumberline Automatizovaná analýza JSON struktur}{45}{subsubsection*.56}%
+\contentsline {subsection}{\nonumberline Automatizovaná analýza JSON struktur}{45}{subsection*.56}%
 \contentsline {subsection}{\nonumberline Návrh a principy ETL procesů}{46}{subsection*.58}%
 \contentsline {subsection}{\nonumberline Implementace ETL pro jednotlivé technologie}{46}{subsection*.60}%
 \contentsline {subsubsection}{\nonumberline SQL Server ETL}{46}{subsubsection*.62}%
 \contentsline {subsubsection}{\nonumberline MariaDB + MariaDB ColumnStore ETL}{47}{subsubsection*.64}%
 \contentsline {subsubsection}{\nonumberline PostgreSQL + PostgreSQL TimescaleDB ETL}{47}{subsubsection*.66}%
 \contentsline {subsubsection}{\nonumberline MariaDB + ClickHouse ETL}{48}{subsubsection*.68}%
-\contentsline {section}{\numberline {3.3}Struktura a vrstvy datového skladu}{51}{section.3.3}%
-\contentsline {section}{\numberline {3.4}OLAP a vizualizace}{51}{section.3.4}%
-\contentsline {subsection}{\nonumberline Komerční varianta -- SSAS Tabular a Power BI}{52}{subsection*.70}%
-\contentsline {subsection}{\nonumberline Open-source varianta -- Cube.js a Apache Superset}{53}{subsection*.72}%
-\contentsline {subsection}{\nonumberline Porovnání přístupů}{54}{subsection*.74}%
-\contentsline {section}{\numberline {3.5}Provedení srovnávací analýzy}{54}{section.3.5}%
-\contentsline {subsection}{\nonumberline Srovnání výkonu na úrovni databáze}{54}{subsection*.76}%
-\contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{58}{subsubsection*.78}%
-\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{58}{subsubsection*.80}%
-\contentsline {subsection}{\nonumberline Srovnání výkonu a architektury BI nástrojů}{59}{subsection*.82}%
-\contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v~open-source stacku}{60}{subsubsection*.84}%
-\contentsline {subsection}{\nonumberline Závěrečné shrnutí výsledků}{60}{subsection*.86}%
-\contentsline {subsection}{\nonumberline Testování souběžné zátěže (Concurrency)}{61}{subsection*.88}%
-\contentsline {subsection}{\nonumberline Práce s~mapovými daty}{61}{subsection*.90}%
-\contentsline {subsection}{\nonumberline Srovnání vizualizačních možností a architektury reportingu}{61}{subsection*.92}%
-\contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{63}{subsection*.94}%
-\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{63}{subsubsection*.96}%
-\contentsline {subsubsection}{\nonumberline Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}{63}{subsubsection*.98}%
-\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{64}{subsubsection*.100}%
-\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{64}{subsubsection*.102}%
-\contentsline {subsubsection}{\nonumberline Závěrečné porovnání}{64}{subsubsection*.104}%
-\contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{67}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Citace}{69}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Označování citací}{70}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Bibliografický záznam}{71}{section.5.2}%
-\contentsline {subsection}{\nonumberline Tištěné samostatné dokumenty neperiodické}{72}{subsection*.106}%
-\contentsline {subsection}{\nonumberline Online samostatné dokumenty neperiodické}{73}{subsection*.108}%
-\contentsline {subsection}{\nonumberline Dílčí tištěné dokumenty}{74}{subsection*.110}%
-\contentsline {subsection}{\nonumberline Dílčí online dokumenty}{74}{subsection*.112}%
-\contentsline {section}{\numberline {5.3}Často kladené otázky}{75}{section.5.3}%
-\contentsline {subsection}{\nonumberline Co není potřeba citovat?}{75}{subsection*.114}%
-\contentsline {subsection}{\nonumberline Jak citovat informace z~(podnikových) školení}{76}{subsection*.116}%
-\contentsline {subsection}{\nonumberline Jak citovat ústní sdělení?}{76}{subsection*.118}%
-\contentsline {subsection}{\nonumberline Je možno citovat Wikipedii?}{76}{subsection*.120}%
-\contentsline {chapter}{\numberline {6}Zhodnocení}{77}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Závěr}{79}{chapter.7}%
-\contentsline {chapter}{Seznam použitých zkratek a pojmů}{81}{section*.121}%
+\contentsline {subsection}{\nonumberline Struktura a vrstvy datového skladu}{51}{subsection*.70}%
+\contentsline {subsection}{\nonumberline OLAP a vizualizace}{51}{subsection*.72}%
+\contentsline {subsubsection}{\nonumberline Komerční varianta -- SSAS Tabular a Power BI}{52}{subsubsection*.74}%
+\contentsline {subsubsection}{\nonumberline Open-source varianta -- Cube.js a Apache Superset}{53}{subsubsection*.76}%
+\contentsline {subsubsection}{\nonumberline Porovnání přístupů}{54}{subsubsection*.78}%
+\contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{54}{section.3.3}%
+\contentsline {subsection}{\nonumberline Výkonové parametry}{54}{subsection*.80}%
+\contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{58}{subsubsection*.82}%
+\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{58}{subsubsection*.84}%
+\contentsline {subsubsection}{\nonumberline Srovnání výkonu a architektury BI nástrojů}{59}{subsubsection*.86}%
+\contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v~open-source stacku}{60}{subsubsection*.88}%
+\contentsline {subsubsection}{\nonumberline Shrnutí výkonnostních testů}{60}{subsubsection*.90}%
+\contentsline {subsubsection}{\nonumberline Testování souběžné zátěže (Concurrency)}{61}{subsubsection*.92}%
+\contentsline {subsection}{\nonumberline Funkční vlastnosti}{61}{subsection*.94}%
+\contentsline {subsubsection}{\nonumberline Práce s~mapovými daty}{61}{subsubsection*.96}%
+\contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a architektury reportingu}{61}{subsubsection*.98}%
+\contentsline {subsection}{\nonumberline Uživatelská přívětivost}{62}{subsection*.100}%
+\contentsline {subsection}{\nonumberline Ekonomické aspekty}{63}{subsection*.102}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{63}{subsubsection*.104}%
+\contentsline {subsubsection}{\nonumberline Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}{64}{subsubsection*.106}%
+\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{64}{subsubsection*.108}%
+\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{64}{subsubsection*.110}%
+\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a doporučení}{65}{section.3.4}%
+\contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{65}{subsection*.112}%
+\contentsline {chapter}{\numberline {4}Závěr}{67}{chapter.4}%
+\contentsline {chapter}{Seznam použitých zkratek a pojmů}{69}{section*.113}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -188,5 +177,5 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{87}{appendix.A}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{75}{appendix.A}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
