@@ -1333,45 +1333,76 @@ Jako teoretický směr pro další optimalizaci open-source řešení se nabíz�
 Závěrem lze říci, že open-source stack nabízí obrovskou flexibilitu a škálovatelnost, je však vykoupena vyššími nároky na technickou expertizu, zatímco komerční platformy nabízejí okamžitý výkon in-memory modelu výměnou za licenční poplatky a hardwarová omezení.
 \subsection{Testování souběžné zátěže (Concurrency)}
 
-Kromě měření rychlosti odezvy pro jednoho uživatele bylo provedeno i teoretické zhodnocení chování systémů při souběžném přístupu více uživatelů (concurrency). Tento aspekt je kritický pro reálné nasazení, kde s~dashboardy pracuje více analytiků současně.
+Doplnit!!
 
-\begin{itemize}
-    \item \textbf{MS SQL Server + SSAS (MOLAP):} Díky in-memory architektuře zvládá SSAS vysokou míru souběžnosti velmi efektivně. Data jsou načtena v~paměti a dotazy jsou obsluhovány přímo z~ní, což eliminuje zámky na disku. Limitujícím faktorem je zde pouze propustnost CPU a paměti. Pro běžný provoz (desítky uživatelů) je výkon prakticky neovlivněn.
-    \item \textbf{ClickHouse + Cube.js (ROLAP):} ClickHouse je navržen pro extrémně rychlé čtení, ale jeho architektura (LSM stromy) není primárně optimalizována pro tisíce malých souběžných dotazů (high QPS). Při vysoké zátěži může docházet k~frontám požadavků. Zde hraje klíčovou roli \textbf{Cube.js}, která funguje jako cache a load balancer. Díky pre-agregacím a cachování výsledků v~Redis vrstvě se většina opakujících se dotazů vůbec nedostane k~databázi, čímž se systém stává vysoce odolným i proti náhlým špičkám v~návštěvnosti.
-\end{itemize}
 
 \subsection{Práce s~mapovými daty}
 
-Součástí zadání byla i analýza práce s~geoprostorovými daty, která jsou v~kontextu Smart City (kamery, senzory) klíčová. Oba testované nástroje nabízejí možnosti vizualizace na mapě, avšak s~rozdílným přístupem.
+Součástí zadání byla i analýza práce s~geoprostorovými daty. Oba testované nástroje nabízejí možnosti vizualizace na mapě, avšak s~rozdílným přístupem.
 
 \begin{itemize}
     \item \textbf{Power BI (Azure Maps / Bing Maps):}
-    Nabízí hlubokou integraci s~mapovými podklady Microsoftu. Umožňuje snadné vykreslení bodů (kamery) i oblastí (městské části). Výhodou je intuitivní ovládání a automatické geokódování. Nevýhodou může být limit na počet vykreslených bodů v~základní verzi a nutnost placené licence pro pokročilé GIS funkce.
+    Vizualizační vrstva Power BI je postavena na mapových službách Azure Maps a Bing Maps~\cite{microsoft_azure_maps_visual}. Z~technického hlediska je klíčovou výhodou \textbf{aktivní geokódovací služba}, která na pozadí automaticky převádí textové atributy (názvy měst, adresy, PSČ) na geografické souřadnice. To umožňuje vizualizovat data, která neobsahují explicitní GPS souřadnice. Tato abstrakce však přináší výkonnostní limity a závislost na externím API, což může být při velkém objemu dotazů (tisíce bodů) pomalé nebo zpoplatněné. Vykreslování bodů probíhá převážně na straně klienta, což omezuje plynulost při vyšších počtech objektů.
     
     \item \textbf{Apache Superset (Deck.gl):}
-    Využívá knihovnu \textit{Deck.gl} od Uberu, která je standardem pro vizualizaci velkých objemů geodat. Superset dokáže plynule vykreslit tisíce bodů (např. trajektorie vozidel) nebo heatmapy hustoty dopravy. Oproti Power BI nabízí větší flexibilitu v~nastavení vrstev (layers) a typů vizualizací (Arc, Polygon, Scatterplot), vyžaduje však, aby data v~databázi obsahovala správné souřadnice (latitude/longitude) a jejich napojení je technicky náročnější.
+    Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\cite{superset_deckgl}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\cite{superset_country_map}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
 \end{itemize}
 
-\subsection{Srovnání vizualizačních možností}
+\subsection{Srovnání vizualizačních možností a architektury reportingu}
 
-Zatímco výkon je objektivně měřitelná veličina, kvalita a šíře vizualizačních možností ovlivňuje především uživatelskou přívětivost a schopnost efektivně předat informaci.
+Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, ale především na technickou architekturu vykreslování, způsob generování dotazů a flexibilitu vývojového cyklu.
 
 \begin{itemize}
-    \item \textbf{Microsoft Power BI:}
-    Představuje špičku v~oblasti "self-service BI". Nabízí obrovské množství nativních vizuálů a ještě širší knihovnu komunitních doplňků (AppSource).
+    \item \textbf{Microsoft Power~BI (Canvas-based \& Model-first):}
+    Architektura reportů je založena na principu plátna (canvas), kde jsou vizuální komponenty umisťovány v absolutních pozicích.
+
     \begin{itemize}
-        \item \textbf{Interaktivita:} Vyniká v~tzv. \textit{cross-filtering}, kdy kliknutí do jednoho grafu automaticky filtruje ostatní. Funkce \textit{Drill-through} umožňuje snadný přechod z~agregovaného pohledu na detailní data.
-        \item \textbf{Design:} Umožňuje pixel-perfect design reportů, pokročilé formátování a tvorbu mobilních layoutů.
+        \item \textbf{Architektura vykreslování (Client-side):}
+        Většina nativních vizuálů je vykreslována v prohlížeči pomocí HTML5 Canvas a knihoven postavených na D3.js.
+        Power~BI uplatňuje limity na počet renderovaných datových bodů (tzv. \emph{Data Point Limits}, např.~cca~3\,500 bodů pro bodový graf)~\cite{microsoft_powerbi_limits}.
+        Při práci s rozsáhlými datasetty používá techniky redukce dat (\emph{High Density Sampling}), které mohou snížit přesnost vykreslených extrémů~\cite{microsoft_powerbi_limits}.
+
+        \item \textbf{Layout engine:}
+        Umožňuje přesné umístění prvků a jejich vrstvení (tzv. pixel-perfect design).
+        Nevýhodou je nutnost vytvářet samostatné rozložení pro mobilní zařízení.
+
+        \item \textbf{Interaktivita (DAX Context):}
+        Interakce uživatele (např. kliknutí do vizuálu) mění tzv. \emph{Filter Context}.
+        Engine následně automaticky generuje odpovídající DAX dotazy pro všechny ovlivněné vizuály na stránce.
+        Správné fungování vyžaduje korektně definované relace v datovém modelu.
+
+        \item \textbf{Rozšiřitelnost:}
+        Ekosystém je uzavřený, avšak rozšiřitelný pomocí \emph{Custom Visuals} SDK (TypeScript/React)~\cite{microsoft_custom_visuals_sdk}.
     \end{itemize}
 
-    \item \textbf{Apache Superset:}
-    Zaměřuje se spíše na rychlou exploraci dat než na dokonalý design reportů.
+    \item \textbf{Apache Superset (Grid-based \& SQL-first):}
+    Dashboardy využívají mřížkový systém rozložení (Grid system) s modulárními komponentami.
+
     \begin{itemize}
-        \item \textbf{Vizualizace:} Nabízí bohatou sadu grafů (ECharts), včetně specializovaných (Sankey diagramy, Sunburst, Word Cloud).
-        \item \textbf{SQL Lab:} Unikátní funkcí je integrované SQL IDE, které umožňuje analytikům psát přímé dotazy a okamžitě vizualizovat výsledky, což v~Power BI chybí (tam je nutné jít přes Power Query nebo DAX).
-        \item \textbf{Limitace:} Možnosti formátování (barvy, fonty, rozložení) jsou oproti Power BI omezené. Interaktivita mezi grafy (cross-filtering) je podporována, ale její nastavení není tak intuitivní.
+        \item \textbf{Architektura vykreslování (Query-based):}
+        Superset funguje jako tenká vrstva nad databázemi a datovými enginy, které provádějí
+        veškeré výpočty a agregace~\cite{superset2024docs}. Každá vizualizace je založena na SQL dotazu, jehož
+        výsledná data jsou backendem serializována do formátu JSON a odeslána frontendu.
+        Frontend poté vykresluje grafy pomocí otevřených vizualizačních knihoven, zejména
+        \textit{deck.gl} (pro mapové a geovizuální grafy využívající WebGL akceleraci)~\cite{superset_deckgl}.
+        Díky WebGL dokáže deck.gl efektivně zobrazovat i velké množství geografických nebo
+        bodových objektů, což je zásadní pro práci s rozsáhlejšími geodaty.
+
+        \item \textbf{Layout engine:}
+        Komponenty jsou organizovány do řádků a sloupců, což poskytuje nativní responzivitu.
+        Tento přístup však omezuje volné pozicování prvků oproti canvas-based nástrojům.
+
+        \item \textbf{Interaktivita (Event-driven):}
+        Cross-filtering je implementován pomocí událostí publikovaných do globálního stavu dashboardu.
+        Tyto události spouštějí nové SQL dotazy pro všechny vizuály zahrnuté ve \emph{scoping} pravidlech.
+        Na rozdíl od Power~BI není cross-filtering aktivní automaticky a vyžaduje explicitní konfiguraci.
+
+        \item \textbf{SQL Lab:}
+        Superset obsahuje vestavěné SQL IDE umožňující uživatelům psát vlastní dotazy a vytvářet vizualizace přímo z výsledku.
+        Tento \emph{SQL-first} přístup zrychluje explorativní analýzu a nevyžaduje sémantický model předem.
     \end{itemize}
 \end{itemize}
+
 
 \subsection{Analýza celkových nákladů na vlastnictví (TCO)}
 
@@ -1383,7 +1414,8 @@ TCO v~tomto případě dělíme na tři hlavní složky: \textbf{Licenční nák
 
 \begin{itemize}
     \item \textbf{Srovnatelná pracnost implementace ETL:} Jelikož byla pro oba přístupy (komerční i open-source) zvolena strategie ETL s~využitím jazyka \textbf{Python}, objem práce nutný pro napsání ETL procesů byl v~podstatě totožný. Psaní skriptu pro \texttt{pyodbc} (MSSQL) vyžadovalo srovnatelnou časovou investici jako psaní skriptu pro \texttt{clickhouse-driver}.
-    \item \textbf{Rozdíl v~expertíze:} Hlavní rozdíl tedy nespočívá v~objemu práce, ale v~typu požadované znalosti. Zatímco správa MSSQL je na trhu běžnou komoditou, efektivní konfigurace \textbf{MariaDB Columnstore} technologie nebo ladění \textbf{Cube.js} schémat vyžaduje specifičtější, a často dražší, know-how.
+    \item \textbf{Vliv křivky učení na objem práce:} Vyšší časová náročnost implementace open-source řešení byla v~rámci tohoto projektu způsobena primárně nutností osvojit si specifické know-how (např. konfigurace MariaDB ColumnStore, optimalizace Cube.js), které není na trhu tak běžně dostupné jako znalost ekosystému Microsoft.
+    \item \textbf{Teoretické srovnání při rovnosti znalostí:} Za předpokladu, že by vývojář disponoval stejnou úrovní expertízy v~obou technologiích, by implementace open-source řešení byla stále mírně časově náročnější (kvůli nutnosti manuální konfigurace a integrace komponent), avšak v~kontextu projektu tohoto rozsahu by byl rozdíl v~čistém objemu práce zanedbatelný.
 \end{itemize}
 
 Pro kvantifikaci těchto nákladů byly využity průměrné mzdy v~IT sektoru dle dat Českého statistického úřadu (ČSÚ) a Informačního systému o~průměrném výdělku (ISPV).
@@ -1416,12 +1448,12 @@ U~varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantn
     \item \textbf{SQL Server -- Licenční model:}
     Pro backend (DB + SSAS) se nabízí dva modely, přičemž pro veřejnou analytickou platformu je obvykle nutný model \textbf{Per Core}:
     \begin{itemize}
-        \item \textbf{SQL Server Standard:} Cena se pohybuje okolo \textbf{3 500 -- 4 000 USD} za balík 2 jader. Tato edice je však limitována maximálně \textbf{128 GB RAM} pro databázový engine a \textbf{64 GB RAM} pro SSAS (Tabular).
-        \item \textbf{SQL Server Enterprise:} Pro využití větší paměti (nutné pro velké in-memory modely) je nutná Enterprise edice, kde cena strmě stoupá (cca \textbf{15 000 USD} za 2 jádra).
+        \item \textbf{SQL Server Standard:} Cena se pohybuje okolo \textbf{3 500 -- 4 000 USD} za 2 jádra (ročně). Tato edice je však limitována maximálně \textbf{128 GB RAM} pro databázový engine a \textbf{64 GB RAM} pro SSAS (Tabular).
+        \item \textbf{SQL Server Enterprise:} Pro využití větší paměti (nutné pro velké in-memory modely) je nutná Enterprise edice, kde cena strmě stoupá (cca \textbf{15 000 USD} ročně za 2 jádra).
     \end{itemize}
 
     \item \textbf{Infrastrukturní dopad (In-Memory daň):}
-    Jelikož SSAS Tabular drží data v~paměti, naráží u~velkých objemů dat (Big Data) na hardwarové a licenční limity. Pokud datový model přesáhne 64 GB (limit Standard edice), organizace je nucena přejít na násobně dražší Enterprise edici, což skokově zvyšuje TCO.
+    Jelikož SSAS Tabular drží data v~paměti (MOLAP), naráží u~velkých objemů na hardwarové a licenční limity. Překročení 64 GB RAM (limit Standard edice) vynucuje přechod na násobně dražší Enterprise edici, což skokově zvyšuje TCO.
 
     \item \textbf{Power BI (Vizualizace):}
     Zatímco Superset je zdarma pro libovolný počet uživatelů, Power BI účtuje poplatky za sdílení reportů:
@@ -1436,7 +1468,7 @@ U~varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantn
 Významný rozdíl v~TCO tvoří také hardwarové požadavky, které vycházejí z~odlišných architektur:
 
 \begin{itemize}
-    \item \textbf{MOLAP (MS SSAS):} Vyžaduje, aby se celý datový model (nebo jeho podstatná část) vešel do operační paměti (RAM). RAM je nejdražší komponentou serveru. S~růstem dat rostou náklady na RAM lineárně až exponenciálně.
+    \item \textbf{MOLAP (MS SSAS):} Vyžaduje, aby se celý datový model (nebo jeho podstatná část) vešel do operační paměti (RAM). RAM je nejdražší komponentou serveru a s~růstem dat rostou náklady na ni lineárně až exponenciálně.
     \item \textbf{ROLAP (ClickHouse/MariaDB):} Spoléhá na rychlé diskové operace. Data jsou uložena na discích (SSD/NVMe), které jsou řádově levnější než RAM. Díky efektivní kompresi (zmíněná 10x úspora u~ClickHouse) jsou nároky na kapacitu úložiště minimální.
 \end{itemize}
 

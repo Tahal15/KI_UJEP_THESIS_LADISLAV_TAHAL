@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  24 NOV 2025 22:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  27 NOV 2025 12:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakal√°≈ôsk√° pr√°ce PDF/ki-thesis.tex"
-(e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakal√°≈ôsk√° pr√°ce PDF/ki-thesis.tex
+**"c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakal√°≈ôsk√° pr√°ce PDF/ki-thesis.tex"
+(c:/Users/tahall/Documents/GitHub/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakal√°≈ôsk√° pr√°ce PDF/ki-thesis.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (./kitheses.cls
@@ -1935,45 +1935,47 @@ Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1322.
 [60 <./img/PowerBI - analyzer.png>]
 
 [61]
+Overfull \hbox (2.21602pt too wide) in paragraph at lines 1360--1364
+\T1/LibertinusSerif-TLF/m/n/12 (-20) ¨uje li-mity na po-£et ren-de-ro-va-n˝ch da-to-v˝ch bod∑ (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) Data Point Li-mits\T1/LibertinusSerif-TLF/m/n/12 (-20) , nap∞. cca 3500
+ []
+
+
 
 [62]
 
 [63]
-Underfull \hbox (badness 10000) in paragraph at lines 1469--1469
+
+[64]
+Underfull \hbox (badness 10000) in paragraph at lines 1501--1501
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) MariaDB (Tra-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1472--1472
+Underfull \hbox (badness 10000) in paragraph at lines 1504--1504
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) ExtrÈmnÌ kom-prese
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1472--1472
+Underfull \hbox (badness 10000) in paragraph at lines 1504--1504
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Bez kom-prese
  []
 
 
-Underfull \hbox (badness 1715) in paragraph at lines 1473--1473
+Underfull \hbox (badness 1715) in paragraph at lines 1505--1505
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Senior DB Spec. (Vy-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1473--1473
+Underfull \hbox (badness 10000) in paragraph at lines 1505--1505
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) DB Ad-min
  []
 
 
-Underfull \hbox (badness 5696) in paragraph at lines 1475--1475
+Underfull \hbox (badness 5696) in paragraph at lines 1507--1507
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Neomezen· (Ho-ri-zon-
  []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[64]
 
 [65]
 
@@ -2004,7 +2006,7 @@ chapter 5.
 [73]
 
 [74]
-Overfull \hbox (94.72713pt too wide) in paragraph at lines 1678--1679
+Overfull \hbox (94.72713pt too wide) in paragraph at lines 1710--1711
 \T1/LibertinusSerif-TLF/m/n/12 (-20) thon Soft-ware Foun-dation, Oc-to-ber 14, 2020 [cit. 2020-10-15]. Do-stupnÈ z: https://docs.python.org/3/whatsnew/3.9.html 
  []
 
@@ -2071,18 +2073,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61390 strings out of 467748
- 1391558 string characters out of 5431137
- 2504270 words of memory out of 5000000
- 88360 multiletter control sequences out of 15000+600000
- 795204 words of font info for 434 fonts, out of 8000000 for 9000
+ 61421 strings out of 467748
+ 1393002 string characters out of 5431137
+ 2504683 words of memory out of 5000000
+ 88374 multiletter control sequences out of 15000+600000
+ 796383 words of font info for 442 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,12n,121p,11341b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 122i,12n,121p,11358b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (87 pages, 5338364 bytes).
+Output written on ki-thesis.pdf (87 pages, 5342498 bytes).
 PDF statistics:
- 1105 PDF objects out of 1200 (max. 8388607)
- 917 compressed objects within 10 object streams
- 367 named destinations out of 1000 (max. 500000)
+ 1126 PDF objects out of 1200 (max. 8388607)
+ 938 compressed objects within 10 object streams
+ 372 named destinations out of 1000 (max. 500000)
  94056 words of extra memory for PDF output out of 106986 (max. 10000000)
 

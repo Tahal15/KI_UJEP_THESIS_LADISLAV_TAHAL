@@ -2438,6 +2438,14 @@
     <bcf:citekey order="33" intorder="3">looker2024semanticmodel</bcf:citekey>
     <bcf:citekey order="34" intorder="1">rfc8259</bcf:citekey>
     <bcf:citekey order="35" intorder="1">mining_massive_datasets</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">microsoft_azure_maps_visual</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">superset_deckgl</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">superset_country_map</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">microsoft_powerbi_limits</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">microsoft_powerbi_limits</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">microsoft_custom_visuals_sdk</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">superset2024docs</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">superset_deckgl</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

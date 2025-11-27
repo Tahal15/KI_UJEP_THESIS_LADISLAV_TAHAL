@@ -58,11 +58,11 @@
 \contentsline {subsection}{\nonumberline Závěrečné shrnutí výsledků}{60}{subsection*.86}%
 \contentsline {subsection}{\nonumberline Testování souběžné zátěže (Concurrency)}{61}{subsection*.88}%
 \contentsline {subsection}{\nonumberline Práce s~mapovými daty}{61}{subsection*.90}%
-\contentsline {subsection}{\nonumberline Srovnání vizualizačních možností}{62}{subsection*.92}%
-\contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{62}{subsection*.94}%
-\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{62}{subsubsection*.96}%
+\contentsline {subsection}{\nonumberline Srovnání vizualizačních možností a architektury reportingu}{61}{subsection*.92}%
+\contentsline {subsection}{\nonumberline Analýza celkových nákladů na vlastnictví (TCO)}{63}{subsection*.94}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{63}{subsubsection*.96}%
 \contentsline {subsubsection}{\nonumberline Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}{63}{subsubsection*.98}%
-\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{63}{subsubsection*.100}%
+\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{64}{subsubsection*.100}%
 \contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{64}{subsubsection*.102}%
 \contentsline {subsubsection}{\nonumberline Závěrečné porovnání}{64}{subsubsection*.104}%
 \contentsline {chapter}{\numberline {4}Sazba ukázek kódu}{67}{chapter.4}%
@@ -81,6 +81,16 @@
 \contentsline {chapter}{\numberline {6}Zhodnocení}{77}{chapter.6}%
 \contentsline {chapter}{\numberline {7}Závěr}{79}{chapter.7}%
 \contentsline {chapter}{Seznam použitých zkratek a pojmů}{81}{section*.121}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
