@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  28 NOV 2025 11:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  28 NOV 2025 14:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1236,11 +1236,11 @@ Package: glossary-tree 2025/08/11 v4.8 (NLCT)
 \glo@main@file=\write6
 \openout6 = `ki-thesis.glo'.
 
-Package glossaries Info: Writing glossary file ki-thesis.glo on input line 131.
+Package glossaries Info: Writing glossary file ki-thesis.glo on input line 132.
 \glo@acronym@file=\write7
 \openout7 = `ki-thesis.acn'.
 
-Package glossaries Info: Writing glossary file ki-thesis.acn on input line 131.
+Package glossaries Info: Writing glossary file ki-thesis.acn on input line 132.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1252,19 +1252,19 @@ Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           `bookmarkpackage=false' before \begin{document} and
 (scrbook)           you can avoid this message adding:
 (scrbook)             \usepackage{bookmark}
-(scrbook)           before \begin{document} on input line 183.
+(scrbook)           before \begin{document} on input line 184.
  (c:/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
  (c:/texlive/2025/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 \BKM@id=\count533
 ))
-LaTeX Font Info:    Trying to load font information for T1+LibertinusSerif-TLF on input line 183.
+LaTeX Font Info:    Trying to load font information for T1+LibertinusSerif-TLF on input line 184.
  (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/T1LibertinusSerif-TLF.fd
 File: T1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for T1/LibertinusSerif-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 183.
+(Font)              scaled to size 12.0pt on input line 184.
 
 
 LaTeX Warning: Unused global option(s):
@@ -1280,24 +1280,24 @@ LaTeX Warning: Label `fig:gemini_cli_architecture' multiply defined.
 )
 \openout1 = `ki-thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 184.
+LaTeX Font Info:    ... okay on input line 184.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1347,16 +1347,16 @@ LaTeX Font Info:    ... okay on input line 183.
 \makeMPintoPDFobject=\count539
 \everyMPtoPDFconversion=\toks67
 )
-LaTeX Info: Redefining \microtypecontext on input line 183.
+LaTeX Info: Redefining \microtypecontext on input line 184.
 
 
-Package microtype Warning: Unable to apply patch `item' on input line 183.
+Package microtype Warning: Unable to apply patch `item' on input line 184.
 
-Package microtype Info: Applying patch `toc' on input line 183.
-Package microtype Info: Applying patch `eqnum' on input line 183.
-Package microtype Info: Applying patch `footnote' on input line 183.
-Package microtype Info: Applying patch `verbatim' on input line 183.
-LaTeX Info: Redefining \microtypesetup on input line 183.
+Package microtype Info: Applying patch `toc' on input line 184.
+Package microtype Info: Applying patch `eqnum' on input line 184.
+Package microtype Info: Applying patch `footnote' on input line 184.
+Package microtype Info: Applying patch `verbatim' on input line 184.
+LaTeX Info: Redefining \microtypesetup on input line 184.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1403,61 +1403,61 @@ Package biblatex Warning: The following entry could not be found
 (biblatex)                LaTeX afterwards.
 
 )
-Package biblatex Info: Reference section=0 on input line 183.
-Package biblatex Info: Reference segment=0 on input line 183.
+Package biblatex Info: Reference section=0 on input line 184.
+Package biblatex Info: Reference segment=0 on input line 184.
 
 Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 \c@lstlisting=\count542
-Package tocbasic Info: setting babel extension for `lol' on input line 183.
+Package tocbasic Info: setting babel extension for `lol' on input line 184.
 \scr@dte@lstlisting@maxnumwidth=\skip138
-Package hyperref Info: Link coloring OFF on input line 183.
+Package hyperref Info: Link coloring OFF on input line 184.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 187.
+(Font)              scaled to size 20.74pt on input line 188.
 <LOGO_PRF_CZ_RGB_standard.jpg, id=7, 166.4619pt x 63.5976pt>
 File: LOGO_PRF_CZ_RGB_standard.jpg Graphic file (type jpg)
 <use LOGO_PRF_CZ_RGB_standard.jpg>
-Package pdftex.def Info: LOGO_PRF_CZ_RGB_standard.jpg  used on input line 196.
+Package pdftex.def Info: LOGO_PRF_CZ_RGB_standard.jpg  used on input line 197.
 (pdftex.def)             Requested size: 166.46147pt x 63.59743pt.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 200.
-LaTeX Font Info:    Trying to load font information for T1+LibertinusSans-TLF on input line 200.
+(Font)              scaled to size 24.88pt on input line 201.
+LaTeX Font Info:    Trying to load font information for T1+LibertinusSans-TLF on input line 201.
 (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/T1LibertinusSans-TLF.fd
 File: T1LibertinusSans-TLF.fd 2024/09/22 (autoinst) Font definitions for T1/LibertinusSans-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 200.
+(Font)              scaled to size 24.88pt on input line 201.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSans-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 203.
+(Font)              scaled to size 17.28pt on input line 204.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/sc' will be
-(Font)              scaled to size 17.28pt on input line 203.
+(Font)              scaled to size 17.28pt on input line 204.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 209.
+(Font)              scaled to size 14.4pt on input line 210.
  (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 210.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 211.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 210.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 211.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 211.
+(Font)              scaled to size 14.4pt on input line 212.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 220.
+(Font)              scaled to size 17.28pt on input line 221.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
-(Font)              scaled to size 17.28pt on input line 220.
+(Font)              scaled to size 17.28pt on input line 221.
 
 
 [1
@@ -1470,7 +1470,7 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
 
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+pxtt on input line 233.
+LaTeX Font Info:    Trying to load font information for T1+pxtt on input line 234.
  (c:/texlive/2025/texmf-dist/tex/latex/pxfonts/t1pxtt.fd
 File: t1pxtt.fd 2000/12/14 v1.0
 )
@@ -1486,7 +1486,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 ]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 242.
+(Font)              scaled to size 12.0pt on input line 243.
 
 
 [5
@@ -1505,7 +1505,7 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
 
 ]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
-(Font)              scaled to size 12.0pt on input line 280.
+(Font)              scaled to size 12.0pt on input line 281.
 
 
 [9]
@@ -1515,12 +1515,12 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/sc' will be
 
 ]
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 300.
+(Font)              scaled to size 12.0pt on input line 301.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 300.
+(Font)              scaled to size 12.0pt on input line 301.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 24.88pt on input line 300.
-Package tocbasic Info: character protrusion at toc deactivated on input line 300.
+(Font)              scaled to size 24.88pt on input line 301.
+Package tocbasic Info: character protrusion at toc deactivated on input line 301.
  (./ki-thesis.toc)
 \tf@toc=\write8
 \openout8 = `ki-thesis.toc'.
@@ -1544,43 +1544,43 @@ chapter without number
 ]
 chapter 1.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 314.
+(Font)              scaled to size 17.28pt on input line 315.
 LaTeX Font Info:    Font shape `T1/LibertinusSans-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 318.
+(Font)              scaled to size 14.4pt on input line 319.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 324.
+(Font)              scaled to size 12.0pt on input line 325.
 
 
 [15{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_sncvby.enc}]
 
 Package babel Info: 'czech' activates 'czech' shorthands.
-(babel)             Reported on input line 350.
+(babel)             Reported on input line 351.
 [16
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 353.
+LaTeX Font Info:    Trying to load font information for TS1+LibertinusSerif-TLF on input line 354.
  (c:/texlive/2025/texmf-dist/tex/latex/libertinus-type1/TS1LibertinusSerif-TLF.fd
 File: TS1LibertinusSerif-TLF.fd 2024/09/22 (autoinst) Font definitions for TS1/LibertinusSerif-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 353.
+(Font)              scaled to size 12.0pt on input line 354.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSerif-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 357.
+(Font)              scaled to size 8.0pt on input line 358.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 357.
+(Font)              scaled to size 10.0pt on input line 358.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 357.
+(Font)              scaled to size 7.0pt on input line 358.
 
 
 [17{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_rlktsf.enc}]
 <img/architecture-data-warehousing.png, id=152, 971.63pt x 530.98375pt>
 File: img/architecture-data-warehousing.png Graphic file (type png)
 <use img/architecture-data-warehousing.png>
-Package pdftex.def Info: img/architecture-data-warehousing.png  used on input line 378.
+Package pdftex.def Info: img/architecture-data-warehousing.png  used on input line 379.
 (pdftex.def)             Requested size: 469.47049pt x 256.55453pt.
 
 
@@ -1588,7 +1588,7 @@ Package pdftex.def Info: img/architecture-data-warehousing.png  used on input li
 <img/google-cloud.png, id=170, 2419.0375pt x 1268.74pt>
 File: img/google-cloud.png Graphic file (type png)
 <use img/google-cloud.png>
-Package pdftex.def Info: img/google-cloud.png  used on input line 396.
+Package pdftex.def Info: img/google-cloud.png  used on input line 397.
 (pdftex.def)             Requested size: 469.47049pt x 246.21269pt.
 
 
@@ -1596,12 +1596,12 @@ Package pdftex.def Info: img/google-cloud.png  used on input line 396.
 <img/AWSarchitecture.png, id=185, 900.36375pt x 413.545pt>
 File: img/AWSarchitecture.png Graphic file (type png)
 <use img/AWSarchitecture.png>
-Package pdftex.def Info: img/AWSarchitecture.png  used on input line 414.
+Package pdftex.def Info: img/AWSarchitecture.png  used on input line 415.
 (pdftex.def)             Requested size: 469.47049pt x 215.63147pt.
 <img/oracle_architecture.png, id=189, 1400.23125pt x 686.565pt>
 File: img/oracle_architecture.png Graphic file (type png)
 <use img/oracle_architecture.png>
-Package pdftex.def Info: img/oracle_architecture.png  used on input line 431.
+Package pdftex.def Info: img/oracle_architecture.png  used on input line 432.
 (pdftex.def)             Requested size: 469.47049pt x 230.19188pt.
 
 
@@ -1613,14 +1613,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/hadoop.png, id=204, 803.0pt x 498.86375pt>
 File: img/hadoop.png Graphic file (type png)
 <use img/hadoop.png>
-Package pdftex.def Info: img/hadoop.png  used on input line 449.
+Package pdftex.def Info: img/hadoop.png  used on input line 450.
 (pdftex.def)             Requested size: 375.57782pt x 233.3318pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Citation 'apachekylin2024' on page 21 undefined on input line 458.
+LaTeX Warning: Citation 'apachekylin2024' on page 21 undefined on input line 459.
 
 
 
@@ -1628,7 +1628,7 @@ LaTeX Warning: Citation 'apachekylin2024' on page 21 undefined on input line 458
 <img/mariadb_architecture.jpg, id=215, 4801.94pt x 2063.71pt>
 File: img/mariadb_architecture.jpg Graphic file (type jpg)
 <use img/mariadb_architecture.jpg>
-Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 470.
+Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 471.
 (pdftex.def)             Requested size: 469.47049pt x 201.7541pt.
 
 
@@ -1636,7 +1636,7 @@ Package pdftex.def Info: img/mariadb_architecture.jpg  used on input line 470.
 <img/Modularita.png, id=234, 1283.997pt x 290.88675pt>
 File: img/Modularita.png Graphic file (type png)
 <use img/Modularita.png>
-Package pdftex.def Info: img/Modularita.png  used on input line 494.
+Package pdftex.def Info: img/Modularita.png  used on input line 495.
 (pdftex.def)             Requested size: 469.47049pt x 106.35698pt.
 
 
@@ -1644,10 +1644,10 @@ Package pdftex.def Info: img/Modularita.png  used on input line 494.
 <img/hybrid2.png, id=246, 2589.675pt x 584.1825pt>
 File: img/hybrid2.png Graphic file (type png)
 <use img/hybrid2.png>
-Package pdftex.def Info: img/hybrid2.png  used on input line 508.
+Package pdftex.def Info: img/hybrid2.png  used on input line 509.
 (pdftex.def)             Requested size: 469.47049pt x 105.89708pt.
 
-Overfull \hbox (26.20973pt too wide) in paragraph at lines 522--525
+Overfull \hbox (26.20973pt too wide) in paragraph at lines 523--526
 \T1/LibertinusSerif-TLF/m/n/12 (-20) Jedním z hlav-ních trend· po-sled-ních let je p°e-chod od tra-di£-ního p°í-stupu \T1/LibertinusSerif-TLF/m/it/12 (-20) ETL \T1/LibertinusSerif-TLF/m/n/12 (-20) (Ex-tract^^UTransform^^ULoad)
  []
 
@@ -1657,7 +1657,7 @@ Overfull \hbox (26.20973pt too wide) in paragraph at lines 522--525
 <img/NLQ.png, id=259, 1922.98425pt x 738.3585pt>
 File: img/NLQ.png Graphic file (type png)
 <use img/NLQ.png>
-Package pdftex.def Info: img/NLQ.png  used on input line 548.
+Package pdftex.def Info: img/NLQ.png  used on input line 549.
 (pdftex.def)             Requested size: 469.47049pt x 180.25159pt.
 
 
@@ -1669,7 +1669,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/mcp-simple-diagram.png, id=275, 3854.4pt x 1505.625pt>
 File: img/mcp-simple-diagram.png Graphic file (type png)
 <use img/mcp-simple-diagram.png>
-Package pdftex.def Info: img/mcp-simple-diagram.png  used on input line 584.
+Package pdftex.def Info: img/mcp-simple-diagram.png  used on input line 585.
 (pdftex.def)             Requested size: 469.47049pt x 183.37813pt.
 
 
@@ -1689,7 +1689,7 @@ chapter 2.
 <img/reporting_structure.png, id=301, 1096.69725pt x 616.10175pt>
 File: img/reporting_structure.png Graphic file (type png)
 <use img/reporting_structure.png>
-Package pdftex.def Info: img/reporting_structure.png  used on input line 613.
+Package pdftex.def Info: img/reporting_structure.png  used on input line 614.
 (pdftex.def)             Requested size: 469.47049pt x 263.73407pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1700,18 +1700,18 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [30 <./img/reporting_structure.png>]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/it' will be
-(Font)              scaled to size 12.0pt on input line 661.
+(Font)              scaled to size 12.0pt on input line 662.
 
 
 [31{c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_opzo24.enc}]
-Overfull \hbox (2.92505pt too wide) in paragraph at lines 681--682
+Overfull \hbox (2.92505pt too wide) in paragraph at lines 682--683
 []\T1/LibertinusSerif-TLF/b/n/12 (-20) Dimenze (\T1/LibertinusSerif-TLF/b/it/12 (-20) Di-mensi-ons\T1/LibertinusSerif-TLF/b/n/12 (-20) ): \T1/LibertinusSerif-TLF/m/n/12 (-20) Ucho-vá-vají kon-text, atri-buty a po-pisné de-taily (nap°. \T1/pxtt/m/n/12 DimCity\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 <img/Star-schema.png, id=330, 480.8364pt x 301.6068pt>
 File: img/Star-schema.png Graphic file (type png)
 <use img/Star-schema.png>
-Package pdftex.def Info: img/Star-schema.png  used on input line 697.
+Package pdftex.def Info: img/Star-schema.png  used on input line 698.
 (pdftex.def)             Requested size: 328.6279pt x 206.13919pt.
 
 
@@ -1719,7 +1719,7 @@ Package pdftex.def Info: img/Star-schema.png  used on input line 697.
 <img/snowflake.png, id=341, 702.9462pt x 424.4658pt>
 File: img/snowflake.png Graphic file (type png)
 <use img/snowflake.png>
-Package pdftex.def Info: img/snowflake.png  used on input line 705.
+Package pdftex.def Info: img/snowflake.png  used on input line 706.
 (pdftex.def)             Requested size: 469.47049pt x 283.48384pt.
 
 
@@ -1747,14 +1747,14 @@ chapter 3.
 
 
 ]
-Overfull \hbox (45.64264pt too wide) in paragraph at lines 932--933
+Overfull \hbox (45.64264pt too wide) in paragraph at lines 933--934
 \T1/LibertinusSerif-TLF/m/n/12 (-20) ra£ní sou-bor de-fi-no-val p°ímé p°i-po-jení ke zdro-jové Ma-ri-aDB da-ta-bázi (\T1/pxtt/m/n/12 host.docker.internal:3306\T1/LibertinusSerif-TLF/m/n/12 (-20) )
  []
 
 <img/sqldump_v2.png, id=406, 2583.6525pt x 2279.51625pt>
 File: img/sqldump_v2.png Graphic file (type png)
 <use img/sqldump_v2.png>
-Package pdftex.def Info: img/sqldump_v2.png  used on input line 942.
+Package pdftex.def Info: img/sqldump_v2.png  used on input line 943.
 (pdftex.def)             Requested size: 469.47049pt x 414.19087pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1764,14 +1764,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [42]
 
 [43 <./img/sqldump_v2.png>]
-Overfull \hbox (31.48177pt too wide) in paragraph at lines 972--975
+Overfull \hbox (31.48177pt too wide) in paragraph at lines 973--976
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Poskytnutý \T1/pxtt/m/n/12 MariaDB \T1/LibertinusSerif-TLF/m/n/12 (-20) SQL dump ob-sa-ho-val ná-sle-du-jící sloupce: \T1/pxtt/m/n/12 id (bigint(11))\T1/LibertinusSerif-TLF/m/n/12 (-20) , \T1/pxtt/m/n/12 time (timestamp)\T1/LibertinusSerif-TLF/m/n/12 (-20) ,
  []
 
 <img/mqttentries_structure.png, id=419, 1420.1055pt x 177.66376pt>
 File: img/mqttentries_structure.png Graphic file (type png)
 <use img/mqttentries_structure.png>
-Package pdftex.def Info: img/mqttentries_structure.png  used on input line 978.
+Package pdftex.def Info: img/mqttentries_structure.png  used on input line 979.
 (pdftex.def)             Requested size: 469.47049pt x 58.73222pt.
 
 
@@ -1781,22 +1781,22 @@ Package pdftex.def Info: img/mqttentries_structure.png  used on input line 978.
 <img/topic50.png, id=431, 1069.596pt x 145.7445pt>
 File: img/topic50.png Graphic file (type png)
 <use img/topic50.png>
-Package pdftex.def Info: img/topic50.png  used on input line 998.
+Package pdftex.def Info: img/topic50.png  used on input line 999.
 (pdftex.def)             Requested size: 469.47049pt x 63.97209pt.
 <img/topic50_2.png, id=433, 1070.19826pt x 43.362pt>
 File: img/topic50_2.png Graphic file (type png)
 <use img/topic50_2.png>
-Package pdftex.def Info: img/topic50_2.png  used on input line 1007.
+Package pdftex.def Info: img/topic50_2.png  used on input line 1008.
 (pdftex.def)             Requested size: 469.47049pt x 19.02176pt.
 
 
 [45 <./img/topic50.png> <./img/topic50_2.png>]
-Overfull \hbox (21.24648pt too wide) in paragraph at lines 1018--1019
+Overfull \hbox (21.24648pt too wide) in paragraph at lines 1019--1020
 \T1/LibertinusSerif-TLF/m/n/12 (-20) skriptu za-£íná na-£te-ním po-sled-ního zpra-co-va-ného iden-ti-fi-ká-toru z ta-bulky \T1/pxtt/m/n/12 ETL_IncrementalControl
  []
 
 
-Overfull \hbox (3.3615pt too wide) in paragraph at lines 1020--1021
+Overfull \hbox (3.3615pt too wide) in paragraph at lines 1021--1022
 []\T1/LibertinusSerif-TLF/m/n/12 (-20) Data jsou zpra-co-vá-vána v dáv-kách (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) batchích\T1/LibertinusSerif-TLF/m/n/12 (-20) ), je-jichº ve-li-kost je °í-zena pa-ra-me-t-rem \T1/pxtt/m/n/12 BATCH_SIZE\T1/LibertinusSerif-TLF/m/n/12 (-20) .
  []
 
@@ -1810,7 +1810,7 @@ Overfull \hbox (3.3615pt too wide) in paragraph at lines 1020--1021
 <img/lake_to_staging.png, id=465, 3360.555pt x 2511.3825pt>
 File: img/lake_to_staging.png Graphic file (type png)
 <use img/lake_to_staging.png>
-Package pdftex.def Info: img/lake_to_staging.png  used on input line 1072.
+Package pdftex.def Info: img/lake_to_staging.png  used on input line 1073.
 (pdftex.def)             Requested size: 469.47049pt x 350.82475pt.
 
 
@@ -1819,7 +1819,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/staging_to_fact.png, id=466, 4017.0075pt x 3459.92625pt>
 File: img/staging_to_fact.png Graphic file (type png)
 <use img/staging_to_fact.png>
-Package pdftex.def Info: img/staging_to_fact.png  used on input line 1079.
+Package pdftex.def Info: img/staging_to_fact.png  used on input line 1080.
 (pdftex.def)             Requested size: 469.47049pt x 404.35043pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1827,7 +1827,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/MariaDW_staging.png, id=467, 1447.20676pt x 119.2455pt>
 File: img/MariaDW_staging.png Graphic file (type png)
 <use img/MariaDW_staging.png>
-Package pdftex.def Info: img/MariaDW_staging.png  used on input line 1086.
+Package pdftex.def Info: img/MariaDW_staging.png  used on input line 1087.
 (pdftex.def)             Requested size: 469.47049pt x 38.68335pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1842,7 +1842,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/ERD.png, id=489, 3393.67876pt x 2960.05875pt>
 File: img/ERD.png Graphic file (type png)
 <use img/ERD.png>
-Package pdftex.def Info: img/ERD.png  used on input line 1108.
+Package pdftex.def Info: img/ERD.png  used on input line 1109.
 (pdftex.def)             Requested size: 328.6279pt x 286.62852pt.
 
 
@@ -1852,21 +1852,21 @@ Package pdftex.def Info: img/ERD.png  used on input line 1108.
 <img/PBIreport.png, id=500, 1765.59625pt x 995.72pt>
 File: img/PBIreport.png Graphic file (type png)
 <use img/PBIreport.png>
-Package pdftex.def Info: img/PBIreport.png  used on input line 1134.
+Package pdftex.def Info: img/PBIreport.png  used on input line 1135.
 (pdftex.def)             Requested size: 469.47049pt x 264.76096pt.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 1139.
+            Default family used instead on input line 1140.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family LibertinusSerif-TLF in TS1 encoding.
-            Default family used instead on input line 1139.
+            Default family used instead on input line 1140.
 
 
 [52{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./img/PBIreport.png>]
 <img/Supersetreport.png, id=510, 1370.721pt x 726.91576pt>
 File: img/Supersetreport.png Graphic file (type png)
 <use img/Supersetreport.png>
-Package pdftex.def Info: img/Supersetreport.png  used on input line 1165.
+Package pdftex.def Info: img/Supersetreport.png  used on input line 1166.
 (pdftex.def)             Requested size: 469.47049pt x 248.96713pt.
 
 
@@ -1876,12 +1876,12 @@ Package pdftex.def Info: img/Supersetreport.png  used on input line 1165.
 <img/agregace1.png, id=529, 2459.1875pt x 1129.21875pt>
 File: img/agregace1.png Graphic file (type png)
 <use img/agregace1.png>
-Package pdftex.def Info: img/agregace1.png  used on input line 1210.
+Package pdftex.def Info: img/agregace1.png  used on input line 1211.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 <img/agregace2.png, id=531, 2459.1875pt x 1129.21875pt>
 File: img/agregace2.png Graphic file (type png)
 <use img/agregace2.png>
-Package pdftex.def Info: img/agregace2.png  used on input line 1219.
+Package pdftex.def Info: img/agregace2.png  used on input line 1220.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 
 
@@ -1889,12 +1889,12 @@ Package pdftex.def Info: img/agregace2.png  used on input line 1219.
 <img/agregace3.png, id=543, 2459.1875pt x 1129.21875pt>
 File: img/agregace3.png Graphic file (type png)
 <use img/agregace3.png>
-Package pdftex.def Info: img/agregace3.png  used on input line 1230.
+Package pdftex.def Info: img/agregace3.png  used on input line 1231.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 <img/agregace4.png, id=544, 2459.1875pt x 1129.21875pt>
 File: img/agregace4.png Graphic file (type png)
 <use img/agregace4.png>
-Package pdftex.def Info: img/agregace4.png  used on input line 1240.
+Package pdftex.def Info: img/agregace4.png  used on input line 1241.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 
 
@@ -1902,12 +1902,12 @@ Package pdftex.def Info: img/agregace4.png  used on input line 1240.
 <img/agregace5.png, id=555, 2459.1875pt x 1129.21875pt>
 File: img/agregace5.png Graphic file (type png)
 <use img/agregace5.png>
-Package pdftex.def Info: img/agregace5.png  used on input line 1250.
+Package pdftex.def Info: img/agregace5.png  used on input line 1251.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 <img/porovnani_vykonu_databazi_high_res.png, id=556, 2710.125pt x 1593.955pt>
 File: img/porovnani_vykonu_databazi_high_res.png Graphic file (type png)
 <use img/porovnani_vykonu_databazi_high_res.png>
-Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on input line 1261.
+Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on input line 1262.
 (pdftex.def)             Requested size: 469.47049pt x 276.10066pt.
 
 
@@ -1919,7 +1919,7 @@ Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on inp
 <img/PowerBI - analyzer.png, id=575, 314.3745pt x 272.81924pt>
 File: img/PowerBI - analyzer.png Graphic file (type png)
 <use img/PowerBI - analyzer.png>
-Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1320.
+Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1321.
 (pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
 
 
@@ -1930,7 +1930,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [59]
 
 [60 <./img/PowerBI - analyzer.png>]
-Overfull \hbox (2.21602pt too wide) in paragraph at lines 1358--1362
+Overfull \hbox (2.21602pt too wide) in paragraph at lines 1359--1363
 \T1/LibertinusSerif-TLF/m/n/12 (-20) ¬uje li-mity na po-£et ren-de-ro-va-ných da-to-vých bod· (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) Data Point Li-mits\T1/LibertinusSerif-TLF/m/n/12 (-20) , nap°. cca 3500
  []
 
@@ -1939,7 +1939,7 @@ Overfull \hbox (2.21602pt too wide) in paragraph at lines 1358--1362
 [61]
 
 [62]
-Overfull \hbox (16.77298pt too wide) in paragraph at lines 1445--1455
+Overfull \hbox (16.77298pt too wide) in paragraph at lines 1446--1456
  [][] 
  []
 
@@ -1948,32 +1948,32 @@ Overfull \hbox (16.77298pt too wide) in paragraph at lines 1445--1455
 [63]
 
 [64]
-Underfull \hbox (badness 3000) in paragraph at lines 1517--1517
+Underfull \hbox (badness 3000) in paragraph at lines 1518--1518
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) ClickHouse + Cube.js (Open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1520--1520
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) Extrémní kom-prese \T1/LibertinusSerif-TLF/m/n/12 (+20) (aº 10x
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
+Underfull \hbox (badness 10000) in paragraph at lines 1522--1522
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Vysoké OPEX (li-cence per-
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1521--1521
+Underfull \hbox (badness 1221) in paragraph at lines 1522--1522
 \T1/LibertinusSerif-TLF/m/n/12 (+20) ale mi-ni-mální OPEX (zdarma li-
  []
 
 
-Underfull \hbox (badness 2837) in paragraph at lines 1523--1523
+Underfull \hbox (badness 2837) in paragraph at lines 1524--1524
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Náro£n¥j²í na ex-per-tízu (Se-nior
  []
 
 
-Overfull \hbox (6.76237pt too wide) in paragraph at lines 1515--1525
+Overfull \hbox (6.76237pt too wide) in paragraph at lines 1516--1526
  [][] 
  []
 
@@ -2042,7 +2042,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  122i,12n,121p,11341b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (75 pages, 5319352 bytes).
+Output written on ki-thesis.pdf (75 pages, 5319342 bytes).
 PDF statistics:
  1023 PDF objects out of 1200 (max. 8388607)
  848 compressed objects within 9 object streams

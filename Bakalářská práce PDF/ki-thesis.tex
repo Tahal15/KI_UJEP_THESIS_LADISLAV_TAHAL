@@ -34,6 +34,7 @@
 \usepackage[space]{grffile}       % umožní mezery a diakritiku v cestě
 \usepackage{epstopdf}             % pro případ EPS → PDF
 
+
 % workaround for imcompatibility of czech babel and biblatex
 \makeatletter
 \newcommand{\fail}{} % opraví volání \fail při patchování jazyků
@@ -1197,7 +1198,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 \subsection{Výkonové parametry}
 
-V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~řádech několika magnitud.
+V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
 Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště.
 
