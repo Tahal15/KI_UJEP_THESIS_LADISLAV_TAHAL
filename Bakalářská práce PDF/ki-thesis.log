@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  27 NOV 2025 18:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  28 NOV 2025 11:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1277,9 +1277,6 @@ Package babel Info: 'czech' activates 'czech' shorthands.
 
 LaTeX Warning: Label `fig:gemini_cli_architecture' multiply defined.
 
-
-LaTeX Warning: Label `sec:ep' multiply defined.
-
 )
 \openout1 = `ki-thesis.aux'.
 
@@ -1881,59 +1878,59 @@ File: img/agregace1.png Graphic file (type png)
 <use img/agregace1.png>
 Package pdftex.def Info: img/agregace1.png  used on input line 1210.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-
-
-[55 <./img/agregace1.png>]
-<img/agregace2.png, id=539, 2459.1875pt x 1129.21875pt>
+<img/agregace2.png, id=531, 2459.1875pt x 1129.21875pt>
 File: img/agregace2.png Graphic file (type png)
 <use img/agregace2.png>
-Package pdftex.def Info: img/agregace2.png  used on input line 1221.
+Package pdftex.def Info: img/agregace2.png  used on input line 1219.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/agregace3.png, id=540, 2459.1875pt x 1129.21875pt>
+
+
+[55 <./img/agregace1.png> <./img/agregace2.png>]
+<img/agregace3.png, id=543, 2459.1875pt x 1129.21875pt>
 File: img/agregace3.png Graphic file (type png)
 <use img/agregace3.png>
-Package pdftex.def Info: img/agregace3.png  used on input line 1232.
+Package pdftex.def Info: img/agregace3.png  used on input line 1230.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/agregace4.png, id=541, 2459.1875pt x 1129.21875pt>
+<img/agregace4.png, id=544, 2459.1875pt x 1129.21875pt>
 File: img/agregace4.png Graphic file (type png)
 <use img/agregace4.png>
-Package pdftex.def Info: img/agregace4.png  used on input line 1242.
+Package pdftex.def Info: img/agregace4.png  used on input line 1240.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
 
 
-[56
-
- <./img/agregace2.png> <./img/agregace3.png>]
-<img/agregace5.png, id=553, 2459.1875pt x 1129.21875pt>
+[56 <./img/agregace3.png> <./img/agregace4.png>]
+<img/agregace5.png, id=555, 2459.1875pt x 1129.21875pt>
 File: img/agregace5.png Graphic file (type png)
 <use img/agregace5.png>
-Package pdftex.def Info: img/agregace5.png  used on input line 1252.
+Package pdftex.def Info: img/agregace5.png  used on input line 1250.
 (pdftex.def)             Requested size: 469.47049pt x 215.57039pt.
-<img/porovnani_vykonu_databazi_high_res.png, id=554, 2710.125pt x 1593.955pt>
+<img/porovnani_vykonu_databazi_high_res.png, id=556, 2710.125pt x 1593.955pt>
 File: img/porovnani_vykonu_databazi_high_res.png Graphic file (type png)
 <use img/porovnani_vykonu_databazi_high_res.png>
-Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on input line 1263.
+Package pdftex.def Info: img/porovnani_vykonu_databazi_high_res.png  used on input line 1261.
 (pdftex.def)             Requested size: 469.47049pt x 276.10066pt.
+
+
+[57
+
+ <./img/agregace5.png> <./img/porovnani_vykonu_databazi_high_res.png>]
+
+[58]
+<img/PowerBI - analyzer.png, id=575, 314.3745pt x 272.81924pt>
+File: img/PowerBI - analyzer.png Graphic file (type png)
+<use img/PowerBI - analyzer.png>
+Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1320.
+(pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[57 <./img/agregace4.png> <./img/agregace5.png>]
-
-[58 <./img/porovnani_vykonu_databazi_high_res.png>]
-
 [59]
-<img/PowerBI - analyzer.png, id=584, 314.3745pt x 272.81924pt>
-File: img/PowerBI - analyzer.png Graphic file (type png)
-<use img/PowerBI - analyzer.png>
-Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1322.
-(pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
-
 
 [60 <./img/PowerBI - analyzer.png>]
-Overfull \hbox (2.21602pt too wide) in paragraph at lines 1360--1364
+Overfull \hbox (2.21602pt too wide) in paragraph at lines 1358--1362
 \T1/LibertinusSerif-TLF/m/n/12 (-20) ¬uje li-mity na po-£et ren-de-ro-va-ných da-to-vých bod· (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) Data Point Li-mits\T1/LibertinusSerif-TLF/m/n/12 (-20) , nap°. cca 3500
  []
 
@@ -1942,45 +1939,43 @@ Overfull \hbox (2.21602pt too wide) in paragraph at lines 1360--1364
 [61]
 
 [62]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Overfull \hbox (16.77298pt too wide) in paragraph at lines 1445--1455
+ [][] 
+ []
 
 
 
 [63]
 
 [64]
-Underfull \hbox (badness 3000) in paragraph at lines 1506--1506
+Underfull \hbox (badness 3000) in paragraph at lines 1517--1517
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) ClickHouse + Cube.js (Open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1509--1509
+Underfull \hbox (badness 10000) in paragraph at lines 1520--1520
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) Extrémní kom-prese \T1/LibertinusSerif-TLF/m/n/12 (+20) (aº 10x
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1510--1510
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Vysoké OPEX (li-cence per-
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1510--1510
+Underfull \hbox (badness 1221) in paragraph at lines 1521--1521
 \T1/LibertinusSerif-TLF/m/n/12 (+20) ale mi-ni-mální OPEX (zdarma li-
  []
 
 
-Underfull \hbox (badness 2837) in paragraph at lines 1512--1512
+Underfull \hbox (badness 2837) in paragraph at lines 1523--1523
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Náro£n¥j²í na ex-per-tízu (Se-nior
  []
 
 
-Overfull \hbox (6.76237pt too wide) in paragraph at lines 1504--1514
+Overfull \hbox (6.76237pt too wide) in paragraph at lines 1515--1525
  [][] 
  []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
@@ -1988,18 +1983,21 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [66]
 chapter 4.
-
+(./ki-thesis.gls
 
 [67
 
 
-] (./ki-thesis.gls
 
-[68]
+
+]
+
+[68
+
+
+]
 
 [69
-
-
 
 
 ])
@@ -2021,40 +2019,8 @@ chapter 4.
 ]
 chapter A.
 
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1572--1572
-[]\T1/pxtt/m/n/12 |   |-- Topik100.xlsx ...................... Témata se 100% shodou payloadu[] 
- []
 
-
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1575--1575
-[]\T1/pxtt/m/n/12 |   `-- reporting_structure.png ............ Schéma architektury reportingu[] 
- []
-
-
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1578--1578
-[]\T1/pxtt/m/n/12 |-- MSSQL_MSSQL_SSAS_PowerBI/ .............. Komer£ní v¥tev (MS SQL Server)[] 
- []
-
-
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1581--1581
-[]\T1/pxtt/m/n/12 |-- MariaDB_Clickhouse_CubeJS_Superset/ .... Open-source v¥tev (ClickHouse)[] 
- []
-
-
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1585--1585
-[]\T1/pxtt/m/n/12 |   `-- clickhouse_data.tar.gz ............. Export datového schématu a dat[] 
- []
-
-
-Overfull \hbox (3.0286pt too wide) in paragraph at lines 1586--1586
-[]\T1/pxtt/m/n/12 |-- MariaDB_MariaDB_CubeJS_Superset/ ....... Varianta s MariaDB ColumnStore[] 
- []
-
-
-
-[75]
-
-[76] (./ki-thesis.aux)
+[75] (./ki-thesis.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -2068,17 +2034,17 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61381 strings out of 467748
- 1392616 string characters out of 5431137
- 2504760 words of memory out of 5000000
- 88369 multiletter control sequences out of 15000+600000
+ 61382 strings out of 467748
+ 1392677 string characters out of 5431137
+ 2504775 words of memory out of 5000000
+ 88370 multiletter control sequences out of 15000+600000
  796115 words of font info for 440 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,12n,121p,11341b,3057s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (76 pages, 5320839 bytes).
+Output written on ki-thesis.pdf (75 pages, 5319352 bytes).
 PDF statistics:
- 1024 PDF objects out of 1200 (max. 8388607)
+ 1023 PDF objects out of 1200 (max. 8388607)
  848 compressed objects within 9 object streams
  340 named destinations out of 1000 (max. 500000)
  94000 words of extra memory for PDF output out of 106986 (max. 10000000)
