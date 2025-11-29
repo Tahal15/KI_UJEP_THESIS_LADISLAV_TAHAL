@@ -377,16 +377,16 @@ Tato klasifikace je zásadní pro pozdější srovnání celkových nákladů na
    \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/architecture-data-warehousing.png}
-      \caption{Architektura moderního datového skladu v~prostředí Microsoft Azure. Zdroj: learn.microsoft.com \protect\cite{azure_data_warehousing}}
+      \caption{Architektura moderního datového skladu v~prostředí Microsoft Azure. Zdroj: \href{https://learn.microsoft.com/en-us/azure/architecture/example-scenario/data/data-warehouse}{learn.microsoft.com}}
       \label{fig:MSplatform}
     \end{figure}
 
 Ekosystém společnosti Microsoft představuje jedno z~nejkomplexnějších řešení pro podnikové zpracování dat, které pokrývá celý životní cyklus od datových toků až po vizualizaci. Jeho unikátnost spočívá v~možnosti nasazení jak v~tradičním on-premise prostředí, tak v~cloudu, případně v~hybridním režimu. Komponenty platformy lze rozdělit následovně:
 
 \begin{itemize}
-    \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \cite{mssql2024overview}.
+    \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \footnote{\url{https://learn.microsoft.com/en-us/sql/sql-server/}}.
     \item \textbf{Cloudová platforma (Microsoft Azure):} S~nástupem cloudu se architektura posouvá do prostředí Azure (viz Obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a celková orchestrace se sjednocuje v~rámci platformy \emph{Microsoft Fabric}.
-    \item \textbf{Vizuální a sémantická vrstva:} Sjednocující vrstvou pro on-premise i cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a dashboardů a díky své sémantické vrstvě dokáže zastoupit i některé funkce SSAS \cite{powerbi2024docs}.
+    \item \textbf{Vizuální a sémantická vrstva:} Sjednocující vrstvou pro on-premise i cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a dashboardů a díky své sémantické vrstvě dokáže zastoupit i některé funkce SSAS \footnote{\url{https://learn.microsoft.com/en-us/power-bi/}}.
     \item \textbf{Výhody a nevýhody:} Hlavní výhodou je hluboká integrace všech komponent. Nevýhodou, zejména u~cloudových služeb, může být silný „vendor lock-in“ a závislost na licenční politice poskytovatele.
 \end{itemize}
 
@@ -395,14 +395,14 @@ Ekosystém společnosti Microsoft představuje jedno z~nejkomplexnějších ře�
    \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/google-cloud.png}
-      \caption{Architektura analytické platformy Google Cloud. Zdroj: medium.com \protect\cite{google_data_products}}
+      \caption{Architektura analytické platformy Google Cloud. Zdroj: \href{https://medium.com/google-cloud/implementing-data-products-on-google-data-lakehouse-architecture-df5c5f4cc07e}{medium.com}}
       \label{fig:Googleplatform}
     \end{figure}
 
 Společnost Google přistupuje k~analytice jako k~plně cloudové službě, navržené od počátku pro distribuované výpočty. Klíčové komponenty ekosystému jsou:
 
 \begin{itemize}
-    \item \textbf{Datový sklad:} Jádrem platformy je \emph{Google BigQuery}, serverless datový sklad s~kolumnárním uložením, kde se platí pouze za uložená data a zpracované dotazy \cite{bigquery2024docs}.
+    \item \textbf{Datový sklad:} Jádrem platformy je \emph{Google BigQuery}, serverless datový sklad s~kolumnárním uložením, kde se platí pouze za uložená data a zpracované dotazy \footnote{\url{https://cloud.google.com/bigquery/docs/}}.
     \item \textbf{Integrace a příprava dat:} Pro tyto účely slouží služby jako \emph{Dataflow} (založené na Apache Beam) nebo \emph{Dataprep}.
     \item \textbf{Prezentační vrstva:} Zastupuje ji \emph{Looker Studio} pro rychlou vizualizaci, případně platforma \emph{Looker}, která nabízí pokročilou sémantickou vrstvu a governance dat.
     \item \textbf{Výhody a omezení:} Hlavní výhodou je nulová starost o~hardware, vysoká škálovatelnost a integrace s~AI nástroji (\emph{Vertex AI}). Zásadním omezením je absence on-premise řešení, což znemožňuje využití organizacím, které vyžadují uložení dat na vlastním hardwaru.
@@ -413,13 +413,13 @@ Společnost Google přistupuje k~analytice jako k~plně cloudové službě, navr
     \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/AWSarchitecture.png}
-      \caption{Cloudové řešení Amazon Web Services. Zdroj: docs.aws.amazon.com \protect\cite{aws_redshift_arch}}
+      \caption{Cloudové řešení Amazon Web Services. Zdroj: \href{https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html}{docs.aws.amazon.com}}
       \label{fig:AWSplatform}
     \end{figure}
 
 Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nabízí rozsáhlý a modulární ekosystém pro datové inženýrství a analytiku.
 \begin{itemize}
-    \item \textbf{Datový sklad:} Klíčovou roli zde zastává \emph{Amazon Redshift} -- cloudový datový sklad postavený na kolumnární architektuře \cite{redshift2024overview}.
+    \item \textbf{Datový sklad:} Klíčovou roli zde zastává \emph{Amazon Redshift} -- cloudový datový sklad postavený na kolumnární architektuře \footnote{\url{https://aws.amazon.com/redshift/}}.
     \item \textbf{Zpracování a vizualizace:} Služba \emph{AWS Glue} umožňuje automatizované ETL procesy, zatímco \emph{Amazon QuickSight} poskytuje prostředí pro interaktivní vizualizace a reporting.
     \item \textbf{Integrace s~open-source:} AWS podporuje integraci s~open-source systémy, například \emph{Apache Spark} (prostřednictvím služby \emph{EMR}) nebo \emph{Presto}.
     \item \textbf{Výhody a slabiny:} Výhodou AWS je modularita, která umožňuje komponenty kombinovat podle potřeb. Podobně jako u~Google se jedná o~výhradně cloudové řešení. Slabinou může být větší komplexita nastavení a vyšší provozní náklady.
@@ -430,7 +430,7 @@ Cloudová platforma \emph{Amazon Web Services} (AWS) od společnosti Amazon nab�
    \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/oracle_architecture.png}
-      \caption{Architektura Oracle Data Platform. Zdroj: medium.com \protect\cite{oracle_data_platform}}
+      \caption{Architektura Oracle Data Platform. Zdroj: \href{https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112}{medium.com}}
       \label{fig:OraclePlatform}
     \end{figure}
 
@@ -448,7 +448,7 @@ Společnost Oracle nabízí komplexní datovou platformu, která kombinuje tradi
   \begin{figure}[h]
       \centering
       \includegraphics[width=0.8\textwidth]{img/hadoop.png}
-      \caption{Cloudové řešení Apache Software Foundation. Zdroj: blogs.perficient.com \protect\cite{hadoop_ecosystem_perficient}}
+      \caption{Cloudové řešení Apache Software Foundation. Zdroj: \href{https://blogs.perficient.com/2022/08/10/hadoop-ecosystem-components/}{blogs.perficient.com}}
       \label{fig:Apacheplatform}
     \end{figure}
 
@@ -456,7 +456,7 @@ Nejvýznamnějším hráčem v~oblasti otevřených datových technologií je na
 
 \begin{itemize}
     \item \textbf{Ukládání a zpracování:} Historicky založeno na ekosystému \emph{Hadoop}, dnes dominuje \emph{Apache Spark} pro distribuované výpočty a \emph{Apache Kafka} pro streamování dat.
-    \item \textbf{OLAP a analytika:} Pro rychlé analytické dotazy slouží nástroje jako \emph{Apache Druid} nebo \emph{Apache Kylin}, který přináší schopnost multidimenzionální analýzy (OLAP kostky) na velká data, podobně jako SSAS v~ekosystému Microsoft \cite{apachekylin2024}.
+    \item \textbf{OLAP a analytika:} Pro rychlé analytické dotazy slouží nástroje jako \emph{Apache Druid} nebo \emph{Apache Kylin}, který přináší schopnost multidimenzionální analýzy (OLAP kostky) na velká data, podobně jako SSAS v~ekosystému Microsoft
     \item \textbf{Vizualizace:} Prezentační vrstvu zajišťuje \emph{Apache Superset}, moderní BI nástroj umožňující tvorbu dashboardů a granulární řízení přístupových práv.
 \end{itemize}
 
@@ -469,7 +469,7 @@ Výhodou tohoto ekosystému je jeho modularita a fakt, že tvoří technologick�
   \begin{figure}[h]
       \centering
       \includegraphics[width=\textwidth]{img/mariadb_architecture.jpg}
-      \caption{Architektura řešení MariaDB. Zdroj: smartdatainstitute.com \protect\cite{mariadb_smartdatainstitute}}
+      \caption{Architektura řešení MariaDB. Zdroj: \href{https://smartdatainstitute.com/mariadb/}{smartdatainstitute.com}}
       \label{fig:mariadbplatform}
     \end{figure}
 
@@ -488,7 +488,7 @@ Tato architektura umožňuje organizacím začít s~open-source řešením (Comm
 V~současné praxi se stále častěji ustupuje od využívání jednoho monolitického „megabalíku“ (jako je kompletní Apache stack) směrem k~flexibilním, modulárním architekturám. Tento trend umožňuje skládat platformu z~několika specializovaných nástrojů od různých tvůrců, a to přesně podle potřeb daného projektu \cite{priebe2022datawarehouse}. Tento přístup lze realizovat dvěma hlavními způsoby:
 
 \begin{itemize}
-    \item \textbf{Čistě open-source stack:} Tento model kombinuje výhradně open-source komponenty. Typickým příkladem je použití relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) jako datového skladu, nad kterým je postavena sémantická vrstva v~podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}. Tyto nástroje definují metriky a business logiku, kterou následně konzumuje vizualizační nástroj jako \emph{Apache Superset}, \emph{Metabase} nebo \emph{Grafana} \cite{cube2024semantic,dbt2024semanticlayer,superset2024docs,metabase2024overview}.
+    \item \textbf{Čistě open-source stack:} Tento model kombinuje výhradně open-source komponenty. Typickým příkladem je použití relační databáze (např. \emph{MariaDB}, \emph{PostgreSQL}, či \emph{ClickHouse}) jako datového skladu, nad kterým je postavena sémantická vrstva v~podobě \emph{Cube.js} nebo \emph{dbt Semantic Layer}\footnote{\url{https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl}}. Tyto nástroje definují metriky a business logiku, kterou následně konzumuje vizualizační nástroj jako \emph{Apache Superset}\footnote{\url{https://superset.apache.org/docs/}}, \emph{Metabase}\footnote{\url{https://www.metabase.com/}} nebo \emph{Grafana} \cite{cube2024semantic}.
      
     \begin{figure}[h]
       \centering
@@ -583,7 +583,7 @@ Klíčovou komponentou pro bezpečnou a spravovatelnou komunikaci mezi LLM a ext
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/mcp-simple-diagram.png}
-  \caption{Model context protocol. Zdroj: modelcontextprotocol.io \cite{mcp_protocol}}
+  \caption{Model context protocol. Zdroj: \href{https://modelcontextprotocol.io/}{modelcontextprotocol.io}}
   \label{fig:gemini_cli_architecture}
 \end{figure}
 
@@ -696,7 +696,7 @@ Základními modely používanými pro návrh datového skladu v~rámci dimenzio
     \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{img/Star-schema.png}
- \caption{Schéma hvězda faktové tabulky a dimenzí pro data z~kamer v~Bílině. Zdroj: en.wikipedia.org \cite{wikipedia_star_schema}}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z~kamer v~Bílině. Zdroj: \href{https://en.wikipedia.org/wiki/Star_schema}{en.wikipedia.org}}
 \end{figure}
 \clearpage
     \item \textbf{Schéma Sněhová vločka (\textit{Snowflake Schema}):}
@@ -704,7 +704,7 @@ Základními modely používanými pro návrh datového skladu v~rámci dimenzio
   \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/snowflake.png}
-  \caption{Ilustrační schéma snéhové vločky faktové tabulky a dimenzí. Zdroj: en.wikipedia.org \cite{wikipedia_snowflake_schema}}
+  \caption{Ilustrační schéma snéhové vločky faktové tabulky a dimenzí. Zdroj: \href{https://en.wikipedia.org/wiki/Snowflake_schema}{en.wikipedia.org}}
   \label{fig:snowflake_schema}
 \end{figure}
 
@@ -737,7 +737,7 @@ Slouží jako prostředník mezi technickou strukturou databáze a uživatelský
 Namísto přímé práce s~databázovými tabulkami umožňuje uživatelům přistupovat k~datům prostřednictvím předdefinovaných metrik, dimenzí a vztahů, které odpovídají obchodní logice organizace.  
 
 Tímto způsobem sémantická vrstva abstrahuje technické detaily a umožňuje vytváření analytických dotazů bez nutnosti znalosti SQL či fyzického modelu dat.  
-V~praxi tento koncept implementují moderní frameworky jako \emph{Cube.js}, \emph{dbt Semantic Layer} nebo \emph{Looker Semantic Model}, které poskytují rozhraní pro standardizovaný přístup k~datům prostřednictvím API nebo SQL proxy \cite{cube2024semantic,dbt2024semanticlayer,looker2024semanticmodel}.  
+V~praxi tento koncept implementují moderní frameworky jako \emph{Cube.js}, \emph{dbt Semantic Layer}\footnote{\url{https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl}} nebo \emph{Looker Semantic Model}\footnote{\url{https://cloud.google.com/looker/docs/semantic-model-overview}}, které poskytují rozhraní pro standardizovaný přístup k~datům prostřednictvím API nebo SQL proxy \cite{cube2024semantic}.  
 
 K~hlavním přínosům sémantické vrstvy patří:
 \begin{itemize}
@@ -977,7 +977,7 @@ Tyto údaje představovaly surová telemetrická data, původně pocházející 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/mqttentries_structure.png}
-  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data. Zdroj: Dbeaver}
+  \caption{Struktura tabulky \texttt{mqttentries} obsahující zdrojová telemetrická data. Zdroj: vlastní s použitím aplikace DBeaver}
   \label{fig:mqttentries}
 \end{figure}
 
@@ -997,7 +997,7 @@ Výstupem této první fáze analýzy jsou skupiny témat, které sdílejí podo
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/topic50.png}
-  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat. Zdroj: Excel}
+  \caption{Prvotní seskupení témat na základě 50\,\% strukturální podobnosti JSON schémat. Zdroj: vlastní s použitím aplikace Excel}
   \label{fig:topic_groups_initial}
 \end{figure}
 
@@ -1006,7 +1006,7 @@ V~dalším kroku bylo nutné tyto automaticky vygenerované skupiny ručně zrev
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/topic50_2.png}
-  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napříč skupiny. Zdroj: Excel}
+  \caption{Tyto logické skupiny byly navíc ještě manuálně sloučeny napříč skupiny. Zdroj: vlastní s použitím aplikace Excel}
   \label{fig:topic_groups_merged}
 \end{figure}
 
@@ -1071,21 +1071,21 @@ Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými techn
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/lake_to_staging.png}
-  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \caption{UML porovnání ETL scriptů napříč systémy. Zdroj: vlastní s použitím aplikace \href{https://editor.plantuml.com/}{editor.plantuml.com}}
   \label{fig:laketostaging}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/staging_to_fact.png}
-  \caption{UML porovnání ETL scriptů napříč systémy.}
+  \caption{UML porovnání ETL scriptů napříč systémy. Zdroj: vlastní s použitím aplikace \href{https://editor.plantuml.com/}{editor.plantuml.com}}
   \label{fig:stagingtofact}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/MariaDW_staging.png}
-  \caption{Staging tabulka v~datovém skladu. Zdroj: DBeaver}
+  \caption{Staging tabulka v~datovém skladu. Zdroj: vlastní s použitím aplikace DBeaver}
   \label{fig:mariadwstaging}
 \end{figure}
 
@@ -1107,7 +1107,7 @@ Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a 
     \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{img/ERD.png}
- \caption{Schéma hvězda faktové tabulky a dimenzí pro data z~kamerového systému firmy CAMEA Technology, a. s. na datové platformě Portabo}
+ \caption{Schéma hvězda faktové tabulky a dimenzí pro data z~kamerového systému společnosti CAMEA Technology, a. s. na datové platformě Portabo}
 \end{figure}
 
 \subsection{OLAP a vizualizace}
@@ -1133,7 +1133,7 @@ Jednalo se například o:
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/PBIreport.png}
-  \caption{Ukázka výsledného PBI reportu}
+  \caption{Ukázka výsledného PBI reportu. Zdroj: vlastní s použitím aplikace Power BI}
   \label{fig:pbi}
 \end{figure}
 
@@ -1164,7 +1164,7 @@ Díky tomu bylo možné na Cube.js napojit nástroj \textbf{Apache Superset}, kt
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/Supersetreport.png}
-  \caption{Ukázka výsledného Superset reportu}
+  \caption{Ukázka výsledného Superset reportu. Zdroj: vlastní s použitím aplikace Superset}
   \label{fig:topic50}
 \end{figure}
 
@@ -1200,7 +1200,14 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
-Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště.
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/fragmentace.png}
+  \caption{Porovnání velikosti dat na disku mezi jednotlivými databázovými systémy.}
+  \label{fig:fragmentace}
+\end{figure}
 
 Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na githubu. Odkaz na github najdete v~kapitole Příloha.
 
@@ -1209,7 +1216,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace1.png}
-      \caption{Výkon jednoduché agregace s~jedním spojením (Dotaz 1). Méně je lépe}
+      \caption{Výkon jednoduché agregace s~jedním spojením (Dotaz 1). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani1}
     \end{figure}
 
@@ -1218,7 +1225,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
        \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace2.png}
-      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe}
+      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani2}
     \end{figure}
     Druhý dotaz (počet detekcí v~čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku.
@@ -1229,7 +1236,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace3.png}
-      \caption{Výkon dotazu s~vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe}
+      \caption{Výkon dotazu s~vícenásobným spojením a filtrováním (Dotaz 3). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani3}
     \end{figure}
 
@@ -1239,7 +1246,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace4.png}
-      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe}
+      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani4}
     \end{figure}
     
@@ -1249,7 +1256,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
       \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace5.png}
-      \caption{Výkon komplexního dotazu s~CTE a okenní funkcí (Dotaz 5). Méně je lépe}
+      \caption{Výkon komplexního dotazu s~CTE a okenní funkcí (Dotaz 5). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani5}
     \end{figure}
 \end{enumerate}
@@ -1260,7 +1267,7 @@ Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory Cl
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{img/porovnani_vykonu_databazi_high_res.png}
-  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe}
+  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
   \label{fig:srovnani6}
 \end{figure}
 
@@ -1319,7 +1326,7 @@ Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu �
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{img/PowerBI - analyzer.png}
-  \caption{Power BI Performance Analyzer - analýza vykreslování}
+  \caption{Power BI Performance Analyzer - analýza vykreslování. Zdroj: vlastní s použitím aplikace Power BI}
   \label{fig:powerbi_analyzer}
 \end{figure}
 
@@ -1341,10 +1348,10 @@ Součástí zadání byla i analýza práce s~geoprostorovými daty. Oba testova
 
 \begin{itemize}
     \item \textbf{Power BI (Azure Maps / Bing Maps):}
-    Vizualizační vrstva Power BI je postavena na mapových službách Azure Maps a Bing Maps~\cite{microsoft_azure_maps_visual}. Z~technického hlediska je klíčovou výhodou \textbf{aktivní geokódovací služba}, která na pozadí automaticky převádí textové atributy (názvy měst, adresy, PSČ) na geografické souřadnice. To umožňuje vizualizovat data, která neobsahují explicitní GPS souřadnice. Tato abstrakce však přináší výkonnostní limity a závislost na externím API, což může být při velkém objemu dotazů (tisíce bodů) pomalé nebo zpoplatněné. Vykreslování bodů probíhá převážně na straně klienta, což omezuje plynulost při vyšších počtech objektů.
+    Vizualizační vrstva Power BI je postavena na mapových službách Azure Maps a Bing Maps~\footnote{\url{https://learn.microsoft.com/en-us/azure/azure-maps/power-bi-visual-get-started}}. Z~technického hlediska je klíčovou výhodou \textbf{aktivní geokódovací služba}, která na pozadí automaticky převádí textové atributy (názvy měst, adresy, PSČ) na geografické souřadnice. To umožňuje vizualizovat data, která neobsahují explicitní GPS souřadnice. Tato abstrakce však přináší výkonnostní limity a závislost na externím API, což může být při velkém objemu dotazů (tisíce bodů) pomalé nebo zpoplatněné. Vykreslování bodů probíhá převážně na straně klienta, což omezuje plynulost při vyšších počtech objektů.
     
     \item \textbf{Apache Superset (Deck.gl):}
-    Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\cite{superset_deckgl}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\cite{superset_country_map}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
+    Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
 \end{itemize}
 
 \subsubsection{Srovnání vizualizačních možností a architektury reportingu}
@@ -1358,8 +1365,8 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
     \begin{itemize}
         \item \textbf{Architektura vykreslování (Client-side):}
         Většina nativních vizuálů je vykreslována v prohlížeči pomocí HTML5 Canvas a knihoven postavených na D3.js.
-        Power~BI uplatňuje limity na počet renderovaných datových bodů (tzv. \emph{Data Point Limits}, např.~cca~3\,500 bodů pro bodový graf)~\cite{microsoft_powerbi_limits}.
-        Při práci s rozsáhlými datasetty používá techniky redukce dat (\emph{High Density Sampling}), které mohou snížit přesnost vykreslených extrémů~\cite{microsoft_powerbi_limits}.
+        Power~BI uplatňuje limity na počet renderovaných datových bodů (tzv. \emph{Data Point Limits}, např.~cca~3\,500 bodů pro bodový graf)~\footnote{\url{https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts}}.
+        Při práci s rozsáhlými datasetty používá techniky redukce dat (\emph{High Density Sampling}), které mohou snížit přesnost vykreslených extrémů~\footnote{\url{https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts}}.
 
         \item \textbf{Layout engine:}
         Umožňuje přesné umístění prvků a jejich vrstvení (tzv. pixel-perfect design).
@@ -1371,7 +1378,7 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
         Správné fungování vyžaduje korektně definované relace v datovém modelu.
 
         \item \textbf{Rozšiřitelnost:}
-        Ekosystém je uzavřený, avšak rozšiřitelný pomocí \emph{Custom Visuals} SDK (TypeScript/React)~\cite{microsoft_custom_visuals_sdk}.
+        Ekosystém je uzavřený, avšak rozšiřitelný pomocí \emph{Custom Visuals} SDK (TypeScript/React)~\footnote{\url{https://learn.microsoft.com/en-us/power-bi/developer/visuals/}}.
     \end{itemize}
 
     \item \textbf{Apache Superset (Grid-based \& SQL-first):}
@@ -1380,10 +1387,10 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
     \begin{itemize}
         \item \textbf{Architektura vykreslování (Query-based):}
         Superset funguje jako tenká vrstva nad databázemi a datovými enginy, které provádějí
-        veškeré výpočty a agregace~\cite{superset2024docs}. Každá vizualizace je založena na SQL dotazu, jehož
+        veškeré výpočty a agregace~\footnote{\url{https://superset.apache.org/docs/}}. Každá vizualizace je založena na SQL dotazu, jehož
         výsledná data jsou backendem serializována do formátu JSON a odeslána frontendu.
         Frontend poté vykresluje grafy pomocí otevřených vizualizačních knihoven, zejména
-        \textit{deck.gl} (pro mapové a geovizuální grafy využívající WebGL akceleraci)~\cite{superset_deckgl}.
+        \textit{deck.gl} (pro mapové a geovizuální grafy využívající WebGL akceleraci)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}.
         Díky WebGL dokáže deck.gl efektivně zobrazovat i velké množství geografických nebo
         bodových objektů, což je zásadní pro práci s rozsáhlejšími geodaty.
 

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Graf rozložení - Čistý design</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #f7f7f7;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .download-btn {
+            margin: 20px 0 40px 0;
+            padding: 12px 24px;
+            background-color: #36A2EB;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn:hover {
+            background-color: #258fd6;
+        }
+
+        .chart-wrapper {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .canvas-container {
+            position: relative;
+            height: 600px;
+            /* Ještě trochu vyšší pro lepší čitelnost */
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Velikost tabulky: Data vs. Indexy</h1>
+    <p>Zobrazeny jsou pouze hodnoty, které se vizuálně vejdou do grafu.</p>
+
+    <button class="download-btn" onclick="downloadChart()">Stáhnout obrázek grafu (PNG)</button>
+
+    <div class="chart-wrapper">
+        <div class="canvas-container">
+            <canvas id="diskSpaceChartStacked"></canvas>
+        </div>
+    </div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Segoe UI', sans-serif";
+        Chart.defaults.color = '#444';
+        Chart.defaults.font.size = 14;
+
+        const dbLabels = ['MS SQL', 'MariaDB', 'PostgreSQL', 'ClickHouse'];
+
+        // Data (MB)
+        const indexValues = [219.3, 13103.6, 5407.0, 0];
+        const dataValues = [4661.0, 1770.0, 2059.0, 745.5];
+
+        // Funkce pro formátování čísel (mezera jako oddělovač tisíců)
+        const formatNum = (num) => {
+            return num.toLocaleString('cs-CZ', { maximumFractionDigits: 0 });
+        };
+
+        const ctx = document.getElementById('diskSpaceChartStacked').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dbLabels,
+                datasets: [
+                    {
+                        label: 'Indexy',
+                        data: indexValues,
+                        backgroundColor: '#FF6384', // Červená
+                        borderColor: '#ffffff',
+                        borderWidth: 1 // Tenký bílý okraj oddělí segmenty
+                    },
+                    {
+                        label: 'Data',
+                        data: dataValues,
+                        backgroundColor: '#36A2EB', // Modrá
+                        borderColor: '#ffffff',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                devicePixelRatio: 2.5, // Vysoká kvalita pro tisk
+                layout: {
+                    padding: {
+                        top: 40 // Místo nahoře pro celkové součty
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 20, font: { size: 14 } }
+                    },
+                    tooltip: {
+                        enabled: true, // Tooltipy necháme aktivní pro detailní průzkum myší
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.raw.toLocaleString('cs-CZ') + ' MB';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: 'white',
+                        font: { weight: 'bold', size: 15 },
+                        // Zobrazit pouze pokud je segment dostatečně velký (> 8% celku)
+                        display: function (context) {
+                            const value = context.dataset.data[context.dataIndex];
+                            const total = indexValues[context.dataIndex] + dataValues[context.dataIndex];
+                            // Pokud je hodnota 0 nebo tvoří méně než 8 % výšky sloupce, skrýt text
+                            return value > 0 && (value / total > 0.08);
+                        },
+                        formatter: function (value) {
+                            return formatNum(value); // Jen číslo, bez "MB" (aby se vešlo)
+                        },
+                        anchor: 'center',
+                        align: 'center',
+                    },
+                    // Vlastní plugin pro vykreslení CELKOVÉHO součtu nad sloupcem
+                    id: 'custom_total_labels'
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { display: false },
+                        ticks: { font: { size: 16, weight: 'bold' } }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: { display: true, text: 'Velikost v MB' },
+                        grid: { color: '#eee' } // Jemná mřížka
+                    }
+                }
+            },
+            plugins: [{
+                id: 'topLabels',
+                afterDatasetsDraw: function (chart) {
+                    const ctx = chart.ctx;
+                    chart.data.labels.forEach((label, index) => {
+                        const metaTop = chart.getDatasetMeta(1); // Modrý dataset (vrchní)
+                        const metaBottom = chart.getDatasetMeta(0); // Červený dataset
+
+                        // Získáme souřadnice
+                        const viewTop = metaTop.data[index];
+                        const viewBottom = metaBottom.data[index];
+
+                        // Celková hodnota
+                        const total = indexValues[index] + dataValues[index];
+
+                        // Najdeme nejvyšší bod sloupce (Chart.js vykresluje odshora dolů, takže menší Y je výš)
+                        let yPos = viewTop.y;
+                        if (viewBottom.y < yPos) yPos = viewBottom.y;
+                        // (Pro jistotu, kdyby se pořadí změnilo, ale u stacked je to vršek posledního datasetu)
+
+                        ctx.fillStyle = '#333';
+                        ctx.font = 'bold 16px "Segoe UI"';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        // Vykreslení textu 10px nad sloupec
+                        ctx.fillText(formatNum(total) + " MB", viewTop.x, yPos - 10);
+                    });
+                }
+            }]
+        });
+
+        function downloadChart() {
+            const canvas = document.getElementById('diskSpaceChartStacked');
+            const link = document.createElement('a');
+
+            // Vytvoření bílého pozadí
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const ctx = tempCanvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+            ctx.drawImage(canvas, 0, 0);
+
+            link.href = tempCanvas.toDataURL('image/png', 1.0);
+            link.download = 'graf_cisty_design.png';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>
