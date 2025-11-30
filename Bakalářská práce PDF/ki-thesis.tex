@@ -1200,16 +1200,11 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
-Důležitým aspektem srovnání byla také efektivita ukládání dat. Během prvotního nahrávání dat (ETL proces) se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}).
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během nahrávání dat (ETL proces) do faktové tabulky se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}).
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/fragmentace.png}
-  \caption{Porovnání velikosti dat na disku mezi jednotlivými databázovými systémy.}
-  \label{fig:fragmentace}
-\end{figure}
 
-Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na githubu. Odkaz na github najdete v~kapitole Příloha.
+
+Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na githubu.
 
 \begin{enumerate}
     \item \textbf{Dotaz 1: Jednoduchá agregace s~jedním spojením} 
@@ -1240,7 +1235,7 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
       \label{fig:srovnani3}
     \end{figure}
 
-    Třetí, komplexnější dotaz, demonstroval sílu optimalizátorů MS SQL.
+    Třetí, komplexnější dotaz, demonstroval sílu optimalizátoru MS SQL.
 
     \item \textbf{Dotaz 4: Agregace nad dvěma dimenzemi}
     \begin{figure}[H]
@@ -1259,17 +1254,28 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
       \caption{Výkon komplexního dotazu s~CTE a okenní funkcí (Dotaz 5). Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
       \label{fig:srovnani5}
     \end{figure}
-\end{enumerate}
+
+
 
 Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a MS SQL si s~komplexitou poradí, řádková MariaDB v~základním nastavení naráží na své limity.
 
-
+\item \textbf{Všechny dotazy společně}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{img/porovnani_vykonu_databazi_high_res.png}
   \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe. Zdroj: vlastní s použitím programovacího jazyka Python}
   \label{fig:srovnani6}
 \end{figure}
+
+\item \textbf{Fragmentace dat napříč databázovými systémy}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/fragmentace.png}
+  \caption{Porovnání velikosti dat faktové tabulky na disku mezi jednotlivými databázovými systémy. Zdroj: vlastní s použitím programovacího jazyka Python}
+  \label{fig:fragmentace}
+\end{figure}
+
+\end{enumerate}
 
 \subsubsection{Vliv strategie indexace na výkon MariaDB (InnoDB)}
 
