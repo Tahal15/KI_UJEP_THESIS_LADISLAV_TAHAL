@@ -796,11 +796,14 @@ INPUT ./img/porovnani_vykonu_databazi_high_res.png
 INPUT ./img/porovnani_vykonu_databazi_high_res.png
 INPUT ./img/porovnani_vykonu_databazi_high_res.png
 INPUT ./img/porovnani_vykonu_databazi_high_res.png
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1.tfm
 INPUT ./img/fragmentace.png
 INPUT ./img/fragmentace.png
 INPUT ./img/fragmentace.png
 INPUT ./img/fragmentace.png
 INPUT ./img/fragmentace.png
+INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1.vf
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/libertinus-type1/LibertinusSerif-Italic-tlf-t1--base.tfm
 INPUT ./img/PowerBI - analyzer.png
 INPUT ./img/PowerBI - analyzer.png
 INPUT ./img/PowerBI - analyzer.png

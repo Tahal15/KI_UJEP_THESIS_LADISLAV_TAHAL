@@ -320,6 +320,95 @@
       \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
       \endverb
     \endentry
+    \entry{mcp_protocol}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=f431db65cea024a5f19eab835afefee2}{%
+           family={{Anthropic}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhashraw}{f431db65cea024a5f19eab835afefee2}
+      \strng{bibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorbibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authornamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhashraw}{f431db65cea024a5f19eab835afefee2}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-30}
+      \field{title}{Model Context Protocol}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+      \verb{url}
+      \verb https://modelcontextprotocol.io/
+      \endverb
+    \endentry
+    \entry{inmon2005}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=fe070ddfbf368740bfe41b23ac091cb2}{%
+           family={Inmon},
+           familyi={I\bibinitperiod},
+           given={William\bibnamedelima H.},
+           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{fullhash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{fullhashraw}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{bibnamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorbibnamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authornamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorfullhash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorfullhashraw}{fe070ddfbf368740bfe41b23ac091cb2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{4}
+      \field{isbn}{978-0-764-59944-6}
+      \field{title}{Building the Data Warehouse}
+      \field{year}{2005}
+    \endentry
+    \entry{kimball2013}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=6ec3b140429bc59ad63c593b172f665c}{%
+           family={Kimball},
+           familyi={K\bibinitperiod},
+           given={Ralph},
+           giveni={R\bibinitperiod}}}%
+        {{hash=257f73b4d408fcd5e8d4a110ef8c8f49}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={Margy},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{fullhash}{c18f3b1557ab75000609609691801c5b}
+      \strng{fullhashraw}{c18f3b1557ab75000609609691801c5b}
+      \strng{bibnamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorbibnamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authornamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorfullhash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorfullhashraw}{c18f3b1557ab75000609609691801c5b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{978-1-118-53080-1}
+      \field{title}{The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling}
+      \field{year}{2013}
+    \endentry
     \entry{rfc8259}{report}{}{}
       \name{author}{1}{}{%
         {{hash=3e2f0f38495aebf8b91a698c2ccbfae3}{%
@@ -405,8 +494,119 @@
       \verb http://www.mmds.org/
       \endverb
     \endentry
+    \entry{clickhouse_compression}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=e16b35eafbe830358d709d9ff3527451}{%
+           family={{ClickHouse, Inc.}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{fullhash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{fullhashraw}{e16b35eafbe830358d709d9ff3527451}
+      \strng{bibnamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorbibnamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authornamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorfullhash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorfullhashraw}{e16b35eafbe830358d709d9ff3527451}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-30}
+      \field{title}{Data Compression in ClickHouse}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://clickhouse.com/docs/en/sql-reference/statements/alter/compression
+      \endverb
+      \verb{url}
+      \verb https://clickhouse.com/docs/en/sql-reference/statements/alter/compression
+      \endverb
+    \endentry
+    \entry{mariadb_covering}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=1dc102a68b76700cdc02f1d7a578b433}{%
+           family={{MariaDB Foundation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{fullhash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{fullhashraw}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{bibnamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorbibnamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authornamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorfullhash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorfullhashraw}{1dc102a68b76700cdc02f1d7a578b433}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-30}
+      \field{title}{Optimization and Indexes: Covering Index}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://mariadb.com/kb/en/optimization-and-indexes/
+      \endverb
+      \verb{url}
+      \verb https://mariadb.com/kb/en/optimization-and-indexes/
+      \endverb
+    \endentry
+    \entry{gartner_tco}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a41804af92a2aa0180154f489f3d308b}{%
+           family={{Gartner, Inc.}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{fullhash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{fullhashraw}{a41804af92a2aa0180154f489f3d308b}
+      \strng{bibnamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorbibnamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authornamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorfullhash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorfullhashraw}{a41804af92a2aa0180154f489f3d308b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-30}
+      \field{title}{Total Cost of Ownership (TCO)}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.gartner.com/en/information-technology/glossary/total-cost-of-ownership-tco
+      \endverb
+      \verb{url}
+      \verb https://www.gartner.com/en/information-technology/glossary/total-cost-of-ownership-tco
+      \endverb
+    \endentry
+    \entry{ms_sql_editions}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=140864078aeca1c7c35b4beb33c53c34}{%
+           family={{Microsoft}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{bibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorbibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authornamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed 2025-11-30}
+      \field{title}{Editions and supported features of SQL Server 2022}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/editions-and-components/sql-server-2022/editions-and-supported-features-of-sql-server-2022
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/editions-and-components/sql-server-2022/editions-and-supported-features-of-sql-server-2022
+      \endverb
+    \endentry
   \enddatalist
-  \missing{mcp_protocol}
 \endrefsection
 \endinput
 

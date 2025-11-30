@@ -168,6 +168,14 @@
 \newglossaryentry{mpp}{name={MPP},description={Massively Parallel Processing. Architektura pro paralelní zpracování dat na mnoha uzlech}}
 \newglossaryentry{rag}{name={RAG},description={Retrieval-Augmented Generation. Technika pro zlepšení přesnosti generativních AI modelů pomocí externích dat}}
 \newglossaryentry{ide}{name={IDE},description={Integrated Development Environment. Integrované vývojové prostředí}}
+\newglossaryentry{molap}{name={MOLAP},description={Multidimensional Online Analytical Processing. Technologie ukládající data ve vícerozměrných polích (kostkách) optimalizovaných pro rychlé dotazování}}
+\newglossaryentry{rolap}{name={ROLAP},description={Relational Online Analytical Processing. Forma OLAP, která provádí dynamické analýzy přímo nad daty uloženými v~relační databázi}}
+\newglossaryentry{mqtt}{name={MQTT},description={Message Queuing Telemetry Transport. Lehký síťový protokol pro přenos zpráv mezi zařízeními, často využívaný v~IoT}}
+\newglossaryentry{ram}{name={RAM},description={Random Access Memory. Operační paměť počítače s~náhodným přístupem}}
+\newglossaryentry{ssd}{name={SSD},description={Solid State Drive. Polovodičový disk bez pohyblivých částí, vyznačující se vysokou rychlostí čtení a zápisu}}
+\newglossaryentry{cpu}{name={CPU},description={Central Processing Unit. Centrální procesorová jednotka, hlavní výpočetní prvek počítače}}
+\newglossaryentry{sdk}{name={SDK},description={Software Development Kit. Sada nástrojů pro vývoj softwaru}}
+\newglossaryentry{html}{name={HTML},description={Hypertext Markup Language. Značkovací jazyk pro tvorbu webových stránek}}
 
 \newcommand{\UV}[1]{\quotedblbase#1\textquotedblleft}
  
@@ -653,14 +661,14 @@ Konceptuální návrh DWH se opírá o~dvě hlavní, avšak protichůdné, metod
 
 \begin{enumerate}
     \item \textit{Metodika Billa Inmona (\textit{Top-Down Approach}):}
-    Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW).
+    Inmonova metodika je označována jako \textbf{Top-Down (shora dolů)}, protože začíná návrhem centrálního, podnikového datového skladu (\textit{Enterprise Data Warehouse}, EDW) \cite{inmon2005}.
     \begin{itemize}
         \item \textbf{Schema:} EDW je modelováno ve vysoce \textit{normalizované} formě (typicky 3. normální forma, 3NF), což zajišťuje nízkou datovou redundanci a maximální integritu.
         \item \textbf{Tok dat a tržiště:} Data jsou nejprve ETL procesem načtena do detailního, normalizovaného EDW (centrální zdroj pravdy). \textit{Datová tržiště} se vytváří \textit{až sekundárně} z~dat v~EDW a jsou denormalizovaná, aby sloužila pro rychlé reportování.
     \end{itemize}
 
     \item \textbf{Metodika Ralpha Kimballa (\textit{Bottom-Up Approach}):}
-    Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy.
+    Kimballova metodika je označována jako \textbf{Bottom-Up (zdola nahoru)}, protože se zaměřuje na rychlé dodání řešení pro specifické obchodní procesy \cite{kimball2013}.
     \begin{itemize}
         \item \textbf{Schema:} Využívá \textit{dimenzionální modelování} (schéma \textit{Hvězda} nebo \textit{Sněhová vločka}), které je záměrně \textit{denormalizované}. To zjednodušuje dotazování a maximalizuje výkon pro OLAP úlohy.
         \item \textbf{Tok dat a tržiště:} Data jsou transformována a ukládána \textit{přímo} do dimenzionálních modelů, které \textit{představují Datová tržiště}. Podnikový datový sklad je pak \textit{logickou unií} (sjednocením) těchto jednotlivých tržišť.
@@ -1200,7 +1208,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
-Důležitým aspektem srovnání byla také efektivita ukládání dat. Během nahrávání dat (ETL proces) do faktové tabulky se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}).
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během nahrávání dat (ETL proces) do faktové tabulky se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10x méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}) \cite{clickhouse_compression}.
 
 
 
@@ -1267,6 +1275,26 @@ Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory Cl
   \label{fig:srovnani6}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{Relativní srovnání výkonu (násobek nejrychlejšího času, 1.0x = nejlepší)}
+\label{tab:performance_multiples}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+\hline
+\textbf{Scénář} & \textbf{CH} & \textbf{MS(R)} & \textbf{MS(C)} & \textbf{Ma(R)} & \textbf{Ma(C)} & \textbf{Ma(Cov)} & \textbf{PG} & \textbf{TS} \\ \hline
+1. Agregace (1 JOIN) & \textbf{1.0x} & 1.9x & 1.6x & 453.0x & 9.2x & 56.2x & 27.4x & 24.9x \\ \hline
+2. Agregace přes čas & 1.03x & 4.7x & 4.2x & \textbf{1.0x} & 9.6x & 11.6x & 27.2x & 28.2x \\ \hline
+3. Více JOIN s filtrem & 14.3x & 6.3x & \textbf{1.0x} & 458.0x & 39.8x & 47.5x & 152.5x & 140.8x \\ \hline
+4. Agregace přes 2 dim. & 1.3x & 1.5x & \textbf{1.0x} & 206.9x & 11.0x & 13.5x & 17.0x & 18.7x \\ \hline
+5. Komplexní dotaz & \textbf{1.0x} & 1.7x & 2.0x & 429.5x & 8.6x & 9.9x & 14.7x & 36.8x \\ \hline
+\end{tabular}%
+}
+\vspace{0.5em}
+\footnotesize{\emph{Legenda: CH = ClickHouse, MS = MSSQL, Ma = MariaDB, PG = PostgreSQL, TS = TimescaleDB, (R) = Řádkový, (C) = Sloupcový, (Cov) = Covering Index}}
+\end{table}
+
+
 \item \textbf{Fragmentace dat napříč databázovými systémy}
 \begin{figure}[h]
   \centering
@@ -1281,7 +1309,7 @@ Poslední dotaz (CTE a okenní funkce) potvrdil, že zatímco optimalizátory Cl
 
 Vzhledem k~výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti ostatním systémům (PostgreSQL, MS SQL), které i v~řádkovém režimu dosahovaly lepších časů, byla provedena dodatečná analýza indexace.
 
-Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy, MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes). Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z~indexové struktury a zcela eliminuje nákladné čtení z~datových souborů na disku.
+Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy, MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes) \cite{mariadb_covering}. Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z~indexové struktury a zcela eliminuje nákladné čtení z~datových souborů na disku.
 
 
 Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k~řádovému zrychlení:
@@ -1357,7 +1385,9 @@ Součástí zadání byla i analýza práce s~geoprostorovými daty. Oba testova
     Vizualizační vrstva Power BI je postavena na mapových službách Azure Maps a Bing Maps~\footnote{\url{https://learn.microsoft.com/en-us/azure/azure-maps/power-bi-visual-get-started}}. Z~technického hlediska je klíčovou výhodou \textbf{aktivní geokódovací služba}, která na pozadí automaticky převádí textové atributy (názvy měst, adresy, PSČ) na geografické souřadnice. To umožňuje vizualizovat data, která neobsahují explicitní GPS souřadnice. Tato abstrakce však přináší výkonnostní limity a závislost na externím API, což může být při velkém objemu dotazů (tisíce bodů) pomalé nebo zpoplatněné. Vykreslování bodů probíhá převážně na straně klienta, což omezuje plynulost při vyšších počtech objektů.
     
     \item \textbf{Apache Superset (Deck.gl):}
-    Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
+        Pro geoprostorovou vizualizaci využívá Superset knihovnu \textit{Deck.gl} (WebGL)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, která umožňuje GPU akcelerované vykreslování milionů bodů v~reálném čase. Zásadním rozdílem je, že Superset \textbf{nemá integrovanou geokódovací službu} pro převod adres na souřadnice. Pro bodové mapy (Scatterplot, Arc, Heatmap) vyžaduje, aby data v~databázi již obsahovala explicitní sloupce pro zeměpisnou šířku a délku (latitude/longitude). Výjimkou jsou tzv. \textit{Country Maps}, které dokáží mapovat data na oblasti (kraje, státy) na základě ISO kódů (ISO 3166-2)~\footnote{\url{https://superset.apache.org/docs/configuration/country-map-tools}}, avšak pro detailní bodovou vizualizaci je nutná příprava dat na úrovni ETL procesu (např. využití PostGIS).
+
+        Je však důležité zmínit, že absenci nativního geokódování lze efektivně řešit na úrovni datové přípravy. V~rámci platformy Portabo je tento nedostatek kompenzován využitím vlastních převodníkových tabulek, které obsahují předpřipravené GeoJSON geometrie pro různé administrativní celky. Systém tak disponuje mapovými podklady pro obce, obce s~rozšířenou působností (ORP), okresy, kraje, regiony soudržnosti (NUTS2), ale i pro detailnější jednotky, jako jsou základní sídelní jednotky (ZSJ), katastrální území či adresní body. Tyto geometrie vycházejí z~dat Registru územní identifikace, adres a nemovitostí (RÚIAN) a umožňují vizualizaci dat na mapě i na základě běžných identifikátorů, jako je PSČ nebo kód obce.
 \end{itemize}
 
 \subsubsection{Srovnání vizualizačních možností a architektury reportingu}
@@ -1407,7 +1437,7 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
         \item \textbf{Interaktivita (Event-driven):}
         Cross-filtering je implementován pomocí událostí publikovaných do globálního stavu dashboardu.
         Tyto události spouštějí nové SQL dotazy pro všechny vizuály zahrnuté ve \emph{scoping} pravidlech.
-        Na rozdíl od Power~BI není cross-filtering aktivní automaticky a vyžaduje explicitní konfiguraci.
+        Podobně jako v Power~BI je cross-filtering plně podporován a umožňuje interaktivní filtrování dashboardu kliknutím na jednotlivé vizuály.
 
         \item \textbf{SQL Lab:}
         Superset obsahuje vestavěné SQL IDE umožňující uživatelům psát vlastní dotazy a vytvářet vizualizace přímo z výsledku.
@@ -1421,7 +1451,7 @@ Srovnání vizualizační vrstvy se nezaměřuje pouze na estetickou stránku, a
 \subsection{Uživatelská přívětivost}
 
 Z~hlediska uživatelské přívětivosti lze konstatovat, že oba testované systémy dosahují srovnatelné úrovně, ačkoliv každý cílí na mírně odlišný typ uživatele.
-Komerční řešení (Power BI) vyniká intuitivním ovládáním typu \textit{drag-and-drop} a hlubokou integrací s~kancelářskými nástroji, což ocení zejména běžní uživatelé a management.
+Komerční řešení (Power BI) vyniká možností tvorby \textit{pixel-perfect} layoutů grafů a hlubokou integrací s~kancelářskými nástroji, což ocení zejména běžní uživatelé a management.
 Open-source varianta (Apache Superset) naopak nabízí větší volnost a flexibilitu, kterou preferují technicky zdatnější uživatelé a datoví analytici vyžadující maximální kontrolu.
 
 Obecně lze říci, že oba nástroje představují vyzrálá a profesionální řešení, která lze doporučit pro nasazení v~podnikovém prostředí. Finální volba by tak neměla být otázkou kvality uživatelského rozhraní, která je u~obou variant vysoká, ale spíše otázkou specifických preferencí, technického zázemí a licenční strategie dané organizace.
@@ -1430,7 +1460,7 @@ Obecně lze říci, že oba nástroje představují vyzrálá a profesionální 
 
 Vzhledem k~tomu, že praktická část této práce ověřovala široké spektrum technologií -- od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) -- je nutné náklady hodnotit v~širším kontextu.
 
-Celkové náklady na vlastnictví (Total Cost of Ownership -- TCO) v~tomto případě dělíme na tři hlavní složky:
+Celkové náklady na vlastnictví (Total Cost of Ownership -- TCO) \cite{gartner_tco} v~tomto případě dělíme na tři hlavní složky:
 \begin{itemize}
     \item \textbf{Licenční a infrastrukturní náklady} (cloud, HW, software),
     \item \textbf{Náklady na lidský kapitál} (mzdy a know-how),
@@ -1456,48 +1486,84 @@ Pro kvantifikaci těchto nákladů byly využity průměrné měsíční hrubé 
 \caption{Odhad měsíčních nákladů na lidský kapitál dle technologií a rolí}
 \label{tab:personnel_costs}
 \renewcommand{\arraystretch}{1.3} % Zlepší čitelnost tabulky
-\begin{tabular}{|l|l|c|}
+\begin{tabular}{|l|l|r@{ -- }l|}
 \hline
-\textbf{Technologie (Systém)} & \textbf{Typová role} & \textbf{Odhad mzdy (CZK)} \\ \hline
+\textbf{Technologie (Systém)} & \textbf{Typová role} & \multicolumn{2}{c|}{\textbf{Odhad mzdy (CZK)}} \\ \hline
 \hline
-PostgreSQL, MariaDB & Database Administrator (Standard) & 70 000 -- 90 000 \\ \hline
-MariaDB ColumnStore, ClickHouse & Big Data / DWH Engineer & 90 000 -- 120 000 \\ \hline
-MS SQL Server + SSAS & BI Developer (MS Stack) & 80 000 -- 110 000 \\ \hline
-Cube.js, Superset & Data Analyst / Frontend & 55 000 -- 75 000 \\ \hline
-Python (ETL procesy) & Python Developer / Data Engineer & 80 000 -- 100 000 \\ \hline
+PostgreSQL, MariaDB & Database Administrator (Standard) & 70 000 & \phantom{0}90 000 \\ \hline
+MariaDB ColumnStore, ClickHouse & Big Data / DWH Engineer & 90 000 & 120 000 \\ \hline
+MS SQL Server + SSAS & BI Developer (MS Stack) & 80 000 & 110 000 \\ \hline
+Cube.js, Superset & Data Analyst / Frontend & 55 000 & \phantom{0}75 000 \\ \hline
+Python (ETL procesy) & Python Developer / Data Engineer & 80 000 & 100 000 \\ \hline
 \end{tabular}
 \end{table}
 
 Z~tabulky \ref{tab:personnel_costs} vyplývá, že ačkoliv open-source řešení šetří náklady na licencích, může generovat vyšší nároky na mzdové ohodnocení specialistů schopných tyto systémy efektivně spravovat a integrovat.
 
-\subsubsection{Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}
+\subsubsection{Licenční a infrastrukturní náročnost open-source ekosystému}
+V~rámci open-source řešení (např. kombinace ClickHouse a Apache Superset) lze identifikovat specifika, která zásadně snižují celkové náklady na vlastnictví (TCO).
+
 \begin{itemize}
-    \item \textbf{Licence:} Nulové přímé náklady (Apache 2.0, MIT, GPL). Umožňuje neomezené horizontální škálování bez růstu administrativních nákladů.
-    \item \textbf{Hardware:} Vysoká efektivita. Sloupcové databáze jako ClickHouse streamují data z~disku a nevyžadují, aby se celý datový model vešel do operační paměti. To umožňuje dosahovat vysokého výkonu i na levnějším hardwaru.
+    \item \textbf{Licenční politika:} Využití licencí typu Apache 2.0 nebo MIT eliminuje přímé licenční poplatky. To umožňuje neomezené horizontální škálování infrastruktury (přidávání serverů) bez nárůstu administrativních či licenčních nákladů, což je v~kontrastu s~komerčními modely vázanými na počet jader (Per Core).
+    \item \textbf{Hardwarová efektivita:} Sloupcové databáze (např. ClickHouse) využívají efektivní kompresi a streamování dat z~disku. Nevyžadují, aby se celý datový model nacházel v~operační paměti (RAM), což umožňuje dosahovat vysokého výkonu i na komoditním hardwaru s~nižší kapacitou paměti.
 \end{itemize}
 
-\subsubsection{Ekonomika komerčního řešení (Microsoft Stack)}
-U~varianty MS SQL Server + SSAS + Power BI tvoří licenční politika dominantní složku TCO. 
+\subsubsection{Licenční a infrastrukturní náročnost komerčního řešení (Microsoft Stack)}
+U~referenční architektury založené na technologiích Microsoft (SQL Server, SSAS, Power BI) tvoří licenční poplatky dominantní složku TCO. Organizace o~velikosti 50 uživatelů stojí před volbou mezi dvěma licenčními modely: plně On-Premise (vyžaduje vyšší edici serveru) nebo Hybridní (vyžaduje poplatky za uživatele).
 
 \begin{itemize}
-    \item \textbf{SQL Server -- Licenční model:}
-    Pro backend (DB + SSAS) se nabízí dva modely, přičemž pro veřejnou analytickou platformu je obvykle nutný model \textbf{Per Core}:
+    \item \textbf{SQL Server -- Licenční model a limity:}
+    Pro nasazení ve firemním prostředí se obvykle volí model \textit{Per Core}, který je nezbytný pro externí přístup.
     \begin{itemize}
-        \item \textbf{SQL Server Standard:} Cena se pohybuje okolo \textbf{3 500 -- 4 000 USD} za 2 jádra (ročně). Tato edice je však limitována maximálně \textbf{128 GB RAM} pro databázový engine a \textbf{64 GB RAM} pro SSAS (Tabular).
-        \item \textbf{SQL Server Enterprise:} Pro využití větší paměti (nutné pro velké in-memory modely) je nutná Enterprise edice, kde cena strmě stoupá (cca \textbf{15 000 USD} ročně za 2 jádra).
+        \item \textbf{SQL Server Standard:} Tato edice je cenově dostupnější (cca 3\,500--4\,000 USD za 2 jádra). Maximální využitelná paměť pro analytickou službu \textbf{SSAS (Tabular) je limitována na 64 GB RAM} na instanci (od verze 2022) \cite{ms_sql_editions}. To je sice hardwarově dostačující pro střední modely, ale tato edice neumožňuje provozovat on-premise Power BI Report Server.
+        \item \textbf{SQL Server Enterprise:} Pro modely překračující 64 GB RAM nebo pro nárok na \textbf{Power BI Report Server} je nutná edice Enterprise. Cena této edice je přibližně čtyřnásobná oproti verzi Standard (cca 14\,000 USD a více za 2 jádra).
     \end{itemize}
 
     \item \textbf{Infrastrukturní dopad (In-Memory daň):}
-    Jelikož SSAS Tabular drží data v~paměti (MOLAP), naráží u~velkých objemů na hardwarové a licenční limity. Překročení 64 GB RAM (limit Standard edice) vynucuje přechod na násobně dražší Enterprise edici, což skokově zvyšuje TCO.
+    Technologie SSAS Tabular funguje na principu in-memory. U~velkých datasetů tak organizace naráží na tvrdý limit edice Standard (64 GB). Překročení tohoto limitu nebo požadavek na on-premise vizualizaci vynucuje nákup drahé Enterprise licence, což činí vertikální škálování finančně neefektivním.
 
-    \item \textbf{Power BI (Vizualizace):}
-    Zatímco Superset je zdarma pro libovolný počet uživatelů, Power BI účtuje poplatky za sdílení reportů:
+    \item \textbf{Power BI (Vizualizační vrstva):}
     \begin{itemize}
-        \item \textbf{Power BI Pro:} Cca \textbf{13 USD / uživatel / měsíc}.
-        \item \textbf{Power BI Premium:} Cca \textbf{23 USD / uživatel / měsíc}.
+        \item \textbf{Power BI Pro (Cloud):} Pro hybridní scénář je nutná licence cca \textbf{10 USD / uživatel / měsíc}. Tato licence je součástí pouze nejvyšších plánů Office 365 (E5), u~běžných plánů (E3, Business Standard) je nutné ji dokoupit.
+        \item \textbf{Power BI Report Server (On-Premise):} Tento server nelze zakoupit samostatně pro jednotlivé uživatele. Je dostupný pouze jako benefit k~licenci SQL Server Enterprise s~aktivní Software Assurance (SA) nebo v~rámci Premium kapacity.
     \end{itemize}
-    
 \end{itemize}
+
+\paragraph{Srovnání nákladů:} Následující tabulky porovnávají plně on-premise variantu (vysoký CAPEX) a hybridní variantu (nižší CAPEX, ale trvalý OPEX za uživatele).
+
+\begin{table}[h!]
+\centering
+\caption{Varianta A: Plně On-Premise řešení (Power BI Report Server) pro 50 uživatelů}
+\label{tab:commercial_costs_onprem}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|r|p{3.5cm}|}
+\hline
+\textbf{Položka} & \textbf{Typ nákladu} & \textbf{Jednotková cena} & \textbf{Cena pro 50 uživatelů (1. rok)} \\ \hline
+\hline
+Hardware (Server) & CAPEX (Jednorázový) & 150 000 CZK & \hfill 150 000 CZK \\ \hline
+SQL Server Ent (4 jádra)* & OPEX (Licence + SA) & $\sim$ 750 000 CZK & \hfill 750 000 CZK \\ \hline
+Power BI Report Server & Součást Enterprise SA & 0 CZK & \hfill 0 CZK \\ \hline
+\textbf{Celkem (1. rok)} & & & \hfill \textbf{900 000 CZK} \\ \hline
+\multicolumn{4}{l}{\footnotesize *Pro on-premise Power BI je nutná edice Enterprise se Software Assurance (SA).}
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Varianta B: Hybridní řešení (SQL Standard + Power BI Cloud) pro 50 uživatelů}
+\label{tab:commercial_costs_hybrid}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|r|p{3.5cm}|}
+\hline
+\textbf{Položka} & \textbf{Typ nákladu} & \textbf{Jednotková cena} & \textbf{Cena pro 50 uživatelů (1. rok)} \\ \hline
+\hline
+Hardware (Server) & CAPEX (Jednorázový) & 150 000 CZK & \hfill 150 000 CZK \\ \hline
+SQL Server Std (4 jádra) & OPEX (Licence) & $\sim$ 170 000 CZK & \hfill 170 000 CZK \\ \hline
+Power BI Pro & OPEX (Roční subs.) & $\sim$ 3 000 CZK / uživ. & \hfill 150 000 CZK \\ \hline
+\textbf{Celkem (1. rok)} & & & \hfill \textbf{470 000 CZK} \\ \hline
+\multicolumn{4}{l}{\footnotesize U hybridního modelu postačuje edice Standard (limit 64 GB pro SSAS 2022).}
+\end{tabular}
+\end{table}
 
 \subsubsection{Hardwarové nároky (MOLAP vs. ROLAP)}
 Významný rozdíl v~TCO tvoří také hardwarové požadavky, které vycházejí z~odlišných architektur:
@@ -1532,7 +1598,8 @@ Pro přehlednost jsou klíčové rozdíly mezi dvěma finálními kandidáty shr
 \textbf{Určení} & Enterprise reporting, Management & Big Data, IoT telemetrie, Embedded Analytics \\ \hline
 \textbf{Výkon} & Extrémní (In-Memory MOLAP), ale limitovaný velikostí RAM. & Vysoký (Columnar ROLAP), lineárně škálovatelný s~hardwarem. \\ \hline
 \textbf{Efektivita uložení} & Standardní komprese. & \textbf{Extrémní komprese} (až 10x úspora místa oproti PostgreSQL). \\ \hline
-\textbf{Náklady (TCO)} & Vysoké OPEX (licence per-core/user). Skokový růst nákladů při přechodu na Enterprise. & Vysoké CAPEX (know-how, vývoj), ale minimální OPEX (zdarma licence, levný HW). \\ \hline
+\textbf{Náklady (OPEX)} & Vysoké (licence per-core/user). Skokový růst nákladů při přechodu na Enterprise. & Minimální (zdarma licence, levnější HW). \\ \hline
+\textbf{Náklady (CAPEX)} & Nízké (out-of-the-box řešení). & Vysoké (know-how, vývoj). \\ \hline
 \textbf{Flexibilita} & Vendor lock-in (uzavřený ekosystém). & Vysoká modularita, API-first přístup, možnost vlastních úprav. \\ \hline
 \textbf{Lidské zdroje} & Dostupnější na trhu (BI Developer). & Náročnější na expertízu (Senior DB/Backend Engineer). \\ \hline
 \end{tabular}
@@ -1551,26 +1618,53 @@ Toto doporučení vychází z~následujících klíčových zjištění praktick
     \item \textbf{Flexibilita integrace:} Nasazení Cube.js jako sémantické vrstvy umožňuje oddělit datovou logiku od vizualizace. To dává platformě Portabo svobodu v~budoucnu změnit vizualizační nástroj bez nutnosti přepisovat datové modely.
 \end{enumerate}
 
-Ačkoliv implementace open-source řešení vyžaduje vyšší počáteční investici do technického know-how a~lidského kapitálu, z~dlouhodobého hlediska nabízí robustnější, levnější a flexibilnější architekturu pro zpracování IoT dat.
+\begin{itemize}
+    \item \textbf{Komerční řešení (MS SQL + Power BI):} Vyniká okamžitou použitelností a výkonem „out-of-the-box“ díky in-memory technologii.
+    \item \textbf{Open-source varianta (ClickHouse + Cube.js):} Vítězí v efektivitě ukládání dat a dlouhodobé udržitelnosti nákladů při škálování.
+\end{itemize}
 
+\clearpage
+\thispagestyle{empty}
+\mbox{}
+\clearpage
 \cleardoublepage
 
 \chapter{Závěr}
 
-Tato bakalářská práce se zabývala návrhem a srovnáním datových architektur pro platformu Portabo. Cílem bylo ověřit, zda mohou open-source technologie konkurovat zavedeným komerčním řešením v~oblasti zpracování telemetrických dat.
+Tato bakalářská práce se komplexně zabývala návrhem, implementací a srovnáním moderních datových architektur pro analytickou platformu Portabo. Hlavním cílem bylo ověřit, zda mohou open-source technologie plnohodnotně konkurovat zavedeným komerčním ekosystémům v~náročné oblasti zpracování IoT telemetrie.
 
-V~teoretické části byly popsány principy moderních datových skladů a OLAP analýzy. Byla provedena rešerše dostupných řešení, která posloužila jako základ pro výběr testovaných technologií.
+\section*{Výstupy práce: implementační vzory}
+Hmatatelným výstupem práce je sada ověřených implementačních vzorů, které slouží jako referenční architektura pro budoucí rozvoj platformy:
+\begin{itemize}
+    \item \textbf{ETL procesy:} Byla vytvořena sada optimalizovaných Python skriptů pro extrakci a transformaci dat.
+    \item \textbf{Datové sklady (DWH):} Práce poskytuje srovnání a implementační schémata pro čtyři různé databázové enginy (MS SQL, MariaDB, PostgreSQL, ClickHouse), včetně optimalizačních technik (indexace, komprese).
+    \item \textbf{Sémantická vrstva:} Byly navrženy a ověřeny dva přístupy k~definici datových modelů – tradiční SSAS Tabular (Microsoft) a moderní „Headless BI“ přístup pomocí Cube.js.
+    \item \textbf{Vizualizace:} Práce demonstrovala integraci s~Power BI i open-source nástrojem Apache Superset.
+\end{itemize}
 
-V~praktické části vznikly čtyři implementace datového skladu (MS SQL, MariaDB, PostgreSQL/TimescaleDB, ClickHouse) a dvě analytické nadstavby (Power BI vs. Cube.js/Superset). Byla navržena a implementována modulární datová architektura, která umožnila přímé srovnání těchto přístupů nad reálnými daty.
+\section*{Shrnutí srovnání a klíčová zjištění}
+V~rámci praktické části bylo provedeno detailní srovnání v~několika rovinách:
 
-Výstupem práce je sada ověřených „blueprintů“ pro obě cesty a praktické doporučení pro další rozvoj platformy Portabo. Práce demonstrovala, že pro specifické potřeby zpracování Big Data a IoT představují moderní open-source technologie, v~čele s~databází ClickHouse, technologicky vyspělejší a ekonomicky výhodnější volbu než tradiční komerční systémy. Jednoznačným doporučením práce je tedy využití databáze ClickHouse, případně v~kombinaci se sémantickou vrstvou Cube.js, což zajistí potřebný výkon, efektivitu i flexibilitu pro budoucí rozvoj.
+\begin{itemize}
+    \item \textbf{Výkonnostní srovnání:} Testy prokázaly, že sloupcová databáze ClickHouse dokáže v~analytických dotazech (OLAP) nejen konkurovat, ale v~mnoha případech i překonat in-memory technologii MS SQL Server Analysis Services (SSAS). To vyvrací mýtus, že pouze drahá in-memory řešení jsou vhodná pro rychlou interaktivní analýzu.
+    
+    \item \textbf{Ekonomická rozvaha (TCO):} Analýza nákladů odhalila zásadní rozdíl v~modelu financování. Komerční řešení (Microsoft Stack) nabízí nízký vstupní práh (CAPEX) díky „out-of-the-box“ funkcionalitě, ale trpí vysokými provozními náklady (OPEX) při škálování (licence per-core, limity RAM). Naopak open-source cesta vyžaduje vyšší počáteční investici do know-how a vývoje (CAPEX), ale zajišťuje minimální provozní náklady a udržitelnost i při exponenciálním růstu dat.
+    
+    \item \textbf{Architektonická flexibilita:} Zatímco komerční stack uživatele uzamyká v~proprietárním ekosystému (Vendor Lock-in), navržená open-source architektura (ClickHouse + Cube.js) je modulární. Umožňuje nezávisle měnit vizualizační nástroje nebo databázový backend bez nutnosti přepisovat celou logiku.
+\end{itemize}
+
+\section*{Závěrečné doporučení}
+Na základě všech zjištění práce jednoznačně doporučuje pro platformu Portabo přechod na open-source architekturu postavenou na databázi \textbf{ClickHouse} a případně sémantické vrstvě \textbf{Cube.js}. Toto řešení nabízí nejlepší poměr ceny a výkonu, eliminuje licenční rizika a poskytuje robustní základ pro zpracování Big Data, který je pro IoT platformu klíčový.
 
 \sloppy
-\glsaddall
-\printglossary[title=Seznam použitých zkratek a pojmů]
+
+\cleardoublepage
+
 \printbibliography[title=Seznam použitých zdrojů]
 
 \appendix
+
+\clearpage
 
 \chapter{Externí přílohy\label{sec:ep}}
 
@@ -1613,7 +1707,13 @@ Struktura přiloženého elektronického nosiče (a repozitáře) je následují
 |   |-- SQL/ ............................... SQL skripty pro inicializaci
 |   `-- Start sluzeb/ ...................... Skripty pro spouštění služeb
 `-- Zdroje/ ................................ Seznam použitých zdrojů
+
+
 \end{verbatim}
 \end{footnotesize}
+
+
+\glsaddall
+\printglossary[title=Seznam použitých zkratek a pojmů, nonumberlist]
 \end{document}
 

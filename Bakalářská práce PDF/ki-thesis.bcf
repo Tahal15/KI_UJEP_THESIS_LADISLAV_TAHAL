@@ -2407,9 +2407,15 @@
     <bcf:citekey order="8" intorder="1">amazon2019datawarehouse</bcf:citekey>
     <bcf:citekey order="8" intorder="2">databricks2024modernstack</bcf:citekey>
     <bcf:citekey order="9" intorder="1">mcp_protocol</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">cube2024semantic</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">rfc8259</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">mining_massive_datasets</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">inmon2005</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">kimball2013</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">cube2024semantic</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">rfc8259</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">mining_massive_datasets</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">clickhouse_compression</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">mariadb_covering</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">gartner_tco</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">ms_sql_editions</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

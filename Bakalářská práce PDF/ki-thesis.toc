@@ -52,7 +52,7 @@
 \contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{54}{section.3.3}%
 \contentsline {subsection}{\nonumberline Výkonové parametry}{54}{subsection*.80}%
 \contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{58}{subsubsection*.82}%
-\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{58}{subsubsection*.84}%
+\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{59}{subsubsection*.84}%
 \contentsline {subsubsection}{\nonumberline Srovnání výkonu a architektury BI nástrojů}{59}{subsubsection*.86}%
 \contentsline {subsubsection}{\nonumberline Klíčová role pre-agregací v~open-source stacku}{60}{subsubsection*.88}%
 \contentsline {subsubsection}{\nonumberline Shrnutí výkonnostních testů}{60}{subsubsection*.90}%
@@ -61,15 +61,25 @@
 \contentsline {subsubsection}{\nonumberline Práce s~mapovými daty}{61}{subsubsection*.96}%
 \contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a architektury reportingu}{62}{subsubsection*.98}%
 \contentsline {subsection}{\nonumberline Uživatelská přívětivost}{63}{subsection*.100}%
-\contentsline {subsection}{\nonumberline Ekonomické aspekty a TCO}{63}{subsection*.102}%
-\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{63}{subsubsection*.104}%
-\contentsline {subsubsection}{\nonumberline Ekonomika open-source ekosystému (ClickHouse, MariaDB, Cube.js)}{64}{subsubsection*.106}%
-\contentsline {subsubsection}{\nonumberline Ekonomika komerčního řešení (Microsoft Stack)}{64}{subsubsection*.108}%
-\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{65}{subsubsection*.110}%
-\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a doporučení}{65}{section.3.4}%
-\contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{66}{subsection*.112}%
-\contentsline {chapter}{\numberline {4}Závěr}{69}{chapter.4}%
-\contentsline {chapter}{Seznam použitých zkratek a pojmů}{71}{section*.113}%
+\contentsline {subsection}{\nonumberline Ekonomické aspekty a TCO}{64}{subsection*.102}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{64}{subsubsection*.104}%
+\contentsline {subsubsection}{\nonumberline Licenční a infrastrukturní náročnost open-source ekosystému}{65}{subsubsection*.106}%
+\contentsline {subsubsection}{\nonumberline Licenční a infrastrukturní náročnost komerčního řešení (Microsoft Stack)}{65}{subsubsection*.108}%
+\contentsline {paragraph}{\nonumberline Srovnání nákladů:}{66}{paragraph*.110}%
+\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{66}{subsubsection*.112}%
+\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a doporučení}{67}{section.3.4}%
+\contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{67}{subsection*.114}%
+\contentsline {chapter}{\numberline {4}Závěr}{71}{chapter.4}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
@@ -102,4 +112,5 @@
 \babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
 \contentsline {chapter}{\numberline {A}Externí přílohy}{75}{appendix.A}%
+\contentsline {chapter}{Seznam použitých zkratek a pojmů}{77}{section*.119}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
