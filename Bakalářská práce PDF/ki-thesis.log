@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  30 NOV 2025 15:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.13)  1 DEC 2025 20:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1918,33 +1918,29 @@ Package pdftex.def Info: img/fragmentace.png  used on input line 1301.
 
 
 [58 <./img/fragmentace.png>]
+<img/benchmark_chart.png, id=595, 856.1586pt x 495.5313pt>
+File: img/benchmark_chart.png Graphic file (type png)
+<use img/benchmark_chart.png>
+Package pdftex.def Info: img/benchmark_chart.png  used on input line 1341.
+(pdftex.def)             Requested size: 469.47049pt x 271.71887pt.
+
 
 [59]
-<img/PowerBI - analyzer.png, id=603, 314.3745pt x 272.81924pt>
-File: img/PowerBI - analyzer.png Graphic file (type png)
-<use img/PowerBI - analyzer.png>
-Package pdftex.def Info: img/PowerBI - analyzer.png  used on input line 1362.
-(pdftex.def)             Requested size: 234.73524pt x 203.71474pt.
 
+[60 <./img/benchmark_chart.png>]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[60]
-
-[61 <./img/PowerBI - analyzer.png>]
-Overfull \hbox (32.27809pt too wide) in paragraph at lines 1404--1404
+[61]
+Overfull \hbox (32.27809pt too wide) in paragraph at lines 1394--1394
   [][][][]$\T1/pxtt/m/n/10 https : / / learn . microsoft . com / en-[]us / power-[]bi / create-[]reports / desktop-[]high-[]density-[]scatter-[]charts$[]| 
  []
 
 
-Overfull \hbox (32.27809pt too wide) in paragraph at lines 1405--1405
+Overfull \hbox (32.27809pt too wide) in paragraph at lines 1395--1395
   [][][][]$\T1/pxtt/m/n/10 https : / / learn . microsoft . com / en-[]us / power-[]bi / create-[]reports / desktop-[]high-[]density-[]scatter-[]charts$[]| 
  []
 
 
-Overfull \hbox (2.21602pt too wide) in paragraph at lines 1402--1406
+Overfull \hbox (2.21602pt too wide) in paragraph at lines 1392--1396
 \T1/LibertinusSerif-TLF/m/n/12 (-20) ¬uje li-mity na po-£et ren-de-ro-va-ných da-to-vých bod· (tzv. \T1/LibertinusSerif-TLF/m/it/12 (-20) Data Point Li-mits\T1/LibertinusSerif-TLF/m/n/12 (-20) , nap°. cca 3500
  []
 
@@ -1953,51 +1949,45 @@ Overfull \hbox (2.21602pt too wide) in paragraph at lines 1402--1406
 [62]
 
 [63]
-Overfull \hbox (16.77298pt too wide) in paragraph at lines 1489--1499
+Overfull \hbox (16.77298pt too wide) in paragraph at lines 1479--1489
  [][] 
  []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
 [64]
 
 [65]
-Overfull \hbox (1.96573pt too wide) in paragraph at lines 1539--1549
+Overfull \hbox (1.96573pt too wide) in paragraph at lines 1529--1539
  [][] 
  []
 
 
-Overfull \hbox (2.45515pt too wide) in paragraph at lines 1556--1566
+Overfull \hbox (2.45515pt too wide) in paragraph at lines 1546--1556
  [][] 
  []
 
 
 
 [66]
-Underfull \hbox (badness 3000) in paragraph at lines 1597--1597
+Underfull \hbox (badness 3000) in paragraph at lines 1587--1587
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) ClickHouse + Cube.js (Open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1600--1600
+Underfull \hbox (badness 10000) in paragraph at lines 1590--1590
 []|\T1/LibertinusSerif-TLF/b/n/12 (+20) Extrémní kom-prese \T1/LibertinusSerif-TLF/m/n/12 (+20) (aº 10x
  []
 
 
-Underfull \hbox (badness 2837) in paragraph at lines 1604--1604
+Underfull \hbox (badness 2837) in paragraph at lines 1594--1594
 []|\T1/LibertinusSerif-TLF/m/n/12 (+20) Náro£n¥j²í na ex-per-tízu (Se-nior
  []
 
 
-Overfull \hbox (6.76237pt too wide) in paragraph at lines 1595--1606
+Overfull \hbox (6.76237pt too wide) in paragraph at lines 1585--1596
  [][] 
  []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
@@ -2023,7 +2013,7 @@ chapter 4.
 ]
 
 [72]
-Underfull \hbox (badness 10000) in paragraph at lines 1663--1663
+Underfull \hbox (badness 10000) in paragraph at lines 1653--1653
 []\T1/LibertinusSerif-TLF/m/n/12 (+20) ANTHROPIC. \T1/LibertinusSerif-TLF/m/it/12 (+20) Mo-del Con-text Pro-to-col\T1/LibertinusSerif-TLF/m/n/12 (+20) . 2024. []Do-stupné také z[]: []$\T1/pxtt/m/n/12 https : / /
  []
 
@@ -2072,18 +2062,18 @@ Package logreq Info: Writing requests to 'ki-thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61634 strings out of 467748
- 1394642 string characters out of 5431137
- 2508128 words of memory out of 5000000
+ 61628 strings out of 467748
+ 1394532 string characters out of 5431137
+ 2508184 words of memory out of 5000000
  88590 multiletter control sequences out of 15000+600000
  801863 words of font info for 445 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 122i,11n,121p,11341b,3050s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on ki-thesis.pdf (79 pages, 5383184 bytes).
+ 122i,12n,121p,11341b,3050s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSans-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-BoldItalic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
+Output written on ki-thesis.pdf (79 pages, 5521211 bytes).
 PDF statistics:
- 1032 PDF objects out of 1200 (max. 8388607)
- 849 compressed objects within 9 object streams
- 365 named destinations out of 1000 (max. 500000)
+ 1015 PDF objects out of 1200 (max. 8388607)
+ 836 compressed objects within 9 object streams
+ 359 named destinations out of 1000 (max. 500000)
  98101 words of extra memory for PDF output out of 106986 (max. 10000000)
 

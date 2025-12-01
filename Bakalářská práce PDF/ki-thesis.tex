@@ -1315,6 +1315,36 @@ Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat
 Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k~řádovému zrychlení:
 Tento experiment potvrzuje, že MariaDB je schopna sloužit i pro analytické dotazy, vyžaduje však -- na rozdíl od jiných databází -- striktní a manuální optimalizaci indexů na míru konkrétním dotazům.
 
+\subsubsection{Testování souběžné zátěže (Concurrency)}
+
+Pro ověření chování databázových systémů pod zátěží byl realizován test souběžného přístupu (Concurrency Benchmark). Cílem tohoto testu bylo simulovat reálný provoz, kdy k~analytickému systému přistupuje více uživatelů současně.
+
+Na rozdíl od předchozích výkonnostních testů, které srovnávaly různé varianty úložných enginů (řádkové vs. sloupcové), byly pro tento zátěžový test vybrány pouze \textbf{nejefektivnější konfigurace} každé databázové platformy. Cílem bylo porovnat maximální potenciál jednotlivých technologií v~jejich optimálním nastavení pro analytickou zátěž (např. MariaDB s~enginem ColumnStore, MSSQL s~Columnstore indexy).
+
+Testovací scénář byl definován následovně:
+\begin{itemize}
+    \item \textbf{Zátěž:} Simulace 1, 5, 10 a 20 souběžných virtuálních uživatelů.
+    \item \textbf{Úloha:} Každý uživatel cyklicky spouštěl sadu 5 definovaných analytických dotazů (viz předchozí kapitola).
+    \item \textbf{Metriky:}
+    \begin{itemize}
+        \item \textbf{TPS (Transactions Per Second):} Počet úspěšně dokončených dotazů za sekundu. Vyšší hodnota indikuje lepší propustnost.
+        \item \textbf{Avg Latency:} Průměrná doba odezvy jednoho dotazu v~sekundách. Nižší hodnota znamená rychlejší odezvu pro uživatele.
+    \end{itemize}
+\end{itemize}
+
+Z~technického hlediska byl test realizován pomocí vlastního skriptu v~jazyce Python s~využitím knihovny \texttt{concurrent.futures}. Pro simulaci souběžných uživatelů byl nasazen \newline \texttt{ThreadPoolExecutor}, který pro každého virtuálního uživatele alokoval samostatné vlákno. Všechna vlákna (např. 20 pro nejvyšší úroveň zátěže) přistupovala k~databázi paralelně a v~reálném čase odesílala své sady dotazů. Tímto způsobem bylo dosaženo věrné simulace situace, kdy více uživatelů v~jeden okamžik vyvolá aktualizaci dashboardu, což nutí databázový stroj zpracovávat desítky náročných analytických dotazů naráz.
+
+Výsledky měření jsou vizualizovány na grafu \ref{fig:concurrency_chart}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/benchmark_chart.png}
+  \caption{Propustnost databází (TPS) v závislosti na počtu souběžných uživatelů. Vyšší je lepší. Zdroj: vlastní s použitím programovacího jazyka Python}
+  \label{fig:concurrency_chart}
+\end{figure}
+
+\textit{Poznámka: Varianta MariaDB s~enginem InnoDB byla z~tohoto srovnání vyřazena, jelikož časy zpracování byly řádově vyšší a provedení kompletního benchmarku by bylo časově neúměrné.}
+
 \subsubsection{Interpretace výsledků databázové vrstvy}
 Souhrnná analýza demonstruje několik klíčových zjištění:
 \begin{itemize}
@@ -1325,54 +1355,14 @@ Souhrnná analýza demonstruje několik klíčových zjištění:
     \item \textbf{Specifika TimescaleDB:} Výkon TimescaleDB byl v~tomto srovnání podobný jako u~PostgreSQL. Důvodem je, že TimescaleDB není architektonicky cílena na hvězdicové schéma (Star Schema). Nejvyšší efektivity dosahuje při použití denormalizovaných tabulek, kde jsou data uložena v~rámci jedné velké struktury (hypertable). Tento přístup umožňuje lépe využít její optimalizační mechanismy, jako je komprese a automatický partitioning.
 \end{itemize}
 
-\subsubsection{Srovnání výkonu a architektury BI nástrojů}
-
-Druhá fáze testování se zaměřila na rychlost odezvy z~pohledu koncového uživatele. Zde se ukázaly zásadní rozdíly plynoucí z~odlišných architektur obou řešení.
-
+\textbf{Zhodnocení souběžné zátěže (Concurrency):}
 \begin{itemize}
-    \item \textbf{Komerční varianta (Power BI + MS SSAS) -- MOLAP In-Memory}
-    \begin{itemize}
-        \item \textbf{Princip:} Data jsou z~datového skladu předem zpracována a kompletně načtena do tabulárního modelu v~operační paměti (RAM).
-        \item \textbf{Výhody:} Extrémní rychlost odezvy ($<1$ s~u~náročných vizuálů, $\sim 100$ ms u~běžných). Dotazy nečekají na I/O operace disku, což poskytuje maximální uživatelský komfort. Výkon je dostupný „out-of-the-box“.
-        \item \textbf{Nevýhody:} Omezení velikostí operační paměti serveru a fakt, že data nejsou živá (nutnost periodického refreshe modelu).
-    \end{itemize}
-
-    \item \textbf{Open-source varianta (Superset + Cube.js) -- ROLAP}
-    \begin{itemize}
-        \item \textbf{Princip:} Pracuje nad daty v~databázi. Každý vizuální prvek generuje SQL dotaz v~reálném čase.
-        \item \textbf{Výhody:} Obrovská škálovatelnost (terabajty dat) a flexibilita architektury (možnost výměny DB enginu, např. ClickHouse). Nulové licenční náklady.
-        \item \textbf{Nevýhody:} Nižší hrubý výkon oproti in-memory řešení. Vysoká náročnost na optimalizaci (indexy, partitioning) a správu pre-agregací.
-    \end{itemize}
+    \item \textbf{ClickHouse:} Tento systém potvrdil svou dominanci pro analytické úlohy s~vysokou zátěží. Vykazuje velmi stabilní výkon; i~při nárůstu počtu uživatelů se hodnota TPS drží na vysoké úrovni (kolem 2.8) a latence roste pouze lineárně. To z~něj činí ideálního kandidáta pro backend analytických dashboardů s~více uživateli.
+    
+    \item \textbf{MS SQL Server:} Při nižší a střední zátěži (do 10 uživatelů) dosahuje MS SQL Server excelentních výsledků, dokonce výrazně překonávajících ClickHouse (až 11.72 TPS). To svědčí o~špičkové optimalizaci pro paralelní zpracování dotazů. Nicméně při vysoké zátěži (20 uživatelů) dochází k~prudkému propadu výkonu (na 3.03 TPS) a nárůstu latence. Tento zlom může indikovat vyčerpání systémových prostředků (např. worker threads) nebo zvýšenou režii na zamykání a kontextové přepínání.
+    
+    \item \textbf{PostgreSQL a MariaDB:} Oba systémy v~tomto testu výrazně zaostávají za sloupcovými databázemi. Hodnoty TPS se pohybují hluboko pod hranicí 1.0, což znamená, že systém nestíhá odbavovat ani jeden dotaz za sekundu. Při 20 uživatelích narůstá průměrná latence na desítky sekund (50~s pro PostgreSQL, 60~s pro MariaDB), což je pro interaktivní práci nepřijatelné. Tento výsledek potvrzuje, že pro OLAP zátěž nad velkými daty nejsou tyto systémy ve své základní konfiguraci vhodné a vyžadovaly by buď agresivní optimalizaci (pre-agregace), nebo jiný architektonický přístup.
 \end{itemize}
-
-\subsubsection{Klíčová role pre-agregací v~open-source stacku}
-
-Během testování open-source varianty se ukázalo jako klíčové nasazení \textbf{pre-agregací} v~Cube.js.
-
-Bez nich byla odezva závislá čistě na výkonu databáze (u~ClickHouse cca \textbf{5 sekund} pro načtení ilustračního dashboardu). Implementace pre-agregací -- tedy malých, předpočítaných sumarizačních tabulek -- umožnila systému obcházet náročné výpočty nad hlavní databází. Díky tomu se podařilo srazit dobu odezvy dashboardu na přibližně \textbf{2 sekundy}, což představuje hranici akceptovatelnou pro interaktivní práci.
-
-\subsubsection{Shrnutí výkonnostních testů}
-
-Souhrnná analýza potvrdila, že pro dosažení vysokého výkonu v~interaktivní analytice je volba správné databázové technologie a architektury rozhodující.
-
-Komerční řešení (Power BI + SSAS) prokázalo bezkonkurenční výkon typu „out-of-the-box“. Měření ukázala prakticky okamžité reakce: vykreslení nejnáročnějšího grafu trvalo přibližně \textbf{1 sekundu}, zatímco ostatní vizualizace se načítaly v~řádu \textbf{100 ms}.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.5\textwidth]{img/PowerBI - analyzer.png}
-  \caption{Power BI Performance Analyzer - analýza vykreslování. Zdroj: vlastní s použitím aplikace Power BI}
-  \label{fig:powerbi_analyzer}
-\end{figure}
-
-Open-source stack (Superset + Cube.js) se tomuto výkonu dokázal přiblížit, ale pouze za cenu výrazného ladění. Kombinace databáze MariaDB ColumnStore s~pre-agregacemi dosáhla času \textbf{2 sekundy}. 
-
-Ačkoliv je tento výsledek pro open-source řešení úspěchem, k~extrémnímu výkonu SSAS (100 ms) se nepřiblížilo. Tento rozdíl není chybou konfigurace, ale důsledkem fyzikálních limitů architektur. Zatímco SSAS čte předpočítaná data přímo z~operační paměti (MOLAP), open-source řešení -- i přes veškeré optimalizace -- naráží na limity ROLAP přístupu, který vyžaduje překlad na SQL a komunikaci s~databází či pre-agregační vrstvou.
-
-Jako teoretický směr pro další optimalizaci open-source řešení se nabízí využití RAM disku, tedy umístění datových souborů databáze přímo do operační paměti serveru. Tento krok by eliminoval úzké hrdlo v~podobě diskových operací a mohl by výkonově přiblížit ROLAP architekturu in-memory systémům. Praktická implementace a testování tohoto scénáře však již přesahuje rozsah i kompetence této práce. Je navíc nutné zohlednit i významná rizika, především volatilitu dat. Uložení v~RAM je ze své podstaty dočasné a při restartu či výpadku serveru by došlo k~okamžité ztrátě dat, což by vyžadovalo implementaci složitých mechanismů pro synchronizaci na trvalé úložiště, čímž by se neúměrně zvýšila komplexita správy celého řešení.
-
-\subsubsection{Testování souběžné zátěže (Concurrency)}
-
-Doplnit!!
 
 \subsection{Funkční vlastnosti}
 

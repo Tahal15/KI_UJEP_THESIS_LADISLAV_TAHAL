@@ -1,0 +1,6 @@
+pymysql
+clickhouse-driver
+pyodbc
+pandas
+matplotlib
+psycopg2
