@@ -1,11 +1,11 @@
 \babel@toc {czech}{}\relax 
 \contentsline {chapter}{\nonumberline Úvod}{13}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Přehled současného stavu problematiky}{15}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Rešerše v~oblasti datových skladů, OLAP technologií a nástrojů pro vizualizaci dat}{15}{section.1.1}%
-\contentsline {subsection}{\nonumberline Datové sklady a vývoj analytických databází}{15}{subsection*.4}%
-\contentsline {subsection}{\nonumberline OLAP technologie a analytické přístupy}{16}{subsection*.6}%
-\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a business intelligence}{16}{subsection*.8}%
-\contentsline {section}{\numberline {1.2}Přehled současných open-source a komerčních řešení}{16}{section.1.2}%
+\contentsline {section}{\numberline {1.1}Rešerše v~oblasti datových skladů, OLAP technologií a~nástrojů pro vizualizaci dat}{15}{section.1.1}%
+\contentsline {subsection}{\nonumberline Datové sklady a~vývoj analytických databází}{15}{subsection*.4}%
+\contentsline {subsection}{\nonumberline OLAP technologie a~analytické přístupy}{16}{subsection*.6}%
+\contentsline {subsection}{\nonumberline Nástroje pro vizualizaci a~business intelligence}{16}{subsection*.8}%
+\contentsline {section}{\numberline {1.2}Přehled současných open-source a~komerčních řešení}{16}{section.1.2}%
 \contentsline {subsection}{\nonumberline Klasifikace řešení}{17}{subsection*.10}%
 \contentsline {subsection}{\nonumberline Microsoft Data Platform (komerční, on-premise/cloud)}{18}{subsection*.12}%
 \contentsline {subsection}{\nonumberline Google Cloud Data Analytics (komerční, cloud)}{19}{subsection*.14}%
@@ -13,15 +13,15 @@
 \contentsline {subsection}{\nonumberline Oracle Data Platform (komerční, cloud/on-premise)}{21}{subsection*.18}%
 \contentsline {subsection}{\nonumberline Ekosystém Apache Software Foundation}{21}{subsection*.20}%
 \contentsline {subsection}{\nonumberline Platforma MariaDB (Community / Enterprise)}{22}{subsection*.22}%
-\contentsline {subsection}{\nonumberline Moderní modulární a hybridní architektury}{23}{subsection*.24}%
+\contentsline {subsection}{\nonumberline Moderní modulární a~hybridní architektury}{23}{subsection*.24}%
 \contentsline {section}{\numberline {1.3}Analýza trendů v~implementaci}{24}{section.1.3}%
-\contentsline {subsection}{\nonumberline Automatizace a ELT přístup}{25}{subsection*.26}%
-\contentsline {subsection}{\nonumberline Datová governance a kvalita dat}{25}{subsection*.28}%
-\contentsline {subsection}{\nonumberline Dotazování přirozeným jazykem a role LLM}{25}{subsection*.30}%
+\contentsline {subsection}{\nonumberline Automatizace a~ELT přístup}{25}{subsection*.26}%
+\contentsline {subsection}{\nonumberline Datová governance a~kvalita dat}{25}{subsection*.28}%
+\contentsline {subsection}{\nonumberline Dotazování přirozeným jazykem a~role LLM}{25}{subsection*.30}%
 \contentsline {subsubsection}{\nonumberline Architektura řešení}{25}{subsubsection*.32}%
-\contentsline {subsubsection}{\nonumberline Role MCP serverů a Gemini CLI}{27}{subsubsection*.34}%
+\contentsline {subsubsection}{\nonumberline Role MCP serverů a~Gemini CLI}{27}{subsubsection*.34}%
 \contentsline {chapter}{\numberline {2}Teoretická část}{29}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a OLAP}{29}{section.2.1}%
+\contentsline {section}{\numberline {2.1}Úvod do problematiky datových skladů a~OLAP}{29}{section.2.1}%
 \contentsline {subsection}{\nonumberline Datové zdroje}{29}{subsection*.36}%
 \contentsline {subsection}{\nonumberline Datové jezero}{30}{subsection*.38}%
 \contentsline {subsection}{\nonumberline Datový sklad}{31}{subsection*.40}%
@@ -31,23 +31,23 @@
 \contentsline {subsection}{\nonumberline Funkční oblasti nástrojů Business Intelligence}{35}{subsection*.46}%
 \contentsline {subsection}{\nonumberline Přehled dostupných BI nástrojů}{36}{subsection*.48}%
 \contentsline {subsection}{\nonumberline Kritéria výběru BI nástroje}{36}{subsection*.50}%
-\contentsline {section}{\numberline {2.3}Přehled a charakteristika využitých technologií}{37}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Přehled a~charakteristika využitých technologií}{37}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Praktická část}{41}{chapter.3}%
-\contentsline {subsection}{\nonumberline Příprava a migrace datové základny}{41}{subsection*.52}%
+\contentsline {subsection}{\nonumberline Příprava a~migrace datové základny}{41}{subsection*.52}%
 \contentsline {section}{\numberline {3.1}Návrh metodiky porovnání}{44}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Příprava dat a návrh datového skladu}{44}{section.3.2}%
-\contentsline {subsection}{\nonumberline Analýza a příprava zdrojových dat}{44}{subsection*.54}%
+\contentsline {section}{\numberline {3.2}Příprava dat a~návrh datového skladu}{44}{section.3.2}%
+\contentsline {subsection}{\nonumberline Analýza a~příprava zdrojových dat}{44}{subsection*.54}%
 \contentsline {subsection}{\nonumberline Automatizovaná analýza JSON struktur}{45}{subsection*.56}%
-\contentsline {subsection}{\nonumberline Návrh a principy ETL procesů}{46}{subsection*.58}%
+\contentsline {subsection}{\nonumberline Návrh a~principy ETL procesů}{46}{subsection*.58}%
 \contentsline {subsection}{\nonumberline Implementace ETL pro jednotlivé technologie}{46}{subsection*.60}%
 \contentsline {subsubsection}{\nonumberline SQL Server ETL}{46}{subsubsection*.62}%
 \contentsline {subsubsection}{\nonumberline MariaDB + MariaDB ColumnStore ETL}{47}{subsubsection*.64}%
 \contentsline {subsubsection}{\nonumberline PostgreSQL + PostgreSQL TimescaleDB ETL}{47}{subsubsection*.66}%
 \contentsline {subsubsection}{\nonumberline MariaDB + ClickHouse ETL}{48}{subsubsection*.68}%
-\contentsline {subsection}{\nonumberline Struktura a vrstvy datového skladu}{51}{subsection*.70}%
-\contentsline {subsection}{\nonumberline OLAP a vizualizace}{51}{subsection*.72}%
-\contentsline {subsubsection}{\nonumberline Komerční varianta -- SSAS Tabular a Power BI}{52}{subsubsection*.74}%
-\contentsline {subsubsection}{\nonumberline Open-source varianta -- Cube.js a Apache Superset}{53}{subsubsection*.76}%
+\contentsline {subsection}{\nonumberline Struktura a~vrstvy datového skladu}{51}{subsection*.70}%
+\contentsline {subsection}{\nonumberline OLAP a~vizualizace}{51}{subsection*.72}%
+\contentsline {subsubsection}{\nonumberline Komerční varianta -- SSAS Tabular a~Power BI}{52}{subsubsection*.74}%
+\contentsline {subsubsection}{\nonumberline Open-source varianta -- Cube.js a~Apache Superset}{53}{subsubsection*.76}%
 \contentsline {subsubsection}{\nonumberline Porovnání přístupů}{54}{subsubsection*.78}%
 \contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{54}{section.3.3}%
 \contentsline {subsection}{\nonumberline Výkonové parametry}{54}{subsection*.80}%
@@ -56,15 +56,15 @@
 \contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{60}{subsubsection*.86}%
 \contentsline {subsection}{\nonumberline Funkční vlastnosti}{61}{subsection*.88}%
 \contentsline {subsubsection}{\nonumberline Práce s~mapovými daty}{61}{subsubsection*.90}%
-\contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a architektury reportingu}{62}{subsubsection*.92}%
+\contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a~architektury reportingu}{62}{subsubsection*.92}%
 \contentsline {subsection}{\nonumberline Uživatelská přívětivost}{63}{subsection*.94}%
-\contentsline {subsection}{\nonumberline Ekonomické aspekty a TCO}{63}{subsection*.96}%
-\contentsline {subsubsection}{\nonumberline Náklady na implementaci a lidský kapitál}{64}{subsubsection*.98}%
-\contentsline {subsubsection}{\nonumberline Licenční a infrastrukturní náročnost open-source ekosystému}{65}{subsubsection*.100}%
-\contentsline {subsubsection}{\nonumberline Licenční a infrastrukturní náročnost komerčního řešení (Microsoft Stack)}{65}{subsubsection*.102}%
+\contentsline {subsection}{\nonumberline Ekonomické aspekty a~TCO}{63}{subsection*.96}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a~lidský kapitál}{64}{subsubsection*.98}%
+\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost open-source ekosystému}{65}{subsubsection*.100}%
+\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost komerčního řešení (Microsoft Stack)}{65}{subsubsection*.102}%
 \contentsline {paragraph}{\nonumberline Srovnání nákladů:}{66}{paragraph*.104}%
 \contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{66}{subsubsection*.106}%
-\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a doporučení}{67}{section.3.4}%
+\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a~doporučení}{67}{section.3.4}%
 \contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{67}{subsection*.108}%
 \contentsline {chapter}{\numberline {4}Závěr}{71}{chapter.4}%
 \babel@toc {czech}{}\relax 
@@ -107,7 +107,139 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
-\contentsline {chapter}{\numberline {A}Externí přílohy}{75}{appendix.A}%
-\contentsline {chapter}{Seznam použitých zkratek a pojmů}{77}{section*.113}%
+\contentsline {chapter}{\numberline {A}Externí přílohy}{77}{appendix.A}%
+\contentsline {chapter}{Seznam použitých zkratek a~pojmů}{79}{section*.113}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
