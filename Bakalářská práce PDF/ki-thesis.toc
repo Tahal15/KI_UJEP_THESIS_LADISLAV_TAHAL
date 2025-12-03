@@ -51,21 +51,21 @@
 \contentsline {subsubsection}{\nonumberline Porovnání přístupů}{54}{subsubsection*.78}%
 \contentsline {section}{\numberline {3.3}Provedení srovnávací analýzy}{54}{section.3.3}%
 \contentsline {subsection}{\nonumberline Výkonové parametry}{54}{subsection*.80}%
-\contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{58}{subsubsection*.82}%
-\contentsline {subsubsection}{\nonumberline Testování souběžné zátěže (Concurrency)}{59}{subsubsection*.84}%
-\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{60}{subsubsection*.86}%
-\contentsline {subsection}{\nonumberline Funkční vlastnosti}{61}{subsection*.88}%
-\contentsline {subsubsection}{\nonumberline Práce s~mapovými daty}{61}{subsubsection*.90}%
-\contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a~architektury reportingu}{62}{subsubsection*.92}%
-\contentsline {subsection}{\nonumberline Uživatelská přívětivost}{63}{subsection*.94}%
-\contentsline {subsection}{\nonumberline Ekonomické aspekty a~TCO}{63}{subsection*.96}%
-\contentsline {subsubsection}{\nonumberline Náklady na implementaci a~lidský kapitál}{64}{subsubsection*.98}%
-\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost open-source ekosystému}{65}{subsubsection*.100}%
-\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost komerčního řešení (Microsoft Stack)}{65}{subsubsection*.102}%
-\contentsline {paragraph}{\nonumberline Srovnání nákladů:}{66}{paragraph*.104}%
-\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{66}{subsubsection*.106}%
-\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a~doporučení}{67}{section.3.4}%
-\contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{67}{subsection*.108}%
+\contentsline {subsubsection}{\nonumberline Vliv strategie indexace na výkon MariaDB (InnoDB)}{59}{subsubsection*.82}%
+\contentsline {subsubsection}{\nonumberline Testování souběžné zátěže (Concurrency)}{60}{subsubsection*.84}%
+\contentsline {subsubsection}{\nonumberline Interpretace výsledků databázové vrstvy}{61}{subsubsection*.86}%
+\contentsline {subsection}{\nonumberline Funkční vlastnosti}{62}{subsection*.88}%
+\contentsline {subsubsection}{\nonumberline Práce s~mapovými daty}{62}{subsubsection*.90}%
+\contentsline {subsubsection}{\nonumberline Srovnání vizualizačních možností a~architektury reportingu}{63}{subsubsection*.92}%
+\contentsline {subsection}{\nonumberline Uživatelská přívětivost}{64}{subsection*.94}%
+\contentsline {subsection}{\nonumberline Ekonomické aspekty a~TCO}{64}{subsection*.96}%
+\contentsline {subsubsection}{\nonumberline Náklady na implementaci a~lidský kapitál}{65}{subsubsection*.98}%
+\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost open-source ekosystému}{66}{subsubsection*.100}%
+\contentsline {subsubsection}{\nonumberline Licenční a~infrastrukturní náročnost komerčního řešení (Microsoft Stack)}{66}{subsubsection*.102}%
+\contentsline {paragraph}{\nonumberline Srovnání nákladů:}{67}{paragraph*.104}%
+\contentsline {subsubsection}{\nonumberline Hardwarové nároky (MOLAP vs. ROLAP)}{67}{subsubsection*.106}%
+\contentsline {section}{\numberline {3.4}Zhodnocení výsledků a~doporučení}{68}{section.3.4}%
+\contentsline {subsection}{\nonumberline Závěrečné doporučení pro Portabo}{68}{subsection*.108}%
 \contentsline {chapter}{\numberline {4}Závěr}{71}{chapter.4}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
