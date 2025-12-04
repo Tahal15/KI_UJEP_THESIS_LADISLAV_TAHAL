@@ -43,9 +43,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{11}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{The Unbundling of the Cloud Data Warehouse}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2023}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://clickhouse.com/blog/the-unbundling-of-the-cloud-data-warehouse
       \endverb
@@ -84,9 +87,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2212.03612}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{Von Data Warehouse bis Data Mesh: Ein Wegweiser durch den Dschungel analytischer Datenarchitekturen}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2022}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://arxiv.org/abs/2212.03612
       \endverb
@@ -116,9 +122,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{8}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{Semantic Layer and AI: The Future of Data Querying with Natural Language}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://cube.dev/blog/semantic-layer-and-ai-the-future-of-data-querying-with-natural-language
       \endverb
@@ -147,9 +156,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{2}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{Introduction to Cube.js – The Semantic Layer for Building Data Apps}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2023}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://heyayush.com/post/2023-02-22_cube-js
       \endverb
@@ -181,9 +193,12 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{3}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{Cube: Creating a Semantic Data Layer!}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2023}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://medium.com/codex/cube-creating-a-semantic-data-layer-a947fd0c11f6
       \endverb
@@ -253,31 +268,33 @@
       \verb https://www.ibm.com/topics/on-premises-vs-cloud
       \endverb
     \endentry
-    \entry{azure_data_warehousing}{online}{}{}
+    \entry{ms_azure_dwh_arch}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=5651d0cfdf9bf2afb754bee02dafe11c}{%
-           family={Buck},
-           familyi={B\bibinitperiod},
-           given={Alex},
-           giveni={A\bibinitperiod}}}%
+        {{hash=140864078aeca1c7c35b4beb33c53c34}{%
+           family={{Microsoft}},
+           familyi={M\bibinitperiod}}}%
       }
-      \strng{namehash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{fullhash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{fullhashraw}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{bibnamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{authorbibnamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{authornamehash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{authorfullhash}{5651d0cfdf9bf2afb754bee02dafe11c}
-      \strng{authorfullhashraw}{5651d0cfdf9bf2afb754bee02dafe11c}
+      \list{organization}{1}{%
+        {Microsoft Learn}%
+      }
+      \strng{namehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{bibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorbibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authornamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \field{extraname}{1}
       \field{sortinit}{6}
       \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Obrázek: Data warehousing and analytics architecture}
-      \field{title}{Data warehousing and analytics - Azure Architecture Center}
-      \field{urlday}{14}
-      \field{urlmonth}{11}
+      \field{title}{Data warehousing in Microsoft Azure}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
       \field{urlyear}{2025}
+      \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://learn.microsoft.com/en-us/azure/architecture/example-scenario/data/data-warehouse
@@ -286,123 +303,40 @@
       \verb https://learn.microsoft.com/en-us/azure/architecture/example-scenario/data/data-warehouse
       \endverb
     \endentry
-    \entry{mssql2024overview}{online}{}{}
+    \entry{google_cloud_arch}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
-           family={{Microsoft Corporation}},
-           familyi={M\bibinitperiod}}}%
+        {{hash=38f88ccacb235e8f2c3ae09d0eb5448f}{%
+           family={Prajapati},
+           familyi={P\bibinitperiod},
+           given={Jignesh},
+           giveni={J\bibinitperiod}}}%
       }
-      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \field{extraname}{1}
+      \list{organization}{1}{%
+        {Medium}%
+      }
+      \strng{namehash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{fullhash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{fullhashraw}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{bibnamehash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{authorbibnamehash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{authornamehash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{authorfullhash}{38f88ccacb235e8f2c3ae09d0eb5448f}
+      \strng{authorfullhashraw}{38f88ccacb235e8f2c3ae09d0eb5448f}
       \field{sortinit}{8}
       \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Microsoft SQL Server Overview}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/sql/sql-server/
-      \endverb
-      \verb{url}
-      \verb https://learn.microsoft.com/en-us/sql/sql-server/
-      \endverb
-    \endentry
-    \entry{powerbi2024docs}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
-           family={{Microsoft Corporation}},
-           familyi={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \field{extraname}{2}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Power BI Documentation}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/power-bi/
-      \endverb
-      \verb{url}
-      \verb https://learn.microsoft.com/en-us/power-bi/
-      \endverb
-    \endentry
-    \entry{google_data_products}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=6b45cad11c80bfc384cfc516dacc3994}{%
-           family={Yadav},
-           familyi={Y\bibinitperiod},
-           given={Jitendra},
-           giveni={J\bibinitperiod}}}%
-      }
-      \strng{namehash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{fullhash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{fullhashraw}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{bibnamehash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{authorbibnamehash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{authornamehash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{authorfullhash}{6b45cad11c80bfc384cfc516dacc3994}
-      \strng{authorfullhashraw}{6b45cad11c80bfc384cfc516dacc3994}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Publikováno na Google Cloud - Community (Medium)}
       \field{title}{Implementing Data Products on Google Data Lakehouse Architecture}
-      \field{urlday}{14}
-      \field{urlmonth}{11}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
       \field{urlyear}{2025}
+      \field{year}{2023}
       \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://medium.com/google-cloud/implementing-data-products-on-google-data-lakehouse-architecture-df5c5f4cc07e
       \endverb
       \verb{url}
       \verb https://medium.com/google-cloud/implementing-data-products-on-google-data-lakehouse-architecture-df5c5f4cc07e
-      \endverb
-    \endentry
-    \entry{bigquery2024docs}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=57f3af2a3d1051c172ab3c3db7d5409d}{%
-           family={{Google Cloud}},
-           familyi={G\bibinitperiod}}}%
-      }
-      \strng{namehash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{fullhash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{fullhashraw}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{bibnamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{authorbibnamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{authornamehash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{authorfullhash}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \strng{authorfullhashraw}{57f3af2a3d1051c172ab3c3db7d5409d}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{BigQuery Documentation}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://cloud.google.com/bigquery/docs/
-      \endverb
-      \verb{url}
-      \verb https://cloud.google.com/bigquery/docs/
       \endverb
     \endentry
     \entry{aws_redshift_arch}{online}{}{}
@@ -411,37 +345,8 @@
            family={{Amazon Web Services}},
            familyi={A\bibinitperiod}}}%
       }
-      \strng{namehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{fullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{fullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{bibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{authorbibnamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{authornamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{authorfullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \strng{authorfullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \field{extraname}{1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Obrázek: Amazon Redshift Architecture}
-      \field{title}{Data warehouse system architecture}
-      \field{urlday}{14}
-      \field{urlmonth}{11}
-      \field{urlyear}{2025}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
-      \endverb
-      \verb{url}
-      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
-      \endverb
-    \endentry
-    \entry{redshift2024overview}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
-           family={{Amazon Web Services}},
-           familyi={A\bibinitperiod}}}%
+      \list{organization}{1}{%
+        {AWS Documentation}%
       }
       \strng{namehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
       \strng{fullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
@@ -451,28 +356,33 @@
       \strng{authornamehash}{3eb2c1a57a8160029f036e3dcbf84bf1}
       \strng{authorfullhash}{3eb2c1a57a8160029f036e3dcbf84bf1}
       \strng{authorfullhashraw}{3eb2c1a57a8160029f036e3dcbf84bf1}
-      \field{extraname}{2}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Amazon Redshift Overview}
+      \field{title}{Amazon Redshift system overview}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://aws.amazon.com/redshift/
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
       \endverb
       \verb{url}
-      \verb https://aws.amazon.com/redshift/
+      \verb https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
       \endverb
     \endentry
-    \entry{oracle_data_platform}{online}{}{}
+    \entry{oracle_adw_arch}{online}{}{}
       \name{author}{1}{}{%
         {{hash=df7230d2b70aadf5214a562c748f6fad}{%
            family={Junior},
            familyi={J\bibinitperiod},
            given={Juarez},
            giveni={J\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Medium}%
       }
       \strng{namehash}{df7230d2b70aadf5214a562c748f6fad}
       \strng{fullhash}{df7230d2b70aadf5214a562c748f6fad}
@@ -486,9 +396,12 @@
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-22}
-      \field{title}{Oracle Autonomous Data Warehouse Cloud Service (ADW) — Part 3 — Getting Started with Oracle Machine Learning}
-      \field{year}{2018}
+      \field{title}{Oracle Autonomous Data Warehouse Cloud Service (ADW) - Part 3}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
       \endverb
@@ -496,185 +409,104 @@
       \verb https://juarezjunior.medium.com/oracle-autonomous-data-warehouse-cloud-service-adw-part-3-getting-started-with-oracle-machine-1b72224b4112
       \endverb
     \endentry
-    \entry{hadoop_ecosystem_perficient}{online}{}{}
+    \entry{mermaid_live_editor}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=c5ae24b19b1da73ba4d8495589c28a19}{%
-           family={{Perficient}},
-           familyi={P\bibinitperiod}}}%
+        {{hash=af72a94d118ff6dff4ded4b1b75cf261}{%
+           family={{Mermaid JS}},
+           familyi={M\bibinitperiod}}}%
       }
-      \strng{namehash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{fullhash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{fullhashraw}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{bibnamehash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{authorbibnamehash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{authornamehash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{authorfullhash}{c5ae24b19b1da73ba4d8495589c28a19}
-      \strng{authorfullhashraw}{c5ae24b19b1da73ba4d8495589c28a19}
+      \list{organization}{1}{%
+        {Mermaid JS}%
+      }
+      \strng{namehash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{fullhash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{fullhashraw}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{bibnamehash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{authorbibnamehash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{authornamehash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{authorfullhash}{af72a94d118ff6dff4ded4b1b75cf261}
+      \strng{authorfullhashraw}{af72a94d118ff6dff4ded4b1b75cf261}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{month}{8}
-      \field{note}{Obrázek: Hadoop Ecosystem Components}
-      \field{title}{Hadoop Ecosystem Components}
-      \field{urlday}{22}
-      \field{urlmonth}{11}
-      \field{urlyear}{2025}
-      \field{year}{2022}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://blogs.perficient.com/2022/08/10/hadoop-ecosystem-components/
-      \endverb
-      \verb{url}
-      \verb https://blogs.perficient.com/2022/08/10/hadoop-ecosystem-components/
-      \endverb
-    \endentry
-    \entry{mariadb_smartdatainstitute}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=163552afdb677ad6688e22981475efda}{%
-           family={{Smart Data Institute}},
-           familyi={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{163552afdb677ad6688e22981475efda}
-      \strng{fullhash}{163552afdb677ad6688e22981475efda}
-      \strng{fullhashraw}{163552afdb677ad6688e22981475efda}
-      \strng{bibnamehash}{163552afdb677ad6688e22981475efda}
-      \strng{authorbibnamehash}{163552afdb677ad6688e22981475efda}
-      \strng{authornamehash}{163552afdb677ad6688e22981475efda}
-      \strng{authorfullhash}{163552afdb677ad6688e22981475efda}
-      \strng{authorfullhashraw}{163552afdb677ad6688e22981475efda}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Obrázek: MariaDB Architecture}
-      \field{title}{MariaDB}
-      \field{urlday}{22}
-      \field{urlmonth}{11}
+      \field{title}{Mermaid Live Editor}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
       \field{urlyear}{2025}
       \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://smartdatainstitute.com/mariadb/
+      \verb https://mermaid.live/
       \endverb
       \verb{url}
-      \verb https://smartdatainstitute.com/mariadb/
+      \verb https://mermaid.live/
       \endverb
     \endentry
-    \entry{dbt2024semanticlayer}{online}{}{}
+    \entry{plantuml_editor}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=22ff9be0746331cd14a49b056da5518b}{%
-           family={{dbt Labs}},
-           familyi={d\bibinitperiod}}}%
+        {{hash=9e991784a7de86b867cc684c4745f4dd}{%
+           family={{PlantUML}},
+           familyi={P\bibinitperiod}}}%
       }
-      \strng{namehash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{fullhash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{fullhashraw}{22ff9be0746331cd14a49b056da5518b}
-      \strng{bibnamehash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{authorbibnamehash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{authornamehash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{authorfullhash}{22ff9be0746331cd14a49b056da5518b}
-      \strng{authorfullhashraw}{22ff9be0746331cd14a49b056da5518b}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \list{organization}{1}{%
+        {PlantUML}%
+      }
+      \strng{namehash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{fullhash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{fullhashraw}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{bibnamehash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{authorbibnamehash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{authornamehash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{authorfullhash}{9e991784a7de86b867cc684c4745f4dd}
+      \strng{authorfullhashraw}{9e991784a7de86b867cc684c4745f4dd}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{dbt Semantic Layer Documentation}
+      \field{title}{PlantUML: Open-source tool for drawing UML diagrams}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl
+      \verb https://plantuml.com/
       \endverb
       \verb{url}
-      \verb https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl
-      \endverb
-    \endentry
-    \entry{superset2024docs}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=8b499b5be8914246b406785e1327dbb3}{%
-           family={{Apache Software Foundation}},
-           familyi={A\bibinitperiod}}}%
-      }
-      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \field{extraname}{1}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Apache Superset Documentation}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://superset.apache.org/docs/
-      \endverb
-      \verb{url}
-      \verb https://superset.apache.org/docs/
-      \endverb
-    \endentry
-    \entry{metabase2024overview}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=3a4f3127b2885e4bf694e49c65be36f3}{%
-           family={{Metabase Inc.}},
-           familyi={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{fullhash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{fullhashraw}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{bibnamehash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{authorbibnamehash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{authornamehash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{authorfullhash}{3a4f3127b2885e4bf694e49c65be36f3}
-      \strng{authorfullhashraw}{3a4f3127b2885e4bf694e49c65be36f3}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Metabase Open Source Business Intelligence}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://www.metabase.com/
-      \endverb
-      \verb{url}
-      \verb https://www.metabase.com/
+      \verb https://plantuml.com/
       \endverb
     \endentry
     \entry{amazon2019datawarehouse}{online}{}{}
       \name{author}{2}{}{%
-        {{hash=4d7e5f784bb5801c23c91ba37ed2649d}{%
-           family={Services},
-           familyi={S\bibinitperiod},
-           given={Amazon\bibnamedelima Web},
-           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=3eb2c1a57a8160029f036e3dcbf84bf1}{%
+           family={{Amazon Web Services}},
+           familyi={A\bibinitperiod}}}%
         {{hash=ae8171792265a02e4b236a97f6adf3a5}{%
-           family={Talend},
+           family={{Talend}},
            familyi={T\bibinitperiod}}}%
       }
       \list{organization}{1}{%
         {Amazon Web Services}%
       }
-      \strng{namehash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{fullhash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{fullhashraw}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{bibnamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{authorbibnamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{authornamehash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{authorfullhash}{fb76dd574e3114a24f068a1c2a06d1ce}
-      \strng{authorfullhashraw}{fb76dd574e3114a24f068a1c2a06d1ce}
+      \strng{namehash}{20893f694985be21e8504ab1f01597de}
+      \strng{fullhash}{20893f694985be21e8504ab1f01597de}
+      \strng{fullhashraw}{20893f694985be21e8504ab1f01597de}
+      \strng{bibnamehash}{20893f694985be21e8504ab1f01597de}
+      \strng{authorbibnamehash}{20893f694985be21e8504ab1f01597de}
+      \strng{authornamehash}{20893f694985be21e8504ab1f01597de}
+      \strng{authorfullhash}{20893f694985be21e8504ab1f01597de}
+      \strng{authorfullhashraw}{20893f694985be21e8504ab1f01597de}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{Data Warehouse Modernization: From Monolith to Modular}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2019}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://pages.awscloud.com/rs/112-TZM-766/images/GLOBAL_PTNR_STPM_DWM_Talend_eBook_Aug-2019.pdf
       \endverb
@@ -685,7 +517,7 @@
     \entry{databricks2024modernstack}{online}{}{}
       \name{author}{1}{}{%
         {{hash=4e3f864ba9cf3c62d471e1c62414d098}{%
-           family={Databricks},
+           family={{Databricks}},
            familyi={D\bibinitperiod}}}%
       }
       \list{organization}{1}{%
@@ -703,9 +535,12 @@
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
       \field{title}{The Modern Data Stack: How the Evolution of Data Architecture Led to the Data Intelligence Platform}
+      \field{urlday}{23}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://www.databricks.com/blog/modern-data-stack-how-evolution-data-architecture-led-data-intelligence-platform
       \endverb
@@ -715,27 +550,26 @@
     \endentry
     \entry{mcp_protocol}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=9f3bca5afd75e8272ebde12ef64f3a81}{%
-           family={{Model Context Protocol}},
-           familyi={M\bibinitperiod}}}%
+        {{hash=f431db65cea024a5f19eab835afefee2}{%
+           family={{Anthropic}},
+           familyi={A\bibinitperiod}}}%
       }
-      \strng{namehash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{fullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{fullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{bibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{authorbibnamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{authornamehash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{authorfullhash}{9f3bca5afd75e8272ebde12ef64f3a81}
-      \strng{authorfullhashraw}{9f3bca5afd75e8272ebde12ef64f3a81}
+      \strng{namehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhashraw}{f431db65cea024a5f19eab835afefee2}
+      \strng{bibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorbibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authornamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhashraw}{f431db65cea024a5f19eab835afefee2}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{[Online; navštíveno 20.11.2024]}
-      \field{title}{Model Context Protocol: An open standard for building AI assistants}
-      \field{urlday}{20}
+      \field{title}{Model Context Protocol}
+      \field{urlday}{30}
       \field{urlmonth}{11}
-      \field{urlyear}{2024}
+      \field{urlyear}{2025}
       \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
@@ -745,30 +579,94 @@
       \verb https://modelcontextprotocol.io/
       \endverb
     \endentry
-    \entry{wikipedia_star_schema}{online}{}{}
+    \entry{inmon2005}{book}{}{}
       \name{author}{1}{}{%
-        {{hash=28b6ba9f3638a296385fabdb51df1580}{%
-           family={{Wikimedia Foundation}},
+        {{hash=fe070ddfbf368740bfe41b23ac091cb2}{%
+           family={Inmon},
+           familyi={I\bibinitperiod},
+           given={William\bibnamedelima H.},
+           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{fullhash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{fullhashraw}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{bibnamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorbibnamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authornamehash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorfullhash}{fe070ddfbf368740bfe41b23ac091cb2}
+      \strng{authorfullhashraw}{fe070ddfbf368740bfe41b23ac091cb2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{4}
+      \field{isbn}{978-0-764-59944-6}
+      \field{title}{Building the Data Warehouse}
+      \field{year}{2005}
+    \endentry
+    \entry{kimball2013}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=6ec3b140429bc59ad63c593b172f665c}{%
+           family={Kimball},
+           familyi={K\bibinitperiod},
+           given={Ralph},
+           giveni={R\bibinitperiod}}}%
+        {{hash=257f73b4d408fcd5e8d4a110ef8c8f49}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={Margy},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{fullhash}{c18f3b1557ab75000609609691801c5b}
+      \strng{fullhashraw}{c18f3b1557ab75000609609691801c5b}
+      \strng{bibnamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorbibnamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authornamehash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorfullhash}{c18f3b1557ab75000609609691801c5b}
+      \strng{authorfullhashraw}{c18f3b1557ab75000609609691801c5b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{978-1-118-53080-1}
+      \field{title}{The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling}
+      \field{year}{2013}
+    \endentry
+    \entry{wiki_star_schema}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=b6aea1a416c89509a7df1cbb69249cb6}{%
+           family={{Wikipedia contributors}},
            familyi={W\bibinitperiod}}}%
       }
-      \strng{namehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{fullhash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{fullhashraw}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{bibnamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorbibnamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authornamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorfullhash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorfullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \list{organization}{1}{%
+        {Wikipedia}%
+      }
+      \strng{namehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{fullhash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{fullhashraw}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{bibnamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorbibnamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authornamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorfullhash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorfullhashraw}{b6aea1a416c89509a7df1cbb69249cb6}
       \field{extraname}{1}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Použito pro ilustraci schématu hvězda.}
       \field{title}{Star schema}
-      \field{urlday}{24}
-      \field{urlmonth}{11}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
       \field{urlyear}{2025}
+      \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://en.wikipedia.org/wiki/Star_schema
@@ -777,30 +675,33 @@
       \verb https://en.wikipedia.org/wiki/Star_schema
       \endverb
     \endentry
-    \entry{wikipedia_snowflake_schema}{online}{}{}
+    \entry{wiki_snowflake_schema}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=28b6ba9f3638a296385fabdb51df1580}{%
-           family={{Wikimedia Foundation}},
+        {{hash=b6aea1a416c89509a7df1cbb69249cb6}{%
+           family={{Wikipedia contributors}},
            familyi={W\bibinitperiod}}}%
       }
-      \strng{namehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{fullhash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{fullhashraw}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{bibnamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorbibnamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authornamehash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorfullhash}{28b6ba9f3638a296385fabdb51df1580}
-      \strng{authorfullhashraw}{28b6ba9f3638a296385fabdb51df1580}
+      \list{organization}{1}{%
+        {Wikipedia}%
+      }
+      \strng{namehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{fullhash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{fullhashraw}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{bibnamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorbibnamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authornamehash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorfullhash}{b6aea1a416c89509a7df1cbb69249cb6}
+      \strng{authorfullhashraw}{b6aea1a416c89509a7df1cbb69249cb6}
       \field{extraname}{2}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Použito pro ilustraci vločkového schématu. Obrázek: \url{https://en.wikipedia.org/wiki/Snowflake_schema\#/media/File:Snowflake-schema.png}}
       \field{title}{Snowflake schema}
-      \field{urlday}{7}
-      \field{urlmonth}{11}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
       \field{urlyear}{2025}
+      \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
       \verb https://en.wikipedia.org/wiki/Snowflake_schema
@@ -809,37 +710,69 @@
       \verb https://en.wikipedia.org/wiki/Snowflake_schema
       \endverb
     \endentry
-    \entry{looker2024semanticmodel}{online}{}{}
+    \entry{pgloader}{software}{}{}
       \name{author}{1}{}{%
-        {{hash=b4e595bd8646c01df540ff38696a35be}{%
-           family={Cloud},
-           familyi={C\bibinitperiod},
-           given={Google},
-           giveni={G\bibinitperiod}}}%
+        {{hash=5ea2dd993fe02080f56943472d9cfdac}{%
+           family={Fontaine},
+           familyi={F\bibinitperiod},
+           given={Dimitri},
+           giveni={D\bibinitperiod}}}%
       }
-      \list{organization}{1}{%
-        {Google LLC}%
+      \strng{namehash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{fullhash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{fullhashraw}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{bibnamehash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{authorbibnamehash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{authornamehash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{authorfullhash}{5ea2dd993fe02080f56943472d9cfdac}
+      \strng{authorfullhashraw}{5ea2dd993fe02080f56943472d9cfdac}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{pgloader: Migrate to PostgreSQL in a single command}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{version}{3.6.9}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/dimitri/pgloader
+      \endverb
+      \verb{url}
+      \verb https://github.com/dimitri/pgloader
+      \endverb
+    \endentry
+    \entry{dbeaver}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=a37698d678b66039acb26c33bf8b3c24}{%
+           family={{DBeaver Corp}},
+           familyi={D\bibinitperiod}}}%
       }
-      \strng{namehash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{fullhash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{fullhashraw}{b4e595bd8646c01df540ff38696a35be}
-      \strng{bibnamehash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{authorbibnamehash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{authornamehash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{authorfullhash}{b4e595bd8646c01df540ff38696a35be}
-      \strng{authorfullhashraw}{b4e595bd8646c01df540ff38696a35be}
+      \strng{namehash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{fullhash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{fullhashraw}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{bibnamehash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{authorbibnamehash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{authornamehash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{authorfullhash}{a37698d678b66039acb26c33bf8b3c24}
+      \strng{authorfullhashraw}{a37698d678b66039acb26c33bf8b3c24}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-10-23}
-      \field{title}{Looker Semantic Model — Unifying Business Logic for Data Experiences}
+      \field{title}{DBeaver: Free Universal Database Tool}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://cloud.google.com/looker/docs/semantic-model-overview
+      \verb https://dbeaver.io/
       \endverb
       \verb{url}
-      \verb https://cloud.google.com/looker/docs/semantic-model-overview
+      \verb https://dbeaver.io/
       \endverb
     \endentry
     \entry{rfc8259}{report}{}{}
@@ -927,162 +860,300 @@
       \verb http://www.mmds.org/
       \endverb
     \endentry
-    \entry{microsoft_azure_maps_visual}{online}{}{}
+    \entry{pyodbc}{software}{}{}
       \name{author}{1}{}{%
-        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
-           family={{Microsoft Corporation}},
-           familyi={M\bibinitperiod}}}%
+        {{hash=60c741faf577ef32d4fdc4718e2617bc}{%
+           family={Kleehammer},
+           familyi={K\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
       }
-      \list{organization}{1}{%
-        {Microsoft Learn}%
-      }
-      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \field{extraname}{3}
+      \strng{namehash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{fullhash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{fullhashraw}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{bibnamehash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{authorbibnamehash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{authornamehash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{authorfullhash}{60c741faf577ef32d4fdc4718e2617bc}
+      \strng{authorfullhashraw}{60c741faf577ef32d4fdc4718e2617bc}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-27}
-      \field{title}{Get started with Azure Maps Power BI visual}
+      \field{title}{pyodbc: Python ODBC Bridge}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/azure/azure-maps/power-bi-visual-get-started
+      \verb https://github.com/mkleehammer/pyodbc
       \endverb
       \verb{url}
-      \verb https://learn.microsoft.com/en-us/azure/azure-maps/power-bi-visual-get-started
+      \verb https://github.com/mkleehammer/pyodbc
       \endverb
     \endentry
-    \entry{superset_deckgl}{online}{}{}
+    \entry{pymysql}{software}{}{}
       \name{author}{1}{}{%
-        {{hash=8b499b5be8914246b406785e1327dbb3}{%
-           family={{Apache Software Foundation}},
-           familyi={A\bibinitperiod}}}%
+        {{hash=a6379c7e524a8bb1b1c363a6ee042437}{%
+           family={Matsubara},
+           familyi={M\bibinitperiod},
+           given={Yutaka},
+           giveni={Y\bibinitperiod}}}%
       }
-      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \field{extraname}{2}
+      \strng{namehash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{fullhash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{fullhashraw}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{bibnamehash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{authorbibnamehash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{authornamehash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{authorfullhash}{a6379c7e524a8bb1b1c363a6ee042437}
+      \strng{authorfullhashraw}{a6379c7e524a8bb1b1c363a6ee042437}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-27}
-      \field{title}{Apache Superset - Deck.gl Integration}
+      \field{title}{PyMySQL: Pure Python MySQL Client}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://superset.apache.org/docs/configuration/country-map-tools
+      \verb https://github.com/PyMySQL/PyMySQL
       \endverb
       \verb{url}
-      \verb https://superset.apache.org/docs/configuration/country-map-tools
+      \verb https://github.com/PyMySQL/PyMySQL
       \endverb
     \endentry
-    \entry{superset_country_map}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=8b499b5be8914246b406785e1327dbb3}{%
-           family={{Apache Software Foundation}},
-           familyi={A\bibinitperiod}}}%
+    \entry{psycopg2}{software}{}{}
+      \name{author}{2}{}{%
+        {{hash=6f1ad3d725cc0b06ce2d10b1262b33c9}{%
+           family={Di\bibnamedelima Gregorio},
+           familyi={D\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod}}}%
+        {{hash=be528f6d69748742d3700b8c17e73fe4}{%
+           family={Varrazzo},
+           familyi={V\bibinitperiod},
+           given={Daniele},
+           giveni={D\bibinitperiod}}}%
       }
-      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
-      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
-      \field{extraname}{3}
+      \strng{namehash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{fullhash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{fullhashraw}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{bibnamehash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{authorbibnamehash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{authornamehash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{authorfullhash}{6d7ab97c88c098a71e5c8175606d1bab}
+      \strng{authorfullhashraw}{6d7ab97c88c098a71e5c8175606d1bab}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-27}
-      \field{title}{Apache Superset - Country Map Tools}
+      \field{title}{Psycopg: PostgreSQL database adapter for the Python programming language}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://superset.apache.org/docs/configuration/country-map-tools
+      \verb https://www.psycopg.org/
       \endverb
       \verb{url}
-      \verb https://superset.apache.org/docs/configuration/country-map-tools
+      \verb https://www.psycopg.org/
       \endverb
     \endentry
-    \entry{microsoft_powerbi_limits}{online}{}{}
+    \entry{clickhouse_compression}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
-           family={{Microsoft Corporation}},
-           familyi={M\bibinitperiod}}}%
+        {{hash=e16b35eafbe830358d709d9ff3527451}{%
+           family={{ClickHouse, Inc.}},
+           familyi={C\bibinitperiod}}}%
       }
-      \list{organization}{1}{%
-        {Microsoft Learn}%
-      }
-      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \field{extraname}{4}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-27}
-      \field{title}{High-density sampling in Power BI scatter charts}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts
-      \endverb
-      \verb{url}
-      \verb https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts
-      \endverb
-    \endentry
-    \entry{microsoft_custom_visuals_sdk}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
-           family={{Microsoft Corporation}},
-           familyi={M\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {Microsoft Learn}%
-      }
-      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{fullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
-      \strng{authorfullhashraw}{b9a8b868588ad4bc6b36c29936e26423}
-      \field{extraname}{5}
+      \strng{namehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{fullhash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{fullhashraw}{e16b35eafbe830358d709d9ff3527451}
+      \strng{bibnamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorbibnamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authornamehash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorfullhash}{e16b35eafbe830358d709d9ff3527451}
+      \strng{authorfullhashraw}{e16b35eafbe830358d709d9ff3527451}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed 2025-11-27}
-      \field{title}{Power BI visuals SDK documentation}
+      \field{title}{Data Compression in ClickHouse}
+      \field{urlday}{30}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
       \field{year}{2024}
+      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://learn.microsoft.com/en-us/power-bi/developer/visuals/
+      \verb https://clickhouse.com/docs/en/sql-reference/statements/alter/compression
       \endverb
       \verb{url}
-      \verb https://learn.microsoft.com/en-us/power-bi/developer/visuals/
+      \verb https://clickhouse.com/docs/en/sql-reference/statements/alter/compression
+      \endverb
+    \endentry
+    \entry{chartjs}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=1bab604765053a38c1f50221d1f4d642}{%
+           family={{Chart.js Contributors}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{fullhash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{fullhashraw}{1bab604765053a38c1f50221d1f4d642}
+      \strng{bibnamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorbibnamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authornamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorfullhash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorfullhashraw}{1bab604765053a38c1f50221d1f4d642}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Chart.js: Simple yet flexible JavaScript charting for designers \& developers}
+      \field{urlday}{4}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.chartjs.org/
+      \endverb
+      \verb{url}
+      \verb https://www.chartjs.org/
+      \endverb
+    \endentry
+    \entry{mariadb_covering}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=1dc102a68b76700cdc02f1d7a578b433}{%
+           family={{MariaDB Foundation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{fullhash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{fullhashraw}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{bibnamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorbibnamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authornamehash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorfullhash}{1dc102a68b76700cdc02f1d7a578b433}
+      \strng{authorfullhashraw}{1dc102a68b76700cdc02f1d7a578b433}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Optimization and Indexes: Covering Index}
+      \field{urlday}{30}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mariadb.com/kb/en/optimization-and-indexes/
+      \endverb
+      \verb{url}
+      \verb https://mariadb.com/kb/en/optimization-and-indexes/
+      \endverb
+    \endentry
+    \entry{gartner_tco}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a41804af92a2aa0180154f489f3d308b}{%
+           family={{Gartner, Inc.}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{fullhash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{fullhashraw}{a41804af92a2aa0180154f489f3d308b}
+      \strng{bibnamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorbibnamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authornamehash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorfullhash}{a41804af92a2aa0180154f489f3d308b}
+      \strng{authorfullhashraw}{a41804af92a2aa0180154f489f3d308b}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Total Cost of Ownership (TCO)}
+      \field{urlday}{30}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.gartner.com/en/information-technology/glossary/total-cost-of-ownership-tco
+      \endverb
+      \verb{url}
+      \verb https://www.gartner.com/en/information-technology/glossary/total-cost-of-ownership-tco
+      \endverb
+    \endentry
+    \entry{clickhouse_driver}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=0c7f0b45f2c555fac4b9d15592469f84}{%
+           family={Lebedev},
+           familyi={L\bibinitperiod},
+           given={Konstantin},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{fullhash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{fullhashraw}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{bibnamehash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{authorbibnamehash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{authornamehash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{authorfullhash}{0c7f0b45f2c555fac4b9d15592469f84}
+      \strng{authorfullhashraw}{0c7f0b45f2c555fac4b9d15592469f84}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{clickhouse-driver: Python driver for ClickHouse}
+      \field{urlday}{2}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/mymarilyn/clickhouse-driver
+      \endverb
+      \verb{url}
+      \verb https://github.com/mymarilyn/clickhouse-driver
+      \endverb
+    \endentry
+    \entry{ms_sql_editions}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=140864078aeca1c7c35b4beb33c53c34}{%
+           family={{Microsoft}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{bibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorbibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authornamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \field{extraname}{2}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Editions and supported features of SQL Server 2022}
+      \field{urlday}{30}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/editions-and-components/sql-server-2022/editions-and-supported-features-of-sql-server-2022
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/sql/sql-server/editions-and-components/sql-server-2022/editions-and-supported-features-of-sql-server-2022
       \endverb
     \endentry
   \enddatalist
-  \missing{apachekylin2024}
 \endrefsection
 \endinput
 

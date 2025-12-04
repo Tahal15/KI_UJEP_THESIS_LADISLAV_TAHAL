@@ -95,7 +95,7 @@
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   keywordstyle=\bfseries,          % keyword style
   commentstyle=\rmfamily,       % comment style
-  stringstyle=\itshape\color,   % string literal style
+  stringstyle=\itshape,   % string literal style
 }
 
 % barevné zvýraznění textů, které je nutno nahradit
@@ -464,7 +464,7 @@ Nejvýznamnějším hráčem v~oblasti otevřených datových technologií je na
 
 \begin{itemize}
     \item \textbf{Ukládání a~zpracování:} Historicky založeno na ekosystému \emph{Hadoop}, dnes dominuje \emph{Apache Spark} pro distribuované výpočty a~\emph{Apache Kafka} pro streamování dat.
-    \item \textbf{OLAP a~analytika:} Pro rychlé analytické dotazy slouží nástroje jako \emph{Apache Druid} nebo \emph{Apache Kylin}, který přináší schopnost multidimenzionální analýzy (OLAP kostky) na velká data, podobně jako SSAS v~ekosystému Microsoft
+    \item \textbf{OLAP a~analytika:} Pro rychlé analytické dotazy slouží nástroje jako \emph{Apache Druid} nebo \emph{Apache Kylin}, které přináší schopnost multidimenzionální analýzy (OLAP kostky) na velká data, podobně jako SSAS v~ekosystému Microsoft
     \item \textbf{Vizualizace:} Prezentační vrstvu zajišťuje \emph{Apache Superset}, moderní BI nástroj umožňující tvorbu dashboardů a~granulární řízení přístupových práv.
 \end{itemize}
 
@@ -617,19 +617,18 @@ Navržený systém proto představuje jedno z~možných řešení, přizpůsoben
 Z~hlediska infrastruktury je systém koncipován jako \textbf{on-premise} řešení, tedy provozované výhradně na vlastním hardwaru organizace. Většina architektury je realizována pomocí kontejnerizace (Docker), což umožňuje modulární skládání jednotlivých komponent, snadnou správu a~replikovatelnost prostředí.
 Celý systém je rozdělen do pěti vrstev, jak je znázorněno na obrázku \ref{fig:architecture}.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{img/reporting_structure.png}
-  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \emph{Zdroj: vlastní zpracování autora, dle architektury Mondi Štětí a.s.}}
-  \label{fig:architecture}
-\end{figure}
-
 \subsection{Datové zdroje}
 Základní vstupní vrstvu systému tvoří datové zdroje, které obvykle pocházejí z~různých podnikových systémů, jako jsou například MES systémy, CRM nebo ERP.  
 Datový zdroj je zpravidla reprezentován databází, avšak v~praxi se často setkáváme také s~textovými soubory (například ve formátu CSV).  
 Ačkoliv formát CSV nemusí na první pohled působit jako spolehlivý datový zdroj, v~praxi se používá poměrně často.  
 Důvodem bývá například licenční politika -- přímý přístup do databáze může být zpoplatněn, zatímco export dat do CSV souboru bývá dostupný zdarma nebo bez omezení.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/reporting_structure.png}
+  \caption[Navržená struktura systému]{Navržená struktura systému. Datové zdroje jsou ilustrační. \emph{Zdroj: vlastní zpracování autora, dle architektury Mondi Štětí a.s.}}
+  \label{fig:architecture}
+\end{figure}
 
 \subsection{Datové jezero}
 
@@ -820,7 +819,7 @@ Tento přístup umožňuje optimalizovat náklady a~zároveň využít silných 
 \section{Přehled a~charakteristika využitých technologií}
 \label{sec:prehled_technologii}
 
-Pro praktickou část byly vybrány technologie pokrývající komerční i~open-source přístupy. Tabulka níže shrnuje jejich charakteristiku a~roli v~navržené architektuře.
+Tato sekce vymezuje technologie, na které se práce dále zaměřuje. Výběr zahrnuje zástupce komerčních i~open-source přístupů, jejichž charakteristika a~role v~kontextu navržené architektury je shrnuta v~následující tabulce.
 
 % Nastavení odsazení a řádkování
 \setlength{\tabcolsep}{6pt}
@@ -843,19 +842,19 @@ Pro praktickou část byly vybrány technologie pokrývající komerční i~open
 
 % --- OBSAH DWH ---
 \textbf{PostgreSQL a~TimescaleDB} \par
-PostgreSQL je open-source relační databázový systém s~podporou SQL standardu. Pro potřeby této práce je klíčové jeho rozšíření \emph{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a~kamer, díky optimalizacím pro časově orientované dotazy a~efektivní kompresi dat.
+PostgreSQL je open-source relační databázový systém s~podporou SQL standardu. Klíčovým aspektem pro účely této práce je jeho rozšíření \emph{TimescaleDB}, které PostgreSQL transformuje na vysoce výkonnou databázi pro časové řady. Tato kombinace je vhodná pro telemetrická data, jako jsou data ze senzorů a~kamer, díky optimalizacím pro časově orientované dotazy a~efektivní kompresi dat.
 \par\vspace{0.5em}
 
 \textbf{ClickHouse} \par
-ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V~rámci srovnání slouží jako zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v~reálném čase bez nutnosti rozsáhlých předagregací.
+ClickHouse je open-source, sloupcově orientovaný databázový systém navržený primárně pro online analytické zpracování (OLAP). Jeho architektura je optimalizována pro extrémně rychlé provádění agregačních dotazů nad velkými objemy dat. V~kontextu srovnání představuje zástupce vysoce výkonných analytických databází nové generace, které umožňují analýzu dat v~reálném čase bez nutnosti rozsáhlých předagregací.
 \par\vspace{0.5em}
 
 \textbf{MariaDB} \par
-MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a~zachovává si s~ním vysokou kompatibilitu. Pro potřeby této práce je klíčové jeho rozšíření \emph{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP).
+MariaDB je open-source relační databázový systém, který vznikl jako fork MySQL a~zachovává si s~ním vysokou kompatibilitu. Významným prvkem je jeho rozšíření \emph{MariaDB ColumnStore}, které transformuje tradiční řádkově orientovanou databázi na hybridní systém schopný sloupcového ukládání dat. Tato architektura je optimalizována pro analytické dotazy (OLAP).
 & 
 % --- KOMERČNÍ DWH ---
 \textbf{Microsoft SQL Server} \par
-Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a~analytických služeb (SSAS). V~této práci je MSSQL využit jako jeden z~pilířů pro testování komerčního řešení, konkrétně jako databázový engine pro datový sklad a~zároveň jako platforma pro SSAS Tabular model.
+Microsoft SQL Server (MSSQL) je komplexní komerční systém pro správu relačních databází (RDBMS). Kromě standardních transakčních (OLTP) operací nabízí robustní nástroje pro datové sklady, včetně integračních služeb (SSIS) a~analytických služeb (SSAS). V~kontextu této práce představuje MSSQL referenční komerční řešení, konkrétně v~roli databázového enginu pro datový sklad a~zároveň jako platforma pro SSAS Tabular model.
 \\ 
 \bottomrule
 
@@ -878,7 +877,7 @@ Cube.js je open-source sémantická vrstva (semantic layer), jejímž hlavním �
 & 
 % --- KOMERČNÍ OLAP ---
 \textbf{Microsoft SQL Server Analysis Services} \par
-SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a~Business Intelligence. V~této práci je využíván jeho \emph{Tabulární model (Tabular Model)}, který funguje jako \emph{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k~Cube.js, poskytující podobnou sémantickou vrstvu s~pokročilými možnostmi bezpečnosti, správy a~hlubokou integrací s~nástroji Microsoft ekosystému.
+SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a~Business Intelligence. Tato práce se zaměřuje na jeho \emph{Tabulární model (Tabular Model)}, který funguje jako \emph{in-memory} databáze optimalizovaná pro analytické dotazy pomocí jazyka \texttt{DAX} (Data Analysis Expressions). Slouží jako komerční protějšek k~Cube.js, poskytující podobnou sémantickou vrstvu s~pokročilými možnostmi bezpečnosti, správy a~hlubokou integrací s~nástroji Microsoft ekosystému.
 \\ 
 \bottomrule
 
@@ -895,7 +894,7 @@ SSAS je komponenta Microsoft SQL Serveru určená pro OLAP a~Business Intelligen
 
 % --- OBSAH BI ---
 \textbf{Apache Superset} \par
-Apache Superset je moderní open-source platforma pro vizualizaci dat a~business intelligence. Umožňuje snadné připojení k~široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a~intuitivní tvorbu interaktivních dashboardů a~reportů. V~této práci reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a~customizaci.
+Apache Superset je moderní open-source platforma pro vizualizaci dat a~business intelligence. Umožňuje snadné připojení k~široké škále datových zdrojů (včetně SQL API poskytovaného Cube.js) a~intuitivní tvorbu interaktivních dashboardů a~reportů. V~rámci navržené architektury reprezentuje flexibilní open-source řešení pro vizualizační vrstvu, které klade důraz na samoobslužnou analytiku a~customizaci.
 & 
 % --- KOMERČNÍ BI ---
 \textbf{Microsoft Power BI} \par
@@ -1031,6 +1030,7 @@ Data jsou zpracovávána v~dávkách (tzv. \emph{batchích}), jejichž velikost 
 Při zpracování dat jsou prováděny převody datových formátů, ošetřovány chybějící hodnoty a~celý proces je obalen v~transakcích a~blocích \texttt{try/except} pro zajištění konzistence a~logování chyb.
 
 \subsection{Implementace ETL pro jednotlivé technologie}
+\label{sec:etl_implementace}
 
 \subsubsection{SQL Server ETL}
 ETL proces pro SQL Server je dvoukrokový a~obsluhují jej dva samostatné skripty.
@@ -1095,6 +1095,7 @@ Tato varianta se odlišuje přímým datovým mostem mezi dvěma různými techn
 \clearpage
 
 \subsection{Struktura a~vrstvy datového skladu}
+\label{sec:dwh_structure}
 
 Zdrojová data byla získávána ze systému Portabo, kde jsou ukládána jako MQTT zprávy v~JSON formátu. Data mi byla poskytnuta zašifrovaná, abychom je mohli v~rámci bakalářské práce využít.
 Tyto zprávy obsahují informace o~detekcích vozidel -- například registrační značku, typ detekce, rychlost, město, čas a~senzor. Data z~vodoměrů, elektroměrů a~dalších senzorů. 
@@ -1114,6 +1115,7 @@ Každá implementace využívá dávkové zpracování (\texttt{BATCH\_SIZE}) a~
 \end{figure}
 
 \subsection{OLAP a~vizualizace}
+\label{sec:olap_vizualizace}
 
 V~rámci praktické části byly nad vytvořenými datovými sklady vystavěny analytické vrstvy odpovídající zvolenému technologickému stacku. Pro komerční řešení postavené na platformě Microsoft SQL Server byl využit nativní nástroj SSAS Tabular. Pro open-source databáze (ClickHouse, MariaDB, PostgreSQL) byla nasazena univerzální sémantická vrstva Cube.js. Cílem bylo vytvořit funkční OLAP modely umožňující tvorbu interaktivních vizualizací a~porovnat rozdíly mezi těmito dvěma přístupy.
 
@@ -1170,7 +1172,7 @@ Díky tomu bylo možné na Cube.js napojit nástroj Apache Superset, který byl 
   \label{fig:topic50}
 \end{figure}
 
-V~rámci Superset byly vytvořen interaktivní dashboard zobrazující klíčové metriky:  
+V~rámci Superset byl vytvořen interaktivní dashboard zobrazující klíčové metriky:  
 počty detekcí v~čase, rozložení typů vozidel, přehled rychlostí.  
 Data byla načítána prostřednictvím SQL dotazů směrovaných na PostgreSQL endpoint poskytovaný Cube.js, čímž byla zajištěna kompatibilita bez nutnosti dalších úprav.  
 Pro zvýšení výkonu byly v~Cube.js aktivovány funkce \emph{pre-aggregations} a~\emph{query caching}, které umožňovaly ukládat výsledky často opakovaných dotazů.  
@@ -1180,6 +1182,7 @@ Pro zvýšení výkonu byly v~Cube.js aktivovány funkce \emph{pre-aggregations}
 
 
 \subsubsection{Porovnání přístupů}
+\label{sec:porovnani_pristupu}
 
 Oba přístupy poskytují plnohodnotnou OLAP analytiku, avšak liší se způsobem implementace i~správy.  
 SSAS Tabular umožňuje centrální řízení, pokročilé DAX výpočty a~přímou integraci s~Power BI, což zjednodušuje nasazení ve firemním prostředí.  
@@ -1199,6 +1202,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 \end{enumerate}
 
 \subsection{Výkonové parametry}
+\label{sec:vykonove_parametry}
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a~moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
@@ -1206,23 +1210,24 @@ Důležitým aspektem srovnání byla také efektivita ukládání dat. Během n
 
 
 
-Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na githubu.
+Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na githubu a~také v~příloze \ref{sec:sql_queries}.
 
 \begin{enumerate}
     \item \textbf{Dotaz 1: Jednoduchá agregace s~jedním spojením} 
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace1.png}
-      \caption{Výkon jednoduché agregace s~jedním spojením (Dotaz 1). Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+      \caption{Výkon jednoduché agregace s~jedním spojením (Dotaz 1). Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
       \label{fig:srovnani1}
     \end{figure}
 
     Obrázek \ref{fig:srovnani1} ukazuje výsledky pro základní analytický dotaz (průměrná rychlost dle třídy vozidla). Zde se naplno projevuje klíčová výhoda sloupcových databází (ClickHouse, MSSQL Col., MariaDB Col.), které načítají pouze relevantní sloupce. Naopak tradiční řádkové úložiště (MariaDB Row) ve výchozím nastavení načítá celé řádky, což při milionech záznamů vede k~masivnímu I/O a~pomalé odezvě.
+    \clearpage
     \item \textbf{Dotaz 2: Agregace nad časovou dimenzí}
        \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace2.png}
-      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+      \caption{Výkon agregace nad časovou dimenzí (Dotaz 2). Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
       \label{fig:srovnani2}
     \end{figure}
     Druhý dotaz (počet detekcí v~čase) odhalil zajímavé chování. Ačkoliv sloupcové databáze dominovaly, řádková MariaDB zde dosáhla překvapivě dobrého výsledku.
@@ -1233,39 +1238,38 @@ Detailní znění všech použitých SQL dotazů je k~dispozici v~příloze na g
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace3.png}
-      \caption{Výkon dotazu s~vícenásobným spojením a~filtrováním (Dotaz 3). Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+      \caption{Výkon dotazu s~vícenásobným spojením a~filtrováním (Dotaz 3). Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
       \label{fig:srovnani3}
     \end{figure}
 
     Třetí, komplexnější dotaz, demonstroval sílu optimalizátoru MS SQL.
-
+\clearpage
     \item \textbf{Dotaz 4: Agregace nad dvěma dimenzemi}
     \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace4.png}
-      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+      \caption{Výkon agregace nad dvěma dimenzemi (Dotaz 4). Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
       \label{fig:srovnani4}
     \end{figure}
     
     U~čtvrtého dotazu s~vyšší kardinalitou seskupování je opět patrný fatální propad řádkové MariaDB ve srovnání se sloupcovými variantami, které poskytují odezvu v~řádu sekund.
-    \clearpage
     \item \textbf{Dotaz 5: Komplexní dotaz s~CTE a~okenní funkcí}
       \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{img/agregace5.png}
-      \caption{Výkon komplexního dotazu s~CTE a~okenní funkcí (Dotaz 5). Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+      \caption{Výkon komplexního dotazu s~CTE a~okenní funkcí (Dotaz 5). Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
       \label{fig:srovnani5}
     \end{figure}
 
 
 
 Poslední dotaz (CTE a~okenní funkce) potvrdil, že zatímco optimalizátory ClickHouse a~MS SQL si s~komplexitou poradí, řádková MariaDB v~základním nastavení naráží na své limity.
-
+\clearpage
 \item \textbf{Všechny dotazy společně}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{img/porovnani_vykonu_databazi_high_res.png}
-  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe. Zdroj: vlastní s~použitím programovacího jazyka Python}
+  \caption{Celkové porovnání výkonu na úrovni databáze. Méně je lépe. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
   \label{fig:srovnani6}
 \end{figure}
 
@@ -1288,12 +1292,12 @@ Poslední dotaz (CTE a~okenní funkce) potvrdil, že zatímco optimalizátory Cl
 \footnotesize{\emph{Legenda: CH = ClickHouse, MS = MSSQL, Ma = MariaDB, PG = PostgreSQL, TS = TimescaleDB, (R) = Řádkový, (C) = Sloupcový, (Cov) = Covering Index}}
 \end{table}
 
-
+\clearpage
 \item \textbf{Fragmentace dat napříč databázovými systémy}
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/fragmentace.png}
-  \caption{Porovnání velikosti dat faktové tabulky na disku mezi jednotlivými databázovými systémy. Zdroj: vlastní s~použitím programovacího jazyka Python}
+  \caption{Porovnání velikosti dat faktové tabulky na disku mezi jednotlivými databázovými systémy. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
   \label{fig:fragmentace}
 \end{figure}
 
@@ -1306,7 +1310,7 @@ Vzhledem k~výrazným rozdílům ve výkonu řádkové MariaDB (InnoDB) oproti o
 Ukázalo se, že zatímco konkurenční databáze dokázaly efektivně zpracovat analytické dotazy se standardními indexy, MariaDB vyžaduje pro tento typ zátěže odlišný přístup. Řešením byla implementace tzv. \textbf{složených pokrývajících indexů} (covering indexes) \cite{mariadb_covering}. Tyto indexy musí explicitně obsahovat nejen klíče pro spojení (`JOIN`), ale i~samotná data pro agregaci (`SELECT` klauzule). Tím je vynucena strategie \texttt{Using index}, kdy databáze čte data přímo z~indexové struktury a~zcela eliminuje nákladné čtení z~datových souborů na disku.
 
 
-Jak ukazuje obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k~řádovému zrychlení:
+Obrázek \ref{fig:srovnani6} ukazuje, jaký dopad měla optimalizace pokrývajících indexů na výkon MariaDB (InnoDB). Po aplikaci těchto specifických indexů došlo k~řádovému zrychlení:
 Tento experiment potvrzuje, že MariaDB je schopna sloužit i~pro analytické dotazy, vyžaduje však -- na rozdíl od jiných databází -- striktní a~manuální optimalizaci indexů na míru konkrétním dotazům.
 
 \subsubsection{Testování souběžné zátěže (Concurrency)}
@@ -1333,7 +1337,7 @@ Výsledky měření jsou vizualizovány na grafu \ref{fig:concurrency_chart}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{img/benchmark_chart.png}
-  \caption{Propustnost databází (TPS) v~závislosti na počtu souběžných uživatelů. Vyšší je lepší. Zdroj: vlastní s~použitím programovacího jazyka Python}
+  \caption{Propustnost databází (TPS) v~závislosti na počtu souběžných uživatelů. Vyšší je lepší. Zdroj: vlastní s~využitím knihovny Chart.js \cite{chartjs}}
   \label{fig:concurrency_chart}
 \end{figure}
 
@@ -1441,6 +1445,7 @@ Open-source varianta (Apache Superset) naopak nabízí větší volnost a~flexib
 Obecně lze říci, že oba nástroje představují vyzrálá a~profesionální řešení, která lze doporučit pro nasazení v~podnikovém prostředí. Finální volba by tak neměla být otázkou kvality uživatelského rozhraní, která je u~obou variant vysoká, ale spíše otázkou specifických preferencí, technického zázemí a~licenční strategie dané organizace.
 
 \subsection{Ekonomické aspekty a~TCO}
+\label{sec:ekonomicke_aspekty}
 
 Vzhledem k~tomu, že praktická část této práce ověřovala široké spektrum technologií -- od tradičních relačních databází (PostgreSQL, MariaDB) přes specializované analytické systémy (ClickHouse, MariaDB ColumnStore) až po komplexní komerční ekosystémy (MS SQL Server + SSAS) -- je nutné náklady hodnotit v~širším kontextu.
 
@@ -1620,9 +1625,9 @@ Tato bakalářská práce se komplexně zabývala návrhem, implementací a~srov
 \section*{Výstupy práce: implementační vzory}
 Hmatatelným výstupem práce je sada ověřených implementačních vzorů, které slouží jako referenční architektura pro budoucí rozvoj platformy:
 \begin{itemize}
-    \item \textbf{ETL procesy:} Byla vytvořena sada optimalizovaných Python skriptů pro extrakci a~transformaci dat.
-    \item \textbf{Datové sklady (DWH):} Práce poskytuje srovnání a~implementační schémata pro čtyři různé databázové enginy (MS SQL, MariaDB, PostgreSQL, ClickHouse), včetně optimalizačních technik (indexace, komprese).
-    \item \textbf{Sémantická vrstva:} Byly navrženy a~ověřeny dva přístupy k~definici datových modelů – tradiční SSAS Tabular (Microsoft) a~moderní „Headless BI“ přístup pomocí Cube.js.
+    \item \textbf{ETL procesy:} Byla vytvořena sada optimalizovaných Python skriptů pro extrakci a~transformaci dat (detailně popsáno v~sekci \ref{sec:etl_implementace}).
+    \item \textbf{Datové sklady (DWH):} Práce poskytuje srovnání a~implementační schémata pro čtyři různé databázové enginy (MS SQL, MariaDB, PostgreSQL, ClickHouse), včetně optimalizačních technik (indexace, komprese) (viz sekce \ref{sec:dwh_structure}).
+    \item \textbf{Sémantická vrstva:} Byly navrženy a~ověřeny dva přístupy k~definici datových modelů – tradiční SSAS Tabular (Microsoft) a~moderní „Headless BI“ přístup pomocí Cube.js (viz sekce \ref{sec:olap_vizualizace}).
     \item \textbf{Vizualizace:} Práce demonstrovala integraci s~Power BI i~open-source nástrojem Apache Superset.
 \end{itemize}
 
@@ -1630,15 +1635,15 @@ Hmatatelným výstupem práce je sada ověřených implementačních vzorů, kte
 V~rámci praktické části bylo provedeno detailní srovnání v~několika rovinách:
 
 \begin{itemize}
-    \item \textbf{Výkonnostní srovnání:} Testy prokázaly, že sloupcová databáze ClickHouse dokáže v~analytických dotazech (OLAP) nejen konkurovat, ale v~mnoha případech i~překonat in-memory technologii MS SQL Server Analysis Services (SSAS). To vyvrací mýtus, že pouze drahá in-memory řešení jsou vhodná pro rychlou interaktivní analýzu.
+    \item \textbf{Výkonnostní srovnání:} Testy prokázaly, že sloupcová databáze ClickHouse dokáže v~analytických dotazech (OLAP) nejen konkurovat, ale v~mnoha případech i~překonat in-memory technologii MS SQL Server Analysis Services (SSAS) (výsledky testů viz sekce \ref{sec:vykonove_parametry}). To vyvrací mýtus, že pouze drahá in-memory řešení jsou vhodná pro rychlou interaktivní analýzu.
     
-    \item \textbf{Ekonomická rozvaha (TCO):} Analýza nákladů odhalila zásadní rozdíl v~modelu financování. Komerční řešení (Microsoft Stack) nabízí nízký vstupní práh (CAPEX) díky „out-of-the-box“ funkcionalitě, ale trpí vysokými provozními náklady (OPEX) při škálování (licence per-core, limity RAM). Naopak open-source cesta vyžaduje vyšší počáteční investici do know-how a~vývoje (CAPEX), ale zajišťuje minimální provozní náklady a~udržitelnost i~při exponenciálním růstu dat.
+    \item \textbf{Ekonomická rozvaha (TCO):} Analýza nákladů odhalila zásadní rozdíl v~modelu financování. Komerční řešení (Microsoft Stack) nabízí nízký vstupní práh (CAPEX) díky „out-of-the-box“ funkcionalitě, ale trpí vysokými provozními náklady (OPEX) při škálování (licence per-core, limity RAM). Naopak open-source cesta vyžaduje vyšší počáteční investici do know-how a~vývoje (CAPEX), ale zajišťuje minimální provozní náklady a~udržitelnost i~při exponenciálním růstu dat (rozbor TCO viz sekce \ref{sec:ekonomicke_aspekty}).
     
-    \item \textbf{Architektonická flexibilita:} Zatímco komerční stack uživatele uzamyká v~proprietárním ekosystému (Vendor Lock-in), navržená open-source architektura (ClickHouse + Cube.js) je modulární. Umožňuje nezávisle měnit vizualizační nástroje nebo databázový backend bez nutnosti přepisovat celou logiku.
+    \item \textbf{Architektonická flexibilita:} Zatímco komerční stack uživatele uzamyká v~proprietárním ekosystému (Vendor Lock-in), navržená open-source architektura (ClickHouse + Cube.js) je modulární. Umožňuje nezávisle měnit vizualizační nástroje nebo databázový backend bez nutnosti přepisovat celou logiku (viz sekce \ref{sec:porovnani_pristupu}).
 \end{itemize}
 
 \section*{Závěrečné doporučení}
-Na základě všech zjištění práce jednoznačně doporučuje pro platformu Portabo přechod na open-source architekturu postavenou na databázi \textbf{ClickHouse} a~případně sémantické vrstvě \textbf{Cube.js}. Toto řešení nabízí nejlepší poměr ceny a~výkonu, eliminuje licenční rizika a~poskytuje robustní základ pro zpracování Big Data, který je pro IoT platformu klíčový.
+Na základě všech zjištění, práce jednoznačně doporučuje pro platformu Portabo přechod na open-source architekturu postavenou na databázi \textbf{ClickHouse} a~případně sémantické vrstvě \textbf{Cube.js}. Toto řešení nabízí nejlepší poměr ceny a~výkonu, eliminuje licenční rizika a~poskytuje robustní základ pro zpracování Big Data, který je pro IoT platformu klíčový.
 
 \sloppy
 
@@ -1695,6 +1700,74 @@ Struktura přiloženého elektronického nosiče (a~repozitáře) je následují
 
 \end{verbatim}
 \end{footnotesize}
+
+\chapter{Testovací SQL dotazy}
+\label{sec:sql_queries}
+
+V~této příloze jsou uvedeny SQL dotazy použité pro výkonnostní testování databáze ClickHouse. Dotazy pro ostatní testované systémy (MSSQL, MariaDB, PostgreSQL) jsou analogické, s~drobnými úpravami respektujícími specifika daného SQL dialektu (např. syntaxe pro práci s~datem nebo limitování počtu řádků). Kompletní sada dotazů pro všechny platformy je k~dispozici v~přiloženém repozitáři.
+
+\section*{Dotaz 1: Jednoduchá agregace}
+\begin{lstlisting}[language=SQL, caption={Agregace průměrné rychlosti dle třídy vozidla}]
+SELECT vc.VehicleClass, avg(f.Velocity) AS AverageVelocity
+FROM FactCameraDetection f
+JOIN DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+GROUP BY vc.VehicleClass;
+\end{lstlisting}
+
+\section*{Dotaz 2: Agregace přes časovou dimenzi}
+\begin{lstlisting}[language=SQL, caption={Počet detekcí v~čase}]
+SELECT t.FullDate, count(*) AS NumberOfDetections
+FROM FactCameraDetection f
+JOIN DimTime t ON f.TimeKey = t.TimeKey
+GROUP BY t.FullDate
+ORDER BY t.FullDate;
+\end{lstlisting}
+
+\noindent\begin{minipage}{\linewidth}
+\section*{Dotaz 3: Vícenásobné spojení a~filtrování}
+\begin{lstlisting}[language=SQL, caption={Top 10 měst s~nejvyšší průměrnou rychlostí (filtr na CZ a~osobní auta)}]
+SELECT c.CityName, avg(f.Velocity) AS AverageVelocity
+FROM FactCameraDetection f
+JOIN DimCity c ON f.CityKey = c.CityKey
+JOIN DimCountry co ON f.CountryKey = co.CountryKey
+JOIN DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+WHERE co.CountryCode = 'CZ' AND vc.VehicleClass = '2'
+GROUP BY c.CityName
+ORDER BY AverageVelocity DESC
+LIMIT 10;
+\end{lstlisting}
+\end{minipage}
+
+\section*{Dotaz 4: Agregace nad dvěma dimenzemi}
+\begin{lstlisting}[language=SQL, caption={Průměrná rychlost dle typu detekce a~třídy vozidla}]
+SELECT dt.DetectionType, vc.VehicleClass, avg(f.Velocity) AS AverageVelocity
+FROM FactCameraDetection f
+JOIN DimDetectionType dt ON f.DetectionTypeKey = dt.DetectionTypeKey
+JOIN DimVehicleClass vc ON f.VehicleClassKey = vc.VehicleClassKey
+GROUP BY dt.DetectionType, vc.VehicleClass
+ORDER BY dt.DetectionType, vc.VehicleClass;
+\end{lstlisting}
+
+\noindent\begin{minipage}{\linewidth}
+\section*{Dotaz 5: Komplexní dotaz (CTE a~Window functions)}
+\begin{lstlisting}[language=SQL, caption={Analýza víkendového provozu s~využitím CTE a~okenních funkcí}]
+WITH WeekendDetections AS (
+    SELECT f.CityKey, f.CountryKey, f.VehicleClassKey, f.Velocity
+    FROM FactCameraDetection f
+    JOIN DimTime t ON f.TimeKey = t.TimeKey
+    WHERE toDayOfWeek(t.FullDate) IN (6, 7)
+)
+SELECT co.CountryCode, c.CityName, vc.VehicleClass, 
+       avg(wd.Velocity) AS AverageVelocity,
+       dense_rank() OVER(PARTITION BY co.CountryCode ORDER BY count(*) DESC) AS CityRankByDetections
+FROM WeekendDetections wd
+JOIN DimCity c ON wd.CityKey = c.CityKey
+JOIN DimCountry co ON wd.CountryKey = co.CountryKey
+JOIN DimVehicleClass vc ON wd.VehicleClassKey = vc.VehicleClassKey
+GROUP BY co.CountryCode, c.CityName, vc.VehicleClass
+ORDER BY co.CountryCode, CityRankByDetections;
+\end{lstlisting}
+\end{minipage}
 
 
 \glsaddall

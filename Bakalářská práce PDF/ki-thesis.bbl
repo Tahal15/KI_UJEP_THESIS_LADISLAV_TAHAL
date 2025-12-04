@@ -995,6 +995,37 @@
       \verb https://clickhouse.com/docs/en/sql-reference/statements/alter/compression
       \endverb
     \endentry
+    \entry{chartjs}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=1bab604765053a38c1f50221d1f4d642}{%
+           family={{Chart.js Contributors}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{fullhash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{fullhashraw}{1bab604765053a38c1f50221d1f4d642}
+      \strng{bibnamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorbibnamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authornamehash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorfullhash}{1bab604765053a38c1f50221d1f4d642}
+      \strng{authorfullhashraw}{1bab604765053a38c1f50221d1f4d642}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Chart.js: Simple yet flexible JavaScript charting for designers \& developers}
+      \field{urlday}{4}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.chartjs.org/
+      \endverb
+      \verb{url}
+      \verb https://www.chartjs.org/
+      \endverb
+    \endentry
     \entry{mariadb_covering}{online}{}{}
       \name{author}{1}{}{%
         {{hash=1dc102a68b76700cdc02f1d7a578b433}{%
@@ -1009,8 +1040,8 @@
       \strng{authornamehash}{1dc102a68b76700cdc02f1d7a578b433}
       \strng{authorfullhash}{1dc102a68b76700cdc02f1d7a578b433}
       \strng{authorfullhashraw}{1dc102a68b76700cdc02f1d7a578b433}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Optimization and Indexes: Covering Index}
@@ -1040,8 +1071,8 @@
       \strng{authornamehash}{a41804af92a2aa0180154f489f3d308b}
       \strng{authorfullhash}{a41804af92a2aa0180154f489f3d308b}
       \strng{authorfullhashraw}{a41804af92a2aa0180154f489f3d308b}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Total Cost of Ownership (TCO)}
@@ -1073,8 +1104,8 @@
       \strng{authornamehash}{0c7f0b45f2c555fac4b9d15592469f84}
       \strng{authorfullhash}{0c7f0b45f2c555fac4b9d15592469f84}
       \strng{authorfullhashraw}{0c7f0b45f2c555fac4b9d15592469f84}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{clickhouse-driver: Python driver for ClickHouse}
@@ -1105,8 +1136,8 @@
       \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
       \strng{authorfullhashraw}{140864078aeca1c7c35b4beb33c53c34}
       \field{extraname}{2}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Editions and supported features of SQL Server 2022}

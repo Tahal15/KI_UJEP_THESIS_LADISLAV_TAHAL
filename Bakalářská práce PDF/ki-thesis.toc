@@ -239,7 +239,14 @@
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
 \def \@chapapp {\appendixname }
 \contentsline {chapter}{\numberline {A}Externí přílohy}{77}{appendix.A}%
-\contentsline {chapter}{Seznam použitých zkratek a~pojmů}{79}{section*.113}%
+\contentsline {chapter}{\numberline {B}Testovací SQL dotazy}{79}{appendix.B}%
+\contentsline {chapter}{Seznam použitých zkratek a~pojmů}{83}{section*.118}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
