@@ -31,6 +31,7 @@
 \usepackage[utf8]{inputenc}       % UTF-8 kódování
 \usepackage[T1]{fontenc}          % české znaky
 \usepackage{graphicx}             % práce s obrázky
+\usepackage{pdfpages}             % vkládání externích PDF
 \usepackage[space]{grffile}       % umožní mezery a diakritiku v cestě
 \usepackage{epstopdf}             % pro případ EPS → PDF
 
@@ -52,7 +53,7 @@
 \makeatother
 \fi
 
-% fonty lze měnit (detaily viz sekce fonty)
+% fonty lze měnit (detaily viz~sekce fonty)
 \iftutex
 	\usepackage{fontspec}  % nastavení fontů pro LuaLaTeX a XeLaTeX
 	\setmainfont{Libertinus Serif}
@@ -126,7 +127,7 @@
 \usepackage{varioref} % lepší interní odkazy na obrázky, apod. příkaz \vref
 \usepackage[unicode=true,pdfusetitle,
  bookmarks=true,
- breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]{hyperref} % hypertextové odkazy v PDF
+ breaklinks=true,pdfborder={0 0 1},backref=false,colorlinks=false]{hyperref} % hypertextové odkazy v PDF
 
 \usepackage[acronym,toc,section=chapter]{glossaries}
 \makeglossaries
@@ -230,46 +231,10 @@ Studijní program:       & \program\\
 \end{center}
 
 \cleardoublepage
-\thispagestyle{empty}
-\pagecolor{yellow}
-{\Large Namísto žlutých stránek vložte digitálně podepsané zadání kvalifikační práce poskytnuté vedoucím katedry.\\\
-Zadání musí zaujímat právě dvě strany.
-}
+\null\thispagestyle{empty}\clearpage % Placeholder for Assignment p1 (Page 3)
+\null\thispagestyle{empty}\clearpage % Placeholder for Assignment p2 (Page 4)
 
-Zadání je nutno vložit jako PDF pomocí některého nástroje, který umožňuje editaci dokumentů (se zachováním
-elektronického podpisu).
-
-V~Linuxu lze například použít příkaz \texttt{pdftk}.
-
-\clearpage
-\thispagestyle{empty}
-\afterpage{\nopagecolor}
-~
-\clearpage
-
-\thispagestyle{empty} 
-{\bfseries Prohlášení}
-
-\vspace{0.5cm}
-Prohlašuji, že jsem tuto \ifthenelse{\boolean{bc}}{bakalářskou}{diplomovou} práci vypracoval\ifthenelse{\boolean{feminum}}{a}{}
-samostatně a~použil\ifthenelse{\boolean{feminum}}{a}{}
-jen pramenů, které cituji a~uvádím v~přiloženém seznamu literatury.
-
-\vspace{0.5em}
-
-Byl\ifthenelse{\boolean{feminum}}{a}{} jsem seznámen\ifthenelse{\boolean{feminum}}{a}{} 
-s~tím, že se na moji práci vztahují práva a~povinnosti vyplývající ze
-zákona č. 121/2000 Sb., ve znění zákona č. 81/2005 Sb., autorský zákon, zejména se
-skutečností, že Univerzita Jana Evangelisty Purkyně v~Ústí nad Labem má právo na uzavření
-licenční smlouvy o~užití této práce jako školního díla podle § 60 odst. 1 autorského zákona,
-a~s~tím, že pokud dojde k~užití této práce mnou nebo bude poskytnuta licence o~užití jinému
-subjektu, je Univerzita Jana Evangelisty Purkyně v~Ústí nad Labem oprávněna ode mne
-požadovat přiměřený příspěvek na úhradu nákladu, které na vytvoření díla vynaložila, a~to
-podle okolností až do jejich skutečné výše.
-
-\vspace{2em}
-
-V~Ústí nad Labem dne \today   \hfill Podpis: \makebox[4cm][s]{\dotfill}
+\null\thispagestyle{empty}\clearpage % Placeholder for Declaration (Page 5)
 
 \cleardoublepage
 \thispagestyle{empty}
@@ -393,7 +358,7 @@ Ekosystém společnosti Microsoft představuje jedno z~nejkomplexnějších ře�
 
 \begin{itemize}
     \item \textbf{Tradiční on-premise infrastruktura:} Základem je \emph{Microsoft SQL Server}. Pro integraci dat (ETL) je využíván modul \emph{SQL Server Integration Services} (SSIS) a~pro analytické modelování (OLAP) slouží \emph{SQL Server Analysis Services} (SSAS). Toto složení tvoří osvědčený standard pro lokální datové sklady \footnote{\url{https://learn.microsoft.com/en-us/sql/sql-server/}}.
-    \item \textbf{Cloudová platforma (Microsoft Azure):} S~nástupem cloudu se architektura posouvá do prostředí Azure (viz Obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a~celková orchestrace se sjednocuje v~rámci platformy \emph{Microsoft Fabric}.
+    \item \textbf{Cloudová platforma (Microsoft Azure):} S~nástupem cloudu se architektura posouvá do prostředí Azure (viz~obrázek \ref{fig:MSplatform}). Roli datového skladu zde přebírá \emph{Azure Synapse Analytics}, ETL procesy zajišťuje \emph{Azure Data Factory} a~celková orchestrace se sjednocuje v~rámci platformy \emph{Microsoft Fabric}.
     \item \textbf{Vizuální a~sémantická vrstva:} Sjednocující vrstvou pro on-premise i~cloud je \emph{Power BI}. Tento nástroj slouží pro tvorbu reportů a~dashboardů a~díky své sémantické vrstvě dokáže zastoupit i~některé funkce SSAS \footnote{\url{https://learn.microsoft.com/en-us/power-bi/}}.
     \item \textbf{Výhody a~nevýhody:} Hlavní výhodou je hluboká integrace všech komponent. Nevýhodou, zejména u~cloudových služeb, může být silný „vendor lock-in“ a~závislost na licenční politice poskytovatele.
 \end{itemize}
@@ -1018,7 +983,7 @@ V~dalším kroku bylo nutné tyto automaticky vygenerované skupiny ručně zrev
 
 Na základě analýzy dat byly navrženy a~implementovány samostatné ETL skripty pro jednotlivé databázové technologie. Každý z~těchto skriptů zajišťuje přenos dat z~\emph{datového jezera} (surová MQTT data) do \emph{staging vrstvy datového skladu}, kde jsou data očištěna a~standardizována. Následně jsou zpracovaná data přesunuta do faktové tabulky \texttt{FactCameraDetection}, která tvoří jádro analytické vrstvy systému.
 
-Všechny implementace sdílejí jednotný princip inkrementálního načítání dat. Každý běh ETL skriptu začíná načtením posledního zpracovaného identifikátoru z~tabulky \texttt{ETL\_IncrementalControl} (sloupec \texttt{LastLoadedID}). Tímto způsobem se při každém dalším běhu zpracovávají pouze nově přijaté zprávy. Průběh každého běhu je zapisován do tabulky \texttt{ETL\_RunLog}, kde jsou evidovány údaje jako název úlohy, čas spuštění a~stav (\texttt{RUNNING}, \texttt{SUCCESS} či \texttt{FAILED}).
+Všechny implementace sdílejí jednotný princip inkrementálního načítání dat. Každý běh ETL skriptu začíná načtením posledního zpracovaného identifikátoru z~tabulky \newline \texttt{ETL\_IncrementalControl} (sloupec \texttt{LastLoadedID}). Tímto způsobem se při každém dalším běhu zpracovávají pouze nově přijaté zprávy. Průběh každého běhu je zapisován do tabulky \texttt{ETL\_RunLog}, kde jsou evidovány údaje jako název úlohy, čas spuštění a~stav (\texttt{RUNNING}, \texttt{SUCCESS} či \texttt{FAILED}).
 
 Data jsou zpracovávána v~dávkách (tzv. \emph{batchích}), jejichž velikost je řízena parametrem \texttt{BATCH\_SIZE}. Každý skript používá databázové kurzory a~příkazy \texttt{fetchmany()}, aby se minimalizovalo zatížení paměti. Klíčovým polem v~těchto datech je \texttt{payload}, obsahující JSON strukturu s~detaily detekce. Pro jeho zpracování byly v~rámci práce implementovány dva odlišné přístupy:
 
@@ -1206,7 +1171,7 @@ Srovnání probíhalo ve dvou hlavních rovinách:
 
 V~první fázi byl měřen čas provedení sady pěti reprezentativních analytických dotazů. Cílem bylo porovnat efektivitu tradičního řádkového (row-store) a~moderního sloupcového (column-store) úložiště. Každý testovaný dotaz byl spuštěn celkem 100krát, aby se eliminovaly odchylky způsobené externími vlivy. Hodnoty prezentované v~následujících grafech představují aritmetický průměr těchto měření. Je důležité upozornit, že následující grafy využívají logaritmickou škálu, což je nutné zohlednit při jejich interpretaci, jelikož rozdíly mezi jednotlivými technologiemi jsou v~několika řádech.
 
-Důležitým aspektem srovnání byla také efektivita ukládání dat. Během nahrávání dat (ETL proces) do faktové tabulky se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10$\times$ méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a~sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz obrázek \ref{fig:fragmentace}) \cite{clickhouse_compression}.
+Důležitým aspektem srovnání byla také efektivita ukládání dat. Během nahrávání dat (ETL proces) do faktové tabulky se ukázalo, že databáze ClickHouse dosahuje extrémní míry komprese. Oproti ostatním testovaným systémům zabírala data na disku přibližně 10$\times$ méně místa. Tato vlastnost, daná pokročilými kompresními algoritmy a~sloupcovou orientací, představuje významnou úsporu nákladů na disková úložiště (viz~obrázek \ref{fig:fragmentace}) \cite{clickhouse_compression}.
 
 
 
@@ -1322,7 +1287,7 @@ Na rozdíl od předchozích výkonnostních testů, které srovnávaly různé v
 Testovací scénář byl definován následovně:
 \begin{itemize}
     \item \textbf{Zátěž:} Simulace 1, 5, 10 a~20 souběžných virtuálních uživatelů.
-    \item \textbf{Úloha:} Každý uživatel cyklicky spouštěl sadu 5 definovaných analytických dotazů (viz předchozí kapitola).
+    \item \textbf{Úloha:} Každý uživatel cyklicky spouštěl sadu 5 definovaných analytických dotazů (viz~předchozí kapitola).
     \item \textbf{Metriky:}
     \begin{itemize}
         \item \textbf{TPS (Transactions Per Second):} Počet úspěšně dokončených dotazů za sekundu. Vyšší hodnota indikuje lepší propustnost.
@@ -1626,8 +1591,8 @@ Tato bakalářská práce se komplexně zabývala návrhem, implementací a~srov
 Hmatatelným výstupem práce je sada ověřených implementačních vzorů, které slouží jako referenční architektura pro budoucí rozvoj platformy:
 \begin{itemize}
     \item \textbf{ETL procesy:} Byla vytvořena sada optimalizovaných Python skriptů pro extrakci a~transformaci dat (detailně popsáno v~sekci \ref{sec:etl_implementace}).
-    \item \textbf{Datové sklady (DWH):} Práce poskytuje srovnání a~implementační schémata pro čtyři různé databázové enginy (MS SQL, MariaDB, PostgreSQL, ClickHouse), včetně optimalizačních technik (indexace, komprese) (viz sekce \ref{sec:dwh_structure}).
-    \item \textbf{Sémantická vrstva:} Byly navrženy a~ověřeny dva přístupy k~definici datových modelů – tradiční SSAS Tabular (Microsoft) a~moderní „Headless BI“ přístup pomocí Cube.js (viz sekce \ref{sec:olap_vizualizace}).
+    \item \textbf{Datové sklady (DWH):} Práce poskytuje srovnání a~implementační schémata pro čtyři různé databázové enginy (MS SQL, MariaDB, PostgreSQL, ClickHouse), včetně optimalizačních technik (indexace, komprese) (viz~sekce \ref{sec:dwh_structure}).
+    \item \textbf{Sémantická vrstva:} Byly navrženy a~ověřeny dva přístupy k~definici datových modelů – tradiční SSAS Tabular (Microsoft) a~moderní „Headless BI“ přístup pomocí Cube.js (viz~sekce \ref{sec:olap_vizualizace}).
     \item \textbf{Vizualizace:} Práce demonstrovala integraci s~Power BI i~open-source nástrojem Apache Superset.
 \end{itemize}
 
@@ -1635,15 +1600,15 @@ Hmatatelným výstupem práce je sada ověřených implementačních vzorů, kte
 V~rámci praktické části bylo provedeno detailní srovnání v~několika rovinách:
 
 \begin{itemize}
-    \item \textbf{Výkonnostní srovnání:} Testy prokázaly, že sloupcová databáze ClickHouse dokáže v~analytických dotazech (OLAP) nejen konkurovat, ale v~mnoha případech i~překonat in-memory technologii MS SQL Server Analysis Services (SSAS) (výsledky testů viz sekce \ref{sec:vykonove_parametry}). To vyvrací mýtus, že pouze drahá in-memory řešení jsou vhodná pro rychlou interaktivní analýzu.
+    \item \textbf{Výkonnostní srovnání:} Testy prokázaly, že sloupcová databáze ClickHouse dokáže v~analytických dotazech (OLAP) nejen konkurovat, ale v~mnoha případech i~překonat in-memory technologii MS SQL Server Analysis Services (SSAS) (výsledky testů viz~sekce \ref{sec:vykonove_parametry}). To vyvrací mýtus, že pouze drahá in-memory řešení jsou vhodná pro rychlou interaktivní analýzu.
     
-    \item \textbf{Ekonomická rozvaha (TCO):} Analýza nákladů odhalila zásadní rozdíl v~modelu financování. Komerční řešení (Microsoft Stack) nabízí nízký vstupní práh (CAPEX) díky „out-of-the-box“ funkcionalitě, ale trpí vysokými provozními náklady (OPEX) při škálování (licence per-core, limity RAM). Naopak open-source cesta vyžaduje vyšší počáteční investici do know-how a~vývoje (CAPEX), ale zajišťuje minimální provozní náklady a~udržitelnost i~při exponenciálním růstu dat (rozbor TCO viz sekce \ref{sec:ekonomicke_aspekty}).
+    \item \textbf{Ekonomická rozvaha (TCO):} Analýza nákladů odhalila zásadní rozdíl v~modelu financování. Komerční řešení (Microsoft Stack) nabízí nízký vstupní práh (CAPEX) díky „out-of-the-box“ funkcionalitě, ale trpí vysokými provozními náklady (OPEX) při škálování (licence per-core, limity RAM). Naopak open-source cesta vyžaduje vyšší počáteční investici do know-how a~vývoje (CAPEX), ale zajišťuje minimální provozní náklady a~udržitelnost i~při exponenciálním růstu dat (rozbor TCO viz~sekce \ref{sec:ekonomicke_aspekty}).
     
-    \item \textbf{Architektonická flexibilita:} Zatímco komerční stack uživatele uzamyká v~proprietárním ekosystému (Vendor Lock-in), navržená open-source architektura (ClickHouse + Cube.js) je modulární. Umožňuje nezávisle měnit vizualizační nástroje nebo databázový backend bez nutnosti přepisovat celou logiku (viz sekce \ref{sec:porovnani_pristupu}).
+    \item \textbf{Architektonická flexibilita:} Zatímco komerční stack uživatele uzamyká v~proprietárním ekosystému (Vendor Lock-in), navržená open-source architektura (ClickHouse + Cube.js) je modulární. Umožňuje nezávisle měnit vizualizační nástroje nebo databázový backend bez nutnosti přepisovat celou logiku (viz~sekce \ref{sec:porovnani_pristupu}).
 \end{itemize}
 
 \section*{Závěrečné doporučení}
-Na základě všech zjištění, práce jednoznačně doporučuje pro platformu Portabo přechod na open-source architekturu postavenou na databázi \textbf{ClickHouse} a~případně sémantické vrstvě \textbf{Cube.js}. Toto řešení nabízí nejlepší poměr ceny a~výkonu, eliminuje licenční rizika a~poskytuje robustní základ pro zpracování Big Data, který je pro IoT platformu klíčový.
+Na základě všech zjištění práce jednoznačně doporučuje pro platformu Portabo přechod na open-source architekturu postavenou na databázi \textbf{ClickHouse} a~případně sémantické vrstvě \textbf{Cube.js}. Toto řešení nabízí nejlepší poměr ceny a~výkonu, eliminuje licenční rizika a~poskytuje robustní základ pro zpracování Big Data, který je pro IoT platformu klíčový.
 
 \sloppy
 
@@ -1687,10 +1652,10 @@ Struktura přiloženého elektronického nosiče (a~repozitáře) je následují
 |   |-- cubejs/ ............................ Datové modely
 |   |-- sample_data.sql .................... Generování testovacích dat
 |   |-- Dockerfile ......................... Konfigurace prostředí
-|   `-- docker-compose.yml ................. Orkestrace kontejnerů
+|   `-- docker-compose.yml ................. Orchestrace kontejnerů
 |-- PostgreSQL_PostgreSQL_CubeJS_Superset/ . Varianta s PostgreSQL
 |   |-- cubejs/ ............................ Datové modely
-|   `-- docker-compose.yml ................. Orkestrace kontejnerů
+|   `-- docker-compose.yml ................. Orchestrace kontejnerů
 |-- Scripty/ ............................... Pomocné nástroje a skripty
 |   |-- Python/ ............................ ETL skripty a generátory dat
 |   |-- SQL/ ............................... SQL skripty pro inicializaci

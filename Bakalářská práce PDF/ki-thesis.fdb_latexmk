@@ -1,17 +1,17 @@
 # Fdb version 4
-["biber ki-thesis"] 1764845168.33629 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1764850927.04047 0
-  "ki-thesis.bcf" 1764850926 113290 e16e99f04a98a82b0077fead96ce30b2 "pdflatex"
+["biber ki-thesis"] 1764845168.33629 "ki-thesis.bcf" "ki-thesis.bbl" "ki-thesis" 1764950299.87075 0
+  "ki-thesis.bcf" 1764950299 113290 e16e99f04a98a82b0077fead96ce30b2 "pdflatex"
   "thesis.bib" 1764844123 12035 e142dfa41af3b90943f6541a0aa6775a ""
   (generated)
   "ki-thesis.bbl"
   "ki-thesis.blg"
   (rewritten before read)
-["cusdep glo gls ki-thesis"] 1764845482.44332 "ki-thesis.glo" "ki-thesis.gls" "ki-thesis" 1764850927.03972 0
-  "ki-thesis.glo" 1764850926 3519 f45392aa49f2c13f1b9e766d81c89edb "pdflatex"
+["cusdep glo gls ki-thesis"] 1764945756.15864 "ki-thesis.glo" "ki-thesis.gls" "ki-thesis" 1764950299.87019 0
+  "ki-thesis.glo" 1764950299 3519 f45392aa49f2c13f1b9e766d81c89edb "pdflatex"
   (generated)
   "ki-thesis.gls"
   (rewritten before read)
-["pdflatex"] 1764850913.46923 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1764850927.04144 0
+["pdflatex"] 1764950286.13479 "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" "ki-thesis.pdf" "ki-thesis" 1764950299.87153 0
   "LOGO_PRF_CZ_RGB_standard.jpg" 1763413833 68207 90135c26da1c81d9e05374386a905769 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1760370297 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/libertinus-type1/lbn1_75t36g.enc" 1760371621 3035 7d37ee7011b797a1b8ca3680e8da3d4d ""
@@ -243,6 +243,7 @@
   "c:/texlive/2025/texmf-dist/tex/latex/environ/environ.sty" 1760370731 4378 f429f0da968c278653359293040a8f52 ""
   "c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1760370746 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty" 1760370746 4393 47f27fd4d95928d20b1885ba77de11d2 ""
+  "c:/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty" 1760370767 11876 6ef493863ae0d7a984706973240c2237 ""
   "c:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1760370781 46885 8953c67ffba03252c6090aa19568b8ba ""
   "c:/texlive/2025/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1760370836 31715 19e60610b63819fe670dfa1cd84a4e94 ""
   "c:/texlive/2025/texmf-dist/tex/latex/figureversions/figureversions.sty" 1760370890 18666 2ca37665798a8bb43e1c59968f22e2aa ""
@@ -263,6 +264,7 @@
   "c:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty" 1760371114 18363 69bb4f5538964bfea50d1e6d89cbe69f ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty" 1760371114 8118 43b99e52946c33a23f5f43b52d5cc5ec ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty" 1760371114 2671 d9941f4bf4750e9b0603c9a2ec54693b ""
+  "c:/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty" 1760371114 1822 80a593956421f94e3c084e2349f4ea11 ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx" 1760371114 2885 9c645d672ae17285bba324998918efd8 ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty" 1760371114 4023 e66acf578d6b564c4670fb57ff336a7a ""
   "c:/texlive/2025/texmf-dist/tex/latex/grfext/grfext.sty" 1760371133 7133 b94bbacbee6e4fdccdc7f810b2aec370 ""
@@ -307,6 +309,10 @@
   "c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg" 1760371923 22906 b0be544692bb405a84d147a96af5d777 ""
   "c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg" 1760371923 5929 11976688d7d8ed4d0d05efd1b3d5a7e9 ""
   "c:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg" 1760371923 5594 d52d5015abe666fae752ed7674c2dd73 ""
+  "c:/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty" 1760372286 6572 d45c2321088e3d0226f5e476049fa5ec ""
+  "c:/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty" 1760372286 2122 fa66f24d79b913f2d7ab2599d50e1aed ""
+  "c:/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty" 1760372292 56631 520872fa620d78de49638b8237adcdce ""
+  "c:/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def" 1760372292 6446 d704c97dd1ebfffa5fa4578bda5e2987 ""
   "c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty" 1760372322 1090 bae35ef70b3168089ef166db3e66f5b2 ""
   "c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty" 1760372322 373 00b204b1d7d095b892ad31a7494b0373 ""
   "c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty" 1760372322 21013 f4ff83d25bb56552493b030f27c075ae ""
@@ -332,6 +338,7 @@
   "c:/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.code.tex" 1760373326 10931 717eb52299f416934beb8b2b7cd8cee6 ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/afterpage.sty" 1760373408 4085 a232e76240e3ea7c5ba84e416088b083 ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/array.sty" 1760373408 15698 f5f20b24886bb50156054c53e19b13fd ""
+  "c:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty" 1760373408 10374 2ffd4f27c7f90b8a300608069537743c ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty" 1760373408 15912 618223a798a4d829f4d8e1ccf24e518f ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/varioref.sty" 1760373408 44048 2d79759f1937d55dd01f16b2b545c1c7 ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/verbatim.sty" 1760373408 7532 26d26e9d8f2ca784270d5da8ec7d102b ""
@@ -346,7 +353,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1760373927 5574153 af86687748baf417d9e7d549313527be ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760374145 3629007 cf5b8e55ffd15773add2b20a8add7508 ""
   "c:/texlive/2025/texmf.cnf" 1760373898 713 e69b156964470283e0530f5060668171 ""
-  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1764850912 152109 234059063004d00d7fe69555086d4726 ""
+  "e:/My Drive/Web/KI_UJEP_THESIS_LADISLAV_TAHAL/Bakalářská práce PDF/ki-thesis.tex" 1764950285 150632 b09a2cbf472a1139b6b74f1b1a2275e1 ""
   "img/AWSarchitecture.png" 1763413833 213963 60f4b8b6b1dd636531ad5056812f1936 ""
   "img/ERD.png" 1763413833 474365 b0e511e3b21756f8293be33c0a140808 ""
   "img/MariaDW_staging.png" 1763413833 48494 d3ece8dc04db731efec10b9e3d18f560 ""
@@ -378,12 +385,12 @@
   "img/staging_to_fact.png" 1763413834 1002992 add33fb00c77afe50328be6248f88992 ""
   "img/topic50.png" 1763663477 43991 85d2d53dde50569c9beb69b9d227aa42 ""
   "img/topic50_2.png" 1763663561 11521 b4a0c764d587218fa1e02cf1d69989ca ""
-  "ki-thesis.aux" 1764850926 47882 6988ed53c6080d20312982eb69b9f4cb "pdflatex"
+  "ki-thesis.aux" 1764950299 47882 d7b4b80ecf81d8c19f6b1e6d31607187 "pdflatex"
   "ki-thesis.bbl" 1764845170 47365 857888dedab18c0c201030a3e4fd0065 "biber ki-thesis"
-  "ki-thesis.gls" 1764845483 5209 d0c8d8326c083578a49b91502c31369d "cusdep glo gls ki-thesis"
-  "ki-thesis.run.xml" 1764850926 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
-  "ki-thesis.tex" 1764850912 152109 234059063004d00d7fe69555086d4726 ""
-  "ki-thesis.toc" 1764850926 12163 e966466b44bcdd3dac4e2a906ea078ec "pdflatex"
+  "ki-thesis.gls" 1764945757 5209 d0c8d8326c083578a49b91502c31369d "cusdep glo gls ki-thesis"
+  "ki-thesis.run.xml" 1764950299 2472 8fcef24d9145a7bbf619f26d578d7938 "pdflatex"
+  "ki-thesis.tex" 1764950285 150632 b09a2cbf472a1139b6b74f1b1a2275e1 ""
+  "ki-thesis.toc" 1764950299 12163 e966466b44bcdd3dac4e2a906ea078ec "pdflatex"
   "kitheses.cls" 1763413833 2587 9561996a4af1ad19a1771c7d967fe489 ""
   (generated)
   "ki-thesis.acn"
