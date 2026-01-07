@@ -1,0 +1,20 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'ki-thesis.blg'
+[89] biber-MSWIN64:342> INFO - === 
+[126] Biber.pm:421> INFO - Reading 'ki-thesis.bcf'
+[219] Biber.pm:1002> INFO - Found 33 citekeys in bib section 0
+[229] Biber.pm:4487> INFO - Processing section 0
+[238] Biber.pm:4678> INFO - Looking for bibtex file 'thesis.bib' for section 0
+[293] bibtex.pm:1713> INFO - LaTeX decoding ...
+[316] bibtex.pm:1519> INFO - Found BibTeX data source 'thesis.bib'
+[415] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[415] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[415] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'cs-CZ'
+[431] bbl.pm:676> INFO - Writing 'ki-thesis.bbl' with encoding 'UTF-8'
+[441] bbl.pm:779> INFO - Output to ki-thesis.bbl
+[443] Biber.pm:132> WARN - legacy month field 'Nov' in entry 'clickhouse2023unbundling' is not an integer - this will probably not sort properly.
+[443] Biber.pm:132> WARN - legacy month field 'Aug' in entry 'cube2024semantic' is not an integer - this will probably not sort properly.
+[443] Biber.pm:132> WARN - legacy month field 'Feb' in entry 'heyayush2023cubeintro' is not an integer - this will probably not sort properly.
+[443] Biber.pm:132> WARN - legacy month field 'Mar' in entry 'datasemlayer2023medium' is not an integer - this will probably not sort properly.
+[443] Biber.pm:132> WARN - legacy month field 'December' in entry 'rfc8259' is not an integer - this will probably not sort properly.
+[443] Biber.pm:134> INFO - WARNINGS: 5
